@@ -12,7 +12,7 @@
           "options": {
             "outputPath": "dist/apps/island-explorer",
             "index": "apps/island-explorer/src/index.html",
-            "main": "apps/island-explorer/src/main.tsx",
+            "main": "apps/island-explorer/src/app.tsx",
             "polyfills": "apps/island-explorer/src/polyfills.ts",
             "tsConfig": "apps/island-explorer/tsconfig.app.json",
             "assets": [
@@ -68,7 +68,10 @@
               "apps/island-explorer/tsconfig.app.json",
               "apps/island-explorer/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/island-explorer/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/island-explorer/**"
+            ]
           }
         },
         "test": {
