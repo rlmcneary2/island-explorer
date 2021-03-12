@@ -46,7 +46,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@nrwl/web:dev-server",
@@ -80,7 +83,10 @@
           "options": {
             "jestConfig": "apps/island-explorer/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/apps/island-explorer"
+          ]
         }
       }
     }
