@@ -60,17 +60,18 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "linter": "eslint",
-            "config": "apps/island-explorer/.eslintrc",
-            "tsConfig": [
-              "apps/island-explorer/tsconfig.app.json",
-              "apps/island-explorer/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/island-explorer/**"
+            "lintFilePatterns": [
+              "apps/island-explorer/**/*.js",
+              "apps/island-explorer/**/*.jsx",
+              "apps/island-explorer/**/*.ts",
+              "apps/island-explorer/**/*.tsx",
+              "apps/island-explorer/**/*.spec.ts",
+              "apps/island-explorer/**/*.spec.tsx",
+              "apps/island-explorer/**/*.spec.js",
+              "apps/island-explorer/**/*.spec.jsx",
+              "apps/island-explorer/**/*.d.ts"
             ]
           }
         },
@@ -78,7 +79,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/island-explorer/jest.config.js",
-            "tsConfig": "apps/island-explorer/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
