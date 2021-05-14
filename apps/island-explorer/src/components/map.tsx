@@ -1,15 +1,8 @@
-import React from 'react';
-import styled from '@emotion/styled';
+import React from "react";
 
 export default function Map({ routeId }: Props) {
-  return <MapStyled>{`Map route ${routeId || '?'}`}</MapStyled>;
+  return <div className="map">{`Map route ${routeId || "?"}`}</div>;
 }
-
-const MapStyled = styled.div`
-  background: lightblue;
-  grid-column-start: 1;
-  grid-row-start: 1;
-`;
 
 type Props = {
   routeId?: string;

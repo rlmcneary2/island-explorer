@@ -1,0 +1,7 @@
+@use "color";
+
+div.map {
+  background: color.$tertiary;
+  grid-column-start: 1;
+  grid-row-start: 1;
+}

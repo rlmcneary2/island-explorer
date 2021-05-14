@@ -1,18 +1,10 @@
-import React from 'react';
-import styled from '@emotion/styled';
+import React from "react";
 
 export default function Information({ routeId }: Props) {
   return (
-    <InformationStyled>{`Information route ${routeId ||
-      '?'}`}</InformationStyled>
+    <div className="information">{`Information route ${routeId || "?"}`}</div>
   );
 }
-
-const InformationStyled = styled.div`
-  background: lightgreen;
-  grid-column-start: 1;
-  grid-row-start: 1;
-`;
 
 type Props = {
   routeId?: string;

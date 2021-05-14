@@ -1,13 +1,14 @@
-import React, { useCallback } from 'react';
-import styled from '@emotion/styled';
-import { useHistory } from 'react-router-dom';
-import { INFORMATION, MAP } from '../constants/routes';
+import React, { useCallback } from "react";
+import { Route, Switch, useHistory } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
+import { INFORMATION, MAP } from "../constants/routes";
+import Information from "./information";
 
 export default function Header() {
   const history = useHistory();
   const handleViewClick = useCallback(() => {
     const path = history.location.pathname
-      .split('/')
+      .split("/")
       .map(x => {
         if (x === MAP) {
           return INFORMATION;
@@ -16,35 +17,16 @@ export default function Header() {
         }
         return x;
       })
-      .join('/');
+      .join("/");
     history.push(path);
   }, [history]);
 
   return (
-    <HeaderStyled>
-      <RouteButton>route</RouteButton>
-      <ViewButton onClick={handleViewClick}>view</ViewButton>
-    </HeaderStyled>
+    <div className="header">
+      <button className="button primary">route</button>
+      <button className="button" onClick={handleViewClick}>
+        <FormattedMessage id="MENU" />
+      </button>
+    </div>
   );
 }
-
-const HeaderStyled = styled.div`
-  display: flex;
-  flex: 0 0 5rem;
-  justify-content: space-between;
-  width: 100%;
-`;
-
-const RouteButton = styled.button`
-  flex: 100;
-  height: 100%;
-  max-width: 25rem;
-  min-width: 15rem;
-`;
-
-const ViewButton = styled.button`
-  flex: 75;
-  height: 100%;
-  max-width: 15rem;
-  min-width: 10rem;
-`;

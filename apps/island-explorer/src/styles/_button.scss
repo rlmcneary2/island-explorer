@@ -1,0 +1,9 @@
+@use "color";
+
+.button {
+  max-width: 25rem;
+  min-width: 15rem;
+  &.primary {
+    background-color: color.$primary;
+  }
+}

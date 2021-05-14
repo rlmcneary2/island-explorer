@@ -19,7 +19,7 @@
               "apps/island-explorer/src/favicon.ico",
               "apps/island-explorer/src/assets"
             ],
-            "styles": [],
+            "styles": ["apps/island-explorer/src/styles/styles.scss"],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -47,9 +47,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@nrwl/web:dev-server",
@@ -84,9 +82,7 @@
             "jestConfig": "apps/island-explorer/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/island-explorer"
-          ]
+          "outputs": ["coverage/apps/island-explorer"]
         }
       }
     }

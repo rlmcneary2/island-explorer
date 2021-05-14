@@ -1,42 +1,34 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import { Redirect, Route } from 'react-router-dom';
-import Header from './header';
-import Map from './map';
-import { INFORMATION, MAP } from '../constants/routes';
-import useContent from '../state/content/use-content';
-import Information from '../components/information';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import Header from "./header";
+import Map from "./map";
+import { INFORMATION } from "../constants/routes";
+import { useContextState } from "../context/use-context-state";
+import Information from "../components/information";
 
 const informationPath = `/:route*/${INFORMATION}`;
 
 export default function Main() {
-  const routeId = useContent<string>(s => s.routeId);
-  // const routes = useContent(s => s.routes);
+  const ctx = useContextState(ctx => ({
+    routeId: ctx?.routeId,
+    routes: ctx?.routes,
+  }));
+
+  console.log("Main: ctx=", ctx);
 
   return (
-    <MainStyled>
+    <div className="main">
       <Header />
-      <Content>
-        <Map routeId={routeId} />
-        <Route path={informationPath}>
-          <Information routeId={routeId} />
-        </Route>
-        <Redirect to={MAP} />
-      </Content>
-    </MainStyled>
+      <div className="content">
+        <Switch>
+          <Route path={informationPath}>
+            <Information routeId={ctx?.routeId} />
+          </Route>
+          <Route>
+            <Map routeId={ctx?.routeId} />
+          </Route>
+        </Switch>
+      </div>
+    </div>
   );
 }
-
-const MainStyled = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-`;
-
-const Content = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-  height: 100%;
-`;

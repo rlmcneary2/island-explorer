@@ -1,35 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import { css, Global } from '@emotion/react';
-import Main from './components/main';
-import { ContentStateProvider } from './state/content/content-context';
-
-const globalStyles = css`
-  body {
-    font-size: 10px;
-    margin: 0;
-    padding: 0;
-  }
-
-  button {
-    border: 0;
-    padding: 0;
-  }
-
-  p {
-    margin: 0;
-  }
-`;
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import { IntlProvider } from "react-intl";
+import Main from "./components/main";
+import { ContextProvider } from "./context/context-provider";
+import messages from "./assets/messages-en-us.json";
 
 ReactDOM.render(
-  <React.Fragment>
-    <BrowserRouter>
-      <Global styles={globalStyles} />
-      <ContentStateProvider>
+  <BrowserRouter>
+    <IntlProvider locale="en-US" messages={messages}>
+      <ContextProvider>
         <Main />
-      </ContentStateProvider>
-    </BrowserRouter>
-  </React.Fragment>,
-  document.getElementById('root')
+      </ContextProvider>
+    </IntlProvider>
+  </BrowserRouter>,
+  document.getElementById("root")
 );

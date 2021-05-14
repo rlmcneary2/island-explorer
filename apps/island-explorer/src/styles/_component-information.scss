@@ -1,0 +1,7 @@
+@use "color";
+
+div.information {
+  background-color: color.$secondary;
+  grid-column-start: 1;
+  grid-row-start: 1;
+}
