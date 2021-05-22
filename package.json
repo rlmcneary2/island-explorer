@@ -5,6 +5,7 @@
   "scripts": {
     "nx": "nx",
     "start": "nx serve",
+    "prebuild": "nx build service-worker",
     "build": "nx build",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",

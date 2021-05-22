@@ -20,7 +20,7 @@
               "apps/island-explorer/src/assets"
             ],
             "styles": ["apps/island-explorer/src/styles/styles.scss"],
-            "scripts": [],
+            "scripts": ["dist/libs/service-worker/src/service-worker.js"],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
           "configurations": {
@@ -83,6 +83,38 @@
             "passWithNoTests": true
           },
           "outputs": ["coverage/apps/island-explorer"]
+        }
+      }
+    },
+    "service-worker": {
+      "root": "libs/service-worker",
+      "sourceRoot": "libs/service-worker/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/service-worker/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/service-worker"],
+          "options": {
+            "jestConfig": "libs/service-worker/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/service-worker",
+            "tsConfig": "libs/service-worker/tsconfig.lib.json",
+            "packageJson": "libs/service-worker/package.json",
+            "main": "libs/service-worker/src/service-worker.ts",
+            "assets": []
+          }
         }
       }
     }
