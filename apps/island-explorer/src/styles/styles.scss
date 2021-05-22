@@ -1,6 +1,6 @@
 @use "tags";
-@use "button";
-@use "component-main";
-@use "component-header";
-@use "component-information";
-@use "component-map";
+@use "elements/button";
+@use "components/component-main";
+@use "components/component-header";
+@use "components/component-information";
+@use "components/component-map";
