@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
+import { ModalContainer } from "modal";
 import Header from "./header";
 import Map from "./map";
 import { INFORMATION, MAP } from "../constants/routes";
@@ -26,6 +27,7 @@ export default function Main() {
           <Redirect to={`/1/${MAP}`} />
         </Switch>
       </div>
+      <ModalContainer />
     </div>
   );
 }

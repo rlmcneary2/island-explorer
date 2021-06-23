@@ -1,5 +1,4 @@
 {
-  "npmScope": "island-explorer",
   "implicitDependencies": {
     "workspace.json": "*",
     "package.json": { "dependencies": "*", "devDependencies": "*" },
@@ -9,6 +8,8 @@
     ".eslintrc.json": "*",
     "dist/libs/service-worker/src/service-worker.js": ["island-explorer"]
   },
+  "affected": { "defaultBase": "master" },
+  "npmScope": "island-explorer",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
@@ -16,10 +17,8 @@
     }
   },
   "projects": {
-    "island-explorer": {
-      "tags": []
-    },
-    "service-worker": { "tags": [] }
-  },
-  "affected": { "defaultBase": "master" }
+    "island-explorer": { "tags": [] },
+    "service-worker": { "tags": [] },
+    "modal": { "tags": [] }
+  }
 }

@@ -1,25 +1,16 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
+import { Modal } from "modal";
 import { INFORMATION, MAP } from "../constants/routes";
 import Information from "./information";
 
 export default function Header() {
+  const [modalText, setModalText] = useState<string>(null);
   const history = useHistory();
   const handleViewClick = useCallback(() => {
-    const path = history.location.pathname
-      .split("/")
-      .map(x => {
-        if (x === MAP) {
-          return INFORMATION;
-        } else if (x === INFORMATION) {
-          return MAP;
-        }
-        return x;
-      })
-      .join("/");
-    history.push(path);
-  }, [history]);
+    setModalText(current => (current === null ? "MODAL!" : null));
+  }, []);
 
   return (
     <div className="header">
@@ -27,6 +18,7 @@ export default function Header() {
       <button className="button" onClick={handleViewClick}>
         <FormattedMessage id="MENU" />
       </button>
+      {modalText ? <Modal>{modalText}</Modal> : null}
     </div>
   );
 }

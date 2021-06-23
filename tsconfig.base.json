@@ -16,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@island-explorer/service-worker": ["libs/service-worker/src/index.ts"]
+      "@island-explorer/service-worker": ["libs/service-worker/src/index.ts"],
+      "modal": ["libs/modal/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
