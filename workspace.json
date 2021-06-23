@@ -17,10 +17,15 @@
             "tsConfig": "apps/island-explorer/tsconfig.app.json",
             "assets": [
               "apps/island-explorer/src/favicon.ico",
-              "apps/island-explorer/src/assets"
+              "apps/island-explorer/src/assets",
+              {
+                "glob": "service-worker.js",
+                "input": "dist/libs/service-worker/src",
+                "output": "."
+              }
             ],
             "styles": ["apps/island-explorer/src/styles/styles.scss"],
-            "scripts": ["dist/libs/service-worker/src/service-worker.js"],
+            "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
           "configurations": {

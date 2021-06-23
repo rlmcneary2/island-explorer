@@ -6,7 +6,8 @@
     "tslint.json": "*",
     "nx.json": "*",
     "tsconfig.base.json": "*",
-    ".eslintrc.json": "*"
+    ".eslintrc.json": "*",
+    "dist/libs/service-worker/src/service-worker.js": ["island-explorer"]
   },
   "tasksRunnerOptions": {
     "default": {
@@ -16,7 +17,6 @@
   },
   "projects": {
     "island-explorer": {
-      "implicitDependencies": ["service-worker"],
       "tags": []
     },
     "service-worker": { "tags": [] }
