@@ -28,7 +28,7 @@ export function create(): ActionHandler<ContextState>[] {
 
     // Fetch the routes.
     fetch(
-      "https://islandexplorertracker.availtec.com/InfoPoint/rest/Routes/GetVisibleRoutes"
+      "http://islandexplorertracker.availtec.com/InfoPoint/rest/Routes/GetVisibleRoutes"
     )
       .then(response => {
         if (response.ok) {
@@ -56,16 +56,7 @@ export function create(): ActionHandler<ContextState>[] {
     return [nextState as ContextState, true];
   };
 
-  const setRoute: ActionHandler<ContextState, string> = (state, action) => {
-    if (action.id !== actionIds.ACTION_ROUTE_CHANGED) {
-      return [state];
-    }
-
-    state.routeId = action.payload;
-    return [state, true];
-  };
-
-  return [fetchRoutes, setRoute];
+  return [fetchRoutes];
 }
 
 export const actionIds = Object.freeze({

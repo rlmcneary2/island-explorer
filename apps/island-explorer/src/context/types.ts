@@ -1,14 +1,11 @@
 export type ContextState = ContextData & ContextActions;
 
 export interface ContextData {
-  routeId?: string;
   routes?: AsyncActionData<Route[]>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ContextActions {
-  setRoute: (routeId: string) => void;
-}
+export interface ContextActions {}
 
 interface AsyncActionData<T> {
   data?: T;
@@ -16,6 +13,35 @@ interface AsyncActionData<T> {
   status: "active" | "idle";
 }
 
-interface Route {
-  id: string;
+/**
+ * Route
+ */
+export interface Route {
+  RouteId: number;
+  RouteRecordId: number;
+  ShortName: string;
+  LongName: string;
+  RouteAbbreviation: string;
+  IvrDescription?: string;
+  Color: string;
+  TextColor: string;
+  IsVisible: boolean;
+  Group?: string;
+  SortOrder: number;
+  RouteTraceFilename: string;
+  RouteTraceHash64?: string;
+  IsHeadway: boolean;
+  IncludeInGoogle: boolean;
+  GoogleDescription?: string;
+  Stops?: any;
+  RouteStops?: any;
+  Directions?: any;
+  Vehicles: Vehicle[];
+  Messages: unknown[];
 }
+
+/**
+ * Vehicle
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface Vehicle {}

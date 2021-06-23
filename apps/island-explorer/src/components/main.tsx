@@ -1,20 +1,16 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import Header from "./header";
 import Map from "./map";
-import { INFORMATION } from "../constants/routes";
-import { useContextState } from "../context/use-context-state";
+import { INFORMATION, MAP } from "../constants/routes";
 import Information from "../components/information";
+import { getRouteParameters } from "../util/route";
 
 const informationPath = `/:route*/${INFORMATION}`;
+const mapPath = `/:route*/${MAP}`;
 
 export default function Main() {
-  const ctx = useContextState(ctx => ({
-    routeId: ctx?.routeId,
-    routes: ctx?.routes,
-  }));
-
-  console.log("Main: ctx=", ctx);
+  const params = getRouteParameters();
 
   return (
     <div className="main">
@@ -22,11 +18,12 @@ export default function Main() {
       <div className="content">
         <Switch>
           <Route path={informationPath}>
-            <Information routeId={ctx?.routeId} />
+            <Information routeId={params?.routeId} />
           </Route>
-          <Route>
-            <Map routeId={ctx?.routeId} />
+          <Route path={mapPath}>
+            <Map routeId={params?.routeId} />
           </Route>
+          <Redirect to={`/1/${MAP}`} />
         </Switch>
       </div>
     </div>
