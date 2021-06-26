@@ -1,4 +1,5 @@
 import { ActionHandler } from "reshape-state";
+import { environment as env } from "../environments/environment";
 import { ContextData, ContextState } from "./types";
 
 export function create(): ActionHandler<ContextState>[] {
@@ -27,9 +28,7 @@ export function create(): ActionHandler<ContextState>[] {
     }
 
     // Fetch the routes.
-    fetch(
-      "http://islandexplorertracker.availtec.com/InfoPoint/rest/Routes/GetVisibleRoutes"
-    )
+    fetch(`${env.apiLeft}/InfoPoint/rest/Routes/GetVisibleRoutes`)
       .then(response => {
         if (response.ok) {
           return response.json();
