@@ -1,7 +1,9 @@
 import { INFORMATION, MAP } from "../constants/routes";
 
-export function getRouteParameters(): { display: Display; routeId: string } {
-  const path = window.location.pathname.slice(1);
+export function getRouteParameters(
+  pathname?: Location["pathname"]
+): { page: RoutePage; routeId: string } {
+  const path = (pathname || window.location.pathname).slice(1);
   if (!path) {
     return null;
   }
@@ -11,8 +13,8 @@ export function getRouteParameters(): { display: Display; routeId: string } {
     return null;
   }
 
-  const [routeId, display] = arr;
-  return { display: display as Display, routeId };
+  const [routeId, page] = arr;
+  return { page: page as RoutePage, routeId };
 }
 
-type Display = keyof { [INFORMATION]: null; [MAP]: null };
+type RoutePage = keyof { [INFORMATION]: null; [MAP]: null };

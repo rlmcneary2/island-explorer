@@ -1,14 +1,11 @@
 import React from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch, useParams } from "react-router-dom";
 import { ModalContainer } from "modal";
 import Header from "./header";
 import Map from "./map";
 import { INFORMATION, MAP } from "../constants/routes";
 import Information from "../components/information";
 import { getRouteParameters } from "../util/route";
-
-const informationPath = `/:route*/${INFORMATION}`;
-const mapPath = `/:route*/${MAP}`;
 
 export default function Main() {
   const params = getRouteParameters();
@@ -18,16 +15,28 @@ export default function Main() {
       <Header />
       <div className="content">
         <Switch>
-          <Route path={informationPath}>
-            <Information routeId={params?.routeId} />
-          </Route>
-          <Route path={mapPath}>
-            <Map routeId={params?.routeId} />
+          <Route path="/:routeId/:routePage">
+            <Switcher />
           </Route>
           <Redirect to={`/1/${MAP}`} />
         </Switch>
       </div>
       <ModalContainer />
     </div>
+  );
+}
+
+function Switcher() {
+  const { routeId } = useParams() as Record<string, string>;
+
+  return (
+    <Switch>
+      <Route path={`/:routeId/${INFORMATION}`}>
+        <Information routeId={routeId} />
+      </Route>
+      <Route path={`/:routeId/${MAP}`}>
+        <Map routeId={routeId} />
+      </Route>
+    </Switch>
   );
 }

@@ -1,9 +1,15 @@
 @use "../color";
 
 .button {
+  font-family: sans-serif;
+  font-size: 1.6rem;
   max-width: 25rem;
   min-width: 15rem;
   &.primary {
     background-color: color.$primary;
   }
+}
+
+a.button {
+  box-sizing: border-box;
 }
