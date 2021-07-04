@@ -5,17 +5,18 @@ import { Context } from "./context";
 import { actionIds } from "./context-handlers";
 
 export function ContextProvider({
-  children,
+  children
 }: React.PropsWithChildren<unknown>) {
   const { data, reshaper } = useReshaper();
 
   const actions = useMemo<ContextActions>(() => {
     return {
-      setRoute: (route: string) =>
+      setRoute: (routeId: number) =>
+        reshaper &&
         reshaper.dispatch({
           id: actionIds.ACTION_ROUTE_CHANGED,
-          payload: route,
-        }),
+          payload: routeId
+        })
     };
   }, [reshaper]);
 

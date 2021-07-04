@@ -2,10 +2,13 @@ export type ContextState = ContextData & ContextActions;
 
 export interface ContextData {
   routes?: AsyncActionData<Route[]>;
+  routeStops?: AsyncActionData<unknown>;
+  routeTrace?: AsyncActionData<any>;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ContextActions {}
+export interface ContextActions {
+  setRoute: (routeId: number) => void;
+}
 
 interface AsyncActionData<T> {
   data?: T;

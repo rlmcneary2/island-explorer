@@ -14,6 +14,7 @@ export function useReshaper() {
 
     const nextReshaper = create<ContextData>({ loopUntilSettled: true })
       .addHandlers(createHandlers())
+      .addOnChange(nextData => console.log("useReshaper: nextData=", nextData))
       .addOnChange(nextData => setData({ ...nextData }));
     setReshaper(nextReshaper);
 
