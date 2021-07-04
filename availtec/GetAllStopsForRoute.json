@@ -1,0 +1,83 @@
+[
+  {
+    "StopId": 7,
+    "StopRecordId": 7,
+    "Name": "Oceanarium",
+    "Description": "Oceanarium",
+    "Latitude": 44.419361,
+    "Longitude": -68.349579,
+    "IsTimePoint": true
+  },
+  {
+    "StopId": 9,
+    "StopRecordId": 9,
+    "Name": "Bar Habor KOA",
+    "Description": "Bar Habor KOA",
+    "Latitude": 44.42137909,
+    "Longitude": -68.36430359,
+    "IsTimePoint": true
+  },
+  {
+    "StopId": 6,
+    "StopRecordId": 6,
+    "Name": "Mt Desert Narrows",
+    "Description": "Mt Desert Narrows",
+    "Latitude": 44.4199295,
+    "Longitude": -68.33718109,
+    "IsTimePoint": true
+  },
+  {
+    "StopId": 5,
+    "StopRecordId": 5,
+    "Name": "Hadly Point",
+    "Description": "Hadly Point",
+    "Latitude": 44.43872833,
+    "Longitude": -68.31433105,
+    "IsTimePoint": true
+  },
+  {
+    "StopId": 4,
+    "StopRecordId": 4,
+    "Name": "Bar Habor Campground",
+    "Description": "Bar Habor Campground",
+    "Latitude": 44.43102264,
+    "Longitude": -68.27126312,
+    "IsTimePoint": true
+  },
+  {
+    "StopId": 3,
+    "StopRecordId": 3,
+    "Name": "Visitor Center",
+    "Description": "Visitor Center",
+    "Latitude": 44.40903854,
+    "Longitude": -68.24743652,
+    "IsTimePoint": true
+  },
+  {
+    "StopId": 13,
+    "StopRecordId": 13,
+    "Name": "College of the Atlantic",
+    "Description": "Coa Museum",
+    "Latitude": 44.394515,
+    "Longitude": -68.222758,
+    "IsTimePoint": true
+  },
+  {
+    "StopId": 1,
+    "StopRecordId": 1,
+    "Name": "Village Green",
+    "Description": "Village Green",
+    "Latitude": 44.38788986,
+    "Longitude": -68.20548248,
+    "IsTimePoint": true
+  },
+  {
+    "StopId": 11,
+    "StopRecordId": 11,
+    "Name": "Narrows Too",
+    "Description": "Nrrws Too",
+    "Latitude": 44.43856812,
+    "Longitude": -68.36693573,
+    "IsTimePoint": true
+  }
+]
