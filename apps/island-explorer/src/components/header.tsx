@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import { ContextState } from "../context/types";
 import { INFORMATION, MAP } from "../constants/routes";
-import { useContextState } from "../context/use-context-state";
+import useContextState from "../context/use-context-state";
 import { RoutesModal } from "./routes-modal";
 import { getRouteParameters } from "../util/route";
 

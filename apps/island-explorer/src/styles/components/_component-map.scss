@@ -4,4 +4,12 @@ div.map {
   background: color.$tertiary;
   grid-column-start: 1;
   grid-row-start: 1;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  > div {
+    height: 100%;
+  }
 }

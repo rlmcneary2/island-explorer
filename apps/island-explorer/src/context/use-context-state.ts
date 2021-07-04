@@ -3,7 +3,9 @@ import { useContext, useEffect, useState } from "react";
 import { ContextData } from "./types";
 import { Context } from "./context";
 
-export function useContextState<Slice>(selector: (ctx: ContextData) => Slice) {
+export default function useContextState<Slice>(
+  selector: (ctx: ContextData) => Slice
+) {
   const ctx = useContext(Context);
   const [slice, setSlice] = useState<Slice>(null);
 

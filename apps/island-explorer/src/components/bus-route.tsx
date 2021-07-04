@@ -19,7 +19,7 @@ export function BusRoute() {
         <Information routeId={routeId} />
       </Route>
       <Route path={`*/${MAP}`}>
-        <Map routeId={routeId} />
+        <Map routeId={+routeId} />
       </Route>
     </Switch>
   );

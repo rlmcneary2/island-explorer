@@ -2,8 +2,8 @@ export type ContextState = ContextData & ContextActions;
 
 export interface ContextData {
   routes?: AsyncActionData<Route[]>;
-  routeStops?: AsyncActionData<unknown>;
-  routeTrace?: AsyncActionData<any>;
+  routeStops?: AsyncActionData<Stop[]>;
+  routeTrace?: AsyncActionData<Trace>;
 }
 
 export interface ContextActions {
@@ -41,6 +41,51 @@ export interface Route {
   Directions?: any;
   Vehicles: Vehicle[];
   Messages: unknown[];
+}
+
+/**
+ * Stop
+ */
+export interface Stop {
+  Description: string;
+  IsTimePoint: boolean;
+  Latitude: number;
+  Longitude: number;
+  Name: string;
+  StopId: number;
+  StopRecordId: number;
+}
+
+/**
+ * Trace
+ */
+export interface Trace {
+  features: TraceFeature[];
+  type: "FeatureCollection";
+}
+
+interface FeatureGeometryLineString {
+  coordinates: [lng: number, lat: number][];
+  type: "LineString";
+}
+
+interface FeatureProperties {
+  name: string;
+  stroke: string;
+  "stroke-opacity"?: number;
+  "stroke-width"?: number;
+  styleUrl?: string;
+  styleHash?: string;
+  styleMapHash?: {
+    normal: string;
+    highlight: string;
+  };
+}
+
+interface TraceFeature {
+  geometry: FeatureGeometryLineString;
+  properties: FeatureProperties;
+  type: "Feature";
 }
 
 /**

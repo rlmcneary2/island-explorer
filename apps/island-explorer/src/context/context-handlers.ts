@@ -2,6 +2,7 @@ import { ActionHandler } from "reshape-state";
 import { Dispatcher } from "reshape-state/types";
 import { environment as env } from "../environments/environment";
 import { ContextData, ContextState } from "./types";
+import toGeoJson from "@mapbox/togeojson";
 
 export function create(): ActionHandler<ContextState>[] {
   const fetchRoutes: ActionHandler<ContextState, null> = (
@@ -127,7 +128,8 @@ async function handleTraceResponse(
   } else {
     const text = await response.text();
     const doc = new DOMParser().parseFromString(text, "text/xml");
-    nextState = { routeTrace: { data: doc, status: "idle" } };
+    const json = toGeoJson.kml(doc);
+    nextState = { routeTrace: { data: json, status: "idle" } };
   }
 
   dispatch(state => [{ ...state, ...nextState }, true]);
