@@ -24,13 +24,11 @@ export function BusRoute() {
   }, [paramRouteId, setRoute]);
 
   return (
-    <Switch>
+    <>
+      <Map routeId={routeId} />
       <Route path={`*/${INFORMATION}`}>
         <Information routeId={routeId} />
       </Route>
-      <Route path={`*/${MAP}`}>
-        <Map routeId={routeId} />
-      </Route>
-    </Switch>
+    </>
   );
 }
