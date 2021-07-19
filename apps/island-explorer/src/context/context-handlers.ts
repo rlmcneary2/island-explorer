@@ -66,7 +66,10 @@ export function create(): ActionHandler<ContextState>[] {
       return [state];
     }
 
-    if (!state?.routes?.data) {
+    if (!state?.routes?.data || state?.routes?.status === "active") {
+      console.log(
+        "handleRouteChanged: actively fetching state.routes.data; dispatching same action again."
+      );
       dispatch(action);
       return [state];
     }
@@ -88,6 +91,7 @@ export function create(): ActionHandler<ContextState>[] {
     return [
       {
         ...state,
+        routeId: action.payload,
         routeStops: { status: "active" },
         routeTrace: { status: "active" }
       },

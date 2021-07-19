@@ -1,6 +1,9 @@
 export type ContextState = ContextData & ContextActions;
 
 export interface ContextData {
+  /** The route ID that state data currently represents. This can be different
+   * from the routeId URL parameter. */
+  routeId?: number;
   routes?: AsyncActionData<Route[]>;
   routeStops?: AsyncActionData<Stop[]>;
   routeTrace?: AsyncActionData<Trace>;

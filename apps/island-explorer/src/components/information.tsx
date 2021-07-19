@@ -7,5 +7,5 @@ export default function Information({ routeId }: Props) {
 }
 
 type Props = {
-  routeId?: string;
+  routeId?: number;
 };
