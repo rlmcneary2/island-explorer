@@ -18,7 +18,7 @@ export default function Header() {
     setShowRoutesModal(current => !current);
   }, []);
 
-  const { page, routeId } = getRouteParameters(pathname);
+  const { page, routeId } = getRouteParameters(pathname) ?? {};
 
   return (
     <div className="header">

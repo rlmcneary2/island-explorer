@@ -3,6 +3,7 @@
     "Parens",
     "bbox",
     "mapbox",
-    "remapgl"
+    "remapgl",
+    "togeojson"
   ]
 }
