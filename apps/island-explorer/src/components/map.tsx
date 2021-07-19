@@ -1,9 +1,32 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import _unionWith from "lodash/unionWith";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import bbox from "@turf/bbox";
-import type { LineLayer, LngLatBoundsLike, Map as MapGL } from "mapbox-gl";
-import { LayerCollection, RemapGL } from "remapgl";
+import type {
+  CircleLayer,
+  CirclePaint,
+  LineLayer,
+  LngLatBoundsLike,
+  Map as MapGL
+} from "mapbox-gl";
+import * as geojson from "geojson/geojson";
+import { AnyLayer, LayerCollection, RemapGL } from "remapgl";
 import useContextState from "../context/use-context-state";
-import { Trace } from "../context/types";
+import { Stop, Trace } from "../context/types";
+
+const STOP_CIRCLE_RADIUS_BASE = 1.15;
+const STOP_CIRCLE_RADIUS_STEPS: number[][] = [
+  [10, 5],
+  [14, 5]
+];
+const STOP_CIRCLE_STROKE_BASE = 1.15;
+const STOP_CIRCLE_STROKE_COLOR = "#FFF";
+const STOP_CIRCLE_STROKE_STEPS: number[][] = [
+  [10, 3],
+  [14, 3]
+];
+// const STOP_TEXT_BASE = 1.15;
+// const STOP_TEXT_STEPS: ReadonlyArray<ReadonlyArray<number>> = [[10, 10], [14, 12]];
+// const ZOOM_TO_FIT_PADDING = 25;
 
 const ROUTE_LINE_WIDTH = 4;
 const START_LATITUDE = 44.3420759;
@@ -32,10 +55,6 @@ export default function Map({ routeId }: Props) {
   );
 }
 
-type Props = {
-  routeId?: number;
-};
-
 function MapLayers({
   fitBounds,
   routeId
@@ -43,13 +62,13 @@ function MapLayers({
   fitBounds: (bounds: LngLatBoundsLike) => void;
   routeId: number;
 }) {
-  const { routeStops, routeTrace } =
+  const { color, routeStops, routeTrace } =
     useContextState(state => ({
-      routeStops: state?.routeStops,
-      routeTrace: state?.routeTrace
+      color:
+        state?.routes?.data?.find(x => x.RouteId === routeId).Color ?? "000",
+      routeStops: state?.routeStops ?? null,
+      routeTrace: state?.routeTrace ?? null
     })) ?? {};
-
-  console.log(`MapLayers: routeId=${routeId}, routeTrace=`, routeTrace);
 
   const traceReady =
     routeTrace?.status === "idle" && !routeTrace.error && routeTrace.data;
@@ -65,41 +84,135 @@ function MapLayers({
     fitBounds(bounds);
   }, [fitBounds, trace, traceReady]);
 
+  const { data: stops } = routeStops ?? { data: null };
+
+  const items = useMemo<MapLayerCollectionItem[]>(
+    () => [
+      {
+        color,
+        routeId,
+        stops: stops ?? null,
+        trace: trace ?? null
+      }
+    ],
+    [color, routeId, stops, trace]
+  );
+
   if (!traceReady) {
     return null;
   }
 
-  return <MapLayerCollection routeId={routeId} trace={trace} />;
+  return <MapLayerCollection items={items} />;
 }
 
-function MapLayerCollection({
-  routeId,
-  trace
-}: {
-  routeId: number;
-  trace: Trace;
-}) {
-  const traceLayers = useMemo(() => [createTraceLayer(routeId, trace)], [
-    routeId,
-    trace
-  ]);
+function MapLayerCollection({ items }: { items: MapLayerCollectionItem[] }) {
+  const [traceLayers, setTraceLayers] = useState<LineLayer[]>(null);
+  const [stopsLayers, setStopsLayers] = useState<CircleLayer[]>(null);
 
-  return <LayerCollection key={`${routeId}`} layers={traceLayers} />;
+  useEffect(() => {
+    setTraceLayers(current => {
+      // Use items to determine the order because it's up to the client to set
+      // that order when it's passed to remapgl.
+      const temp = _unionWith<MapLayerCollectionItem | LineLayer>(
+        items,
+        current,
+        (a, b) => compareLayers(a, b, "trace")
+      );
+
+      if (temp.every(x => "id" in x)) {
+        return current;
+      }
+
+      const nextAnyLayers = temp.map(x => {
+        if ("id" in x) {
+          return x;
+        }
+
+        return (
+          current?.find(y => y.id === `trace-${x.routeId}`) ??
+          createTraceLayer(x.routeId, x.color, x.trace)
+        );
+      });
+
+      return nextAnyLayers
+        .filter(x => !!x)
+        .every(x => current?.some(y => y.id === x.id))
+        ? current
+        : nextAnyLayers;
+    });
+  }, [items]);
+
+  useEffect(() => {
+    setStopsLayers(current => {
+      // Use items to determine the order because it's up to the client to set
+      // that order when it's passed to remapgl.
+      const temp = _unionWith<MapLayerCollectionItem | CircleLayer>(
+        items,
+        current,
+        (a, b) => compareLayers(a, b, "stops")
+      );
+
+      if (temp.every(x => "id" in x)) {
+        return current;
+      }
+
+      const nextAnyLayers = temp.map(x => {
+        if ("id" in x) {
+          return x;
+        }
+
+        return (
+          current?.find(y => y.id === `stops-${x.routeId}`) ??
+          createStopsLayer(x.routeId, x.color, x.stops)
+        );
+      });
+
+      return nextAnyLayers
+        .filter(x => !!x)
+        .every(x => current?.some(y => y.id === x.id))
+        ? current
+        : nextAnyLayers;
+    });
+  }, [items]);
+
+  const layers = useMemo(
+    () => [...(traceLayers ?? []), ...(stopsLayers ?? [])],
+    [stopsLayers, traceLayers]
+  );
+
+  return <LayerCollection layers={layers} />;
 }
 
-function createTraceLayer(routeId: number, trace: Trace): LineLayer {
+function compareLayers(
+  a: MapLayerCollectionItem | AnyLayer,
+  b: MapLayerCollectionItem | AnyLayer,
+  layerPrefix: string
+): boolean {
+  const aId = "id" in a ? a.id : `${layerPrefix}-${a.routeId}`;
+  const bId = "id" in b ? b.id : `${layerPrefix}-${b.routeId}`;
+  return aId === bId;
+}
+
+function createTraceLayer(
+  routeId: number,
+  color: string,
+  trace: Trace
+): LineLayer {
   const feature =
     trace && trace.features && 0 < trace.features.length
       ? trace.features[0]
       : null;
-  const layer: LineLayer = {
+
+  console.log(`createTraceLayer: routeId=${routeId}, trace=`, trace);
+
+  return {
     id: `trace-${routeId}`,
     layout: {
       "line-cap": "round",
       "line-join": "round"
     },
     paint: {
-      "line-color": feature.properties.stroke || "#000",
+      "line-color": `#${color}`,
       "line-opacity": feature.properties["stroke-opacity"] || 1,
       "line-width": ROUTE_LINE_WIDTH
     },
@@ -109,6 +222,62 @@ function createTraceLayer(routeId: number, trace: Trace): LineLayer {
     },
     type: "line"
   };
+}
 
-  return layer;
+function createStopsLayer(
+  routeId: number,
+  color: string,
+  stops: Stop[]
+): CircleLayer {
+  if (!stops) {
+    return null;
+  }
+
+  const paint: CirclePaint = {
+    "circle-color": `#${color}`,
+    "circle-radius": {
+      base: STOP_CIRCLE_RADIUS_BASE,
+      stops: STOP_CIRCLE_RADIUS_STEPS
+    },
+    "circle-stroke-color": STOP_CIRCLE_STROKE_COLOR,
+    "circle-stroke-opacity": 0.8,
+    "circle-stroke-width": {
+      base: STOP_CIRCLE_STROKE_BASE,
+      stops: STOP_CIRCLE_STROKE_STEPS
+    }
+  };
+
+  const data = stops.map(({ Latitude: lat, Longitude: lng, Name: name }) => ({
+    lat,
+    lng,
+    name
+  }));
+
+  const geoJson = geojson.parse(data, {
+    extra: { icon: "circle" },
+    Point: ["lat", "lng"]
+  });
+
+  console.log(`createStopsLayer: routeId=${routeId}, stops=`, stops);
+
+  return {
+    id: `stops-${routeId}`,
+    paint,
+    source: {
+      data: geoJson,
+      type: "geojson"
+    },
+    type: "circle"
+  };
+}
+
+interface Props {
+  routeId?: number;
+}
+
+interface MapLayerCollectionItem {
+  color: string;
+  routeId: number;
+  stops?: Stop[];
+  trace?: Trace;
 }
