@@ -1,4 +1,4 @@
-const version = "1";
+const version = "2021a";
 
 const wgs = (self as unknown) as ServiceWorkerGlobalScope;
 
@@ -10,12 +10,43 @@ wgs.addEventListener("activate", () => {
   console.log("service worker activate event");
 });
 
+wgs.addEventListener("message", (event: ReceivedMessageEvent) => {
+  // console.log("service worker message event ", event);
+  const { name } = event.data;
+  if (name === "cache") {
+    event.waitUntil(
+      caches
+        .open(version)
+        .then(cache =>
+          cache.addAll(
+            event.data.requests.map(({ url, ...req }) => new Request(url, req))
+          )
+        )
+        .catch(err => console.log("service worker message err ", err))
+        .then(() =>
+          event.data.requests.forEach(
+            req =>
+              !urlMatches.some(rgx => rgx.test(req.url)) &&
+              urlMatches.push(new RegExp(req.url))
+          )
+        )
+        .catch(err =>
+          console.log("service worker message urlMatches err ", err)
+        )
+    );
+  }
+});
+
 wgs.addEventListener("fetch", event => {
-  console.log("service worker fetch event ", event.request.url);
+  // console.log(
+  //   `service worker fetch event (method='${event.request.method}') `,
+  //   event.request.url
+  // );
+
   let responsePromise: Promise<Response>;
 
   if (matchingRequest(event.request)) {
-    console.log("service worker matching request ", event.request.url);
+    // console.log("service worker matching request ", event.request.url);
     responsePromise = cacheFirst(event.request);
   } else {
     responsePromise = fetch(event.request);
@@ -27,7 +58,8 @@ wgs.addEventListener("fetch", event => {
 const urlMatches: RegExp[] = [
   /\/InfoPoint\/rest\/Routes\/GetVisibleRoutes$/,
   /\/InfoPoint\/Resources\/Traces\/[a-z|A-Z]*.kml$/,
-  /\/InfoPoint\/rest\/Stops\/GetAllStopsForRoutes\?routeIDs=/
+  /\/InfoPoint\/rest\/Stops\/GetAllStopsForRoutes\?routeIDs=/,
+  /\/\/api.mapbox.com\/styles\/v1\/mapbox\/outdoors-v11\/?\?/ // We use the default remapgl topographic map style so cache it at install
 ];
 
 function matchingRequest(request: Request): boolean {
@@ -43,7 +75,7 @@ async function cacheFirst(request: Request) {
     return response;
   }
 
-  console.log("service worker NO cache entry for ", request.url);
+  // console.log("service worker NO cache entry for ", request.url);
 
   try {
     response = await fetch(request);
@@ -62,7 +94,19 @@ async function cacheFirst(request: Request) {
   const cache = await caches.open(version);
   await cache.put(request, response.clone());
 
-  console.log("service worker cached response ", response.url);
+  // console.log("service worker cached response ", response.url);
 
   return response;
+}
+
+interface ReceivedMessageEvent extends ExtendableMessageEvent {
+  data: {
+    requests: [
+      {
+        headers: Record<string, string>;
+        url: string;
+      }
+    ];
+    name: string;
+  };
 }
