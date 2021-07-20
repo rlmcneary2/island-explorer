@@ -1,8 +1,10 @@
 import { ActionHandler } from "reshape-state";
 import { Dispatcher } from "reshape-state/types";
 import { environment as env } from "../environments/environment";
-import { ContextData, ContextState } from "./types";
+import { ContextData, ContextState, Route } from "./types";
 import toGeoJson from "@mapbox/togeojson";
+
+const ACTION_FETCH_ROUTES_FINISHED = "fetch-routes-finished";
 
 export function create(): ActionHandler<ContextState>[] {
   const fetchRoutes: ActionHandler<ContextState, null> = (
@@ -39,10 +41,7 @@ export function create(): ActionHandler<ContextState>[] {
         throw Error(`${response.status}`);
       })
       .then(body => {
-        dispatch(s => {
-          s.routes = { data: body, status: "idle" };
-          return [s, true];
-        });
+        dispatch({ id: ACTION_FETCH_ROUTES_FINISHED, payload: body });
       })
       .catch(err => {
         console.error(err);
@@ -55,6 +54,39 @@ export function create(): ActionHandler<ContextState>[] {
     const nextState: ContextData = state ?? {};
     nextState.routes = { status: "active" };
     return [nextState as ContextState, true];
+  };
+
+  const fetchRoutesFinished: ActionHandler<ContextState, Route[]> = (
+    state,
+    action,
+    dispatch
+  ) => {
+    if (action.id !== ACTION_FETCH_ROUTES_FINISHED) {
+      return [state];
+    }
+
+    state.routes = { data: action.payload, status: "idle" };
+    return [state, true];
+  };
+
+  const cacheRoutesData: ActionHandler<ContextState, Route[]> = (
+    state,
+    action,
+    dispatch
+  ) => {
+    if (action.id === ACTION_FETCH_ROUTES_FINISHED) {
+      // We will cache all of these at service worker installation, but in case
+      // the active routes change update what is cached. For each route add to
+      // cache:
+      //  - the KML file (trace)
+      //     - https://acadia-explorer.netlify.app/api/InfoPoint/Resources/Traces/SandyBeach.kml
+      //     - accept */*
+      //  - stops request
+      //     - https://acadia-explorer.netlify.app/api/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=3
+      //     - accept */*
+    }
+
+    return [state];
   };
 
   const handleRouteChanged: ActionHandler<ContextState, number> = (
@@ -99,7 +131,12 @@ export function create(): ActionHandler<ContextState>[] {
     ];
   };
 
-  return [fetchRoutes, handleRouteChanged];
+  return [
+    fetchRoutes,
+    fetchRoutesFinished,
+    cacheRoutesData,
+    handleRouteChanged
+  ];
 }
 
 export const actionIds = Object.freeze({

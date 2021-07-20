@@ -2,8 +2,15 @@ const version = "2021a";
 
 const wgs = (self as unknown) as ServiceWorkerGlobalScope;
 
-wgs.addEventListener("install", () => {
+wgs.addEventListener("install", event => {
   console.log("service worker install event");
+
+  event.waitUntil(
+    caches.open(version).then(cache => {
+      // TODO list of URLs to cache.
+      return cache.addAll([]);
+    })
+  );
 });
 
 wgs.addEventListener("activate", () => {
@@ -19,6 +26,8 @@ wgs.addEventListener("message", (event: ReceivedMessageEvent) => {
         .open(version)
         .then(cache =>
           cache.addAll(
+            // Does the cache already have any of these URLs? If so don't cache
+            // them again.
             event.data.requests.map(({ url, ...req }) => new Request(url, req))
           )
         )

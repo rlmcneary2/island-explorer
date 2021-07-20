@@ -7,20 +7,27 @@ import { ModalProvider } from "modal";
 import Main from "./components/main";
 import { ContextProvider } from "./context/context-provider";
 import messages from "./assets/messages-en-us.json";
+import { postCacheMessageToServiceWorker } from "./util/service-worker";
+
+const requests = [
+  {
+    headers: { accept: "text/css,*/*;q=0.1" },
+    url: RemapGL.defaultMapboxGLCss
+  }
+];
 
 navigator.serviceWorker
   .register("service-worker.js")
   .then(
-    args => args.installing && postCacheMessageToServiceWorker(args.installing)
+    args =>
+      args.installing &&
+      postCacheMessageToServiceWorker(requests, args.installing)
   )
   .catch(err => {
     console.log("Service worker failure. ", err);
   });
 
-navigator.serviceWorker.ready.then(() => {
-  navigator.serviceWorker.controller &&
-    postCacheMessageToServiceWorker(navigator.serviceWorker.controller);
-});
+postCacheMessageToServiceWorker(requests);
 
 ReactDOM.render(
   <BrowserRouter>
@@ -34,23 +41,3 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById("root")
 );
-
-// Cache files that are provided through external 3rd party libraries and may
-// change outside this application.
-function postCacheMessageToServiceWorker(worker: ServiceWorker) {
-  const message: { requests: (string | MessageRequest)[]; name: string } = {
-    requests: [
-      {
-        headers: { accept: "text/css,*/*;q=0.1" },
-        url: RemapGL.defaultMapboxGLCss
-      }
-    ],
-    name: "cache"
-  };
-
-  worker.postMessage(message);
-}
-
-interface MessageRequest extends Pick<Request, "url"> {
-  headers: Record<string, string>;
-}
