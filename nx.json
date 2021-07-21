@@ -27,14 +27,22 @@
     "island-explorer": {
       "tags": []
     },
-    "service-worker": {
+    "modal": {
       "tags": []
     },
-    "modal": {
+    "service-worker": {
       "tags": []
     },
     "service-worker-app": {
       "tags": []
     }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
   }
 }
