@@ -247,15 +247,16 @@
           }
         },
         "build": {
-          "builder": "@nrwl/node:package",
+          "builder": "@nrwl/web:package",
           "outputs": [
             "{options.outputPath}"
           ],
           "options": {
             "outputPath": "dist/libs/service-worker",
             "tsConfig": "libs/service-worker/tsconfig.lib.json",
-            "packageJson": "libs/service-worker/package.json",
-            "main": "libs/service-worker/src/service-worker.ts",
+            "project": "libs/service-worker/package.json",
+            "entryFile": "libs/service-worker/src/service-worker.ts",
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
             "assets": []
           }
         }
