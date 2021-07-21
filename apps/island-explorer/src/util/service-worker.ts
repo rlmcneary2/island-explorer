@@ -14,11 +14,13 @@ export async function postCacheMessageToServiceWorker(
     name: "cache"
   };
 
-  if (!worker) {
-    await navigator.serviceWorker.ready;
+  let postWorker = worker;
+  if (!postWorker) {
+    const reg = await navigator.serviceWorker.ready;
+    postWorker = reg.active;
   }
 
-  (worker || navigator.serviceWorker.controller).postMessage(message);
+  postWorker.postMessage(message);
 }
 
 interface MessageRequest extends Pick<Request, "url"> {

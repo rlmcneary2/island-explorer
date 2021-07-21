@@ -1,4 +1,5 @@
-const version = "2021a";
+const API_LEFT = "https://acadia-explorer.netlify.app/api";
+const VERSION = "2021a";
 
 const wgs = (self as unknown) as ServiceWorkerGlobalScope;
 
@@ -6,9 +7,38 @@ wgs.addEventListener("install", event => {
   console.log("service worker install event");
 
   event.waitUntil(
-    caches.open(version).then(cache => {
+    caches.open(VERSION).then(cache => {
       // TODO list of URLs to cache.
-      return cache.addAll([]);
+      return cache.addAll([
+        new Request(
+          "//api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css",
+          { headers: { accept: "text/css,*/*;q=0.1" } }
+        ),
+
+        `${API_LEFT}/InfoPoint/rest/Routes/GetVisibleRoutes`,
+
+        `${API_LEFT}/InfoPoint/Resources/Traces/Oceanarium.kml`,
+        `${API_LEFT}/InfoPoint/Resources/Traces/EdenStreet.kml`,
+        `${API_LEFT}/InfoPoint/Resources/Traces/SandyBeach.kml`,
+        `${API_LEFT}/InfoPoint/Resources/Traces/LoopRoad.kml`,
+        `${API_LEFT}/InfoPoint/Resources/Traces/JordanPond.kml`,
+        `${API_LEFT}/InfoPoint/Resources/Traces/BrownMountain.kml`,
+        `${API_LEFT}/InfoPoint/Resources/Traces/SWH.kml`,
+        `${API_LEFT}/InfoPoint/Resources/Traces/Schoodic.kml`,
+        `${API_LEFT}/InfoPoint/Resources/Traces/Trenton.kml`,
+        `${API_LEFT}/InfoPoint/Resources/Traces/blackwoods.kml`,
+
+        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=1`,
+        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=2`,
+        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=3`,
+        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=4`,
+        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=5`,
+        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=6`,
+        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=7`,
+        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=8`,
+        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=9`,
+        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=10`
+      ]);
     })
   );
 });
@@ -23,7 +53,7 @@ wgs.addEventListener("message", (event: ReceivedMessageEvent) => {
   if (name === "cache") {
     event.waitUntil(
       caches
-        .open(version)
+        .open(VERSION)
         .then(cache =>
           cache.addAll(
             // Does the cache already have any of these URLs? If so don't cache
@@ -65,9 +95,6 @@ wgs.addEventListener("fetch", event => {
 });
 
 const urlMatches: RegExp[] = [
-  /\/InfoPoint\/rest\/Routes\/GetVisibleRoutes$/,
-  /\/InfoPoint\/Resources\/Traces\/[a-z|A-Z]*.kml$/,
-  /\/InfoPoint\/rest\/Stops\/GetAllStopsForRoutes\?routeIDs=/,
   /\/\/api.mapbox.com\/styles\/v1\/mapbox\/outdoors-v11\/?\?/ // We use the default remapgl topographic map style so cache it at install
 ];
 
@@ -100,7 +127,7 @@ async function cacheFirst(request: Request) {
 
   console.log("service worker fetched response ", response.url);
 
-  const cache = await caches.open(version);
+  const cache = await caches.open(VERSION);
   await cache.put(request, response.clone());
 
   // console.log("service worker cached response ", response.url);
