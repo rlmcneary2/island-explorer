@@ -6,6 +6,7 @@
     "nx": "nx",
     "start": "nx serve",
     "build": "nx build",
+    "build:sw": "nx build service-worker-app --commonChunk=false --deleteOutputPath=true --generateIndexHtml=false --outputHashing=none --runtimeChunk=false --vendorChunk=false",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",

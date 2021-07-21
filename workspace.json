@@ -64,6 +64,17 @@
       "library": {
         "linter": "eslint"
       }
+    },
+    "@nrwl/web:application": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "none"
+    },
+    "@nrwl/web:library": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
     }
   },
   "projects": {
@@ -90,7 +101,9 @@
                 "output": "."
               }
             ],
-            "styles": ["apps/island-explorer/src/styles/styles.scss"],
+            "styles": [
+              "apps/island-explorer/src/styles/styles.scss"
+            ],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -118,7 +131,9 @@
               ]
             }
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@nrwl/web:dev-server",
@@ -153,7 +168,9 @@
             "jestConfig": "apps/island-explorer/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/apps/island-explorer"]
+          "outputs": [
+            "coverage/apps/island-explorer"
+          ]
         }
       }
     },
@@ -165,12 +182,16 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/service-worker/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/service-worker/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/service-worker"],
+          "outputs": [
+            "coverage/libs/service-worker"
+          ],
           "options": {
             "jestConfig": "libs/service-worker/jest.config.js",
             "passWithNoTests": true
@@ -178,7 +199,9 @@
         },
         "build": {
           "builder": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/libs/service-worker",
             "tsConfig": "libs/service-worker/tsconfig.lib.json",
@@ -196,13 +219,18 @@
       "architect": {
         "build": {
           "builder": "@nrwl/web:package",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/libs/modal",
             "tsConfig": "libs/modal/tsconfig.lib.json",
             "project": "libs/modal/package.json",
             "entryFile": "libs/modal/src/index.ts",
-            "external": ["react", "react-dom"],
+            "external": [
+              "react",
+              "react-dom"
+            ],
             "babelConfig": "@nrwl/react/plugins/bundle-babel",
             "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
             "assets": [
@@ -217,14 +245,94 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/modal/**/*.{ts,tsx,js,jsx}"]
+            "lintFilePatterns": [
+              "libs/modal/**/*.{ts,tsx,js,jsx}"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/modal"],
+          "outputs": [
+            "coverage/libs/modal"
+          ],
           "options": {
             "jestConfig": "libs/modal/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "service-worker-app": {
+      "projectType": "application",
+      "root": "apps/service-worker-app",
+      "sourceRoot": "apps/service-worker-app/src",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/service-worker-app",
+            "index": "apps/service-worker-app/src/index.html",
+            "main": "apps/service-worker-app/src/service-worker.ts",
+            "polyfills": "apps/service-worker-app/src/polyfills.ts",
+            "tsConfig": "apps/service-worker-app/tsconfig.app.json",
+            "assets": [],
+            "styles": [],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/service-worker-app/src/environments/environment.ts",
+                  "with": "apps/service-worker-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "service-worker-app:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "service-worker-app:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/service-worker-app/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/service-worker-app"
+          ],
+          "options": {
+            "jestConfig": "apps/service-worker-app/jest.config.js",
             "passWithNoTests": true
           }
         }

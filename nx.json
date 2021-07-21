@@ -1,24 +1,40 @@
 {
   "implicitDependencies": {
     "workspace.json": "*",
-    "package.json": { "dependencies": "*", "devDependencies": "*" },
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
     "tslint.json": "*",
     "nx.json": "*",
     "tsconfig.base.json": "*",
     ".eslintrc.json": "*",
     "dist/libs/service-worker/src/service-worker.js": ["island-explorer"]
   },
-  "affected": { "defaultBase": "master" },
+  "affected": {
+    "defaultBase": "master"
+  },
   "npmScope": "island-explorer",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
     }
   },
   "projects": {
-    "island-explorer": { "tags": [] },
-    "service-worker": { "tags": [] },
-    "modal": { "tags": [] }
+    "island-explorer": {
+      "tags": []
+    },
+    "service-worker": {
+      "tags": []
+    },
+    "modal": {
+      "tags": []
+    },
+    "service-worker-app": {
+      "tags": []
+    }
   }
 }
