@@ -1,5 +1,5 @@
 import _unionWith from "lodash/unionWith";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import bbox from "@turf/bbox";
 import type {
   CircleLayer,
@@ -26,7 +26,7 @@ const STOP_CIRCLE_STROKE_STEPS: number[][] = [
 ];
 // const STOP_TEXT_BASE = 1.15;
 // const STOP_TEXT_STEPS: ReadonlyArray<ReadonlyArray<number>> = [[10, 10], [14, 12]];
-// const ZOOM_TO_FIT_PADDING = 25;
+const ZOOM_TO_FIT_PADDING = 25;
 
 const ROUTE_LINE_WIDTH = 4;
 const START_LATITUDE = 44.3420759;
@@ -47,7 +47,10 @@ export default function Map({ routeId }: Props) {
         zoom={START_ZOOM}
       >
         <MapLayers
-          fitBounds={bounds => map.current && map.current.fitBounds(bounds)}
+          fitBounds={bounds =>
+            map.current &&
+            map.current.fitBounds(bounds, { padding: ZOOM_TO_FIT_PADDING })
+          }
           routeId={routeId}
         />
       </RemapGL>
