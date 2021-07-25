@@ -1,5 +1,8 @@
+// apiLeft: "http://islandexplorertracker.availtec.com",
+
+const API_LEFT = "https://acadia-explorer.netlify.app/api";
+
 export const environment = {
-  // apiLeft: "http://islandexplorertracker.availtec.com",
-  apiLeft: "https://acadia-explorer.netlify.app/api",
-  production: false,
+  apiLeft: API_LEFT,
+  production: false
 };

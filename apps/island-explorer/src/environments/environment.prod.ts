@@ -1,4 +1,6 @@
+const API_LEFT = "/api";
+
 export const environment = {
-  apiLeft: "/api",
-  production: true,
+  apiLeft: API_LEFT,
+  production: true
 };
