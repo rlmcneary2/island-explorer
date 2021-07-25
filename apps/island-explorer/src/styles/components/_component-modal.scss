@@ -1,0 +1,17 @@
+@use "../color";
+
+.modal {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  > .content {
+    background: color.$background;
+    width: 50vw;
+  }
+}

@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import { Modal } from "modal";
+import { ModalDialog } from "modal";
+import type { ModalDialogProps } from "modal";
 import { ContextData } from "../context/types";
 import { getRouteParameters } from "../util/route";
 
-export function RoutesModal({ routes }: Props) {
+export function RoutesModal({ onExternalTouch, routes }: Props) {
   const { page } = getRouteParameters();
   const { data, error, status } = routes;
 
@@ -20,14 +21,14 @@ export function RoutesModal({ routes }: Props) {
   });
 
   return (
-    <Modal>
-      <nav>
+    <ModalDialog className="modal" onExternalTouch={onExternalTouch}>
+      <nav className="content">
         <ul>{items}</ul>
       </nav>
-    </Modal>
+    </ModalDialog>
   );
 }
 
-interface Props {
+interface Props extends Pick<ModalDialogProps, "onExternalTouch"> {
   routes: ContextData["routes"];
 }

@@ -7,7 +7,7 @@ import { BusRoute } from "./bus-route";
 
 export default function Main() {
   return (
-    <div className="main">
+    <main className="main">
       <Header />
       <div className="content">
         <Switch>
@@ -17,7 +17,7 @@ export default function Main() {
           <Redirect to={`/1/${MAP}`} />
         </Switch>
       </div>
-      <ModalContainer />
-    </div>
+      <ModalContainer className="modal-container" />
+    </main>
   );
 }

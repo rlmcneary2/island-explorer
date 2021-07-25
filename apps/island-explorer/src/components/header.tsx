@@ -35,7 +35,12 @@ export default function Header() {
         />
       </Link>
 
-      {showRoutesModal ? <RoutesModal routes={routes} /> : null}
+      {showRoutesModal ? (
+        <RoutesModal
+          onExternalTouch={() => setShowRoutesModal(false)}
+          routes={routes}
+        />
+      ) : null}
     </div>
   );
 }
