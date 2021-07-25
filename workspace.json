@@ -96,9 +96,9 @@
               "apps/island-explorer/src/favicon.ico",
               "apps/island-explorer/src/assets",
               {
-                "glob": "service-worker.js",
-                "input": "dist/libs/service-worker/src",
-                "output": "."
+                "glob": "service-worker.esm.js",
+                "input": "dist/libs/service-worker",
+                "output": "./service-worker.js"
               }
             ],
             "styles": [
@@ -258,82 +258,6 @@
             "entryFile": "libs/service-worker/src/service-worker.ts",
             "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
             "assets": []
-          }
-        }
-      }
-    },
-    "service-worker-app": {
-      "projectType": "application",
-      "root": "apps/service-worker-app",
-      "sourceRoot": "apps/service-worker-app/src",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/web:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
-          "options": {
-            "outputPath": "dist/apps/service-worker-app",
-            "index": "apps/service-worker-app/src/index.html",
-            "main": "apps/service-worker-app/src/service-worker.ts",
-            "polyfills": "apps/service-worker-app/src/polyfills.ts",
-            "tsConfig": "apps/service-worker-app/tsconfig.app.json",
-            "assets": [],
-            "styles": [],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/service-worker-app/src/environments/environment.ts",
-                  "with": "apps/service-worker-app/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/web:dev-server",
-          "options": {
-            "buildTarget": "service-worker-app:build"
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "service-worker-app:build:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/service-worker-app/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/service-worker-app"
-          ],
-          "options": {
-            "jestConfig": "apps/service-worker-app/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }
