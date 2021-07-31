@@ -11,7 +11,7 @@ import type {
 import * as geojson from "geojson/geojson";
 import { AnyLayer, LayerCollection, RemapGL } from "remapgl";
 import useContextState from "../context/use-context-state";
-import { Stop, Trace } from "../context/types";
+import { ContextData, Stop, Trace } from "../context/types";
 
 const STOP_CIRCLE_RADIUS_BASE = 1.15;
 const STOP_CIRCLE_RADIUS_STEPS: number[][] = [
@@ -65,13 +65,17 @@ function MapLayers({
   fitBounds: (bounds: LngLatBoundsLike) => void;
   routeId: number;
 }) {
-  const { color, routeStops, routeTrace } =
-    useContextState(state => ({
+  const selector = useMemo(
+    () => (state: ContextData) => ({
       color:
         state?.routes?.data?.find(x => x.RouteId === routeId).Color ?? "000",
       routeStops: state?.routeStops ?? null,
       routeTrace: state?.routeTrace ?? null
-    })) ?? {};
+    }),
+    [routeId]
+  );
+
+  const { color, routeStops, routeTrace } = useContextState(selector) ?? {};
 
   const traceReady =
     routeTrace?.status === "idle" && !routeTrace.error && routeTrace.data;
