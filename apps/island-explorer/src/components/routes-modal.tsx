@@ -4,7 +4,7 @@ import type { ModalDialogProps } from "modal";
 import { ContextData } from "../context/types";
 import { getRouteParameters } from "../util/route";
 
-export function RoutesModal({ onExternalTouch, routes }: Props) {
+export function RoutesModal({ onClose, onExternalTap, routes }: Props) {
   const { page } = getRouteParameters();
   const { data, error, status } = routes;
 
@@ -15,13 +15,15 @@ export function RoutesModal({ onExternalTouch, routes }: Props) {
   const items = data.map(route => {
     return (
       <li key={route.RouteId}>
-        <Link to={`/${route.RouteId}/${page}`}>{route.LongName}</Link>
+        <Link onClick={onClose} to={`/${route.RouteId}/${page}`}>
+          {route.LongName}
+        </Link>
       </li>
     );
   });
 
   return (
-    <ModalDialog className="modal" onExternalTouch={onExternalTouch}>
+    <ModalDialog className="modal" onExternalTap={onExternalTap}>
       <nav className="content">
         <ul>{items}</ul>
       </nav>
@@ -29,6 +31,6 @@ export function RoutesModal({ onExternalTouch, routes }: Props) {
   );
 }
 
-interface Props extends Pick<ModalDialogProps, "onExternalTouch"> {
+interface Props extends Pick<ModalDialogProps, "onClose" | "onExternalTap"> {
   routes: ContextData["routes"];
 }

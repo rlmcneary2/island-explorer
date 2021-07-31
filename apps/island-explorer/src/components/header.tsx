@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import { ContextState } from "../context/types";
@@ -37,7 +37,8 @@ export default function Header() {
 
       {showRoutesModal ? (
         <RoutesModal
-          onExternalTouch={() => setShowRoutesModal(false)}
+          onClose={() => setShowRoutesModal(false)}
+          onExternalTap={() => setShowRoutesModal(false)}
           routes={routes}
         />
       ) : null}

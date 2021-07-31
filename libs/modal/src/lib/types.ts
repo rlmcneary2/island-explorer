@@ -3,5 +3,6 @@ export interface ModalDialogProps
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
   > {
-  onExternalTouch?: () => void;
+  onClose?: <T = unknown>(data?: T) => void;
+  onExternalTap?: () => void;
 }
