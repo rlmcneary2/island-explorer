@@ -7,6 +7,8 @@ import toGeoJson from "@mapbox/togeojson";
 const ACTION_FETCH_ROUTES_FINISHED = "fetch-routes-finished";
 
 export function create(): ActionHandler<ContextState>[] {
+  let fetchRouteVehiclesRouteId: number = null;
+
   const fetchRoutes: ActionHandler<ContextState, null> = (
     state,
     action,
@@ -84,6 +86,70 @@ export function create(): ActionHandler<ContextState>[] {
     return [state, true];
   };
 
+  const fetchRouteVehicles: ActionHandler<ContextState, number> = (
+    state,
+    action,
+    dispatch
+  ) => {
+    if (action.id !== actionIds.ACTION_FETCH_ROUTE_VEHICLES) {
+      return [state];
+    }
+
+    if (
+      state?.routeVehicles?.status === "active" &&
+      fetchRouteVehiclesRouteId === action.payload
+    ) {
+      return [state];
+    }
+
+    fetchRouteVehiclesRouteId = action.payload;
+
+    // `${apiData.domain}/InfoPoint/rest/Vehicles/GetAllVehiclesForRoutes?routeIDs=${routeIds.join(",")}`
+    fetch(
+      `${env.apiLeft}/InfoPoint/rest/Vehicles/GetAllVehiclesForRoutes?routeIDs=${action.payload}`
+    )
+      .then(async response => {
+        if (response.ok) {
+          return response.json();
+        }
+
+        let body: string;
+        try {
+          body = await response.text();
+        } catch (err) {
+          // Nothing to do here.
+        }
+
+        throw Error(`${response.status}${body ? `\nbody='${body}'` : ""}`);
+      })
+      .then(body => {
+        dispatch(inlineState => [
+          {
+            ...inlineState,
+            routeVehicles: { data: body, status: "idle" }
+          },
+          true
+        ]);
+      })
+      .catch(err => {
+        dispatch(inlineState => [
+          {
+            ...inlineState,
+            routeVehicles: { error: err, status: "idle" }
+          },
+          true
+        ]);
+      });
+
+    return [
+      {
+        ...state,
+        routeVehicles: { status: "active" }
+      },
+      true
+    ];
+  };
+
   /* TBD if needed */
   // const cacheRoutesData: ActionHandler<ContextState, Route[]> = (
   //   state,
@@ -140,9 +206,9 @@ export function create(): ActionHandler<ContextState>[] {
         r => r.RouteId === action.payload
       );
 
-      fetch(
-        `${env.apiLeft}/InfoPoint/Resources/Traces/${traceFileName}`
-      ).then(response => handleTraceResponse(dispatch, response));
+      fetch(`${env.apiLeft}/InfoPoint/Resources/Traces/${traceFileName}`).then(
+        response => handleTraceResponse(dispatch, response)
+      );
 
       nextState = {
         ...(nextState ?? state),
@@ -166,13 +232,26 @@ export function create(): ActionHandler<ContextState>[] {
       };
     }
 
+    // Always dispatch the request to get vehicles, the handler function will
+    // verify if the fetch needs to be made.
+    dispatch({
+      id: actionIds.ACTION_FETCH_ROUTE_VEHICLES,
+      payload: action.payload
+    });
+
     return [(nextState as ContextState) ?? state, !!nextState];
   };
 
-  return [fetchRoutes, fetchRoutesFinished, handleRouteChanged];
+  return [
+    fetchRoutes,
+    fetchRoutesFinished,
+    handleRouteChanged,
+    fetchRouteVehicles
+  ];
 }
 
 export const actionIds = Object.freeze({
+  ACTION_FETCH_ROUTE_VEHICLES: "action-fetch-route-vehicles",
   ACTION_ROUTE_CHANGED: "action-route-changed"
 });
 

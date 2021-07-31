@@ -7,6 +7,7 @@ export interface ContextData {
   routes?: AsyncActionData<Route[]>;
   routeStops?: AsyncActionData<Stop[]>;
   routeTrace?: AsyncActionData<Trace>;
+  routeVehicles?: AsyncActionData<Vehicle[]>;
 }
 
 export interface ContextActions {
