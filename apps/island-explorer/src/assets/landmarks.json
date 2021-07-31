@@ -1,0 +1,637 @@
+{
+  "landmarks": [
+    {
+      "features": [
+        "inn"
+      ],
+      "landmarkType": "lodging",
+      "name": "Acadia Inn",
+      "id": 17,
+      "location": {
+        "latitude": 44.39526749,
+        "longitude": -68.22457123
+      }
+    },
+    {
+      "features": [
+        "park"
+      ],
+      "description": "LMK_ACADIA_GATEWAY_CENTER_DESC",
+      "landmarkType": "ground-transport",
+      "name": "Acadia Gateway Center",
+      "id": 74,
+      "location": {
+        "latitude": 44.470624,
+        "longitude": -68.371438
+      }
+    },
+    {
+      "features": [
+        "inn"
+      ],
+      "landmarkType": "lodging",
+      "name": "Atlantic Eyrie Lodge",
+      "id": 18,
+      "location": {
+        "latitude": 44.39187622,
+        "longitude": -68.22277832
+      }
+    },
+    {
+      "features": [
+        "inn"
+      ],
+      "landmarkType": "lodging",
+      "name": "Atlantic Oceanside Hotel",
+      "id": 14,
+      "location": {
+        "latitude": 44.3971138,
+        "longitude": -68.22524261
+      }
+    },
+    {
+      "features": [
+        "airport"
+      ],
+      "landmarkType": "airport",
+      "name": "Bar Harbor Airport",
+      "id": 10,
+      "location": {
+        "latitude": 44.44600296,
+        "longitude": -68.3615036
+      }
+    },
+    {
+      "features": [
+        "camp"
+      ],
+      "landmarkType": "campground",
+      "name": "Bar Harbor Campground",
+      "id": 4,
+      "location": {
+        "latitude": 44.43102264,
+        "longitude": -68.27126312
+      }
+    },
+    {
+      "features": [
+        "camp"
+      ],
+      "landmarkType": "campground",
+      "name": "Bar Harbor KOA Campground",
+      "id": 9,
+      "location": {
+        "latitude": 44.42137909,
+        "longitude": -68.36430359
+      }
+    },
+    {
+      "features": [
+        "inn"
+      ],
+      "landmarkType": "lodging",
+      "name": "Bar Harbor Regency",
+      "id": 15,
+      "location": {
+        "latitude": 44.39929581,
+        "longitude": -68.22899628
+      }
+    },
+    {
+      "features": [
+        "inn"
+      ],
+      "landmarkType": "lodging",
+      "name": "Bar Harbor Motel",
+      "id": 16,
+      "location": {
+        "latitude": 44.39624405,
+        "longitude": -68.22585297
+      }
+    },
+    {
+      "features": [
+        "camp"
+      ],
+      "landmarkType": "campground",
+      "name": "Bass Harbor Campground",
+      "id": 47,
+      "location": {
+        "latitude": 44.23036194,
+        "longitude": -68.33906555
+      }
+    },
+    {
+      "features": [
+        "ferry"
+      ],
+      "landmarkType": "ferry-transport",
+      "name": "Bass Harbor Ferry Terminal",
+      "id": 55,
+      "location": {
+        "latitude": 44.23500061,
+        "longitude": 34738159
+      }
+    },
+    {
+      "features": [
+        "dine"
+      ],
+      "landmarkType": "point-of-interest",
+      "name": "Bernard",
+      "id": 50,
+      "location": {
+        "latitude": 44.23987198,
+        "longitude": -68.35358429
+      }
+    },
+    {
+      "features": [
+        "camp"
+      ],
+      "landmarkType": "campground",
+      "name": "Blackwoods Campground",
+      "id": 27,
+      "location": {
+        "latitude": 44.30889511,
+        "longitude": -68.20349121
+      }
+    },
+    {
+      "features": [
+        "dine"
+      ],
+      "landmarkType": "point-of-interest",
+      "name": "Birch Harbor",
+      "id": 60,
+      "location": {
+        "latitude": 44.38780212,
+        "longitude": -68.03931427
+      }
+    },
+    {
+      "description": "LMK_BROWN_MOUNTAIN_GATEHOUSE_DESC",
+      "features": [
+        "restroom",
+        "walk",
+        "hike",
+        "bike"
+      ],
+      "landmarkType": "point-of-interest",
+      "name": "Brown Mountain Gatehouse",
+      "id": 53,
+      "location": {
+        "latitude": 44.31218338,
+        "longitude": -68.28541565
+      }
+    },
+    {
+      "description": "LMK_BUBBLE_POND_DESC",
+      "features": [
+        "restroom",
+        "walk",
+        "hike",
+        "climb",
+        "bike"
+      ],
+      "landmarkType": "point-of-interest",
+      "name": "Bubble Pond",
+      "id": 28,
+      "location": {
+        "latitude": 44.35030746,
+        "longitude": -68.24166107
+      }
+    },
+    {
+      "features": [
+        "hike"
+      ],
+      "landmarkType": "trail-head",
+      "name": "Cadillac North Ridge",
+      "id": 20,
+      "location": {
+        "latitude": 44.3786,
+        "longitude": -68.2292
+      }
+    },
+    {
+      "features": [
+        "hike"
+      ],
+      "landmarkType": "trail-head",
+      "name": "Cadillac North Ridge",
+      "id": 83,
+      "location": {
+        "latitude": 44.3786,
+        "longitude": -68.2292
+      }
+    },
+    {
+      "description": "LMK_ECHO_LAKE_DESC",
+      "features": [
+        "restroom",
+        "water",
+        "beach",
+        "swim",
+        "hike",
+        "climb",
+        "tower"
+      ],
+      "landmarkType": "point-of-interest",
+      "name": "Echo Lake",
+      "id": 40,
+      "location": {
+        "latitude": 44.31499481,
+        "longitude": -68.33670044
+      }
+    },
+    {
+      "description": "LMK_WH_FERRY_TERMINAL_DESC",
+      "features": [
+        "ferry"
+      ],
+      "landmarkType": "ferry-transport",
+      "name": "Winter Harbor Ferry Terminal",
+      "id": 56,
+      "location": {
+        "latitude": 44.39276123,
+        "longitude": -68.07952881
+      }
+    },
+    {
+      "features": [
+        "inn"
+      ],
+      "landmarkType": "lodging",
+      "name": "Hampton Inn Bar Harbor",
+      "id": 71,
+      "location": {
+        "latitude": 44.390103,
+        "longitude": -68.22244
+      }
+    },
+    {
+      "description": "LMK_HULLS_COVE_VISITOR_CENTER_DESC",
+      "features": [
+        "restroom",
+        "water",
+        "park",
+        "walk",
+        "bike"
+      ],
+      "landmarkType": "visitor-center",
+      "name": "Hulls Cove Visitor Center",
+      "id": 3,
+      "location": {
+        "latitude": 44.40903854,
+        "longitude": -68.24743652
+      }
+    },
+    {
+      "description": "LMK_JORDAN_POND_DESC",
+      "features": [
+        "accessible",
+        "restroom",
+        "water",
+        "dine",
+        "gift",
+        "wonder",
+        "park",
+        "walk",
+        "hike",
+        "climb",
+        "bike"
+      ],
+      "landmarkType": "point-of-interest",
+      "name": "Jordan Pond",
+      "id": 29,
+      "location": {
+        "latitude": 44.32016754,
+        "longitude": -68.25358582
+      }
+    },
+    {
+      "features": [
+        "camp"
+      ],
+      "landmarkType": "campground",
+      "name": "Mount Desert Campground",
+      "id": 62,
+      "location": {
+        "latitude": 44.36645889,
+        "longitude": -68.31780243
+      }
+    },
+    {
+      "features": [
+        "camp"
+      ],
+      "landmarkType": "campground",
+      "name": "Mount Desert Narrows Campground",
+      "id": 6,
+      "location": {
+        "latitude": 44.4199295,
+        "longitude": -68.33718109
+      }
+    },
+    {
+      "features": [
+        "camp"
+      ],
+      "landmarkType": "campground",
+      "name": "Narrows Too Campground",
+      "id": 11,
+      "location": {
+        "latitude": 44.43856812,
+        "longitude": -68.36693573
+      }
+    },
+    {
+      "description": "LMK_NORTHEAST_HARBOR_PIER_DESC",
+      "features": [
+        "ferry"
+      ],
+      "landmarkType": "ferry-transport",
+      "name": "Northeast Harbor Pier",
+      "id": 38,
+      "location": {
+        "latitude": 44.29471588,
+        "longitude": -68.284935
+      }
+    },
+    {
+      "features": [
+        "attraction"
+      ],
+      "landmarkType": "attraction",
+      "name": "Oceanarium",
+      "id": 7,
+      "location": {
+        "latitude": 44.419361,
+        "longitude": -68.349579
+      }
+    },
+    {
+      "features": [
+        "wonder",
+        "walk",
+        "hike",
+        "climb"
+      ],
+      "landmarkType": "point-of-interest",
+      "name": "Otter Cliffs",
+      "id": 24,
+      "location": {
+        "latitude": 44.31101227,
+        "longitude": -68.18968201
+      }
+    },
+    {
+      "description": "LMK_PARKMAN_MOUNTAIN_DESC",
+      "features": [
+        "restroom",
+        "walk",
+        "hike",
+        "climb",
+        "bike"
+      ],
+      "landmarkType": "trail-head",
+      "name": "Parkman Mountain",
+      "id": 77,
+      "location": {
+        "latitude": 44.329011,
+        "longitude": -68.293192
+      }
+    },
+    {
+      "description": "LMK_SAND_BEACH_DESC",
+      "features": [
+        "restroom",
+        "water",
+        "wonder",
+        "beach",
+        "swim",
+        "park",
+        "walk",
+        "hike",
+        "climb"
+      ],
+      "landmarkType": "point-of-interest",
+      "name": "Sand Beach",
+      "id": 22,
+      "location": {
+        "latitude": 44.32995987,
+        "longitude": -68.184021
+      }
+    },
+    {
+      "description": "LMK_SCHOODIC_POINT_DESC",
+      "features": [
+        "restroom",
+        "wonder"
+      ],
+      "landmarkType": "point-of-interest",
+      "name": "Schoodic Point",
+      "id": 59,
+      "location": {
+        "latitude": 44.33314896,
+        "longitude": -68.06096649
+      }
+    },
+    {
+      "features": [
+        "camp"
+      ],
+      "landmarkType": "campground",
+      "name": "Schoodic Woods Campground",
+      "id": 79,
+      "location": {
+        "latitude": 44.380588,
+        "longitude": -68.067864
+      }
+    },
+    {
+      "features": [
+        "dine",
+        "beach",
+        "swim"
+      ],
+      "landmarkType": "point-of-interest",
+      "name": "Seal Harbor",
+      "id": 31,
+      "location": {
+        "latitude": 44.29630661,
+        "longitude": -68.2411499
+      }
+    },
+    {
+      "features": [
+        "camp"
+      ],
+      "landmarkType": "campground",
+      "name": "Seawall Campground",
+      "id": 46,
+      "location": {
+        "latitude": 44.23894882,
+        "longitude": -68.30301666
+      }
+    },
+    {
+      "description": "LMK_SIEUR_DE_MONTS_DESC",
+      "features": [
+        "accessible",
+        "restroom",
+        "water",
+        "station",
+        "attraction",
+        "park",
+        "walk",
+        "hike"
+      ],
+      "landmarkType": "visitor-center",
+      "name": "Sieur De Monts",
+      "id": 21,
+      "location": {
+        "latitude": 44.36243439,
+        "longitude": -68.20748138
+      }
+    },
+    {
+      "features": [
+        "camp"
+      ],
+      "landmarkType": "campground",
+      "name": "Smugglers' Den Campground",
+      "id": 41,
+      "location": {
+        "latitude": 44.30040359,
+        "longitude": -68.33153534
+      }
+    },
+    {
+      "features": [
+        "dine"
+      ],
+      "landmarkType": "point-of-interest",
+      "name": "Southwest Harbor",
+      "id": 44,
+      "location": {
+        "latitude": 44.2801857,
+        "longitude": -68.32499695
+      }
+    },
+    {
+      "features": [
+        "accessible",
+        "restroom",
+        "snack",
+        "wonder",
+        "walk"
+      ],
+      "landmarkType": "point-of-interest",
+      "name": "Thunder Hole",
+      "id": 23,
+      "location": {
+        "latitude": 44.32134247,
+        "longitude": -68.18928528
+      }
+    },
+    {
+      "features": [
+        "dine"
+      ],
+      "landmarkType": "point-of-interest",
+      "name": "Town Hill",
+      "id": 69,
+      "location": {
+        "latitude": 44.39901733,
+        "longitude": -68.33446503
+      }
+    },
+    {
+      "description": "LMK_VILLAGE_GREEN_DESC",
+      "features": [
+        "restroom",
+        "dine",
+        "snack",
+        "gift",
+        "inn",
+        "attraction",
+        "park",
+        "walk"
+      ],
+      "landmarkType": "point-of-interest",
+      "name": "Village Green",
+      "id": 1,
+      "location": {
+        "latitude": 44.38788986,
+        "longitude": -68.20548248
+      }
+    },
+    {
+      "features": [
+        "restroom",
+        "walk",
+        "hike",
+        "bike"
+      ],
+      "landmarkType": "point-of-interest",
+      "name": "Wildwood Stables",
+      "id": 30,
+      "location": {
+        "latitude": 44.31375122,
+        "longitude": -68.24717712
+      }
+    },
+    {
+      "features": [
+        "dine"
+      ],
+      "landmarkType": "point-of-interest",
+      "name": "Winter Harbor",
+      "id": 57,
+      "location": {
+        "latitude": 44.39128876,
+        "longitude": -68.08921051
+      }
+    },
+    {
+      "features": [
+        "inn"
+      ],
+      "landmarkType": "lodging",
+      "name": "Wonder View Inn",
+      "id": 19,
+      "location": {
+        "latitude": 44.39022446,
+        "longitude": -68.21959686
+      }
+    },
+    {
+      "features": [
+        "camp"
+      ],
+      "landmarkType": "campground",
+      "name": "Woodlands KOA Campground",
+      "id": 8,
+      "location": {
+        "latitude": 44.4050827,
+        "longitude": -68.34212494
+      }
+    },
+    {
+      "description": "TRH_CHAMPLAIN_NORTH_RIDGE_DESC",
+      "descriptionShort": "TRH_CHAMPLAIN_NORTH_RIDGE_SDESC",
+      "features": [
+        "hike"
+      ],
+      "id": 1000,
+      "landmarkType": "trail-head",
+      "name": "Champlain North Ridge trail-head",
+      "location": {
+        "latitude": 44.363095,
+        "longitude": -68.193408
+      }
+    }
+  ]
+}

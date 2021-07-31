@@ -1,0 +1,1389 @@
+{
+  "routes": [
+    {
+      "description": "RTE_OCEANARIUM_DESC",
+      "id": 1,
+      "name": "Oceanarium",
+      "page": [
+        {
+          "p": "RTE_OCEANARIUM_DESC"
+        },
+        {
+          "tip": "RTE_OCEANARIUM_TIP"
+        }
+      ],
+      "scheduledStops": [
+        {
+          "dates": {
+            "begin": "2019-06-23",
+            "end": "2019-08-26"
+          },
+          "hours": {
+            "first": "07:14:00",
+            "last": "22:30:00"
+          },
+          "stops": [
+            {
+              "id": 7,
+              "name": "Oceanarium"
+            },
+            {
+              "id": 6,
+              "name": "Mount Desert Narrows Campground"
+            },
+            {
+              "id": 5,
+              "name": "Hadley Point"
+            },
+            {
+              "id": 4,
+              "name": "Bar Harbor Campground"
+            },
+            {
+              "id": 3,
+              "description": "LMK_HULLS_COVE_VISITOR_CENTER_DESC",
+              "name": "Hulls Cove Vistor Center"
+            },
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            },
+            {
+              "id": 3,
+              "description": "LMK_HULLS_COVE_VISITOR_CENTER_DESC",
+              "name": "Hulls Cove Vistor Center"
+            },
+            {
+              "id": 4,
+              "name": "Bar Harbor Campground"
+            },
+            {
+              "id": 5,
+              "name": "Hadley Point"
+            },
+            {
+              "id": 6,
+              "name": "Mount Desert Narrows Campground"
+            },
+            {
+              "id": 7,
+              "name": "Oceanarium"
+            }
+          ]
+        },
+        {
+          "dates": {
+            "begin": "2019-08-27",
+            "end": "2019-10-14"
+          },
+          "hours": {
+            "first": "08:14:00",
+            "last": "21:00:00"
+          },
+          "stops": [
+            {
+              "id": 7,
+              "name": "Oceanarium"
+            },
+            {
+              "id": 6,
+              "name": "Mount Desert Narrows Campground"
+            },
+            {
+              "id": 5,
+              "name": "Hadley Point"
+            },
+            {
+              "id": 4,
+              "name": "Bar Harbor Campground"
+            },
+            {
+              "id": 3,
+              "description": "LMK_HULLS_COVE_VISITOR_CENTER_DESC",
+              "name": "Hulls Cove Vistor Center"
+            },
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            },
+            {
+              "id": 3,
+              "description": "LMK_HULLS_COVE_VISITOR_CENTER_DESC",
+              "name": "Hulls Cove Vistor Center"
+            },
+            {
+              "id": 4,
+              "name": "Bar Harbor Campground"
+            },
+            {
+              "id": 5,
+              "name": "Hadley Point"
+            },
+            {
+              "id": 6,
+              "name": "Mount Desert Narrows Campground"
+            },
+            {
+              "id": 7,
+              "name": "Oceanarium"
+            }
+          ]
+        }
+      ],
+      "landmarks": []
+    },
+    {
+      "description": "RTE_EDEN_STREET_DESC",
+      "id": 2,
+      "name": "Eden Street",
+      "page": [
+        {
+          "p": "RTE_EDEN_STREET_DESC"
+        }
+      ],
+      "scheduledStops": [
+        {
+          "dates": {
+            "begin": "2019-06-23",
+            "end": "2019-08-26"
+          },
+          "hours": {
+            "first": "06:45:00",
+            "last": "22:15:00"
+          },
+          "stops": [
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            },
+            {
+              "id": 13,
+              "name": "College of the Atlantic"
+            },
+            {
+              "id": 14,
+              "name": "Atlantic Oceanside Hotel"
+            },
+            {
+              "id": 15,
+              "name": "Bar Harbor Regency"
+            },
+            {
+              "id": 16,
+              "name": "Bar Harbor Motel"
+            },
+            {
+              "id": 17,
+              "name": "Acadia Inn"
+            },
+            {
+              "id": 18,
+              "name": "Atlantic Eyrie Lodge"
+            },
+            {
+              "id": 71,
+              "name": "Hampton Inn Bar Harbor"
+            },
+            {
+              "id": 19,
+              "name": "Wonder View Inn"
+            },
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            }
+          ]
+        },
+        {
+          "dates": {
+            "begin": "2019-08-27",
+            "end": "2019-10-14"
+          },
+          "hours": {
+            "first": "07:45:00",
+            "last": "20:15:00"
+          },
+          "stops": [
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            },
+            {
+              "id": 3,
+              "description": "LMK_HULLS_COVE_VISITOR_CENTER_DESC",
+              "name": "Hulls Cove Vistor Center"
+            },
+            {
+              "id": 15,
+              "name": "Bar Harbor Regency"
+            },
+            {
+              "id": 14,
+              "name": "Atlantic Oceanside Hotel"
+            },
+            {
+              "id": 17,
+              "name": "Acadia Inn"
+            },
+            {
+              "id": 18,
+              "name": "Atlantic Eyrie Lodge"
+            },
+            {
+              "id": 71,
+              "name": "Hampton Inn Bar Harbor"
+            },
+            {
+              "id": 19,
+              "name": "Wonder View Inn"
+            },
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            }
+          ]
+        }
+      ],
+      "landmarks": []
+    },
+    {
+      "description": "RTE_SAND_BEACH_DESC",
+      "id": 3,
+      "name": "Sand Beach",
+      "page": [
+        {
+          "p": "RTE_SAND_BEACH_DESC"
+        },
+        {
+          "tip": "RTE_SAND_BEACH_TIP"
+        }
+      ],
+      "scheduledStops": [
+        {
+          "dates": {
+            "begin": "2019-06-23",
+            "end": "2019-08-26"
+          },
+          "hours": {
+            "first": "08:00:00",
+            "last": "18:30:00"
+          },
+          "stops": [
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            },
+            {
+              "id": 20,
+              "name": "Cadillac North Ridge"
+            },
+            {
+              "id": 21,
+              "description": "LMK_SIEUR_DE_MONTS_DESC",
+              "name": "Sieur De Monts"
+            },
+            {
+              "id": 22,
+              "description": "LMK_SAND_BEACH_DESC",
+              "name": "Sand Beach"
+            },
+            {
+              "id": 23,
+              "name": "Thunder Hole"
+            },
+            {
+              "id": 24,
+              "name": "Otter Cliffs"
+            },
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            }
+          ]
+        },
+        {
+          "dates": {
+            "begin": "2019-08-27",
+            "end": "2019-10-14"
+          },
+          "hours": {
+            "first": "09:00:00",
+            "last": "17:30:00"
+          },
+          "stops": [
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            },
+            {
+              "id": 20,
+              "name": "Cadillac North Ridge"
+            },
+            {
+              "id": 21,
+              "description": "LMK_SIEUR_DE_MONTS_DESC",
+              "name": "Sieur De Monts"
+            },
+            {
+              "id": 22,
+              "description": "LMK_SAND_BEACH_DESC",
+              "name": "Sand Beach"
+            },
+            {
+              "id": 23,
+              "name": "Thunder Hole"
+            },
+            {
+              "id": 24,
+              "name": "Otter Cliffs"
+            },
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            }
+          ]
+        }
+      ],
+      "landmarks": [
+        1000
+      ]
+    },
+    {
+      "description": "RTE_LOOP_ROAD_DESC",
+      "id": 4,
+      "name": "Loop Road",
+      "page": [
+        {
+          "p": "RTE_LOOP_ROAD_DESC"
+        },
+        {
+          "tip": "RTE_LOOP_ROAD_TIP"
+        },
+        {
+          "tip": "RTE_LOOP_ROAD_TIP2"
+        }
+      ],
+      "scheduledStops": [
+        {
+          "dates": {
+            "begin": "2019-06-23",
+            "end": "2019-08-26"
+          },
+          "hours": {
+            "first": "08:45:00",
+            "last": "16:45:00"
+          },
+          "stops": [
+            {
+              "id": 3,
+              "description": "LMK_HULLS_COVE_VISITOR_CENTER_DESC",
+              "name": "Hulls Cove Vistor Center"
+            },
+            {
+              "id": 20,
+              "name": "Cadillac North Ridge"
+            },
+            {
+              "id": 21,
+              "description": "LMK_SIEUR_DE_MONTS_DESC",
+              "name": "Sieur De Monts"
+            },
+            {
+              "id": 22,
+              "description": "LMK_SAND_BEACH_DESC",
+              "name": "Sand Beach"
+            },
+            {
+              "id": 23,
+              "name": "Thunder Hole"
+            },
+            {
+              "id": 30,
+              "name": "Wildwood Stables"
+            },
+            {
+              "id": 29,
+              "description": "LMK_JORDAN_POND_DESC",
+              "name": "Jordan Pond"
+            },
+            {
+              "id": 28,
+              "description": "LMK_BUBBLE_POND_DESC",
+              "name": "Bubble Pond"
+            },
+            {
+              "id": 3,
+              "description": "LMK_HULLS_COVE_VISITOR_CENTER_DESC",
+              "name": "Hulls Cove Vistor Center"
+            }
+          ]
+        },
+        {
+          "dates": {
+            "begin": "2019-08-27",
+            "end": "2019-10-14"
+          },
+          "hours": {
+            "first": "08:45:00",
+            "last": "15:45:00"
+          },
+          "stops": [
+            {
+              "id": 3,
+              "description": "LMK_HULLS_COVE_VISITOR_CENTER_DESC",
+              "name": "Hulls Cove Vistor Center"
+            },
+            {
+              "id": 20,
+              "name": "Cadillac North Ridge"
+            },
+            {
+              "id": 21,
+              "description": "LMK_SIEUR_DE_MONTS_DESC",
+              "name": "Sieur De Monts"
+            },
+            {
+              "id": 22,
+              "description": "LMK_SAND_BEACH_DESC",
+              "name": "Sand Beach"
+            },
+            {
+              "id": 23,
+              "name": "Thunder Hole"
+            },
+            {
+              "id": 30,
+              "name": "Wildwood Stables"
+            },
+            {
+              "id": 29,
+              "description": "LMK_JORDAN_POND_DESC",
+              "name": "Jordan Pond"
+            },
+            {
+              "id": 28,
+              "description": "LMK_BUBBLE_POND_DESC",
+              "name": "Bubble Pond"
+            },
+            {
+              "id": 3,
+              "description": "LMK_HULLS_COVE_VISITOR_CENTER_DESC",
+              "name": "Hulls Cove Vistor Center"
+            }
+          ]
+        }
+      ],
+      "landmarks": [
+        1000
+      ]
+    },
+    {
+      "description": "RTE_JORDAN_POND_DESC",
+      "id": 5,
+      "name": "Jordan Pond",
+      "page": [
+        {
+          "p": "RTE_JORDAN_POND_DESC"
+        }
+      ],
+      "scheduledStops": [
+        {
+          "dates": {
+            "begin": "2019-06-23",
+            "end": "2019-08-26"
+          },
+          "hours": {
+            "first": "09:15:00",
+            "last": "21:15:00"
+          },
+          "stops": [
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            },
+            {
+              "id": 3,
+              "description": "LMK_HULLS_COVE_VISITOR_CENTER_DESC",
+              "name": "Hulls Cove Vistor Center"
+            },
+            {
+              "id": 20,
+              "name": "Cadillac North Ridge"
+            },
+            {
+              "id": 28,
+              "description": "LMK_BUBBLE_POND_DESC",
+              "name": "Bubble Pond"
+            },
+            {
+              "id": 29,
+              "description": "LMK_JORDAN_POND_DESC",
+              "name": "Jordan Pond"
+            },
+            {
+              "id": 31,
+              "name": "Seal Harbor"
+            },
+            {
+              "id": 38,
+              "description": "LMK_NORTHEAST_HARBOR_PIER_DESC",
+              "name": "Northeast Harbor Pier"
+            },
+            {
+              "id": 31,
+              "name": "Seal Harbor"
+            },
+            {
+              "id": 29,
+              "description": "LMK_JORDAN_POND_DESC",
+              "name": "Jordan Pond"
+            },
+            {
+              "id": 28,
+              "description": "LMK_BUBBLE_POND_DESC",
+              "name": "Bubble Pond"
+            },
+            {
+              "id": 20,
+              "name": "Cadillac North Ridge"
+            },
+            {
+              "id": 3,
+              "description": "LMK_HULLS_COVE_VISITOR_CENTER_DESC",
+              "name": "Hulls Cove Vistor Center"
+            },
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            }
+          ]
+        },
+        {
+          "dates": {
+            "begin": "2019-08-27",
+            "end": "2019-10-14"
+          },
+          "hours": {
+            "first": "09:15:00",
+            "last": "16:45:00"
+          },
+          "stops": [
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            },
+            {
+              "id": 20,
+              "name": "Cadillac North Ridge"
+            },
+            {
+              "id": 28,
+              "description": "LMK_BUBBLE_POND_DESC",
+              "name": "Bubble Pond"
+            },
+            {
+              "id": 29,
+              "description": "LMK_JORDAN_POND_DESC",
+              "name": "Jordan Pond"
+            },
+            {
+              "id": 31,
+              "name": "Seal Harbor"
+            },
+            {
+              "id": 38,
+              "description": "LMK_NORTHEAST_HARBOR_PIER_DESC",
+              "name": "Northeast Harbor Pier"
+            },
+            {
+              "id": 31,
+              "name": "Seal Harbor"
+            },
+            {
+              "id": 29,
+              "description": "LMK_JORDAN_POND_DESC",
+              "name": "Jordan Pond"
+            },
+            {
+              "id": 28,
+              "description": "LMK_BUBBLE_POND_DESC",
+              "name": "Bubble Pond"
+            },
+            {
+              "id": 20,
+              "name": "Cadillac North Ridge"
+            },
+            {
+              "id": 3,
+              "description": "LMK_HULLS_COVE_VISITOR_CENTER_DESC",
+              "name": "Hulls Cove Vistor Center"
+            },
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            }
+          ]
+        }
+      ],
+      "landmarks": []
+    },
+    {
+      "description": "RTE_BROWN_MOUNTAIN_DESC",
+      "id": 6,
+      "name": "Brown Mountain",
+      "page": [
+        {
+          "p": "RTE_BROWN_MOUNTAIN_DESC"
+        }
+      ],
+      "scheduledStops": [
+        {
+          "dates": {
+            "begin": "2019-06-23",
+            "end": "2019-08-26"
+          },
+          "hours": {
+            "first": "08:30:00",
+            "last": "15:30:00"
+          },
+          "stops": [
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            },
+            {
+              "id": 34,
+              "description": "LMK_EAGLE_LAKE_DESC",
+              "name": "Eagle Lake"
+            },
+            {
+              "id": 35,
+              "description": "LMK_MID_HIGH_SCHOOL_DESC",
+              "name": "MDI High School"
+            },
+            {
+              "id": 77,
+              "description": "LMK_PARKMAN_MOUNTAIN_DESC",
+              "name": "Parkman Mountain"
+            },
+            {
+              "id": 53,
+              "description": "LMK_BROWN_MOUNTAIN_GATEHOUSE_DESC",
+              "name": "Brown Mountain Gatehouse"
+            },
+            {
+              "id": 38,
+              "description": "LMK_NORTHEAST_HARBOR_PIER_DESC",
+              "name": "Northeast Harbor Pier"
+            },
+            {
+              "id": 53,
+              "description": "LMK_BROWN_MOUNTAIN_GATEHOUSE_DESC",
+              "name": "Brown Mountain Gatehouse"
+            },
+            {
+              "id": 77,
+              "description": "LMK_PARKMAN_MOUNTAIN_DESC",
+              "name": "Parkman Mountain"
+            },
+            {
+              "id": 35,
+              "description": "LMK_MID_HIGH_SCHOOL_DESC",
+              "name": "MDI High School"
+            },
+            {
+              "id": 34,
+              "description": "LMK_EAGLE_LAKE_DESC",
+              "name": "Eagle Lake"
+            },
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            }
+          ]
+        }
+      ],
+      "landmarks": []
+    },
+    {
+      "description": "RTE_SOUTHWEST_HARBOR_DESC",
+      "id": 7,
+      "name": "Southwest Harbor",
+      "notice": "Scheduled stops vary by time of year and day. Please check a local schedule to confirm the stops that are currently in service.",
+      "page": [
+        {
+          "p": "RTE_SOUTHWEST_HARBOR_DESC"
+        }
+      ],
+      "scheduledStops": [
+        {
+          "dates": {
+            "begin": "2019-06-23",
+            "end": "2019-08-26"
+          },
+          "hours": {
+            "first": "08:15:00",
+            "last": "21:00:00"
+          },
+          "stops": [
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            },
+            {
+              "id": 35,
+              "description": "LMK_MID_HIGH_SCHOOL_DESC",
+              "name": "MDI High School"
+            },
+            {
+              "id": 62,
+              "name": "Mount Desert Campground"
+            },
+            {
+              "id": 39,
+              "description": "LMK_SOMESVILLE_DESC",
+              "name": "Somesville"
+            },
+            {
+              "id": 40,
+              "description": "LMK_ECHO_LAKE_DESC",
+              "name": "Echo Lake"
+            },
+            {
+              "id": 41,
+              "name": "Smugglers' Den Campground"
+            },
+            {
+              "id": 43,
+              "name": "Clark Point"
+            },
+            {
+              "id": 44,
+              "name": "Southwest Harbor"
+            },
+            {
+              "id": 88,
+              "name": "Manset Dock"
+            },
+            {
+              "id": 46,
+              "name": "Seawall Campground"
+            },
+            {
+              "id": 47,
+              "name": "Bass Harbor Campground"
+            },
+            {
+              "id": 55,
+              "name": "Bass Harbor Ferry Terminal"
+            },
+            {
+              "id": 48,
+              "name": "Tremont School"
+            },
+            {
+              "id": 50,
+              "name": "Bernard"
+            },
+            {
+              "id": 48,
+              "name": "Tremont School"
+            },
+            {
+              "id": 55,
+              "name": "Bass Harbor Ferry Terminal"
+            },
+            {
+              "id": 47,
+              "name": "Bass Harbor Campground"
+            },
+            {
+              "id": 46,
+              "name": "Seawall Campground"
+            },
+            {
+              "id": 88,
+              "name": "Manset Dock"
+            },
+            {
+              "id": 44,
+              "name": "Southwest Harbor"
+            },
+            {
+              "id": 43,
+              "name": "Clark Point"
+            },
+            {
+              "id": 41,
+              "name": "Smugglers' Den Campground"
+            },
+            {
+              "id": 40,
+              "description": "LMK_ECHO_LAKE_DESC",
+              "name": "Echo Lake"
+            },
+            {
+              "id": 39,
+              "description": "LMK_SOMESVILLE_DESC",
+              "name": "Somesville"
+            },
+            {
+              "id": 62,
+              "name": "Mount Desert Campground"
+            },
+            {
+              "id": 35,
+              "description": "LMK_MID_HIGH_SCHOOL_DESC",
+              "name": "MDI High School"
+            },
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            }
+          ]
+        },
+        {
+          "dates": {
+            "begin": "2019-08-27",
+            "end": "2019-10-14"
+          },
+          "hours": {
+            "first": "08:15:00",
+            "last": "17:45:00"
+          },
+          "stops": [
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            },
+            {
+              "id": 35,
+              "description": "LMK_MID_HIGH_SCHOOL_DESC",
+              "name": "MDI High School"
+            },
+            {
+              "id": 62,
+              "name": "Mount Desert Campground"
+            },
+            {
+              "id": 39,
+              "description": "LMK_SOMESVILLE_DESC",
+              "name": "Somesville"
+            },
+            {
+              "id": 40,
+              "description": "LMK_ECHO_LAKE_DESC",
+              "name": "Echo Lake"
+            },
+            {
+              "id": 41,
+              "name": "Smugglers' Den Campground"
+            },
+            {
+              "id": 43,
+              "name": "Clark Point"
+            },
+            {
+              "id": 44,
+              "name": "Southwest Harbor"
+            },
+            {
+              "id": 88,
+              "name": "Manset Dock"
+            },
+            {
+              "id": 46,
+              "name": "Seawall Campground"
+            },
+            {
+              "id": 47,
+              "name": "Bass Harbor Campground"
+            },
+            {
+              "id": 55,
+              "name": "Bass Harbor Ferry Terminal"
+            },
+            {
+              "id": 48,
+              "name": "Tremont School"
+            },
+            {
+              "id": 50,
+              "name": "Bernard"
+            },
+            {
+              "id": 48,
+              "name": "Tremont School"
+            },
+            {
+              "id": 55,
+              "name": "Bass Harbor Ferry Terminal"
+            },
+            {
+              "id": 47,
+              "name": "Bass Harbor Campground"
+            },
+            {
+              "id": 46,
+              "name": "Seawall Campground"
+            },
+            {
+              "id": 88,
+              "name": "Manset Dock"
+            },
+            {
+              "id": 44,
+              "name": "Southwest Harbor"
+            },
+            {
+              "id": 43,
+              "name": "Clark Point"
+            },
+            {
+              "id": 41,
+              "name": "Smugglers' Den Campground"
+            },
+            {
+              "id": 40,
+              "description": "LMK_ECHO_LAKE_DESC",
+              "name": "Echo Lake"
+            },
+            {
+              "id": 39,
+              "description": "LMK_SOMESVILLE_DESC",
+              "name": "Somesville"
+            },
+            {
+              "id": 62,
+              "name": "Mount Desert Campground"
+            },
+            {
+              "id": 35,
+              "description": "LMK_MID_HIGH_SCHOOL_DESC",
+              "name": "MDI High School"
+            },
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            }
+          ]
+        }
+      ],
+      "landmarks": []
+    },
+    {
+      "description": "RTE_SCHOODIC_DESC",
+      "id": 8,
+      "name": "Schoodic",
+      "page": [
+        {
+          "p": "RTE_SCHOODIC_DESC"
+        }
+      ],
+      "scheduledStops": [
+        {
+          "dates": {
+            "begin": "2019-06-23",
+            "end": "2019-08-31"
+          },
+          "hours": {
+            "first": "08:40:00",
+            "last": "08:40:00"
+          },
+          "stops": [
+            {
+              "id": 79,
+              "name": "Schoodic Woods Campground"
+            },
+            {
+              "id": 57,
+              "name": "Winter Harbor"
+            },
+            {
+              "id": 56,
+              "description": "LMK_WH_FERRY_TERMINAL_DESC",
+              "name": "Winter Harbor Ferry Terminal"
+            }
+          ]
+        },
+        {
+          "dates": {
+            "begin": "2019-06-23",
+            "end": "2019-08-31"
+          },
+          "hours": {
+            "first": "09:00:00",
+            "last": "16:00:00"
+          },
+          "stops": [
+            {
+              "id": 56,
+              "description": "LMK_WH_FERRY_TERMINAL_DESC",
+              "name": "Winter Harbor Ferry Terminal"
+            },
+            {
+              "id": 79,
+              "name": "Schoodic Woods Campground"
+            },
+            {
+              "id": 59,
+              "description": "LMK_SCHOODIC_POINT_DESC",
+              "name": "Schoodic Point"
+            },
+            {
+              "id": 60,
+              "name": "Birch Harbor"
+            },
+            {
+              "id": 57,
+              "name": "Winter Harbor"
+            },
+            {
+              "id": 56,
+              "description": "LMK_WH_FERRY_TERMINAL_DESC",
+              "name": "Winter Harbor Ferry Terminal"
+            }
+          ]
+        },
+        {
+          "dates": {
+            "begin": "2019-06-23",
+            "end": "2019-08-31"
+          },
+          "hours": {
+            "first": "16:30:00",
+            "last": "16:30:00"
+          },
+          "stops": [
+            {
+              "id": 56,
+              "description": "LMK_WH_FERRY_TERMINAL_DESC",
+              "name": "Winter Harbor Ferry Terminal"
+            },
+            {
+              "id": 57,
+              "name": "Winter Harbor"
+            },
+            {
+              "id": 79,
+              "name": "Schoodic Woods Campground"
+            }
+          ]
+        }
+      ],
+      "landmarks": []
+    },
+    {
+      "description": "RTE_TRENTON_DESC",
+      "id": 9,
+      "name": "Trenton",
+      "page": [
+        {
+          "p": "RTE_TRENTON_DESC"
+        }
+      ],
+      "scheduledStops": [
+        {
+          "dates": {
+            "begin": "2019-06-23",
+            "end": "2019-08-26"
+          },
+          "hours": {
+            "first": "07:00:00",
+            "last": "17:45:00"
+          },
+          "stops": [
+            {
+              "id": 74,
+              "description": "LMK_ACADIA_GATEWAY_CENTER_DESC",
+              "name": "Acadia Gateway Center"
+            },
+            {
+              "id": 10,
+              "name": "Bar Harbor Airport"
+            },
+            {
+              "id": 11,
+              "name": "Narrows Too Campground"
+            },
+            {
+              "id": 9,
+              "name": "Bar Harbor KOA Campground"
+            },
+            {
+              "id": 69,
+              "name": "Town Hill"
+            },
+            {
+              "id": 35,
+              "description": "LMK_MID_HIGH_SCHOOL_DESC",
+              "name": "MDI High School"
+            },
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            },
+            {
+              "id": 35,
+              "description": "LMK_MID_HIGH_SCHOOL_DESC",
+              "name": "MDI High School"
+            },
+            {
+              "id": 69,
+              "name": "Town Hill"
+            },
+            {
+              "id": 9,
+              "name": "Bar Harbor KOA Campground"
+            },
+            {
+              "id": 11,
+              "name": "Narrows Too Campground"
+            },
+            {
+              "id": 10,
+              "name": "Bar Harbor Airport"
+            },
+            {
+              "id": 74,
+              "description": "LMK_ACADIA_GATEWAY_CENTER_DESC",
+              "name": "Acadia Gateway Center"
+            }
+          ]
+        },
+        {
+          "dates": {
+            "begin": "2019-08-27",
+            "end": "2019-10-14"
+          },
+          "hours": {
+            "first": "08:15:00",
+            "last": "17:45:00"
+          },
+          "stops": [
+            {
+              "id": 74,
+              "description": "LMK_ACADIA_GATEWAY_CENTER_DESC",
+              "name": "Acadia Gateway Center"
+            },
+            {
+              "id": 10,
+              "name": "Bar Harbor Airport"
+            },
+            {
+              "id": 11,
+              "name": "Narrows Too Campground"
+            },
+            {
+              "id": 9,
+              "name": "Bar Harbor KOA Campground"
+            },
+            {
+              "id": 69,
+              "name": "Town Hill"
+            },
+            {
+              "id": 35,
+              "description": "LMK_MID_HIGH_SCHOOL_DESC",
+              "name": "MDI High School"
+            },
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            },
+            {
+              "id": 35,
+              "description": "LMK_MID_HIGH_SCHOOL_DESC",
+              "name": "MDI High School"
+            },
+            {
+              "id": 69,
+              "name": "Town Hill"
+            },
+            {
+              "id": 9,
+              "name": "Bar Harbor KOA Campground"
+            },
+            {
+              "id": 11,
+              "name": "Narrows Too Campground"
+            },
+            {
+              "id": 10,
+              "name": "Bar Harbor Airport"
+            },
+            {
+              "id": 74,
+              "description": "LMK_ACADIA_GATEWAY_CENTER_DESC",
+              "name": "Acadia Gateway Center"
+            }
+          ]
+        }
+      ],
+      "landmarks": []
+    },
+    {
+      "description": "RTE_BLACKWOODS_DESC",
+      "id": 10,
+      "name": "Blackwoods",
+      "page": [
+        {
+          "p": "RTE_BLACKWOODS_DESC"
+        }
+      ],
+      "scheduledStops": [
+        {
+          "dates": {
+            "begin": "2019-06-23",
+            "end": "2019-10-14"
+          },
+          "hours": {
+            "first": "07:55:00",
+            "last": "09:55:00"
+          },
+          "stops": [
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            },
+            {
+              "id": 21,
+              "description": "LMK_SIEUR_DE_MONTS_DESC",
+              "name": "Sieur De Monts"
+            },
+            {
+              "id": 27,
+              "name": "Blackwoods Campground"
+            },
+            {
+              "id": 21,
+              "description": "LMK_SIEUR_DE_MONTS_DESC",
+              "name": "Sieur De Monts"
+            },
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            }
+          ]
+        },
+        {
+          "dates": {
+            "begin": "2019-06-23",
+            "end": "2019-10-14"
+          },
+          "hours": {
+            "first": "10:55:00",
+            "last": "17:55:00"
+          },
+          "stops": [
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            },
+            {
+              "id": 21,
+              "description": "LMK_SIEUR_DE_MONTS_DESC",
+              "name": "Sieur De Monts"
+            },
+            {
+              "id": 27,
+              "name": "Blackwoods Campground"
+            },
+            {
+              "id": 24,
+              "name": "Otter Cliffs"
+            },
+            {
+              "id": 21,
+              "description": "LMK_SIEUR_DE_MONTS_DESC",
+              "name": "Sieur De Monts"
+            },
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            }
+          ]
+        },
+        {
+          "dates": {
+            "begin": "2019-06-23",
+            "end": "2019-10-14"
+          },
+          "hours": {
+            "first": "19:00:00",
+            "last": "21:15:00"
+          },
+          "stops": [
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            },
+            {
+              "id": 27,
+              "name": "Blackwoods Campground"
+            },
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            }
+          ]
+        },
+        {
+          "dates": {
+            "begin": "2019-06-23",
+            "end": "2019-08-26"
+          },
+          "hours": {
+            "first": "20:30:00",
+            "last": "21:15:00"
+          },
+          "stops": [
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            },
+            {
+              "id": 27,
+              "name": "Blackwoods Campground"
+            },
+            {
+              "id": 1,
+              "description": "LMK_VILLAGE_GREEN_DESC",
+              "name": "Village Green"
+            }
+          ]
+        }
+      ],
+      "landmarks": []
+    }
+  ]
+}
