@@ -5,3 +5,10 @@
 @use "components/component-information";
 @use "components/component-map";
 @use "components/component-modal";
+
+/*
+ * Mapbox GL overrides.
+ */
+[class*="mapboxgl-ctrl-"] {
+  z-index: initial !important;
+}
