@@ -1,97 +1,28 @@
-import { useRef } from "react";
-import type { Map as MapGL } from "mapbox-gl";
-import { RemapGL } from "remapgl";
-import MapLayerCollectionItems from "./map-layer-collection-items";
+import _unionWith from "lodash/unionWith";
+import { useEffect, useMemo, useState } from "react";
+import type { CircleLayer, CirclePaint, LineLayer } from "mapbox-gl";
+import * as geojson from "geojson/geojson";
+import { AnyLayer, LayerCollection } from "remapgl";
+import { MapLayerCollectionItem, Stop, Trace } from "../context/types";
 
-// const STOP_TEXT_BASE = 1.15;
-// const STOP_TEXT_STEPS: ReadonlyArray<ReadonlyArray<number>> = [[10, 10], [14, 12]];
+const STOP_CIRCLE_RADIUS_BASE = 1.15;
+const STOP_CIRCLE_RADIUS_STEPS: number[][] = [
+  [10, 5],
+  [14, 5]
+];
+const STOP_CIRCLE_STROKE_BASE = 1.15;
+const STOP_CIRCLE_STROKE_COLOR = "#FFF";
+const STOP_CIRCLE_STROKE_STEPS: number[][] = [
+  [10, 3],
+  [14, 3]
+];
+const ROUTE_LINE_WIDTH = 4;
 
-const ZOOM_TO_FIT_PADDING = 25;
-
-const START_LATITUDE = 44.3420759;
-const START_LONGITUDE = -68.2654881;
-const START_ZOOM = 8.5;
-
-export default function Map({ routeId }: Props) {
-  const ref = useRef(null);
-  const map = useRef<MapGL>(null);
-
-  return (
-    <div className="map">
-      <RemapGL
-        accessToken="pk.eyJ1IjoicmxtY25lYXJ5MiIsImEiOiJjajgyZjJuMDAyajJrMndzNmJqZDFucTIzIn0.BYE_k7mYhhVCdLckWeTg0g"
-        center={[START_LONGITUDE, START_LATITUDE]}
-        obj={obj => (map.current = obj)}
-        ref={ref}
-        zoom={START_ZOOM}
-      >
-        <MapLayerCollectionItems
-          fitBounds={bounds =>
-            map.current &&
-            map.current.fitBounds(bounds, { padding: ZOOM_TO_FIT_PADDING })
-          }
-          routeId={routeId}
-        />
-      </RemapGL>
-    </div>
-  );
-}
-
-function MapLayers({
-  fitBounds,
-  routeId
+export default function MapLayerCollection({
+  items
 }: {
-  fitBounds: (bounds: LngLatBoundsLike) => void;
-  routeId: number;
+  items: MapLayerCollectionItem[];
 }) {
-  const selector = useMemo(
-    () => (state: ContextData) => ({
-      color:
-        state?.routes?.data?.find(x => x.RouteId === routeId)?.Color ?? "000",
-      routeStops: state?.routeStops ?? null,
-      routeTrace: state?.routeTrace ?? null
-    }),
-    [routeId]
-  );
-
-  const { color, routeStops, routeTrace } = useContextState(selector) ?? {};
-
-  const traceReady =
-    routeTrace?.status === "idle" && !routeTrace.error && routeTrace.data;
-
-  const { data: trace } = routeTrace ?? { data: null };
-
-  useEffect(() => {
-    if (!traceReady || !fitBounds) {
-      return;
-    }
-
-    const bounds = bbox(trace) as LngLatBoundsLike;
-    fitBounds(bounds);
-  }, [fitBounds, trace, traceReady]);
-
-  const { data: stops } = routeStops ?? { data: null };
-
-  const items = useMemo<MapLayerCollectionItem[]>(
-    () => [
-      {
-        color,
-        routeId,
-        stops: stops ?? null,
-        trace: trace ?? null
-      }
-    ],
-    [color, routeId, stops, trace]
-  );
-
-  if (!traceReady) {
-    return null;
-  }
-
-  return <MapLayerCollection items={items} />;
-}
-
-function MapLayerCollection({ items }: { items: MapLayerCollectionItem[] }) {
   const [traceLayers, setTraceLayers] = useState<LineLayer[]>(null);
   const [stopsLayers, setStopsLayers] = useState<CircleLayer[]>(null);
 
@@ -255,15 +186,4 @@ function createStopsLayer(
     },
     type: "circle"
   };
-}
-
-interface Props {
-  routeId?: number;
-}
-
-interface MapLayerCollectionItem {
-  color: string;
-  routeId: number;
-  stops?: Stop[];
-  trace?: Trace;
 }
