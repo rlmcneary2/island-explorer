@@ -96,4 +96,34 @@ interface TraceFeature {
  * Vehicle
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface Vehicle {}
+interface Vehicle {
+  VehicleId: number;
+  Name: string;
+  Latitude: number;
+  Longitude: number;
+  RouteId: number;
+  TripId: number;
+  RunId: number;
+  Direction: "I" | "L" | "O";
+  DirectionLong: "Inbound" | "Loop" | "Outbound";
+  Destination: string;
+  Speed: number;
+  Heading: number;
+  Deviation: number;
+  OpStatus: "EARLY" | "LOGGED IN" | "ONTIME" | "TRIP START";
+  CommStatus: "GOOD";
+  GPSStatus: 2;
+  DriverName: string;
+  LastStop: string;
+  OnBoard: number;
+  LastUpdated: "/Date(1627821090000-0400)/";
+  DisplayStatus: "On Time";
+  BlockFareboxId: number;
+}
+
+export interface MapLayerCollectionItem {
+  color: string;
+  routeId: number;
+  stops?: Stop[];
+  trace?: Trace;
+}
