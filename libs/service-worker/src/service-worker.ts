@@ -5,7 +5,7 @@ const VERSION = "2021a";
 const wgs = self as unknown as ServiceWorkerGlobalScope;
 
 wgs.addEventListener("install", event => {
-  console.log("service worker install event");
+  console.log("service-worker: install event");
 
   event.waitUntil(
     caches.open(VERSION).then(cache =>
@@ -40,4 +40,15 @@ wgs.addEventListener("install", event => {
       ])
     )
   );
+});
+
+wgs.addEventListener("fetch", async event => {
+  const response = await caches.match(event.request);
+
+  if (!response) {
+    console.log(`service-worker: fetching '${event.request.url}'`);
+    return fetch(event.request);
+  } else {
+    return response;
+  }
 });

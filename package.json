@@ -6,8 +6,7 @@
     "nx": "nx",
     "start": "nx serve",
     "build": "nx build",
-    "build:sw": "nx build service-worker --buildable --deleteOutputPath",
-    "build:swa": "nx build service-worker-app --commonChunk=false --deleteOutputPath=true --generateIndexHtml=false --outputHashing=none --runtimeChunk=false --vendorChunk=false",
+    "build:sw": "nx build service-worker --buildable --deleteOutputPath --skipNxCache",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",
@@ -51,6 +50,7 @@
     "@babel/preset-env": "7.9.6",
     "@babel/preset-react": "7.9.4",
     "@babel/preset-typescript": "7.9.0",
+    "@emotion/babel-plugin": "11.2.0",
     "@nrwl/cli": "12.5.8",
     "@nrwl/eslint-plugin-nx": "12.5.8",
     "@nrwl/jest": "12.5.8",
@@ -82,7 +82,6 @@
     "prettier": "2.3.2",
     "ts-jest": "27.0.3",
     "ts-node": "9.1.1",
-    "typescript": "4.1.4",
-    "@emotion/babel-plugin": "11.2.0"
+    "typescript": "4.1.4"
   }
 }

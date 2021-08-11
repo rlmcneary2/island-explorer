@@ -68,7 +68,7 @@ function MapLayers({
   const selector = useMemo(
     () => (state: ContextData) => ({
       color:
-        state?.routes?.data?.find(x => x.RouteId === routeId).Color ?? "000",
+        state?.routes?.data?.find(x => x.RouteId === routeId)?.Color ?? "000",
       routeStops: state?.routeStops ?? null,
       routeTrace: state?.routeTrace ?? null
     }),
