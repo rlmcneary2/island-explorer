@@ -10,6 +10,13 @@ wgs.addEventListener("install", event => {
   event.waitUntil(
     caches.open(VERSION).then(cache =>
       cache.addAll([
+        "runtime.js",
+        "polyfills.js",
+        "vendor.js",
+        "main.js",
+        "styles.js",
+        "favicon.ico",
+
         "https://api.mapbox.com/styles/v1/mapbox/outdoors-v11?access_token=pk.eyJ1IjoicmxtY25lYXJ5MiIsImEiOiJjajgyZjJuMDAyajJrMndzNmJqZDFucTIzIn0.BYE_k7mYhhVCdLckWeTg0g",
         // "https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css",
         "http://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css",
@@ -17,6 +24,7 @@ wgs.addEventListener("install", event => {
         `${API_LEFT}/InfoPoint/rest/Routes/GetVisibleRoutes`,
 
         `${API_LEFT}/InfoPoint/Resources/Traces/Oceanarium.kml`,
+        `${API_LEFT}/InfoPoint/Resources/Traces/VisitorCenter.kml`,
         `${API_LEFT}/InfoPoint/Resources/Traces/EdenStreet.kml`,
         `${API_LEFT}/InfoPoint/Resources/Traces/SandyBeach.kml`,
         `${API_LEFT}/InfoPoint/Resources/Traces/LoopRoad.kml`,
