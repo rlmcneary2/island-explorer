@@ -2,6 +2,7 @@ import { useRef } from "react";
 import type { Map as MapGL } from "mapbox-gl";
 import { RemapGL } from "remapgl";
 import MapLayerCollectionItems from "./map-layer-collection-items";
+import MapVehicles from "./map-vehicles";
 
 // const STOP_TEXT_BASE = 1.15;
 // const STOP_TEXT_STEPS: ReadonlyArray<ReadonlyArray<number>> = [[10, 10], [14, 12]];
@@ -32,6 +33,7 @@ export default function Map({ routeId }: Props) {
           }
           routeId={routeId}
         />
+        <MapVehicles />
       </RemapGL>
     </div>
   );

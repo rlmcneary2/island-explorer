@@ -4,6 +4,7 @@
     "Schoodic",
     "bbox",
     "blackwoods",
+    "lnglat",
     "mapbox",
     "remapgl",
     "togeojson"

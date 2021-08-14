@@ -96,7 +96,7 @@ interface TraceFeature {
  * Vehicle
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface Vehicle {
+export interface Vehicle {
   VehicleId: number;
   Name: string;
   Latitude: number;
