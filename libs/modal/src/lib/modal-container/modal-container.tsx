@@ -1,6 +1,9 @@
 import { useEffect, useRef } from "react";
 import useModalContext from "../context/use-modal-context";
 
+/**
+ * Set where modals should appear in the DOM.
+ */
 export function ModalContainer(
   props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>
 ) {

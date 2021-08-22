@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Modal } from "../modal/modal";
 import { ModalDialogProps } from "../types";
 
+/**
+ * Creates a simple dialog (not animated).
+ */
 export default function ModalDialog({
   children,
   onExternalTap,
