@@ -10,8 +10,19 @@
   position: absolute;
   right: 0;
   top: 0;
+
   > .content {
     background: color.$background;
+    opacity: 0;
+    transition: opacity 250ms;
     width: 50vw;
+  }
+
+  &.animate-start-in > .content {
+    opacity: 1;
+  }
+
+  &.animate-end-in > .content {
+    opacity: 1;
   }
 }
