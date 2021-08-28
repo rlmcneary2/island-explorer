@@ -5,9 +5,11 @@ import { ContextData, ContextState, Route } from "./types";
 import toGeoJson from "@mapbox/togeojson";
 
 const ACTION_FETCH_ROUTES_FINISHED = "fetch-routes-finished";
+const INTERVAL_SECONDS = 60;
 
 export function create(): ActionHandler<ContextState>[] {
   let fetchRouteVehiclesRouteId: number = null;
+  let fetchVehiclesActive = false;
 
   const fetchRoutes: ActionHandler<ContextState, null> = (
     state,
@@ -86,27 +88,33 @@ export function create(): ActionHandler<ContextState>[] {
     return [state, true];
   };
 
-  const fetchRouteVehicles: ActionHandler<ContextState, number> = (
-    state,
-    action,
-    dispatch
-  ) => {
-    if (action.id !== actionIds.ACTION_FETCH_ROUTE_VEHICLES) {
+  const fetchRouteVehicles: ActionHandler<
+    ContextState,
+    { routeId: number; dispatchTime?: number }
+  > = (state, action, dispatch) => {
+    const isVehicleAction = action.id === actionIds.ACTION_FETCH_ROUTE_VEHICLES;
+    const isReadyToStart = !fetchVehiclesActive && state?.routeId;
+
+    if (!isVehicleAction && !isReadyToStart) {
       return [state];
     }
 
-    if (
-      state?.routeVehicles?.status === "active" &&
-      fetchRouteVehiclesRouteId === action.payload
-    ) {
+    const nextRouteId = action?.payload?.routeId || state?.routeId;
+
+    if (fetchVehiclesActive && fetchRouteVehiclesRouteId === nextRouteId) {
       return [state];
     }
 
-    fetchRouteVehiclesRouteId = action.payload;
+    console.log(
+      `fetchRouteVehicles: ${new Date(Date.now()).toTimeString()}, payload=`,
+      action.payload
+    );
 
-    // `${apiData.domain}/InfoPoint/rest/Vehicles/GetAllVehiclesForRoutes?routeIDs=${routeIds.join(",")}`
+    fetchRouteVehiclesRouteId = nextRouteId;
+    fetchVehiclesActive = true;
+
     fetch(
-      `${env.apiLeft}/InfoPoint/rest/Vehicles/GetAllVehiclesForRoutes?routeIDs=${action.payload}`
+      `${env.apiLeft}/InfoPoint/rest/Vehicles/GetAllVehiclesForRoutes?routeIDs=${nextRouteId}`
     )
       .then(async response => {
         if (response.ok) {
@@ -130,6 +138,43 @@ export function create(): ActionHandler<ContextState>[] {
           },
           true
         ]);
+
+        const { dispatchTime = Date.now() + INTERVAL_SECONDS * 1000 } =
+          action.payload;
+        let lastDispatchTime = dispatchTime;
+        const slipDispatchTime = Date.now() + INTERVAL_SECONDS * 1000;
+        const processingTime = slipDispatchTime - lastDispatchTime;
+        let interval = INTERVAL_SECONDS * 1000 - processingTime;
+        if (interval < 0) {
+          lastDispatchTime = Date.now();
+          interval = 0;
+        }
+
+        console.log(
+          `fetchRouteVehicles: dispatchTime=${dispatchTime}, slipDispatchTime=${slipDispatchTime}`
+        );
+        console.log(
+          `fetchRouteVehicles: interval=${interval}, processingTime=${processingTime}`
+        );
+
+        setTimeout(() => {
+          console.log(
+            `fetchRouteVehicles: timeout active; nextRouteId=${nextRouteId}, fetchRouteVehiclesRouteId=${fetchRouteVehiclesRouteId}.`
+          );
+          if (nextRouteId !== fetchRouteVehiclesRouteId) {
+            return;
+          }
+
+          fetchVehiclesActive = false;
+
+          dispatch({
+            id: actionIds.ACTION_FETCH_ROUTE_VEHICLES,
+            payload: {
+              dispatchTime: lastDispatchTime + INTERVAL_SECONDS * 1000, // Always increment like a clock.
+              routeId: nextRouteId
+            }
+          });
+        }, interval);
       })
       .catch(err => {
         dispatch(inlineState => [
@@ -149,27 +194,6 @@ export function create(): ActionHandler<ContextState>[] {
       true
     ];
   };
-
-  /* TBD if needed */
-  // const cacheRoutesData: ActionHandler<ContextState, Route[]> = (
-  //   state,
-  //   action,
-  //   dispatch
-  // ) => {
-  //   if (action.id === ACTION_FETCH_ROUTES_FINISHED) {
-  //     // We will cache all of these at service worker installation, but in case
-  //     // the active routes change update what is cached. For each route add to
-  //     // cache:
-  //     //  - the KML file (trace)
-  //     //     - https://acadia-explorer.netlify.app/api/InfoPoint/Resources/Traces/SandyBeach.kml
-  //     //     - accept */*
-  //     //  - stops request
-  //     //     - https://acadia-explorer.netlify.app/api/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=3
-  //     //     - accept */*
-  //   }
-
-  //   return [state];
-  // };
 
   const handleRouteChanged: ActionHandler<ContextState, number> = (
     state,
@@ -232,11 +256,15 @@ export function create(): ActionHandler<ContextState>[] {
       };
     }
 
+    console.log(
+      `handleRouteChanged: dispatching fetch vehicles for route ${action.payload}.`
+    );
+
     // Always dispatch the request to get vehicles, the handler function will
     // verify if the fetch needs to be made.
     dispatch({
       id: actionIds.ACTION_FETCH_ROUTE_VEHICLES,
-      payload: action.payload
+      payload: { routeId: action.payload }
     });
 
     return [(nextState as ContextState) ?? state, !!nextState];
