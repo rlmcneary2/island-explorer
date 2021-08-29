@@ -10,12 +10,14 @@ wgs.addEventListener("install", event => {
   event.waitUntil(
     caches.open(VERSION).then(cache =>
       cache.addAll([
-        "runtime.js",
-        "polyfills.js",
-        "vendor.js",
-        "main.js",
-        "styles.js",
         "favicon.ico",
+        "icon-bus.svg",
+        "main.js",
+        "polyfills.js",
+        "runtime.js",
+        "styles.js",
+        "symbols.svg",
+        "vendor.js",
 
         "https://api.mapbox.com/styles/v1/mapbox/outdoors-v11?access_token=pk.eyJ1IjoicmxtY25lYXJ5MiIsImEiOiJjajgyZjJuMDAyajJrMndzNmJqZDFucTIzIn0.BYE_k7mYhhVCdLckWeTg0g",
         // "https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css",
