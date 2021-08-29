@@ -189,7 +189,7 @@ export function create(): ActionHandler<ContextState>[] {
     return [
       {
         ...state,
-        routeVehicles: { status: "active" }
+        routeVehicles: { ...state.routeVehicles, status: "active" }
       },
       true
     ];
