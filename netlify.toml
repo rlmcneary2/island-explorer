@@ -1,0 +1,18 @@
+[Settings]
+
+[build]
+  command = "yarn build:sw && yarn build"
+  publish = "dist/apps/island-explorer"
+
+[build.environment]
+  NODE_VERSION = "14"
+
+[[redirects]]
+  from = "/api/*"
+  to = "http://islandexplorertracker.availtec.com/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
