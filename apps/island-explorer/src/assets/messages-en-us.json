@@ -1,5 +1,14 @@
 {
   "INFORMATION": "Information",
   "MAP": "Map",
-  "MENU": "Menu"
+  "MENU": "Menu",
+  "NTE_SCHEDULED_STOPS": "Scheduled stops vary by time of year and day. Please check a local schedule to confirm the stops that are currently in service.",
+  "RTE_LOOP_ROAD_DESC": "Serves all of Ocean Drive, Seal Harbor, and Jordan Pond.",
+  "RTE_LOOP_ROAD_TIP": "This route provides access to trails on peaks including: Pemetic, Cadillac, Dorr, Champlain, and Gorham. It loops around all these mountains making it possible to hike a trail from end-to-end and then ride the Island Explorer back to your starting point.",
+  "RTE_LOOP_ROAD_TIP2": "This is one of the most popular routes in the park. Depending on your destination some alternative routes are Sand Beach and Jordan Pond.",
+  "SELECT_ROUTE": "Routes",
+  "TRH_BOWL_DESC": "Access to many trails from the Loop Road including Beehive, North Gorham Mountain, and Champlain South Ridge. One of the most popular trails in Acadia; car parking can be difficult, for the nearest parking park after the fee station and before the trail.",
+  "TRH_CHAMPLAIN_NORTH_RIDGE_DESC": "Champlain North Ridge Trail access from the Loop Road.",
+  "TRH_ORANGE_AND_BLACK_DESC": "Orange and Black Trail access from the Loop Road.",
+  "TRH_PRECIPICE_DESC": "Access to the Precipice Trail from the Loop Road. Murphy Lane Trail is on the East side of the road for walking."
 }

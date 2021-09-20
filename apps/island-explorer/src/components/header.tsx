@@ -23,7 +23,7 @@ export default function Header() {
   return (
     <div className="header">
       <button className="button primary" onClick={handleRouteClick}>
-        route
+        <FormattedMessage id="SELECT_ROUTE" />
       </button>
 
       <Link

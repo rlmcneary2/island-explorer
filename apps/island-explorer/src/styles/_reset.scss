@@ -1,0 +1,28 @@
+@use "color";
+
+/*
+    Resets
+*/
+html {
+  font: {
+    family: "Lato", sans-serif;
+    size: 10px;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+button {
+  & > span:focus {
+    outline: none;
+  }
+  background: color.$color-app-background;
+  border: 0;
+  font: {
+    family: inherit;
+    size: inherit;
+  }
+  padding: 0;
+}

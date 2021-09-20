@@ -1,11 +1,9 @@
 {
   "landmarks": [
     {
-      "features": [
-        "inn"
-      ],
+      "features": ["inn"],
       "landmarkType": "lodging",
-      "name": "Acadia Inn",
+      "displayName": "Acadia Inn",
       "id": 17,
       "location": {
         "latitude": 44.39526749,
@@ -13,12 +11,10 @@
       }
     },
     {
-      "features": [
-        "park"
-      ],
+      "features": ["park"],
       "description": "LMK_ACADIA_GATEWAY_CENTER_DESC",
       "landmarkType": "ground-transport",
-      "name": "Acadia Gateway Center",
+      "displayName": "Acadia Gateway Center",
       "id": 74,
       "location": {
         "latitude": 44.470624,
@@ -26,11 +22,9 @@
       }
     },
     {
-      "features": [
-        "inn"
-      ],
+      "features": ["inn"],
       "landmarkType": "lodging",
-      "name": "Atlantic Eyrie Lodge",
+      "displayName": "Atlantic Eyrie Lodge",
       "id": 18,
       "location": {
         "latitude": 44.39187622,
@@ -38,11 +32,9 @@
       }
     },
     {
-      "features": [
-        "inn"
-      ],
+      "features": ["inn"],
       "landmarkType": "lodging",
-      "name": "Atlantic Oceanside Hotel",
+      "displayName": "Atlantic Oceanside Hotel",
       "id": 14,
       "location": {
         "latitude": 44.3971138,
@@ -50,11 +42,9 @@
       }
     },
     {
-      "features": [
-        "airport"
-      ],
+      "features": ["airport"],
       "landmarkType": "airport",
-      "name": "Bar Harbor Airport",
+      "displayName": "Bar Harbor Airport",
       "id": 10,
       "location": {
         "latitude": 44.44600296,
@@ -62,11 +52,9 @@
       }
     },
     {
-      "features": [
-        "camp"
-      ],
+      "features": ["camp"],
       "landmarkType": "campground",
-      "name": "Bar Harbor Campground",
+      "displayName": "Bar Harbor Campground",
       "id": 4,
       "location": {
         "latitude": 44.43102264,
@@ -74,11 +62,9 @@
       }
     },
     {
-      "features": [
-        "camp"
-      ],
+      "features": ["camp"],
       "landmarkType": "campground",
-      "name": "Bar Harbor KOA Campground",
+      "displayName": "Bar Harbor KOA Campground",
       "id": 9,
       "location": {
         "latitude": 44.42137909,
@@ -86,11 +72,9 @@
       }
     },
     {
-      "features": [
-        "inn"
-      ],
+      "features": ["inn"],
       "landmarkType": "lodging",
-      "name": "Bar Harbor Regency",
+      "displayName": "Bar Harbor Regency",
       "id": 15,
       "location": {
         "latitude": 44.39929581,
@@ -98,11 +82,9 @@
       }
     },
     {
-      "features": [
-        "inn"
-      ],
+      "features": ["inn"],
       "landmarkType": "lodging",
-      "name": "Bar Harbor Motel",
+      "displayName": "Bar Harbor Motel",
       "id": 16,
       "location": {
         "latitude": 44.39624405,
@@ -110,11 +92,9 @@
       }
     },
     {
-      "features": [
-        "camp"
-      ],
+      "features": ["camp"],
       "landmarkType": "campground",
-      "name": "Bass Harbor Campground",
+      "displayName": "Bass Harbor Campground",
       "id": 47,
       "location": {
         "latitude": 44.23036194,
@@ -122,11 +102,9 @@
       }
     },
     {
-      "features": [
-        "ferry"
-      ],
+      "features": ["ferry"],
       "landmarkType": "ferry-transport",
-      "name": "Bass Harbor Ferry Terminal",
+      "displayName": "Bass Harbor Ferry Terminal",
       "id": 55,
       "location": {
         "latitude": 44.23500061,
@@ -134,11 +112,9 @@
       }
     },
     {
-      "features": [
-        "dine"
-      ],
+      "features": ["dine"],
       "landmarkType": "point-of-interest",
-      "name": "Bernard",
+      "displayName": "Bernard",
       "id": 50,
       "location": {
         "latitude": 44.23987198,
@@ -146,11 +122,9 @@
       }
     },
     {
-      "features": [
-        "camp"
-      ],
+      "features": ["camp"],
       "landmarkType": "campground",
-      "name": "Blackwoods Campground",
+      "displayName": "Blackwoods Campground",
       "id": 27,
       "location": {
         "latitude": 44.30889511,
@@ -158,11 +132,9 @@
       }
     },
     {
-      "features": [
-        "dine"
-      ],
+      "features": ["dine"],
       "landmarkType": "point-of-interest",
-      "name": "Birch Harbor",
+      "displayName": "Birch Harbor",
       "id": 60,
       "location": {
         "latitude": 44.38780212,
@@ -171,14 +143,9 @@
     },
     {
       "description": "LMK_BROWN_MOUNTAIN_GATEHOUSE_DESC",
-      "features": [
-        "restroom",
-        "walk",
-        "hike",
-        "bike"
-      ],
+      "features": ["restroom", "walk", "hike", "bike"],
       "landmarkType": "point-of-interest",
-      "name": "Brown Mountain Gatehouse",
+      "displayName": "Brown Mountain Gatehouse",
       "id": 53,
       "location": {
         "latitude": 44.31218338,
@@ -187,15 +154,9 @@
     },
     {
       "description": "LMK_BUBBLE_POND_DESC",
-      "features": [
-        "restroom",
-        "walk",
-        "hike",
-        "climb",
-        "bike"
-      ],
+      "features": ["restroom", "walk", "hike", "climb", "bike"],
       "landmarkType": "point-of-interest",
-      "name": "Bubble Pond",
+      "displayName": "Bubble Pond",
       "id": 28,
       "location": {
         "latitude": 44.35030746,
@@ -203,11 +164,9 @@
       }
     },
     {
-      "features": [
-        "hike"
-      ],
+      "features": ["hike"],
       "landmarkType": "trail-head",
-      "name": "Cadillac North Ridge",
+      "displayName": "Cadillac North Ridge",
       "id": 20,
       "location": {
         "latitude": 44.3786,
@@ -215,11 +174,9 @@
       }
     },
     {
-      "features": [
-        "hike"
-      ],
+      "features": ["hike"],
       "landmarkType": "trail-head",
-      "name": "Cadillac North Ridge",
+      "displayName": "Cadillac North Ridge",
       "id": 83,
       "location": {
         "latitude": 44.3786,
@@ -238,7 +195,7 @@
         "tower"
       ],
       "landmarkType": "point-of-interest",
-      "name": "Echo Lake",
+      "displayName": "Echo Lake",
       "id": 40,
       "location": {
         "latitude": 44.31499481,
@@ -247,11 +204,9 @@
     },
     {
       "description": "LMK_WH_FERRY_TERMINAL_DESC",
-      "features": [
-        "ferry"
-      ],
+      "features": ["ferry"],
       "landmarkType": "ferry-transport",
-      "name": "Winter Harbor Ferry Terminal",
+      "displayName": "Winter Harbor Ferry Terminal",
       "id": 56,
       "location": {
         "latitude": 44.39276123,
@@ -259,11 +214,9 @@
       }
     },
     {
-      "features": [
-        "inn"
-      ],
+      "features": ["inn"],
       "landmarkType": "lodging",
-      "name": "Hampton Inn Bar Harbor",
+      "displayName": "Hampton Inn Bar Harbor",
       "id": 71,
       "location": {
         "latitude": 44.390103,
@@ -272,15 +225,9 @@
     },
     {
       "description": "LMK_HULLS_COVE_VISITOR_CENTER_DESC",
-      "features": [
-        "restroom",
-        "water",
-        "park",
-        "walk",
-        "bike"
-      ],
+      "features": ["restroom", "water", "park", "walk", "bike"],
       "landmarkType": "visitor-center",
-      "name": "Hulls Cove Visitor Center",
+      "displayName": "Hulls Cove Visitor Center",
       "id": 3,
       "location": {
         "latitude": 44.40903854,
@@ -303,7 +250,7 @@
         "bike"
       ],
       "landmarkType": "point-of-interest",
-      "name": "Jordan Pond",
+      "displayName": "Jordan Pond",
       "id": 29,
       "location": {
         "latitude": 44.32016754,
@@ -311,11 +258,9 @@
       }
     },
     {
-      "features": [
-        "camp"
-      ],
+      "features": ["camp"],
       "landmarkType": "campground",
-      "name": "Mount Desert Campground",
+      "displayName": "Mount Desert Campground",
       "id": 62,
       "location": {
         "latitude": 44.36645889,
@@ -323,11 +268,9 @@
       }
     },
     {
-      "features": [
-        "camp"
-      ],
+      "features": ["camp"],
       "landmarkType": "campground",
-      "name": "Mount Desert Narrows Campground",
+      "displayName": "Mount Desert Narrows Campground",
       "id": 6,
       "location": {
         "latitude": 44.4199295,
@@ -335,11 +278,9 @@
       }
     },
     {
-      "features": [
-        "camp"
-      ],
+      "features": ["camp"],
       "landmarkType": "campground",
-      "name": "Narrows Too Campground",
+      "displayName": "Narrows Too Campground",
       "id": 11,
       "location": {
         "latitude": 44.43856812,
@@ -348,11 +289,9 @@
     },
     {
       "description": "LMK_NORTHEAST_HARBOR_PIER_DESC",
-      "features": [
-        "ferry"
-      ],
+      "features": ["ferry"],
       "landmarkType": "ferry-transport",
-      "name": "Northeast Harbor Pier",
+      "displayName": "Northeast Harbor Pier",
       "id": 38,
       "location": {
         "latitude": 44.29471588,
@@ -360,11 +299,9 @@
       }
     },
     {
-      "features": [
-        "attraction"
-      ],
+      "features": ["attraction"],
       "landmarkType": "attraction",
-      "name": "Oceanarium",
+      "displayName": "Oceanarium",
       "id": 7,
       "location": {
         "latitude": 44.419361,
@@ -372,14 +309,9 @@
       }
     },
     {
-      "features": [
-        "wonder",
-        "walk",
-        "hike",
-        "climb"
-      ],
+      "features": ["wonder", "walk", "hike", "climb"],
       "landmarkType": "point-of-interest",
-      "name": "Otter Cliffs",
+      "displayName": "Otter Cliffs",
       "id": 24,
       "location": {
         "latitude": 44.31101227,
@@ -388,15 +320,9 @@
     },
     {
       "description": "LMK_PARKMAN_MOUNTAIN_DESC",
-      "features": [
-        "restroom",
-        "walk",
-        "hike",
-        "climb",
-        "bike"
-      ],
+      "features": ["restroom", "walk", "hike", "climb", "bike"],
       "landmarkType": "trail-head",
-      "name": "Parkman Mountain",
+      "displayName": "Parkman Mountain",
       "id": 77,
       "location": {
         "latitude": 44.329011,
@@ -417,7 +343,7 @@
         "climb"
       ],
       "landmarkType": "point-of-interest",
-      "name": "Sand Beach",
+      "displayName": "Sand Beach",
       "id": 22,
       "location": {
         "latitude": 44.32995987,
@@ -426,12 +352,9 @@
     },
     {
       "description": "LMK_SCHOODIC_POINT_DESC",
-      "features": [
-        "restroom",
-        "wonder"
-      ],
+      "features": ["restroom", "wonder"],
       "landmarkType": "point-of-interest",
-      "name": "Schoodic Point",
+      "displayName": "Schoodic Point",
       "id": 59,
       "location": {
         "latitude": 44.33314896,
@@ -439,11 +362,9 @@
       }
     },
     {
-      "features": [
-        "camp"
-      ],
+      "features": ["camp"],
       "landmarkType": "campground",
-      "name": "Schoodic Woods Campground",
+      "displayName": "Schoodic Woods Campground",
       "id": 79,
       "location": {
         "latitude": 44.380588,
@@ -451,13 +372,9 @@
       }
     },
     {
-      "features": [
-        "dine",
-        "beach",
-        "swim"
-      ],
+      "features": ["dine", "beach", "swim"],
       "landmarkType": "point-of-interest",
-      "name": "Seal Harbor",
+      "displayName": "Seal Harbor",
       "id": 31,
       "location": {
         "latitude": 44.29630661,
@@ -465,11 +382,9 @@
       }
     },
     {
-      "features": [
-        "camp"
-      ],
+      "features": ["camp"],
       "landmarkType": "campground",
-      "name": "Seawall Campground",
+      "displayName": "Seawall Campground",
       "id": 46,
       "location": {
         "latitude": 44.23894882,
@@ -489,7 +404,7 @@
         "hike"
       ],
       "landmarkType": "visitor-center",
-      "name": "Sieur De Monts",
+      "displayName": "Sieur De Monts",
       "id": 21,
       "location": {
         "latitude": 44.36243439,
@@ -497,11 +412,9 @@
       }
     },
     {
-      "features": [
-        "camp"
-      ],
+      "features": ["camp"],
       "landmarkType": "campground",
-      "name": "Smugglers' Den Campground",
+      "displayName": "Smugglers' Den Campground",
       "id": 41,
       "location": {
         "latitude": 44.30040359,
@@ -509,11 +422,9 @@
       }
     },
     {
-      "features": [
-        "dine"
-      ],
+      "features": ["dine"],
       "landmarkType": "point-of-interest",
-      "name": "Southwest Harbor",
+      "displayName": "Southwest Harbor",
       "id": 44,
       "location": {
         "latitude": 44.2801857,
@@ -521,15 +432,9 @@
       }
     },
     {
-      "features": [
-        "accessible",
-        "restroom",
-        "snack",
-        "wonder",
-        "walk"
-      ],
+      "features": ["accessible", "restroom", "snack", "wonder", "walk"],
       "landmarkType": "point-of-interest",
-      "name": "Thunder Hole",
+      "displayName": "Thunder Hole",
       "id": 23,
       "location": {
         "latitude": 44.32134247,
@@ -537,11 +442,9 @@
       }
     },
     {
-      "features": [
-        "dine"
-      ],
+      "features": ["dine"],
       "landmarkType": "point-of-interest",
-      "name": "Town Hill",
+      "displayName": "Town Hill",
       "id": 69,
       "location": {
         "latitude": 44.39901733,
@@ -561,7 +464,7 @@
         "walk"
       ],
       "landmarkType": "point-of-interest",
-      "name": "Village Green",
+      "displayName": "Village Green",
       "id": 1,
       "location": {
         "latitude": 44.38788986,
@@ -569,14 +472,9 @@
       }
     },
     {
-      "features": [
-        "restroom",
-        "walk",
-        "hike",
-        "bike"
-      ],
+      "features": ["restroom", "walk", "hike", "bike"],
       "landmarkType": "point-of-interest",
-      "name": "Wildwood Stables",
+      "displayName": "Wildwood Stables",
       "id": 30,
       "location": {
         "latitude": 44.31375122,
@@ -584,11 +482,9 @@
       }
     },
     {
-      "features": [
-        "dine"
-      ],
+      "features": ["dine"],
       "landmarkType": "point-of-interest",
-      "name": "Winter Harbor",
+      "displayName": "Winter Harbor",
       "id": 57,
       "location": {
         "latitude": 44.39128876,
@@ -596,11 +492,9 @@
       }
     },
     {
-      "features": [
-        "inn"
-      ],
+      "features": ["inn"],
       "landmarkType": "lodging",
-      "name": "Wonder View Inn",
+      "displayName": "Wonder View Inn",
       "id": 19,
       "location": {
         "latitude": 44.39022446,
@@ -608,11 +502,9 @@
       }
     },
     {
-      "features": [
-        "camp"
-      ],
+      "features": ["camp"],
       "landmarkType": "campground",
-      "name": "Woodlands KOA Campground",
+      "displayName": "Woodlands KOA Campground",
       "id": 8,
       "location": {
         "latitude": 44.4050827,
@@ -622,12 +514,46 @@
     {
       "description": "TRH_CHAMPLAIN_NORTH_RIDGE_DESC",
       "descriptionShort": "TRH_CHAMPLAIN_NORTH_RIDGE_SDESC",
-      "features": [
-        "hike"
-      ],
-      "id": 1000,
+      "features": ["hike"],
+      "id": 4000,
       "landmarkType": "trail-head",
-      "name": "Champlain North Ridge trail-head",
+      "displayName": "Champlain North Ridge Trailhead",
+      "location": {
+        "latitude": 44.363095,
+        "longitude": -68.193408
+      }
+    },
+    {
+      "description": "TRH_ORANGE_AND_BLACK_DESC",
+      "descriptionShort": "TRH_ORANGE_AND_BLACK_SDESC",
+      "features": ["hike"],
+      "id": 4010,
+      "landmarkType": "trail-head",
+      "displayName": "Orange and Black trail",
+      "location": {
+        "latitude": 44.363095,
+        "longitude": -68.193408
+      }
+    },
+    {
+      "description": "TRH_PRECIPICE_DESC",
+      "descriptionShort": "TRH_PRECIPICE_SDESC",
+      "features": ["climb", "hike", "walk"],
+      "id": 4020,
+      "landmarkType": "trail-head",
+      "displayName": "Precipice Trailhead",
+      "location": {
+        "latitude": 44.363095,
+        "longitude": -68.193408
+      }
+    },
+    {
+      "description": "TRH_BOWL_DESC",
+      "descriptionShort": "TRH_BOWL_SDESC",
+      "features": ["climb", "hike"],
+      "id": 4030,
+      "landmarkType": "trail-head",
+      "displayName": "Bowl Trail",
       "location": {
         "latitude": 44.363095,
         "longitude": -68.193408

@@ -1,13 +1,50 @@
 @use "../color";
+@use "../dimension";
+@use "../app";
 
-div.information {
-  background-color: color.$secondary;
-  grid-column-start: 1;
-  grid-row-start: 1;
-  height: 100%;
-  left: 0;
-  overflow: auto;
-  position: absolute;
-  top: 0;
-  width: 100%;
+.content {
+  .information {
+    background-color: color.$color-app-background;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    height: 100%;
+    left: 0;
+    overflow: auto;
+    padding: dimension.$control-padding-large;
+    position: absolute;
+    top: 0;
+
+    h1 {
+      @extend %headline-1;
+    }
+
+    .description {
+      @extend %para;
+    }
+
+    .landmarks {
+      @extend %ulist;
+      .landmark {
+        @extend %list-item;
+        [class^="sym-"] {
+          display: flex;
+        }
+        margin-top: dimension.$text-li-margin;
+      }
+    }
+
+    .notice {
+      @extend %raised-element;
+    }
+
+    .tip {
+      @extend %tip;
+      background: color.$color-complement-1;
+      border: solid black 0;
+      border-radius: dimension.$control-rounded-border-radius-h unquote(" / ")
+        dimension.$control-rounded-border-radius-v;
+      display: block;
+      padding: dimension.$text-tip-padding;
+    }
+  }
 }

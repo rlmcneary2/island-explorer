@@ -3,15 +3,8 @@
     {
       "description": "RTE_OCEANARIUM_DESC",
       "id": 1,
-      "name": "Oceanarium",
-      "page": [
-        {
-          "p": "RTE_OCEANARIUM_DESC"
-        },
-        {
-          "tip": "RTE_OCEANARIUM_TIP"
-        }
-      ],
+      "displayName": "Oceanarium",
+      "landmarks": [],
       "scheduledStops": [
         {
           "dates": {
@@ -132,17 +125,13 @@
           ]
         }
       ],
-      "landmarks": []
+      "tips": ["RTE_OCEANARIUM_TIP"]
     },
     {
-      "description": "RTE_EDEN_STREET_DESC",
+      "description": "RTE_VISITOR_CENTER_DESC",
       "id": 2,
-      "name": "Eden Street",
-      "page": [
-        {
-          "p": "RTE_EDEN_STREET_DESC"
-        }
-      ],
+      "displayName": "Visitor Center",
+      "landmarks": [],
       "scheduledStops": [
         {
           "dates": {
@@ -250,20 +239,13 @@
           ]
         }
       ],
-      "landmarks": []
+      "tips": []
     },
     {
       "description": "RTE_SAND_BEACH_DESC",
       "id": 3,
-      "name": "Sand Beach",
-      "page": [
-        {
-          "p": "RTE_SAND_BEACH_DESC"
-        },
-        {
-          "tip": "RTE_SAND_BEACH_TIP"
-        }
-      ],
+      "displayName": "Sand Beach",
+      "landmarks": [1000],
       "scheduledStops": [
         {
           "dates": {
@@ -354,25 +336,14 @@
           ]
         }
       ],
-      "landmarks": [
-        1000
-      ]
+      "tips": ["RTE_SAND_BEACH_TIP"]
     },
     {
       "description": "RTE_LOOP_ROAD_DESC",
       "id": 4,
-      "name": "Loop Road",
-      "page": [
-        {
-          "p": "RTE_LOOP_ROAD_DESC"
-        },
-        {
-          "tip": "RTE_LOOP_ROAD_TIP"
-        },
-        {
-          "tip": "RTE_LOOP_ROAD_TIP2"
-        }
-      ],
+      "displayName": "Loop Road",
+      "landmarks": [4000, 4010, 4020, 4030],
+      "notices": ["NTE_SCHEDULED_STOPS"],
       "scheduledStops": [
         {
           "dates": {
@@ -483,19 +454,13 @@
           ]
         }
       ],
-      "landmarks": [
-        1000
-      ]
+      "tips": ["RTE_LOOP_ROAD_TIP", "RTE_LOOP_ROAD_TIP2"]
     },
     {
       "description": "RTE_JORDAN_POND_DESC",
       "id": 5,
-      "name": "Jordan Pond",
-      "page": [
-        {
-          "p": "RTE_JORDAN_POND_DESC"
-        }
-      ],
+      "displayName": "Jordan Pond",
+      "landmarks": [],
       "scheduledStops": [
         {
           "dates": {
@@ -639,17 +604,13 @@
           ]
         }
       ],
-      "landmarks": []
+      "tips": []
     },
     {
       "description": "RTE_BROWN_MOUNTAIN_DESC",
       "id": 6,
-      "name": "Brown Mountain",
-      "page": [
-        {
-          "p": "RTE_BROWN_MOUNTAIN_DESC"
-        }
-      ],
+      "displayName": "Brown Mountain",
+      "landmarks": [],
       "scheduledStops": [
         {
           "dates": {
@@ -719,18 +680,14 @@
           ]
         }
       ],
-      "landmarks": []
+      "tips": []
     },
     {
       "description": "RTE_SOUTHWEST_HARBOR_DESC",
       "id": 7,
-      "name": "Southwest Harbor",
-      "notice": "Scheduled stops vary by time of year and day. Please check a local schedule to confirm the stops that are currently in service.",
-      "page": [
-        {
-          "p": "RTE_SOUTHWEST_HARBOR_DESC"
-        }
-      ],
+      "displayName": "Southwest Harbor",
+      "landmarks": [],
+      "notices": ["NTE_SCHEDULED_STOPS"],
       "scheduledStops": [
         {
           "dates": {
@@ -989,17 +946,13 @@
           ]
         }
       ],
-      "landmarks": []
+      "tips": []
     },
     {
       "description": "RTE_SCHOODIC_DESC",
       "id": 8,
-      "name": "Schoodic",
-      "page": [
-        {
-          "p": "RTE_SCHOODIC_DESC"
-        }
-      ],
+      "displayName": "Schoodic",
+      "landmarks": [],
       "scheduledStops": [
         {
           "dates": {
@@ -1091,17 +1044,13 @@
           ]
         }
       ],
-      "landmarks": []
+      "tips": []
     },
     {
       "description": "RTE_TRENTON_DESC",
       "id": 9,
-      "name": "Trenton",
-      "page": [
-        {
-          "p": "RTE_TRENTON_DESC"
-        }
-      ],
+      "displayName": "Trenton",
+      "landmarks": [],
       "scheduledStops": [
         {
           "dates": {
@@ -1242,17 +1191,13 @@
           ]
         }
       ],
-      "landmarks": []
+      "tips": []
     },
     {
       "description": "RTE_BLACKWOODS_DESC",
       "id": 10,
-      "name": "Blackwoods",
-      "page": [
-        {
-          "p": "RTE_BLACKWOODS_DESC"
-        }
-      ],
+      "displayName": "Blackwoods",
+      "landmarks": [],
       "scheduledStops": [
         {
           "dates": {
@@ -1383,7 +1328,7 @@
           ]
         }
       ],
-      "landmarks": []
+      "tips": []
     }
   ]
 }

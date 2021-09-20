@@ -1,0 +1,49 @@
+@use "./dimension";
+@use "./font";
+
+%headline-1 {
+  %headline-1 {
+    font-size: 1em; /* Prevents recursive headline-1 from increasing the font size. */
+  }
+  @extend %title-1;
+  margin: dimension.$text-heading-margin 0 0 0;
+}
+
+%list-item {
+  &::before {
+    content: "\2022";
+    display: inline-block;
+    margin: 0 0 0 dimension.$text-custom-bullet-spacing * -1;
+    width: dimension.$text-custom-bullet-spacing;
+  }
+  font-size: font.$text-body;
+  margin: dimension.$text-para-margin 0 0 0;
+}
+
+%para {
+  %para {
+    font-size: 1em; /* Prevents recursive paras from increasing the font size. */
+  }
+  font-size: font.$text-body;
+  line-height: dimension.$text-body-line-height;
+  margin: dimension.$text-para-margin 0 0 0;
+}
+
+%raised-element {
+  border: {
+    radius: #{dimension.$control-rounded-border-radius-h}/#{dimension.$control-rounded-border-radius-v};
+  }
+  box-shadow: 0 4px 10px 2px rgba(0, 0, 0, 0.5);
+}
+
+%tip {
+  @extend %text-italic;
+  line-height: dimension.$text-body-line-height;
+  margin: dimension.$text-para-margin 0 0 0;
+}
+
+%ulist {
+  list-style: none; // Lists will not automatically create bullet images.
+  margin-top: dimension.$text-li-margin;
+  padding-inline-start: dimension.$text-custom-bullet-spacing * 2; // Position the left side of the bullet (the indent).
+}

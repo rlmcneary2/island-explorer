@@ -1,5 +1,6 @@
 import { routes } from "../assets/routes.json";
 import { landmarks } from "../assets/landmarks.json";
+import { FormattedMessage } from "react-intl";
 
 export default function Information({ routeId }: Props) {
   const route = routes.find(r => r.id === routeId);
@@ -14,11 +15,46 @@ export default function Information({ routeId }: Props) {
   );
 
   return (
-    <div className="information">
-      <span>{`Information route ${routeId || "?"}`}</span>
-      <pre>{JSON.stringify(displayRoute, null, 2)}</pre>
-      <pre>{JSON.stringify(routeLandmarks, null, 2)}</pre>
-    </div>
+    <section className="information">
+      <h1>{route.displayName}</h1>
+      {route.description && (
+        <p className="description">
+          <FormattedMessage id={route.description} />
+        </p>
+      )}
+      {route.notices?.length
+        ? route.notices.map(notice => (
+            <p className="notice" key={notice}>
+              <FormattedMessage id={notice} />
+            </p>
+          ))
+        : null}
+      {route.tips?.length
+        ? route.tips.map(tip => (
+            <p className="tip" key={tip}>
+              <FormattedMessage id={tip} />
+            </p>
+          ))
+        : null}
+      {routeLandmarks.length ? (
+        <ul className="landmarks">
+          {routeLandmarks.map(landmark => (
+            <li key={landmark.id}>
+              <div className="landmark">
+                <p>{landmark.displayName}</p>
+                {landmark.features?.length &&
+                  landmark.features.map(feature => (
+                    <i className={`sym-${feature}`} key={feature} />
+                  ))}
+                <p>
+                  <FormattedMessage id={landmark.description} />
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </section>
   );
 }
 

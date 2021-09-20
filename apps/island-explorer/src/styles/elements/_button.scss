@@ -1,8 +1,8 @@
 @use "../color";
+@use "../font";
 
 .button {
-  font-family: sans-serif;
-  font-size: 1.6rem;
+  @extend %control;
   max-width: 25rem;
   min-width: 15rem;
   &.primary {

@@ -1,0 +1,43 @@
+$text-default: 1em;
+$text-body: $text-default * 1.8;
+$text-control: $text-default * 1.9;
+$text-headline: $text-default * 2;
+$text-tip: $text-default * 1.6;
+
+%control {
+  font: {
+    family: "Oswald";
+    size: $text-control;
+    weight: 400;
+  }
+}
+
+%text {
+  font: {
+    size: $text-body;
+    weight: 400;
+  }
+}
+
+%text-italic {
+  @extend %text;
+  font: {
+    size: $text-tip;
+    style: italic;
+    weight: 300;
+  }
+}
+
+%title {
+  font: {
+    family: "Oswald";
+    weight: 600;
+  }
+}
+
+%title-1 {
+  @extend %title;
+  font: {
+    size: $text-headline;
+  }
+}
