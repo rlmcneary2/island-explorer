@@ -9,9 +9,7 @@
     "nx.json": "*",
     "tsconfig.base.json": "*",
     ".eslintrc.json": "*",
-    "dist/libs/service-worker/src/service-worker.js": [
-      "island-explorer"
-    ]
+    "dist/libs/service-worker/src/service-worker.js": ["island-explorer"]
   },
   "affected": {
     "defaultBase": "master"
@@ -25,7 +23,8 @@
           "build",
           "lint",
           "test",
-          "e2e"
+          "e2e",
+          "build-storybook"
         ]
       }
     }

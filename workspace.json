@@ -101,9 +101,7 @@
                 "output": "./service-worker.js"
               }
             ],
-            "styles": [
-              "apps/island-explorer/src/styles/styles.scss"
-            ],
+            "styles": ["apps/island-explorer/src/styles/styles.scss"],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -131,9 +129,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@nrwl/web:dev-server",
@@ -168,9 +164,38 @@
             "jestConfig": "apps/island-explorer/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/island-explorer"
-          ]
+          "outputs": ["coverage/apps/island-explorer"]
+        },
+        "storybook": {
+          "builder": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 4400,
+            "config": {
+              "configFolder": "apps/island-explorer/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "uiFramework": "@storybook/react",
+            "outputPath": "dist/storybook/island-explorer",
+            "config": {
+              "configFolder": "apps/island-explorer/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
         }
       }
     },
@@ -181,18 +206,13 @@
       "architect": {
         "build": {
           "builder": "@nrwl/web:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/libs/modal",
             "tsConfig": "libs/modal/tsconfig.lib.json",
             "project": "libs/modal/package.json",
             "entryFile": "libs/modal/src/index.ts",
-            "external": [
-              "react",
-              "react-dom"
-            ],
+            "external": ["react", "react-dom"],
             "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
             "assets": [
               {
@@ -206,16 +226,12 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/modal/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/modal/**/*.{ts,tsx,js,jsx}"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/modal"
-          ],
+          "outputs": ["coverage/libs/modal"],
           "options": {
             "jestConfig": "libs/modal/jest.config.js",
             "passWithNoTests": true
@@ -231,16 +247,12 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/service-worker/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/service-worker/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/service-worker"
-          ],
+          "outputs": ["coverage/libs/service-worker"],
           "options": {
             "jestConfig": "libs/service-worker/jest.config.js",
             "passWithNoTests": true
@@ -248,9 +260,7 @@
         },
         "build": {
           "builder": "@nrwl/web:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/libs/service-worker",
             "tsConfig": "libs/service-worker/tsconfig.lib.json",

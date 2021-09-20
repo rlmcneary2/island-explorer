@@ -15,7 +15,10 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["apps/island-explorer/tsconfig.*?.json"]
+        "project": [
+          "apps/island-explorer/tsconfig.*?.json",
+          "apps/island-explorer/.storybook/tsconfig.json"
+        ]
       },
       "rules": {}
     },

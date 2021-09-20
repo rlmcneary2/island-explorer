@@ -1,4 +1,4 @@
-const API_LEFT = "https://acadia-explorer.netlify.app/api";
+const API_LEFT = "https://island-explorer.netlify.app/api";
 
 const VERSION = "2021a";
 
@@ -18,6 +18,8 @@ wgs.addEventListener("install", event => {
         "styles.js",
         "symbols.svg",
         "vendor.js",
+
+        "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300&family=Oswald:wght@400;600&display=swap",
 
         "https://api.mapbox.com/styles/v1/mapbox/outdoors-v11?access_token=pk.eyJ1IjoicmxtY25lYXJ5MiIsImEiOiJjajgyZjJuMDAyajJrMndzNmJqZDFucTIzIn0.BYE_k7mYhhVCdLckWeTg0g",
         // "https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css",
