@@ -3,13 +3,43 @@
 
 .button {
   @extend %control;
+  align-items: center;
+  background-color: color.$control-background;
+  border-radius: 6px;
+  box-sizing: content-box;
+  display: flex;
+  justify-content: center;
   max-width: 25rem;
   min-width: 15rem;
+  padding: 0.5rem;
+  text-decoration: none;
   &.primary {
-    background-color: color.$primary;
+    background-color: color.$secondary-lightest;
+    &:active {
+      filter: brightness(108%) saturate(70%);
+    }
+  }
+  &:active {
+    filter: brightness(105%);
   }
 }
 
 a.button {
   box-sizing: border-box;
+  &:active {
+    color: inherit;
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .button {
+    &.primary {
+      &:active {
+        filter: initial;
+      }
+    }
+    &:active {
+      filter: initial;
+    }
+  }
 }
