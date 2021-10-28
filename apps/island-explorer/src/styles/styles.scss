@@ -1,12 +1,14 @@
 @use "reset";
 @use "tags";
 @use "symbol";
+@use "icon";
 @use "elements/button";
 @use "components/component-main";
 @use "components/component-header";
 @use "components/component-information";
 @use "components/component-map";
 @use "components/component-modal";
+@use "components/component-message";
 
 /*
  * Mapbox GL overrides.

@@ -33,18 +33,14 @@
       }
     }
 
-    .notice {
-      @extend %raised-element;
-    }
-
     .tip {
       @extend %tip;
-      background: color.$color-complement-1;
-      border: solid black 0;
-      border-radius: dimension.$control-rounded-border-radius-h unquote(" / ")
-        dimension.$control-rounded-border-radius-v;
-      display: block;
-      padding: dimension.$text-tip-padding;
+      background: color.$secondary-lightest;
+    }
+
+    .warning {
+      @extend %tip;
+      background: color.$warning;
     }
   }
 }

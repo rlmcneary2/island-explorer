@@ -1,6 +1,8 @@
 import { routes } from "../assets/routes.json";
 import { landmarks } from "../assets/landmarks.json";
 import { FormattedMessage } from "react-intl";
+import { Message } from "./controls/message/message";
+import { MessageDismissible } from "./controls/message/message-dismissible";
 
 export default function Information({ routeId }: Props) {
   const route = routes.find(r => r.id === routeId);
@@ -24,16 +26,18 @@ export default function Information({ routeId }: Props) {
       )}
       {route.notices?.length
         ? route.notices.map(notice => (
-            <p className="notice" key={notice}>
-              <FormattedMessage id={notice} />
-            </p>
+            <MessageDismissible id={notice} type="warning">
+              <p key={notice}>
+                <FormattedMessage id={notice} />
+              </p>
+            </MessageDismissible>
           ))
         : null}
       {route.tips?.length
         ? route.tips.map(tip => (
-            <p className="tip" key={tip}>
+            <Message key={tip} type="tip">
               <FormattedMessage id={tip} />
-            </p>
+            </Message>
           ))
         : null}
       {routeLandmarks.length ? (

@@ -1,0 +1,40 @@
+@use "sass:math";
+@use "./color";
+@use "./dimension";
+
+$icon-cross-dimension: 1rem;
+$icon-cross-thickness: 13%;
+
+%icon-cross {
+  background-color: transparent;
+  display: block;
+  height: $icon-cross-dimension;
+  position: relative;
+  transform: rotate(45deg);
+  width: $icon-cross-dimension;
+  &::after {
+    background-color: color.$text;
+    content: "";
+    display: block;
+    height: 100%;
+    margin: 0 auto;
+    width: $icon-cross-thickness;
+  }
+  &::before {
+    background-color: color.$text;
+    content: "";
+    display: block;
+    height: $icon-cross-thickness;
+    margin-top: math.div($icon-cross-thickness, 2) * -1;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+  }
+}
+
+.icon-dismiss {
+  @extend %icon-cross;
+  height: 1.8rem;
+  margin: 0 auto;
+  width: 1.8rem;
+}

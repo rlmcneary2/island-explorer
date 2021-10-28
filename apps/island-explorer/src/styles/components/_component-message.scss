@@ -1,0 +1,17 @@
+@use "../dimension";
+
+.message {
+  border: solid black 0;
+  border-radius: dimension.$control-rounded-border-radius-h unquote(" / ")
+    dimension.$control-rounded-border-radius-v;
+  display: flex;
+  overflow: hidden;
+  padding: dimension.$text-tip-padding;
+  & > button {
+    background-color: transparent;
+    flex: 0 0 3rem;
+    height: 3rem;
+    margin-right: dimension.$text-tip-padding * -1;
+    margin-top: dimension.$text-tip-padding * -1;
+  }
+}

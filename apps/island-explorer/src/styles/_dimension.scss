@@ -1,9 +1,11 @@
+@use "sass:math";
+
 $control-height: 37px;
 $control-height-2: $control-height * 1.2;
-$control-height-half: $control-height / 2;
-$control-border-radius-h: $control-height / 2;
-$control-border-radius-v: $control-height / 2;
-$control-margin-h: $control-height / 10;
+$control-height-half: math.div($control-height, 2);
+$control-border-radius-h: math.div($control-height, 2);
+$control-border-radius-v: math.div($control-height, 2);
+$control-margin-h: math.div($control-height, 10);
 $control-margin-v: 3px;
 $control-padding: 3px;
 $control-padding-large: $control-padding * 4;
