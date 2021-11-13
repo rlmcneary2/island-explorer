@@ -10,7 +10,7 @@ export default function Information({ routeId }: Props) {
     return null;
   }
 
-  const { scheduledStops, ...displayRoute } = route;
+  const { scheduledStops, ..._ } = route;
 
   const routeLandmarks = landmarks.filter(l =>
     route.landmarks.some(rl => rl === l.id)
@@ -43,17 +43,17 @@ export default function Information({ routeId }: Props) {
       {routeLandmarks.length ? (
         <ul className="landmarks">
           {routeLandmarks.map(landmark => (
-            <li key={landmark.id}>
-              <div className="landmark">
-                <p>{landmark.displayName}</p>
+            <li className="landmark" key={landmark.id}>
+              <h2>{landmark.displayName}</h2>
+              <div className="symbol-container">
                 {landmark.features?.length &&
                   landmark.features.map(feature => (
                     <i className={`sym-${feature}`} key={feature} />
                   ))}
-                <p>
-                  <FormattedMessage id={landmark.description} />
-                </p>
               </div>
+              <p>
+                <FormattedMessage id={landmark.description} />
+              </p>
             </li>
           ))}
         </ul>

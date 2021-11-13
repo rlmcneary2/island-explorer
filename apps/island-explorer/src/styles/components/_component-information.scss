@@ -18,6 +18,10 @@
       @extend %headline-1;
     }
 
+    h2 {
+      @extend %headline-2;
+    }
+
     .description {
       @extend %para;
     }
@@ -26,10 +30,9 @@
       @extend %ulist;
       .landmark {
         @extend %list-item;
-        [class^="sym-"] {
+        .symbol-container {
           display: flex;
         }
-        margin-top: dimension.$text-li-margin;
       }
     }
 

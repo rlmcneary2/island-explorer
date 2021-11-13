@@ -2,20 +2,16 @@
 @use "./font";
 
 %headline-1 {
-  %headline-1 {
-    font-size: 1em; /* Prevents recursive headline-1 from increasing the font size. */
-  }
   @extend %title-1;
   margin: dimension.$text-heading-margin 0 0 0;
 }
 
+%headline-2 {
+  @extend %headline-1;
+  font-size: font.$text-headline-2;
+}
+
 %list-item {
-  &::before {
-    content: "\2022";
-    display: inline-block;
-    margin: 0 0 0 dimension.$text-custom-bullet-spacing * -1;
-    width: dimension.$text-custom-bullet-spacing;
-  }
   font-size: font.$text-body;
   margin: dimension.$text-para-margin 0 0 0;
 }
@@ -43,7 +39,7 @@
 }
 
 %ulist {
-  list-style: none; // Lists will not automatically create bullet images.
-  margin-top: dimension.$text-li-margin;
+  list-style-type: disc; // Custom bullet?.
+  margin-top: dimension.$text-para-margin;
   padding-inline-start: dimension.$text-custom-bullet-spacing * 2; // Position the left side of the bullet (the indent).
 }

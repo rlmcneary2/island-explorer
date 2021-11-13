@@ -1,7 +1,8 @@
-$text-default: 1em;
+$text-default: 1rem;
 $text-body: $text-default * 1.8;
 $text-control: $text-default * 2.5;
 $text-headline: $text-default * 2.4;
+$text-headline-2: $text-default * 2;
 $text-tip: $text-default * 1.6;
 
 %control {

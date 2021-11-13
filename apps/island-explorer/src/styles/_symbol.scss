@@ -15,6 +15,9 @@ $symbol-small: 20px - ($symbol-border * 2);
     dimension.$symbol-rounded-border-radius-v;
   display: block;
   margin-left: dimension.$symbol-margin-h;
+  &:first-of-type {
+    margin-left: 0;
+  }
 }
 
 %symbol-small {
