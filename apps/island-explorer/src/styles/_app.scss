@@ -1,3 +1,4 @@
+@use "./color";
 @use "./dimension";
 @use "./font";
 
@@ -14,6 +15,59 @@
 %list-item {
   font-size: font.$text-body;
   margin: dimension.$text-para-margin 0 0 0;
+}
+
+// You should use the modal-base mixin (see below).
+%modal {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0);
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: background-color 100ms;
+  > .content {
+    background: color.$background;
+    box-sizing: border-box;
+    height: 60vh;
+    opacity: 0;
+    padding: dimension.$control-padding-large;
+    transform: scale(0.8);
+    transition: all 100ms;
+    width: 75vw;
+  }
+
+  &.animate-start-in {
+    background-color: rgba(0, 0, 0, 0.3);
+    & > .content {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  &.animate-end-in {
+    background-color: rgba(0, 0, 0, 0.3);
+    & > .content {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+@mixin modal-base() {
+  @extend %modal;
+  @media (prefers-reduced-motion) {
+    .modal {
+      > .content {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
 }
 
 %para {

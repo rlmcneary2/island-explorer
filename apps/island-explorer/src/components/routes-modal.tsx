@@ -31,12 +31,14 @@ export function RoutesModal({ onClose, onExternalTap, routes }: Props) {
     return <p>loading...</p>;
   }
 
-  console.log("RoutesModal");
-
   const items = data.map(route => {
     return (
-      <li key={route.RouteId}>
-        <Link onClick={handleLinkClick} to={`/${route.RouteId}/${page}`}>
+      <li className="list-item" key={route.RouteId}>
+        <Link
+          onClick={handleLinkClick}
+          style={{ color: `#${route.Color}` }}
+          to={`/${route.RouteId}/${page}`}
+        >
           {route.LongName}
         </Link>
       </li>
@@ -50,8 +52,8 @@ export function RoutesModal({ onClose, onExternalTap, routes }: Props) {
       onExternalTap={handleExternalTap}
       onHidden={handleHidden}
     >
-      <nav className="content">
-        <ul>{items}</ul>
+      <nav className="content routes">
+        <ul className="list">{items}</ul>
       </nav>
     </AnimatedModalDialog>
   );
