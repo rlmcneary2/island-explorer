@@ -8,9 +8,11 @@ export interface ContextData {
   routeStops?: AsyncActionData<Stop[]>;
   routeTrace?: AsyncActionData<Trace>;
   routeVehicles?: AsyncActionData<Vehicle[]>;
+  selectedStopIds?: number[];
 }
 
 export interface ContextActions {
+  selectStop: (stopId: number) => void;
   setRoute: (routeId: number) => void;
 }
 

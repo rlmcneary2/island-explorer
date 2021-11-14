@@ -1,11 +1,14 @@
 import { routes } from "../assets/routes.json";
 import { landmarks } from "../assets/landmarks.json";
 import { FormattedMessage } from "react-intl";
+import useContextActions from "../context/use-context-actions";
 import { Message } from "./controls/message/message";
 import { MessageDismissible } from "./controls/message/message-dismissible";
 import { InformationLandmark } from "./information-landmark";
 
 export default function Information({ routeId }: Props) {
+  const { selectStop } = useContextActions();
+
   const route = routes.find(r => r.id === routeId);
   if (!route) {
     return null;
@@ -42,7 +45,11 @@ export default function Information({ routeId }: Props) {
       {routeLandmarks.length ? (
         <ul className="landmarks">
           {routeLandmarks.map(landmark => (
-            <InformationLandmark key={landmark?.id} {...landmark} />
+            <InformationLandmark
+              key={landmark?.id}
+              landmark={landmark}
+              onClick={selectStop}
+            />
           ))}
         </ul>
       ) : null}

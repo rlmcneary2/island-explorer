@@ -1,17 +1,14 @@
 import { FormattedMessage } from "react-intl";
 
-export function InformationLandmark(landmark: {
-  description?: string;
-  displayName: string;
-  features?: string[];
-  id: number;
-}) {
+export function InformationLandmark({ landmark, onClick }: Props) {
   return (
     <li
       className={`landmark${landmark.id < 4000 ? " stop" : ""}`}
       key={landmark.id}
     >
-      <h2>{landmark.displayName}</h2>
+      <button onClick={() => onClick(landmark.id)}>
+        <h2>{landmark.displayName}</h2>
+      </button>
       <div className="symbol-container">
         {landmark.features?.length &&
           landmark.features.map(feature => (
@@ -23,4 +20,14 @@ export function InformationLandmark(landmark: {
       </p>
     </li>
   );
+}
+
+interface Props {
+  landmark: {
+    description?: string;
+    displayName: string;
+    features?: string[];
+    id: number;
+  };
+  onClick: (stopId: number) => void;
 }

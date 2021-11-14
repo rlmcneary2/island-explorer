@@ -1,3 +1,4 @@
+@use "sass:math";
 @use "../color";
 @use "../dimension";
 @use "../symbol";
@@ -21,6 +22,7 @@
 
     h2 {
       @extend %headline-2;
+      margin: 0;
     }
 
     .description {
@@ -32,6 +34,11 @@
 
       .landmark {
         @extend %list-item;
+
+        button {
+          height: dimension.$control-height;
+          margin: dimension.$text-para-margin 0 0 0;
+        }
 
         .symbol-container {
           display: flex;
@@ -54,7 +61,9 @@
           }
           content: "";
           height: 26px;
-          margin: dimension.$text-para-margin - 4px 0 0 -26px;
+          margin: 0 0 0 -26px;
+          margin-top: dimension.$text-para-margin +
+            math.div((dimension.$control-height - 26px), 2);
           width: 26px;
           position: absolute;
         }

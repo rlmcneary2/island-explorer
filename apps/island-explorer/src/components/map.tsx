@@ -3,6 +3,7 @@ import type { Map as MapGL } from "mapbox-gl";
 import { RemapGL } from "remapgl";
 import MapLayerCollectionItems from "./map-layer-collection-items";
 import MapVehicles from "./map-vehicles";
+import { MapStops } from "./map-stops";
 
 const ZOOM_TO_FIT_PADDING = 25;
 
@@ -30,6 +31,7 @@ export default function Map({ routeId }: Props) {
           }
           routeId={routeId}
         />
+        <MapStops />
         <MapVehicles />
       </RemapGL>
     </div>

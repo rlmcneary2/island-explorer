@@ -270,17 +270,31 @@ export function create(): ActionHandler<ContextState>[] {
     return [(nextState as ContextState) ?? state, !!nextState];
   };
 
+  const selectStop: ActionHandler<ContextState, number> = (state, action) => {
+    if (
+      action.id !== actionIds.ACTION_SELECT_STOP ||
+      state.selectedStopIds?.includes(action.payload)
+    ) {
+      return [state];
+    }
+
+    state.selectedStopIds = [...(state.selectedStopIds ?? []), action.payload];
+    return [state, true];
+  };
+
   return [
     fetchRoutes,
     fetchRoutesFinished,
     handleRouteChanged,
-    fetchRouteVehicles
+    fetchRouteVehicles,
+    selectStop
   ];
 }
 
 export const actionIds = Object.freeze({
   ACTION_FETCH_ROUTE_VEHICLES: "action-fetch-route-vehicles",
-  ACTION_ROUTE_CHANGED: "action-route-changed"
+  ACTION_ROUTE_CHANGED: "action-route-changed",
+  ACTION_SELECT_STOP: "action-select-stop"
 });
 
 async function handleStopsResponse(
