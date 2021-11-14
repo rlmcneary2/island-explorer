@@ -24,9 +24,11 @@ $modal-max-width: 240px;
 $modal-min-width: 170px;
 $modal-width: 75%;
 
+$symbol-border: 0;
 $symbol-margin-h: 3px;
 $symbol-rounded-border-radius-h: 3px;
 $symbol-rounded-border-radius-v: 3px;
+$symbol-small: 20px - ($symbol-border * 2);
 
 $text-custom-bullet-spacing: 8px;
 $text-body-line-height: 1.35em;

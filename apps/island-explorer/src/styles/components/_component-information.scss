@@ -1,5 +1,6 @@
 @use "../color";
 @use "../dimension";
+@use "../symbol";
 @use "../app";
 
 .content {
@@ -28,10 +29,34 @@
 
     .landmarks {
       @extend %ulist;
+
       .landmark {
         @extend %list-item;
+
         .symbol-container {
           display: flex;
+
+          > :first-of-type {
+            margin-left: 0;
+          }
+        }
+      }
+
+      .stop {
+        list-style-type: none;
+
+        &::before {
+          @extend %symbol-small;
+          background: {
+            image: url("../assets/icon-bus.svg");
+            position: left top;
+            size: cover;
+          }
+          content: "";
+          height: 26px;
+          margin: dimension.$text-para-margin - 4px 0 0 -26px;
+          width: 26px;
+          position: absolute;
         }
       }
     }

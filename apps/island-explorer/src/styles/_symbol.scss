@@ -1,89 +1,83 @@
 @use "color";
 @use "dimension";
 
-$symbol-border: 0;
-$symbol-small: 20px - ($symbol-border * 2);
-
 %symbol {
   background: {
     image: url("../assets/symbols.svg");
     position: left top;
     size: cover;
   }
-  border: solid color.$text $symbol-border;
+  border: solid color.$text dimension.$symbol-border;
   border-radius: dimension.$symbol-rounded-border-radius-h unquote(" / ")
     dimension.$symbol-rounded-border-radius-v;
   display: block;
   margin-left: dimension.$symbol-margin-h;
-  &:first-of-type {
-    margin-left: 0;
-  }
 }
 
 %symbol-small {
   @extend %symbol;
-  height: $symbol-small;
-  width: $symbol-small;
+  height: dimension.$symbol-small;
+  width: dimension.$symbol-small;
 }
 
 .sym-accessible {
   @extend %symbol-small;
-  background-position: $symbol-small * -15;
+  background-position: dimension.$symbol-small * -15;
 }
 
 .sym-airport {
   @extend %symbol-small;
-  background-position: $symbol-small * -5;
+  background-position: dimension.$symbol-small * -5;
 }
 
 .sym-attraction {
   @extend %symbol-small;
-  background-position: $symbol-small * -17;
+  background-position: dimension.$symbol-small * -17;
 }
 
 .sym-beach {
   @extend %symbol-small;
-  background-position: $symbol-small * -12;
+  background-position: dimension.$symbol-small * -12;
 }
 
 .sym-bike {
   @extend %symbol-small;
-  background-position: $symbol-small * -10;
+  background-position: dimension.$symbol-small * -10;
 }
 
 .sym-camp {
   @extend %symbol-small;
-  background-position: $symbol-small * -6;
+  background-position: dimension.$symbol-small * -6;
 }
 
 .sym-climb {
   @extend %symbol-small;
-  background-position: $symbol-small * -4;
+  background-position: dimension.$symbol-small * -4;
 }
 
 .sym-dine {
   @extend %symbol-small;
-  background-position: $symbol-small * -9;
+  background-position: dimension.$symbol-small * -9;
 }
 
 .sym-ferry {
   @extend %symbol-small;
-  background-position: $symbol-small * -8;
+  background-position: dimension.$symbol-small * -8;
 }
 
 .sym-gift {
   @extend %symbol-small;
-  background-position: $symbol-small * -16;
+  background-position: dimension.$symbol-small * -16;
 }
 
 .sym-hike {
   @extend %symbol-small;
-  background-position: $symbol-small * -3;
+  background-position: dimension.$symbol-small * -3;
 }
 
 .sym-inn {
   @extend %symbol-small;
-  background-position: $symbol-small * -7;
+  background-position: dimension.$symbol-small * -7;
 }
 
 .sym-park {
@@ -92,35 +86,35 @@ $symbol-small: 20px - ($symbol-border * 2);
 
 .sym-restroom {
   @extend %symbol-small;
-  background-position: $symbol-small * -1;
+  background-position: dimension.$symbol-small * -1;
 }
 
 .sym-station {
   @extend %symbol-small;
-  background-position: $symbol-small * -18;
+  background-position: dimension.$symbol-small * -18;
 }
 
 .sym-swim {
   @extend %symbol-small;
-  background-position: $symbol-small * -13;
+  background-position: dimension.$symbol-small * -13;
 }
 
 .sym-tower {
   @extend %symbol-small;
-  background-position: $symbol-small * -14;
+  background-position: dimension.$symbol-small * -14;
 }
 
 .sym-walk {
   @extend %symbol-small;
-  background-position: $symbol-small * -2;
+  background-position: dimension.$symbol-small * -2;
 }
 
 .sym-water {
   @extend %symbol-small;
-  background-position: $symbol-small * -11;
+  background-position: dimension.$symbol-small * -11;
 }
 
 .sym-wonder {
   @extend %symbol-small;
-  background-position: $symbol-small * -19;
+  background-position: dimension.$symbol-small * -19;
 }

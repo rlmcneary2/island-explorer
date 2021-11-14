@@ -10,11 +10,9 @@ export default function Information({ routeId }: Props) {
     return null;
   }
 
-  const { scheduledStops, ..._ } = route;
-
-  const routeLandmarks = landmarks.filter(l =>
-    route.landmarks.some(rl => rl === l.id)
-  );
+  const routeLandmarks = route.landmarks.map(routeLandmark => {
+    return landmarks.find(lmk => lmk.id === routeLandmark);
+  });
 
   return (
     <section className="information">
@@ -43,7 +41,10 @@ export default function Information({ routeId }: Props) {
       {routeLandmarks.length ? (
         <ul className="landmarks">
           {routeLandmarks.map(landmark => (
-            <li className="landmark" key={landmark.id}>
+            <li
+              className={`landmark${landmark.id < 4000 ? " stop" : ""}`}
+              key={landmark.id}
+            >
               <h2>{landmark.displayName}</h2>
               <div className="symbol-container">
                 {landmark.features?.length &&
