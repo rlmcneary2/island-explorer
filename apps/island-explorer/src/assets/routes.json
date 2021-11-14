@@ -245,7 +245,8 @@
       "description": "RTE_SAND_BEACH_DESC",
       "id": 3,
       "displayName": "Sand Beach",
-      "landmarks": [1000],
+      "landmarks": [4000, 4010, 4020, 4030, 22, 23, 4040],
+      "notices": ["NTE_SCHEDULED_STOPS"],
       "scheduledStops": [
         {
           "dates": {
@@ -336,13 +337,13 @@
           ]
         }
       ],
-      "tips": ["RTE_SAND_BEACH_TIP"]
+      "tips": ["RTE_SAND_BEACH_TIP", "RTE_SAND_BEACH_TIP2"]
     },
     {
       "description": "RTE_LOOP_ROAD_DESC",
       "id": 4,
       "displayName": "Loop Road",
-      "landmarks": [4000, 4010, 4020, 4030],
+      "landmarks": [4000, 4010, 4020, 4030, 22, 23, 4040],
       "notices": ["NTE_SCHEDULED_STOPS"],
       "scheduledStops": [
         {
