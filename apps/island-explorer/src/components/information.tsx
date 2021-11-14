@@ -3,6 +3,7 @@ import { landmarks } from "../assets/landmarks.json";
 import { FormattedMessage } from "react-intl";
 import { Message } from "./controls/message/message";
 import { MessageDismissible } from "./controls/message/message-dismissible";
+import { InformationLandmark } from "./information-landmark";
 
 export default function Information({ routeId }: Props) {
   const route = routes.find(r => r.id === routeId);
@@ -10,9 +11,9 @@ export default function Information({ routeId }: Props) {
     return null;
   }
 
-  const routeLandmarks = route.landmarks.map(routeLandmark => {
-    return landmarks.find(lmk => lmk.id === routeLandmark);
-  });
+  const routeLandmarks = (route.landmarks as number[]).map(id =>
+    landmarks.find(lmk => lmk.id === id)
+  );
 
   return (
     <section className="information">
@@ -24,8 +25,8 @@ export default function Information({ routeId }: Props) {
       )}
       {route.notices?.length
         ? route.notices.map(notice => (
-            <MessageDismissible id={notice} type="warning">
-              <p key={notice}>
+            <MessageDismissible id={notice} key={notice} type="warning">
+              <p>
                 <FormattedMessage id={notice} />
               </p>
             </MessageDismissible>
@@ -41,21 +42,7 @@ export default function Information({ routeId }: Props) {
       {routeLandmarks.length ? (
         <ul className="landmarks">
           {routeLandmarks.map(landmark => (
-            <li
-              className={`landmark${landmark.id < 4000 ? " stop" : ""}`}
-              key={landmark.id}
-            >
-              <h2>{landmark.displayName}</h2>
-              <div className="symbol-container">
-                {landmark.features?.length &&
-                  landmark.features.map(feature => (
-                    <i className={`sym-${feature}`} key={feature} />
-                  ))}
-              </div>
-              <p>
-                <FormattedMessage id={landmark.description} />
-              </p>
-            </li>
+            <InformationLandmark key={landmark?.id} {...landmark} />
           ))}
         </ul>
       ) : null}
