@@ -543,9 +543,19 @@
       }
     },
     {
+      "description": "LMK_THUNDER_HOLE_DESC",
+      "id": 10023,
+      "ref": 23
+    },
+    {
+      "description": "LMK_OTTER_CLIFFS_DESC",
+      "id": 10024,
+      "ref": 24
+    },
+    {
       "description": "TRH_CHAMPLAIN_NORTH_RIDGE_DESC",
       "features": ["hike"],
-      "id": 4000,
+      "id": 20000,
       "landmarkType": "trail-head",
       "displayName": "Champlain North Ridge Trailhead",
       "location": {
@@ -556,7 +566,7 @@
     {
       "description": "TRH_ORANGE_AND_BLACK_DESC",
       "features": ["hike"],
-      "id": 4010,
+      "id": 21000,
       "landmarkType": "trail-head",
       "displayName": "Orange and Black Path",
       "location": {
@@ -567,7 +577,7 @@
     {
       "description": "TRH_PRECIPICE_DESC",
       "features": ["climb", "hike", "walk"],
-      "id": 4020,
+      "id": 22000,
       "landmarkType": "trail-head",
       "displayName": "Precipice Trailhead",
       "location": {
@@ -578,7 +588,7 @@
     {
       "description": "TRH_BOWL_DESC",
       "features": ["climb", "hike"],
-      "id": 4030,
+      "id": 23000,
       "landmarkType": "trail-head",
       "displayName": "Bowl Trailhead",
       "location": {
@@ -589,7 +599,7 @@
     {
       "description": "TRH_GORHAM_DESC",
       "features": ["hike"],
-      "id": 4040,
+      "id": 24000,
       "landmarkType": "trail-head",
       "displayName": "Gorham Mountain Trailhead",
       "location": {

@@ -1,10 +1,10 @@
 import { routes } from "../assets/routes.json";
-import { landmarks } from "../assets/landmarks.json";
 import { FormattedMessage } from "react-intl";
 import useContextActions from "../context/use-context-actions";
 import { Message } from "./controls/message/message";
 import { MessageDismissible } from "./controls/message/message-dismissible";
 import { InformationLandmark } from "./information-landmark";
+import { getLandmark } from "../util/landmark";
 
 export default function Information({ routeId }: Props) {
   const { selectStop } = useContextActions();
@@ -15,7 +15,7 @@ export default function Information({ routeId }: Props) {
   }
 
   const routeLandmarks = (route.landmarks as number[]).map(id =>
-    landmarks.find(lmk => lmk.id === id)
+    getLandmark(id)
   );
 
   return (
