@@ -330,7 +330,7 @@
     },
     {
       "description": "LMK_OTTER_CLIFFS_DESC",
-      "features": ["wonder", "walk", "hike", "climb"],
+      "features": ["wonder", "walk", "hike", "technical"],
       "landmarkType": "point-of-interest",
       "displayName": "Otter Cliffs",
       "id": 24,
@@ -605,6 +605,17 @@
       "location": {
         "latitude": 44.316489,
         "longitude": -68.1918483
+      }
+    },
+    {
+      "description": "LMK_FABBRI_DESC",
+      "features": ["restroom", "water", "picnic", "walk", "hike"],
+      "id": 25000,
+      "landmarkType": "point-of-interest",
+      "displayName": "Fabbri",
+      "location": {
+        "latitude": 44.31446883310579,
+        "longitude": -68.19492700059263
       }
     }
   ]

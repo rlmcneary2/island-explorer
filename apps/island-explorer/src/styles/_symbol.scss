@@ -45,6 +45,11 @@
   background-position: dimension.$symbol-small * -10;
 }
 
+.sym-bus-stop {
+  @extend %symbol-small;
+  background-position: dimension.$symbol-small * -21;
+}
+
 .sym-camp {
   @extend %symbol-small;
   background-position: dimension.$symbol-small * -6;
@@ -84,6 +89,11 @@
   @extend %symbol-small;
 }
 
+.sym-picnic {
+  @extend %symbol-small;
+  background-position: dimension.$symbol-small * -20;
+}
+
 .sym-restroom {
   @extend %symbol-small;
   background-position: dimension.$symbol-small * -1;
@@ -97,6 +107,11 @@
 .sym-swim {
   @extend %symbol-small;
   background-position: dimension.$symbol-small * -13;
+}
+
+.sym-technical {
+  @extend %symbol-small;
+  background-position: dimension.$symbol-small * -22;
 }
 
 .sym-tower {

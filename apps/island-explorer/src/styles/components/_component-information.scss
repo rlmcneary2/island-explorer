@@ -4,6 +4,8 @@
 @use "../symbol";
 @use "../app";
 
+$bus-stop-bullet-height: 22px;
+
 .content {
   .information {
     background-color: color.$color-app-background;
@@ -53,18 +55,17 @@
         list-style-type: none;
 
         &::before {
-          @extend %symbol-small;
           background: {
-            image: url("../assets/icon-bus.svg");
-            position: left top;
+            image: url("../assets/symbols.svg");
+            position: $bus-stop-bullet-height * -21;
             size: cover;
           }
           content: "";
-          height: 26px;
-          margin: 0 0 0 -26px;
+          height: $bus-stop-bullet-height;
+          margin: 0 2px 0 $bus-stop-bullet-height * -1;
           margin-top: dimension.$text-para-margin +
-            math.div((dimension.$control-height - 26px), 2);
-          width: 26px;
+            math.div((dimension.$control-height - $bus-stop-bullet-height), 2);
+          width: $bus-stop-bullet-height;
           position: absolute;
         }
       }
