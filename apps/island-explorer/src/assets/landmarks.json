@@ -617,6 +617,17 @@
         "latitude": 44.31446883310579,
         "longitude": -68.19492700059263
       }
+    },
+    {
+      "description": "TRH_CANON_BROOK_DESC",
+      "features": ["hike"],
+      "id": 26000,
+      "landmarkType": "trail-head",
+      "displayName": "Cañon Brook Trailhead",
+      "location": {
+        "latitude": 44.34816545694036,
+        "longitude": -68.20226354782417
+      }
     }
   ]
 }
