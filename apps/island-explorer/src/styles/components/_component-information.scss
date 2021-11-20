@@ -62,7 +62,7 @@ $bus-stop-bullet-height: 22px;
           }
           content: "";
           height: $bus-stop-bullet-height;
-          margin: 0 2px 0 $bus-stop-bullet-height * -1;
+          margin: 0 0 0 $bus-stop-bullet-height * -1;
           margin-top: dimension.$text-para-margin +
             math.div((dimension.$control-height - $bus-stop-bullet-height), 2);
           width: $bus-stop-bullet-height;
