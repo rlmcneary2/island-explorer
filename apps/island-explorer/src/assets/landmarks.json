@@ -183,8 +183,8 @@
       "displayName": "Cadillac North Ridge",
       "id": 20,
       "location": {
-        "latitude": 44.37848216173143,
-        "longitude": -68.22956470921544
+        "latitude": 44.37951550727959,
+        "longitude": -68.23234479389386
       }
     },
     {
@@ -194,8 +194,8 @@
       "displayName": "Cadillac North Ridge",
       "id": 83,
       "location": {
-        "latitude": 44.37848216173143,
-        "longitude": -68.22956470921544
+        "latitude": 44.37951550727959,
+        "longitude": -68.23234479389386
       }
     },
     {
@@ -241,13 +241,13 @@
     },
     {
       "description": "LMK_HULLS_COVE_VISITOR_CENTER_DESC",
-      "features": ["restroom", "water", "park", "walk", "bike"],
+      "features": ["restroom", "water", "station", "park", "walk", "bike"],
       "landmarkType": "visitor-center",
       "displayName": "Hulls Cove Visitor Center",
       "id": 3,
       "location": {
-        "latitude": 44.40903854,
-        "longitude": -68.24743652
+        "latitude": 44.40928458102677,
+        "longitude": -68.24799728470641
       }
     },
     {
@@ -269,8 +269,8 @@
       "displayName": "Jordan Pond",
       "id": 29,
       "location": {
-        "latitude": 44.32016754,
-        "longitude": -68.25358582
+        "latitude": 44.32052201288366,
+        "longitude": -68.25315534463009
       }
     },
     {
@@ -500,7 +500,7 @@
     },
     {
       "description": "LMK_WILDWOOD_STABLES_DESC",
-      "features": ["restroom", "walk", "hike", "bike"],
+      "features": ["accessible", "restroom", "walk", "hike", "bike"],
       "landmarkType": "point-of-interest",
       "displayName": "Wildwood Stables",
       "id": 30,

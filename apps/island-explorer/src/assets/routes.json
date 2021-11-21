@@ -346,7 +346,10 @@
       "description": "RTE_LOOP_ROAD_DESC",
       "id": 4,
       "displayName": "Loop Road",
-      "landmarks": [20000, 21000, 22000, 23000, 22, 10023, 24000, 10024, 25000],
+      "landmarks": [
+        3, 20, 21, 20000, 21000, 22000, 23000, 22, 10023, 24000, 10024, 25000,
+        30, 29
+      ],
       "notices": ["NTE_SCHEDULED_STOPS"],
       "scheduledStops": [
         {
@@ -464,7 +467,8 @@
       "description": "RTE_JORDAN_POND_DESC",
       "id": 5,
       "displayName": "Jordan Pond",
-      "landmarks": [],
+      "landmarks": [3, 20, 28, 29],
+      "notices": ["NTE_SCHEDULED_STOPS"],
       "scheduledStops": [
         {
           "dates": {
@@ -608,7 +612,7 @@
           ]
         }
       ],
-      "tips": []
+      "tips": ["RTE_JORDAN_POND_TIP", "RTE_JORDAN_POND_TIP2"]
     },
     {
       "description": "RTE_BROWN_MOUNTAIN_DESC",
