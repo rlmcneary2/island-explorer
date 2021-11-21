@@ -177,25 +177,25 @@
       }
     },
     {
-      "description": "LMK_CADILLAC_NORTH_RIDGE_DESC",
+      "description": "TRH_CADILLAC_NORTH_RIDGE_DESC",
       "features": ["hike"],
       "landmarkType": "trail-head",
       "displayName": "Cadillac North Ridge",
       "id": 20,
       "location": {
-        "latitude": 44.3786,
-        "longitude": -68.2292
+        "latitude": 44.37848216173143,
+        "longitude": -68.22956470921544
       }
     },
     {
-      "description": "LMK_CADILLAC_NORTH_RIDGE_DESC",
+      "description": "TRH_CADILLAC_NORTH_RIDGE_DESC",
       "features": ["hike"],
       "landmarkType": "trail-head",
       "displayName": "Cadillac North Ridge",
       "id": 83,
       "location": {
-        "latitude": 44.3786,
-        "longitude": -68.2292
+        "latitude": 44.37848216173143,
+        "longitude": -68.22956470921544
       }
     },
     {
@@ -491,11 +491,11 @@
         "walk"
       ],
       "landmarkType": "point-of-interest",
-      "displayName": "Village Green",
+      "displayName": "Bar Harbor Village Green",
       "id": 1,
       "location": {
-        "latitude": 44.38788986,
-        "longitude": -68.20548248
+        "latitude": 44.387919499573265,
+        "longitude": -68.20558682662836
       }
     },
     {
@@ -627,6 +627,72 @@
       "location": {
         "latitude": 44.34816545694036,
         "longitude": -68.20226354782417
+      }
+    },
+    {
+      "description": "TRH_LADDER_TRAIL_DESC",
+      "features": ["hike", "climb"],
+      "id": 27000,
+      "landmarkType": "trail-head",
+      "displayName": "Ladder Trail Trailhead",
+      "location": {
+        "latitude": 44.35189343674089,
+        "longitude": -68.20449126814941
+      }
+    },
+    {
+      "description": "TRL_GORGE_PATH_DESC",
+      "features": ["hike"],
+      "id": 28000,
+      "landmarkType": "trail-crossing",
+      "displayName": "Gorge Path",
+      "location": {
+        "latitude": 44.37262620397349,
+        "longitude": -68.22193907439807
+      }
+    },
+    {
+      "description": "TRL_KEBO_MOUNTAIN_DESC",
+      "features": ["hike"],
+      "id": 29000,
+      "landmarkType": "trail-crossing",
+      "displayName": "Kebo Mountain Trail",
+      "location": {
+        "latitude": 44.37693791110443,
+        "longitude": -68.21903042526775
+      }
+    },
+    {
+      "description": "TRH_STRATHEDEN_PATH_DESC",
+      "features": ["hike"],
+      "id": 30000,
+      "landmarkType": "trail-crossing",
+      "displayName": "Stratheden Path Trailhead",
+      "location": {
+        "latitude": 44.37578062864385,
+        "longitude": -68.21725877688762
+      }
+    },
+    {
+      "description": "TRL_JESSUP_PATH_DESC",
+      "features": ["walk"],
+      "id": 31000,
+      "landmarkType": "trail-crossing",
+      "displayName": "Jessup Path",
+      "location": {
+        "latitude": 44.37147285820582,
+        "longitude": -68.21197164015284
+      }
+    },
+    {
+      "description": "LMK_BEAVER_DAM_POND_DESC",
+      "features": ["wonder"],
+      "id": 32000,
+      "landmarkType": "point-of-interest",
+      "displayName": "Beaver Dam Pond",
+      "location": {
+        "latitude": 44.36248156454828,
+        "longitude": -68.19549011673008
       }
     }
   ]

@@ -1,9 +1,12 @@
 {
   "INFORMATION": "Information",
+  "LMK_BEAVER_DAM_POND_DESC": "Trees bearing the scars of attempts by beavers to chew them down. Brightly colored foliage in the autumn.",
   "LMK_FABBRI_DESC": "Never crowded the Fabbri picnic area overlooks Otter Cover and granite beaches.",
   "LMK_OTTER_CLIFFS_DESC": "Tall granite cliffs with a sheer drop into the ocean and unbroken views of the Atlantic. Stairs lead to uneven trails along the top of the cliff face. This is the south end of the Ocean Path which runs north to Sand Beach.",
   "LMK_SAND_BEACH_DESC": "Perhaps the most visited destination in the park. Both the beach itself and Great Head Trail are accessed by a set of two flights of stairs. The Ocean Path has entrances from both parking lots and runs south to Otter Cliffs. The Saterlee Trail starts on the North side of the entrance road. The Bowl trailhead is a short walk north along the Loop road.",
+  "LMK_SIEUR_DE_MONTS_DESC": "The hub of the north east region of the park. Steep trails ascend Dorr Mountain to the west and Champlain Mountain to the east. The Great Meadow is traversed by a flat walk among trees and wildlife. Along with the visitor center the Wild Gardens of Acadia features native plants and animals. The Abbe Museum (open seasonally) is dedicated to promoting understanding of Mount Desert's indigenous inhabitants.",
   "LMK_THUNDER_HOLE_DESC": "Best visited just past rising mid-tide. Bigger waves from a storm, or even better an offshore storm, provide the best show. Access to the Ocean Path.",
+  "LMK_VILLAGE_GREEN_DESC": "The Village Green of Bar Harbor's bustling downtown. Food, lodging, and shopping are all available here.",
   "MAP": "Map",
   "MENU": "Menu",
   "NTE_SCHEDULED_STOPS": "Scheduled stops vary by time of year and day. Please check a local schedule to confirm the stops that are currently in service.",
@@ -15,9 +18,15 @@
   "RTE_SAND_BEACH_TIP2": "This is one of the most popular routes in the park. Depending on your destination some alternative routes are Sand Beach and Blackwoods.",
   "SELECT_ROUTE": "Routes",
   "TRH_BOWL_DESC": "Access to many trails from the Loop Road including Beehive, North Gorham Mountain, and Champlain South Ridge. One of the most popular trails in Acadia; car parking can be difficult, for the nearest parking park after the fee station and before the trail.",
+  "TRH_CADILLAC_NORTH_RIDGE_DESC": "Cadillac North Ridge Trail access from the Loop Road.",
   "TRH_CANON_BROOK_DESC": "Provides access to trails along the southern flanks of Cadillac and Dorr Mountains as well as the Kane Path from Route 3.",
   "TRH_CHAMPLAIN_NORTH_RIDGE_DESC": "Champlain North Ridge Trail access from the Loop Road.",
   "TRH_GORHAM_DESC": "Access to the south end of the Gorham Mountain Trail from the Loop Road.",
+  "TRH_LADDER_TRAIL_DESC": "A steep trail climbing the east side of Dorr Mountain. Trails on the south and east sides of Cadillac and Dorr mountains can be accessed by the Kane Path.",
   "TRH_ORANGE_AND_BLACK_DESC": "Orange and Black Path access from the Loop Road.",
-  "TRH_PRECIPICE_DESC": "Access to the Precipice Trail from the Loop Road. Murphy Lane Trail is on the East side of the road for walking."
+  "TRH_PRECIPICE_DESC": "Access to the Precipice Trail from the Loop Road. Murphy Lane Trail is on the East side of the road for walking.",
+  "TRH_STRATHEDEN_PATH_DESC": "Access to the Stratheden Path from the Loop Road.",
+  "TRL_GORGE_PATH_DESC": "Access to the north end of the Gorge Path, a rocky hike between the peaks of Cadillac and Dorr Mountains. Via Loop Road.",
+  "TRL_JESSUP_PATH_DESC": "Access to the north end of the Jessup Path as well as the Great Meadow Loop from the Loop Road.",
+  "TRL_KEBO_MOUNTAIN_DESC": "Access to the north end of the Kebo Mountain Trail as well as the Kebo Brook Trail from the Loop Road."
 }
