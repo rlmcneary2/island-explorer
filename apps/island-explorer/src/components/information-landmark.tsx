@@ -15,9 +15,11 @@ export function InformationLandmark({ landmark, onClick }: Props) {
             <i className={`sym-${feature}`} key={feature} />
           ))}
       </div>
-      <p>
-        <FormattedMessage id={landmark.description} />
-      </p>
+      {landmark.description && (
+        <p>
+          <FormattedMessage id={landmark.description} />
+        </p>
+      )}
     </li>
   );
 }
