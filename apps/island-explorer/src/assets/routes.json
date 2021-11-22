@@ -5,6 +5,7 @@
       "id": 1,
       "displayName": "Oceanarium",
       "landmarks": [6, 5, 4, 3],
+      "notices": ["NTE_SCHEDULED_STOPS"],
       "scheduledStops": [
         {
           "dates": {
@@ -124,8 +125,7 @@
             }
           ]
         }
-      ],
-      "tips": ["RTE_OCEANARIUM_TIP"]
+      ]
     },
     {
       "description": "RTE_VISITOR_CENTER_DESC",

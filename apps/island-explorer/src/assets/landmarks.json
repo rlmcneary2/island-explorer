@@ -56,7 +56,6 @@
       }
     },
     {
-      "description": "LMK_BAR_HARBOR_CAMPGROUND_DESC",
       "features": ["camp"],
       "landmarkType": "campground",
       "displayName": "Bar Harbor Campground",
@@ -67,13 +66,12 @@
       }
     },
     {
-      "description": "LMK_HADLEY_POINT_CAMPGROUND_DESC",
       "features": ["camp"],
       "landmarkType": "campground",
       "displayName": "Hadley Point",
       "id": 5,
       "location": {
-        "latitutde": 44.43872833,
+        "latitude": 44.43872833,
         "longitude": -68.31433105
       }
     },
@@ -296,7 +294,6 @@
       }
     },
     {
-      "description": "LMK_MOUNT_DESERT_NARROWS_CAMPGROUND_DESC",
       "features": ["camp"],
       "landmarkType": "campground",
       "displayName": "Mount Desert Narrows Campground",
