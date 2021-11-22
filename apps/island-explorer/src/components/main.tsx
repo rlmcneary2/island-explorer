@@ -14,7 +14,7 @@ export default function Main() {
           <Route path="/:routeId/:routePage">
             <BusRoute />
           </Route>
-          <Redirect to={`/1/${MAP}`} />
+          <Redirect to={`/3/${MAP}`} />
         </Switch>
       </div>
       <ModalContainer className="modal-container" />
