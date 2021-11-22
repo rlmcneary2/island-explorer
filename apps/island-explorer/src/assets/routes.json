@@ -4,7 +4,7 @@
       "description": "RTE_OCEANARIUM_DESC",
       "id": 1,
       "displayName": "Oceanarium",
-      "landmarks": [],
+      "landmarks": [6, 5, 4, 3],
       "scheduledStops": [
         {
           "dates": {
