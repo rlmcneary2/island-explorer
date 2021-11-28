@@ -1,10 +1,14 @@
 import { Marker } from "remapgl";
 import { ContextData } from "../context/types";
 import useContextState from "../context/use-context-state";
-import { LandmarkPopup } from "./controls/popup/landmark";
+import { Landmark } from "../types/types";
+import { LandmarkModal } from "./controls/modal/landmark-modal";
 import { getLandmark } from "../util/landmark";
+import { useState } from "react";
 
 export function MapStops() {
+  const [landmark, setLandmark] = useState<Landmark>();
+  const [mountModal, setMountModal] = useState(false);
   const selectedStopIds = useContextState(selector);
 
   if (!selectedStopIds || !selectedStopIds.length) {
@@ -20,11 +24,19 @@ export function MapStops() {
             color="#5F911B"
             key={item}
             lnglat={[landmark.location.longitude, landmark.location.latitude]}
-            popup={popupGL => <LandmarkPopup {...landmark} popupGL={popupGL} />}
-            popupOptions={{ closeButton: false }}
+            on={{
+              click: () => {
+                setLandmark(landmark);
+                setMountModal(true);
+              }
+            }}
           />
         );
       })}
+
+      {landmark && mountModal && (
+        <LandmarkModal {...landmark} onClose={() => setMountModal(false)} />
+      )}
     </>
   );
 }

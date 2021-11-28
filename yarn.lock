@@ -13469,10 +13469,10 @@ relateurl@^0.2.7:
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha1-VNvzd+UUQKypCkzSdGANP/LYiKk=
 
-remapgl@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/remapgl/-/remapgl-2.2.0.tgz#abf3f1dd1655d3376e347295916f4dcbdab35fc8"
-  integrity sha512-sJAroZ7tzKvONOmyW+OsaL2eka9f5N+5Dr4nEs3IqhLEwTKfNJhfAdSPQyqNHqXOs20PqHfLasApKmI1nJzzPQ==
+remapgl@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/remapgl/-/remapgl-2.3.1.tgz#fb21cdb3028dfe7da2b490fe8ffdb4ea6e6083e5"
+  integrity sha512-xrLGPiGuAwrmR9hBHVMlN/tWB2xLcQf+91VE8EZefjffJa5VlJWyo86sAxvhMozQh8CweFO0ehOaPBxW/EzlSg==
   dependencies:
     lodash "^4.17.21"
     mapbox-gl "^2.1.1"
