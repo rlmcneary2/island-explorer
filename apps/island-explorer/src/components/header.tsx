@@ -5,7 +5,7 @@ import { ContextState } from "../context/types";
 import { INFORMATION, MAP } from "../constants/routes";
 import useContextState from "../context/use-context-state";
 import { RoutesModal } from "./routes-modal";
-import { getRouteParameters } from "../util/route";
+import { getRouteParameters, getRoutePath } from "../util/route";
 
 export default function Header() {
   const [showRoutesModal, setShowRoutesModal] = useState(false);
@@ -28,7 +28,7 @@ export default function Header() {
 
       <Link
         className="button"
-        to={`/${routeId}/${page === MAP ? INFORMATION : MAP}`}
+        to={getRoutePath(routeId, page === MAP ? INFORMATION : MAP)}
       >
         <FormattedMessage
           id={(page === MAP ? INFORMATION : MAP).toUpperCase()}

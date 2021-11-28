@@ -1,9 +1,9 @@
-import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ModalContainer } from "modal";
 import Header from "./header";
 import { MAP } from "../constants/routes";
 import { BusRoute } from "./bus-route";
+import { getRoutePath, ROUTE_TEMPLATE } from "../util/route";
 
 export default function Main() {
   return (
@@ -11,10 +11,10 @@ export default function Main() {
       <Header />
       <div className="content">
         <Switch>
-          <Route path="/:routeId/:routePage">
+          <Route path={ROUTE_TEMPLATE}>
             <BusRoute />
           </Route>
-          <Redirect to={`/3/${MAP}`} />
+          <Redirect to={getRoutePath(3, MAP)} />
         </Switch>
       </div>
       <ModalContainer className="modal-container" />

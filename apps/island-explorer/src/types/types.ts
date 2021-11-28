@@ -1,3 +1,5 @@
+import { INFORMATION, MAP } from "../constants/routes";
+
 export interface Landmark {
   description: string;
   displayName: string;
@@ -5,3 +7,5 @@ export interface Landmark {
   id: number;
   location: { latitude: number; longitude: number };
 }
+
+export type RoutePage = keyof { [INFORMATION]: null; [MAP]: null };

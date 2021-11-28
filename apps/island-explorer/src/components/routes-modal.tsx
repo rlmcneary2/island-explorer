@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AnimatedModalDialog } from "modal";
 import type { ModalDialogProps } from "modal";
 import { ContextData } from "../context/types";
-import { getRouteParameters } from "../util/route";
+import { getRouteParameters, getRoutePath } from "../util/route";
 
 export function RoutesModal({ onClose, onExternalTap, routes }: Props) {
   const [hide, setHide] = useState(false);
@@ -37,7 +37,7 @@ export function RoutesModal({ onClose, onExternalTap, routes }: Props) {
         <Link
           onClick={handleLinkClick}
           style={{ color: `#${route.Color}` }}
-          to={`/${route.RouteId}/${page}`}
+          to={getRoutePath(route.RouteId, page)}
         >
           {route.LongName}
         </Link>

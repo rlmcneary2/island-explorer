@@ -1,8 +1,11 @@
-import { INFORMATION, MAP } from "../constants/routes";
+import { RoutePage } from "../types/types";
 
-export function getRouteParameters(
-  pathname?: Location["pathname"]
-): { page: RoutePage; routeId: string } {
+export const ROUTE_TEMPLATE = "/route/:routeId/:routePage";
+
+export function getRouteParameters(pathname?: Location["pathname"]): {
+  page: RoutePage;
+  routeId: string;
+} {
   const path = (pathname || window.location.pathname).slice(1);
   if (!path) {
     return null;
@@ -13,8 +16,16 @@ export function getRouteParameters(
     return null;
   }
 
-  const [routeId, page] = arr;
-  return { page: page as RoutePage, routeId };
+  const templateParts = ROUTE_TEMPLATE.substring(1).split("/");
+  const idIndex = templateParts.findIndex(x => x === ":routeId");
+  const pageIndex = templateParts.findIndex(x => x === ":routePage");
+
+  return { page: arr[pageIndex] as RoutePage, routeId: arr[idIndex] };
 }
 
-type RoutePage = keyof { [INFORMATION]: null; [MAP]: null };
+export function getRoutePath(routeId: number | string, page: RoutePage) {
+  return ROUTE_TEMPLATE.replace(":routeId", `${routeId}`).replace(
+    ":routePage",
+    page
+  );
+}
