@@ -1,0 +1,18 @@
+@use "../dimension";
+@use "../font";
+@use "../app";
+
+.popup {
+  font-family: "Lato", sans-serif;
+  padding: dimension.$popup-padding;
+
+  .description {
+    @extend %para;
+    max-height: dimension.$popup-description-max-height;
+    overflow-y: auto;
+  }
+
+  .header {
+    @extend %headline-2;
+  }
+}

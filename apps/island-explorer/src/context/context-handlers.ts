@@ -1,7 +1,7 @@
 import { ActionHandler } from "reshape-state";
 import { Dispatcher } from "reshape-state/types";
 import { environment as env } from "../environments/environment";
-import { ContextData, ContextState, Route } from "./types";
+import { ContextData, ContextState, Route, SelectedLandmark } from "./types";
 import toGeoJson from "@mapbox/togeojson";
 
 const ACTION_FETCH_ROUTES_FINISHED = "fetch-routes-finished";
@@ -270,15 +270,15 @@ export function create(): ActionHandler<ContextState>[] {
     return [(nextState as ContextState) ?? state, !!nextState];
   };
 
-  const selectStop: ActionHandler<ContextState, number> = (state, action) => {
-    if (
-      action.id !== actionIds.ACTION_SELECT_STOP ||
-      state.selectedStopIds?.includes(action.payload)
-    ) {
+  const selectLandmark: ActionHandler<ContextState, SelectedLandmark> = (
+    state,
+    action
+  ) => {
+    if (action.id !== actionIds.ACTION_SELECT_STOP) {
       return [state];
     }
 
-    state.selectedStopIds = [...(state.selectedStopIds ?? []), action.payload];
+    state.selectedLandmarks = [action.payload];
     return [state, true];
   };
 
@@ -287,7 +287,7 @@ export function create(): ActionHandler<ContextState>[] {
     fetchRoutesFinished,
     handleRouteChanged,
     fetchRouteVehicles,
-    selectStop
+    selectLandmark
   ];
 }
 

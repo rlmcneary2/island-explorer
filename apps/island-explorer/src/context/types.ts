@@ -8,11 +8,11 @@ export interface ContextData {
   routeStops?: AsyncActionData<Stop[]>;
   routeTrace?: AsyncActionData<Trace>;
   routeVehicles?: AsyncActionData<Vehicle[]>;
-  selectedStopIds?: number[];
+  selectedLandmarks?: SelectedLandmark[];
 }
 
 export interface ContextActions {
-  selectStop: (stopId: number) => void;
+  selectLandmark: (landmark: SelectedLandmark) => void;
   setRoute: (routeId: number) => void;
 }
 
@@ -47,6 +47,10 @@ export interface Route {
   Directions?: any;
   Vehicles: Vehicle[];
   Messages: unknown[];
+}
+
+export interface SelectedLandmark extends Record<string, unknown> {
+  landmarkId: number;
 }
 
 /**

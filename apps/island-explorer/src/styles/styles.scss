@@ -10,10 +10,15 @@
 @use "components/component-modal";
 @use "components/component-modal-routes";
 @use "components/component-message";
+@use "components/component-popup";
 
 /*
  * Mapbox GL overrides.
  */
 [class*="mapboxgl-ctrl-"] {
   z-index: initial !important;
+}
+
+.mapboxgl-popup-content {
+  padding: 0 !important;
 }

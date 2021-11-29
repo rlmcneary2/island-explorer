@@ -1,3 +1,4 @@
+@use "sass:math";
 @use "./color";
 @use "./dimension";
 @use "./font";
@@ -70,12 +71,20 @@
 }
 
 %para {
+  @extend %para-margin;
   %para {
     font-size: 1em; /* Prevents recursive paras from increasing the font size. */
   }
   font-size: font.$text-body;
   line-height: dimension.$text-body-line-height;
+}
+
+%para-margin {
   margin: dimension.$text-para-margin 0 0 0;
+}
+
+.para-margin {
+  @extend %para-margin;
 }
 
 %raised-element {
@@ -83,6 +92,44 @@
     radius: #{dimension.$control-rounded-border-radius-h}/#{dimension.$control-rounded-border-radius-v};
   }
   box-shadow: 0 4px 10px 2px rgba(0, 0, 0, 0.5);
+}
+
+.route-circle {
+  &::before {
+    content: "⬤";
+  }
+}
+
+.route-circle-container {
+  display: flex;
+  font-size: font.$route-circle;
+  margin: math.div(dimension.$text-para-margin, 2) 0 0 0;
+
+  & > :nth-of-type(n) {
+    flex: 0 0 font.$route-circle;
+    text-align: center;
+
+    &::before {
+      content: "⬤";
+    }
+  }
+
+  & > :nth-of-type(1) {
+    text-align: left;
+  }
+
+  & > :last-of-type {
+    text-align: right;
+  }
+}
+
+.symbol-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  > :first-of-type {
+    margin-left: 0;
+  }
 }
 
 %tip {

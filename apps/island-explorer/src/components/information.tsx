@@ -7,7 +7,7 @@ import { InformationLandmark } from "./information-landmark";
 import { getLandmark } from "../util/landmark";
 
 export default function Information({ routeId }: Props) {
-  const { selectStop } = useContextActions();
+  const { selectLandmark } = useContextActions();
 
   const route = routes.find(r => r.id === routeId);
   if (!route) {
@@ -48,7 +48,8 @@ export default function Information({ routeId }: Props) {
             <InformationLandmark
               key={landmark?.id}
               landmark={landmark}
-              onClick={selectStop}
+              onClick={selectLandmark}
+              routeId={routeId}
             />
           ))}
         </ul>

@@ -39,19 +39,7 @@ $bus-stop-bullet-height: 20px;
 
       .landmark {
         @extend %list-item;
-
-        button {
-          height: dimension.$control-height;
-          margin: dimension.$text-para-margin 0 0 0;
-        }
-
-        .symbol-container {
-          display: flex;
-
-          > :first-of-type {
-            margin-left: 0;
-          }
-        }
+        margin: dimension.$text-para-margin 0 0 0;
       }
 
       .stop {
@@ -66,8 +54,10 @@ $bus-stop-bullet-height: 20px;
           content: "";
           height: $bus-stop-bullet-height;
           margin: 0 0 0 $bus-stop-bullet-height * -1;
-          margin-top: dimension.$text-para-margin +
-            math.div((dimension.$control-height - $bus-stop-bullet-height), 2);
+          margin-top: math.div(
+            (dimension.$control-height - $bus-stop-bullet-height),
+            2
+          );
           width: $bus-stop-bullet-height;
           position: absolute;
         }

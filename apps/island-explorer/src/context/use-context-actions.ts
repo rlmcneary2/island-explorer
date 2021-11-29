@@ -3,7 +3,10 @@ import { Context } from "./context";
 import { ContextActions } from "./types";
 
 export default function useContextActions(): ContextActions {
-  const { setRoute, selectStop } = useContext(Context);
+  const { setRoute, selectLandmark } = useContext(Context);
 
-  return useMemo(() => ({ selectStop, setRoute }), [selectStop, setRoute]);
+  return useMemo(
+    () => ({ selectLandmark, setRoute }),
+    [selectLandmark, setRoute]
+  );
 }
