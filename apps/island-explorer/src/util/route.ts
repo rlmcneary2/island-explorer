@@ -1,3 +1,4 @@
+import { MAP } from "../constants/routes";
 import { RoutePage } from "../types/types";
 
 export const ROUTE_TEMPLATE = "/route/:routeId/:routePage";
@@ -9,6 +10,10 @@ export function getRouteParameters(pathname?: Location["pathname"]): {
   const path = (pathname || window.location.pathname).slice(1);
   if (!path) {
     return null;
+  }
+
+  if (!path.startsWith("route")) {
+    return { page: MAP, routeId: "3" };
   }
 
   const arr = path.split("/");

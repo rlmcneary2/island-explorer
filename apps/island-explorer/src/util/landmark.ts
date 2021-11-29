@@ -1,6 +1,8 @@
 import { Landmark } from "../types/types";
 import { landmarks } from "../assets/landmarks.json";
 
+export const LANDMARK_PATH_TEMPLATE = "/landmark/:landmarkId";
+
 export function getLandmark(id: number): Landmark {
   const landmark = landmarks.find(lmk => lmk.id === id);
   if (!isLandmark(landmark)) {
@@ -8,6 +10,10 @@ export function getLandmark(id: number): Landmark {
   }
 
   return landmark;
+}
+
+export function getLandmarkPath(id: number) {
+  return LANDMARK_PATH_TEMPLATE.replace(":landmarkId", `${id}`);
 }
 
 function isLandmark(landmark: unknown): landmark is Landmark {

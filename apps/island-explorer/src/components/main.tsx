@@ -4,6 +4,7 @@ import Header from "./header";
 import { MAP } from "../constants/routes";
 import { BusRoute } from "./bus-route";
 import { getRoutePath, ROUTE_TEMPLATE } from "../util/route";
+import { LANDMARK_PATH_TEMPLATE } from "../util/landmark";
 
 export default function Main() {
   return (
@@ -11,6 +12,7 @@ export default function Main() {
       <Header />
       <div className="content">
         <Switch>
+          <Route path={LANDMARK_PATH_TEMPLATE}>LANDMARK</Route>
           <Route path={ROUTE_TEMPLATE}>
             <BusRoute />
           </Route>
