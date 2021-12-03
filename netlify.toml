@@ -8,6 +8,11 @@
   NODE_VERSION = "14"
 
 [[redirects]]
+  from = "/api/InfoPoint/rest/Vehicles/GetAllVehiclesForRoutes/*"
+  to = "https://island-explorer-bus-server.netlify.app/api/InfoPoint/rest/Vehicles/GetAllVehiclesForRoutes/:splat"
+  status = 200
+
+[[redirects]]
   from = "/api/*"
   to = "http://islandexplorertracker.availtec.com/:splat"
   status = 200
