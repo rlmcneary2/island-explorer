@@ -12,6 +12,7 @@ export interface ContextData {
 }
 
 export interface ContextActions {
+  deselectLandmark: (id: number) => void;
   selectLandmark: (landmark: SelectedLandmark) => void;
   setRoute: (routeId: number) => void;
 }

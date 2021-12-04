@@ -22,6 +22,9 @@
   &:active {
     filter: brightness(105%);
   }
+  &.small {
+    @extend %control-small;
+  }
 }
 
 a.button {

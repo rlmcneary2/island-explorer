@@ -1,6 +1,7 @@
 $text-default: 1rem;
 $text-body: $text-default * 1.8;
 $text-control: $text-default * 2.5;
+$text-control-small: $text-default * 2;
 $text-headline: $text-default * 2.4;
 $text-headline-2: $text-default * 2;
 $text-tip: $text-default * 1.6;
@@ -12,6 +13,12 @@ $route-circle: $text-default * 2;
     family: "Oswald";
     size: $text-control;
     weight: 400;
+  }
+}
+
+%control-small {
+  font: {
+    size: $text-control-small;
   }
 }
 

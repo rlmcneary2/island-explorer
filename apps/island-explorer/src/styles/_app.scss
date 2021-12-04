@@ -108,6 +108,7 @@
   & > :nth-of-type(n) {
     flex: 0 0 font.$route-circle;
     text-align: center;
+    text-decoration-line: none;
 
     &::before {
       content: "⬤";

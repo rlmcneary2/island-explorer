@@ -1,7 +1,10 @@
+import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import { routes } from "../../assets/routes.json";
-import useContextState from "../../context/use-context-state";
 import { Landmark } from "../../types/types";
+import useContextActions from "../../context/use-context-actions";
+import useContextState from "../../context/use-context-state";
+import { getRouteParameters, getRoutePath } from "../../util/route";
 
 export function LandmarkDetails({
   description,
@@ -9,10 +12,14 @@ export function LandmarkDetails({
   features,
   id
 }: Landmark) {
+  const { deselectLandmark } = useContextActions();
   const contextRoutes = useContextState(state => state.routes);
+
   const stopsRoutes = routes
     .filter(route => route.landmarks.includes(id))
     .map(route => contextRoutes.data.find(x => x.RouteId === route.id));
+
+  const { page } = getRouteParameters();
 
   return (
     <>
@@ -25,7 +32,11 @@ export function LandmarkDetails({
       </div>
       <div className="route-circle-container">
         {stopsRoutes.map(x => (
-          <div key={x.RouteId} style={{ color: `#${x.Color}` }}></div>
+          <Link
+            key={x.RouteId}
+            style={{ color: `#${x.Color}` }}
+            to={getRoutePath(x.RouteId, page)}
+          />
         ))}
       </div>
       {description && (
@@ -33,6 +44,11 @@ export function LandmarkDetails({
           <FormattedMessage id={description} />
         </p>
       )}
+      <div className="button-container">
+        <button className="button small" onClick={() => deselectLandmark(id)}>
+          <FormattedMessage id="REMOVE_MARKER" />
+        </button>
+      </div>
     </>
   );
 }

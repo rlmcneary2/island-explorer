@@ -11,10 +11,16 @@ export function ContextProvider({
 
   const actions = useMemo<ContextActions>(() => {
     return {
+      deselectLandmark: id =>
+        reshaper &&
+        reshaper.dispatch({
+          id: actionIds.ACTION_DESELECT_LANDMARK,
+          payload: id
+        }),
       selectLandmark: landmark =>
         reshaper &&
         reshaper.dispatch({
-          id: actionIds.ACTION_SELECT_STOP,
+          id: actionIds.ACTION_SELECT_LANDMARK,
           payload: landmark
         }),
       setRoute: routeId =>

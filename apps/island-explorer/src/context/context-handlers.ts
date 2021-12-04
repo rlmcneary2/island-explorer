@@ -274,7 +274,7 @@ export function create(): ActionHandler<ContextState>[] {
     state,
     action
   ) => {
-    if (action.id !== actionIds.ACTION_SELECT_STOP) {
+    if (action.id !== actionIds.ACTION_SELECT_LANDMARK) {
       return [state];
     }
 
@@ -282,7 +282,24 @@ export function create(): ActionHandler<ContextState>[] {
     return [state, true];
   };
 
+  const deselectLandmark: ActionHandler<ContextState, number> = (
+    state,
+    action
+  ) => {
+    if (action.id !== actionIds.ACTION_DESELECT_LANDMARK) {
+      return [state];
+    }
+
+    if (state.selectedLandmarks.some(x => x.landmarkId === action.payload)) {
+      state.selectedLandmarks = [];
+      return [state, true];
+    }
+
+    return [state];
+  };
+
   return [
+    deselectLandmark,
     fetchRoutes,
     fetchRoutesFinished,
     handleRouteChanged,
@@ -292,9 +309,10 @@ export function create(): ActionHandler<ContextState>[] {
 }
 
 export const actionIds = Object.freeze({
+  ACTION_DESELECT_LANDMARK: "action-deselect-landmark",
   ACTION_FETCH_ROUTE_VEHICLES: "action-fetch-route-vehicles",
   ACTION_ROUTE_CHANGED: "action-route-changed",
-  ACTION_SELECT_STOP: "action-select-stop"
+  ACTION_SELECT_LANDMARK: "action-select-landmark"
 });
 
 async function handleStopsResponse(
