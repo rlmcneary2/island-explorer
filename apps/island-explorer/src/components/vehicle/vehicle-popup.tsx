@@ -36,6 +36,10 @@ export function VehiclePopup({ routeStops, vehicle, ...props }: Props) {
 }
 
 function mapLastStopToRouteId(lastStop: string, routeStops: Stop[]) {
+  if (!routeStops) {
+    return;
+  }
+
   return routeStops.find(x => x.Name === lastStop)?.StopId;
 }
 
