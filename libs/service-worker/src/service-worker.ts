@@ -59,7 +59,18 @@ wgs.addEventListener("fetch", async event => {
 
   if (!response) {
     console.log(`service-worker: fetching '${event.request.url}'`);
-    return fetch(event.request);
+    // event.request.headers.forEach((...args) =>
+    //   console.log("service-worker: request headers=", args)
+    // );
+    const response = await fetch(event.request, { credentials: "same-origin" });
+    // try {
+    //   response.headers.forEach((...args) =>
+    //     console.log("service-worker: response headers=", args)
+    //   );
+    // } catch (err) {
+    //   console.log("service-worker: header error=", err);
+    // }
+    return response;
   } else {
     return response;
   }

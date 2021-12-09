@@ -1,9 +1,10 @@
 import { Marker } from "remapgl";
-import { ContextData, Vehicle } from "../context/types";
+import { ContextData } from "../context/types";
 import useContextState from "../context/use-context-state";
+import { VehiclePopup } from "./vehicle/vehicle-popup";
 
 export default function MapVehicles() {
-  const vehicles = useContextState(selector);
+  const { vehicles, routeStops } = useContextState(selector);
 
   if (!vehicles || !vehicles.length) {
     return null;
@@ -11,11 +12,18 @@ export default function MapVehicles() {
 
   return (
     <>
-      {vehicles.map(item => (
+      {vehicles.map(vehicle => (
         <Marker
-          key={item.VehicleId}
-          lnglat={[item.Longitude, item.Latitude]}
-          popup={() => <MarkerPopup {...item} />}
+          key={vehicle.VehicleId}
+          lnglat={[vehicle.Longitude, vehicle.Latitude]}
+          popup={obj => (
+            <VehiclePopup
+              onClick={() => obj.remove()}
+              routeStops={routeStops}
+              vehicle={vehicle}
+            />
+          )}
+          popupOptions={{ closeButton: false, offset: 15 }}
         >
           <div className="map-vehicle"></div>
         </Marker>
@@ -24,10 +32,9 @@ export default function MapVehicles() {
   );
 }
 
-function MarkerPopup(props: Vehicle) {
-  return <div>{JSON.stringify(props, null, 2)}</div>;
-}
-
 function selector(state: ContextData) {
-  return state?.routeVehicles?.data;
+  return {
+    routeStops: state?.routeStops?.data,
+    vehicles: state?.routeVehicles?.data
+  };
 }
