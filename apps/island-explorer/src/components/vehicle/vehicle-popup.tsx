@@ -30,7 +30,7 @@ export function VehiclePopup({ routeStops, vehicle, ...props }: Props) {
       <span className="header">
         <FormattedMessage id="NEXT_STOP" />
       </span>
-      <p className="description">{nextStop.displayName ?? "?"}</p>
+      <p className="description">{nextStop?.displayName ?? "?"}</p>
     </div>
   );
 }
