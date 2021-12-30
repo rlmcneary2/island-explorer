@@ -10,18 +10,21 @@ import {
 
 export function VehiclePopup({ routeStops, vehicle, ...props }: Props) {
   const route = routes.find(route => route.id === vehicle.RouteId);
-  const reversed = route.landmarks
+  const routeLandmarksStops = route.landmarks
     .filter(x => x < 20000)
-    .reverse()
     .map(x => getLandmark(x));
 
   const lastStopId = mapLastStopToRouteId(vehicle.LastStop, routeStops);
   let nextStop: Landmark;
   if (lastStopId) {
-    const currentIndex = reversed.findIndex(x => x.id === lastStopId);
+    const currentIndex = routeLandmarksStops.findIndex(
+      x => x.id === lastStopId
+    );
     nextStop =
-      reversed[
-        currentIndex + 1 < reversed.length ? currentIndex + 1 : currentIndex
+      routeLandmarksStops[
+        currentIndex + 1 < routeLandmarksStops.length
+          ? currentIndex + 1
+          : currentIndex
       ];
   }
 
