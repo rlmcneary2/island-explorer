@@ -4,8 +4,11 @@ import Header from "./header";
 import { MAP } from "../constants/routes";
 import { BusRoute } from "./bus-route";
 import { getRoutePath, ROUTE_TEMPLATE } from "../util/route";
+import version from "../assets/version.json";
 
 export default function Main() {
+  console.log(`Main: version=${version.version}, commit=${version.commit}.`);
+
   return (
     <main className="main">
       <Header />

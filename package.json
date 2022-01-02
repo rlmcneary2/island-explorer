@@ -4,6 +4,8 @@
   "license": "MIT",
   "scripts": {
     "nx": "nx",
+    "prebuild": "node build/app-version.js",
+    "prestart": "node build/app-version.js",
     "start": "nx serve",
     "build": "nx build",
     "build:sw": "nx build service-worker --buildable --deleteOutputPath --skipNxCache",

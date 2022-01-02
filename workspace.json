@@ -9,7 +9,10 @@
       "architect": {
         "build": {
           "builder": "@nrwl/web:webpack",
+          "outputs": ["{options.outputPath}"],
+          "defaultConfiguration": "production",
           "options": {
+            "compiler": "babel",
             "outputPath": "dist/apps/island-explorer",
             "index": "apps/island-explorer/src/index.html",
             "main": "apps/island-explorer/src/app.tsx",
@@ -51,17 +54,18 @@
                 }
               ]
             }
-          },
-          "outputs": ["{options.outputPath}"]
+          }
         },
         "serve": {
           "builder": "@nrwl/web:dev-server",
           "options": {
-            "buildTarget": "island-explorer:build"
+            "buildTarget": "island-explorer:build",
+            "hmr": true
           },
           "configurations": {
             "production": {
-              "buildTarget": "island-explorer:build:production"
+              "buildTarget": "island-explorer:build:production",
+              "hmr": false
             }
           }
         },
