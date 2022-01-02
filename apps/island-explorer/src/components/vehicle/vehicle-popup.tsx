@@ -22,9 +22,7 @@ export function VehiclePopup({ routeStops, vehicle, ...props }: Props) {
     );
     nextStop =
       routeLandmarksStops[
-        currentIndex + 1 < routeLandmarksStops.length
-          ? currentIndex + 1
-          : currentIndex
+        currentIndex + 1 < routeLandmarksStops.length ? currentIndex + 1 : 0
       ];
   }
 
