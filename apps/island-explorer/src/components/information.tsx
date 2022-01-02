@@ -1,10 +1,12 @@
-import { routes } from "../assets/routes.json";
+import routesJson from "../assets/routes.json";
 import { FormattedMessage } from "react-intl";
 import useContextActions from "../context/use-context-actions";
 import { Message } from "./controls/message/message";
 import { MessageDismissible } from "./controls/message/message-dismissible";
 import { InformationLandmark } from "./information-landmark";
 import { getLandmark } from "../util/landmark";
+
+const { routes } = routesJson;
 
 export default function Information({ routeId }: Props) {
   const { selectLandmark } = useContextActions();

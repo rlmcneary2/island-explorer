@@ -1,5 +1,7 @@
 import { Landmark } from "../types/types";
-import { landmarks } from "../assets/landmarks.json";
+import landmarksJson from "../assets/landmarks.json";
+
+const { landmarks } = landmarksJson;
 
 export const LANDMARK_PATH_TEMPLATE = "/landmark/:landmarkId";
 

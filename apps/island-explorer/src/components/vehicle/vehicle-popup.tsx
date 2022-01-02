@@ -1,12 +1,14 @@
 import { FormattedMessage } from "react-intl";
 import { Stop, Vehicle } from "../../context/types";
-import { routes } from "../../assets/routes.json";
+import routesJson from "../../assets/routes.json";
 import { getLandmark } from "../../util/landmark";
 import { Landmark } from "../../types/types";
 import {
   DetailedHTMLProps,
   HTMLAttributes
 } from "react-router/node_modules/@types/react";
+
+const { routes } = routesJson;
 
 export function VehiclePopup({ routeStops, vehicle, ...props }: Props) {
   const route = routes.find(route => route.id === vehicle.RouteId);

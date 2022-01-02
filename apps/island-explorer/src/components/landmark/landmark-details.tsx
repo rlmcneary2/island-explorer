@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
-import { routes } from "../../assets/routes.json";
+import routesJson from "../../assets/routes.json";
 import { Landmark } from "../../types/types";
 import useContextActions from "../../context/use-context-actions";
 import useContextState from "../../context/use-context-state";
 import { getRouteParameters, getRoutePath } from "../../util/route";
+
+const { routes } = routesJson;
 
 export function LandmarkDetails({
   description,
