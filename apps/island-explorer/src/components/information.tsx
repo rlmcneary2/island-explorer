@@ -16,9 +16,12 @@ export default function Information({ routeId }: Props) {
     return null;
   }
 
-  const routeLandmarks = (route.landmarks as number[]).map(id =>
-    getLandmark(id)
-  );
+  const routeLandmarks = (route.landmarks as number[])
+    .reduce(
+      (output, id) => (output.includes(id) ? output : [...output, id]),
+      [] as number[]
+    )
+    .map(id => getLandmark(id));
 
   return (
     <section className="information">
