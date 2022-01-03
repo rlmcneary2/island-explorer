@@ -131,7 +131,8 @@
       "description": "RTE_VISITOR_CENTER_DESC",
       "id": 2,
       "displayName": "Visitor Center",
-      "landmarks": [],
+      "landmarks": [1, 13, 2, 14, 3, 16],
+      "notices": ["NTE_SCHEDULED_STOPS"],
       "scheduledStops": [
         {
           "dates": {
@@ -238,8 +239,7 @@
             }
           ]
         }
-      ],
-      "tips": []
+      ]
     },
     {
       "description": "RTE_SAND_BEACH_DESC",
@@ -465,8 +465,8 @@
     },
     {
       "description": "RTE_JORDAN_POND_DESC",
-      "id": 5,
       "displayName": "Jordan Pond",
+      "id": 5,
       "landmarks": [3, 20, 28, 37000, 36000, 35000, 29],
       "notices": ["NTE_SCHEDULED_STOPS"],
       "scheduledStops": [
@@ -616,9 +616,10 @@
     },
     {
       "description": "RTE_BROWN_MOUNTAIN_DESC",
-      "id": 6,
       "displayName": "Brown Mountain",
-      "landmarks": [],
+      "id": 6,
+      "landmarks": [1, 34, 35, 77, 53, 52, 38, 52, 53, 77, 35, 34],
+      "notices": ["NTE_SCHEDULED_STOPS"],
       "scheduledStops": [
         {
           "dates": {
@@ -688,7 +689,7 @@
           ]
         }
       ],
-      "tips": []
+      "tips": ["TIP_NOT_IN_SERVICE_COVID"]
     },
     {
       "description": "RTE_SOUTHWEST_HARBOR_DESC",

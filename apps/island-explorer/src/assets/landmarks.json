@@ -24,17 +24,25 @@
     },
     {
       "description": "LMK_ATLANTIC_EYRIE_LODGE_DESC",
+      "displayName": "Atlantic Eyrie Lodge",
       "features": ["inn"],
       "landmarkType": "lodging",
-      "displayName": "Atlantic Eyrie Lodge",
-      "id": 18,
       "location": {
         "latitude": 44.39187622,
         "longitude": -68.22277832
-      }
+      },
+      "id": 18
     },
     {
-      "description": "LMK_ATLANTIC_OCEANSIDE_HOTEL_DESC",
+      "displayName": "College of the Atlantic",
+      "landmarkType": "point-of-interest",
+      "location": {
+        "latitude": 44.394515,
+        "longitude": -68.222758
+      },
+      "id": 13
+    },
+    {
       "features": ["inn"],
       "landmarkType": "lodging",
       "displayName": "Atlantic Oceanside Hotel",
@@ -98,7 +106,6 @@
       }
     },
     {
-      "description": "LMK_BAR_HARBOR_MOTEL_DESC",
       "features": ["inn"],
       "landmarkType": "lodging",
       "displayName": "Bar Harbor Motel",
@@ -106,6 +113,37 @@
       "location": {
         "latitude": 44.39624405,
         "longitude": -68.22585297
+      }
+    },
+    {
+      "description": "LMK_EAGLE_LAKE_DESC",
+      "displayName": "Eagle Lake",
+      "features": [
+        "accessible",
+        "restroom",
+        "water",
+        "park",
+        "walk",
+        "hike",
+        "bike",
+        "fish",
+        "boat"
+      ],
+      "id": 34,
+      "landmarkType": "point-of-interest",
+      "location": {
+        "latitude": 44.37762833,
+        "longitude": -68.24991608
+      }
+    },
+    {
+      "displayName": "MDI High School",
+      "features": ["park"],
+      "id": 35,
+      "landmarkType": "point-of-interest",
+      "location": {
+        "latitude": 44.37173843,
+        "longitude": -68.30102539
       }
     },
     {
@@ -161,6 +199,25 @@
       "location": {
         "latitude": 44.38780212,
         "longitude": -68.03931427
+      }
+    },
+    {
+      "description": "LMK_NORTH_EAST_HARBOR_SEA_STREET_DESC",
+      "displayName": "NEH Sea St",
+      "features": [
+        "dine",
+        "snack",
+        "gift",
+        "inn",
+        "attraction",
+        "park",
+        "walk"
+      ],
+      "landmarkType": "point-of-interest",
+      "id": 52,
+      "location": {
+        "latitude": 44.29478073,
+        "longitude": -68.28958893
       }
     },
     {
@@ -505,6 +562,17 @@
         "latitude": 44.387919499573265,
         "longitude": -68.20558682662836
       }
+    },
+    {
+      "description": "LMK_BAR_HARBOR_FERRY_DESC",
+      "displayName": "Bar Harbor Ferry Terminal",
+      "features": ["ferry"],
+      "landmarkType": "ferry-transport",
+      "location": {
+        "latitude": 44.39800644,
+        "longitude": -68.22785187
+      },
+      "id": 2
     },
     {
       "description": "LMK_WILDWOOD_STABLES_DESC",
