@@ -1,7 +1,13 @@
 import { ActionHandler } from "reshape-state";
 import { Dispatcher } from "reshape-state/types";
 import { environment as env } from "../environments/environment";
-import { ContextData, ContextState, Route, SelectedLandmark } from "./types";
+import {
+  ContextData,
+  ContextState,
+  Route,
+  SelectedLandmark,
+  Vehicle
+} from "./types";
 import toGeoJson from "@mapbox/togeojson";
 
 const ACTION_FETCH_ROUTES_FINISHED = "fetch-routes-finished";
@@ -134,7 +140,8 @@ export function create(): ActionHandler<ContextState>[] {
         dispatch(inlineState => [
           {
             ...inlineState,
-            routeVehicles: { data: body, status: "idle" }
+            routeVehicles: { data: body, status: "idle" },
+            routeVehicleHeadings: updateVehicleHeadings(inlineState, body)
           },
           true
         ]);
@@ -346,4 +353,58 @@ async function handleTraceResponse(
   }
 
   dispatch(state => [{ ...state, ...nextState }, true]);
+}
+
+function updateVehicleHeadings(
+  { routeVehicleHeadings }: ContextData,
+  vehicles: Vehicle[]
+) {
+  const nextRouteVehicleHeadings: ContextData["routeVehicleHeadings"] = {};
+
+  for (let i = 0; i < vehicles.length; i++) {
+    const vehicle = vehicles[i];
+
+    const currentHeading: ContextData["routeVehicleHeadings"][0] =
+      (routeVehicleHeadings && routeVehicleHeadings[vehicle.VehicleId]) ?? {
+        currentHeading: vehicle.Heading,
+        lastStop: vehicle.LastStop,
+        previousHeadings: []
+      };
+
+    const nextHeading: Partial<typeof currentHeading> = {
+      lastStop: vehicle.LastStop
+    };
+
+    if (currentHeading.lastStop === nextHeading.lastStop) {
+      nextHeading.previousHeadings = currentHeading.previousHeadings.slice(
+        0,
+        4
+      );
+      nextHeading.previousHeadings.unshift(vehicle.Heading);
+    } else {
+      nextHeading.previousHeadings = [vehicle.Heading];
+    }
+
+    if (vehicle.Speed) {
+      const weighted = nextHeading.previousHeadings.reduce(
+        (acc, heading, i) => {
+          if (i === 0) {
+            // Skip, set as the accumulator's initial value.
+            return acc;
+          }
+
+          return acc + heading;
+        },
+        vehicle.Heading * 5
+      );
+
+      nextHeading.currentHeading =
+        weighted / (5 + (nextHeading.previousHeadings.length - 1));
+    }
+
+    nextRouteVehicleHeadings[vehicle.VehicleId] =
+      nextHeading as typeof currentHeading;
+  }
+
+  return nextRouteVehicleHeadings;
 }

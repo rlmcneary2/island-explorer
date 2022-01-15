@@ -1,5 +1,7 @@
 @use "../color";
 
+$icon-size: 40px;
+
 div.map {
   background: color.$tertiary;
   grid-column-start: 1;
@@ -16,6 +18,20 @@ div.map {
 
 .map-vehicle {
   background: url("../assets/icon-bus.svg");
-  height: 40px;
-  width: 40px;
+  height: $icon-size;
+  width: $icon-size;
+  &::before {
+    content: url("../assets/icon-direction.svg");
+    display: block;
+    height: $icon-size;
+    position: relative;
+    transform: var(--vehicle-rotation);
+    width: $icon-size;
+  }
+
+  &.no-direction {
+    &::before {
+      display: none;
+    }
+  }
 }

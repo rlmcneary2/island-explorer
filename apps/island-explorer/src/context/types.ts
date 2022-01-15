@@ -8,6 +8,14 @@ export interface ContextData {
   routeStops?: AsyncActionData<Stop[]>;
   routeTrace?: AsyncActionData<Trace>;
   routeVehicles?: AsyncActionData<Vehicle[]>;
+  routeVehicleHeadings?: Record<
+    Vehicle["VehicleId"],
+    {
+      currentHeading?: Vehicle["Heading"];
+      lastStop: Vehicle["LastStop"];
+      previousHeadings: Vehicle["Heading"][];
+    }
+  >;
   selectedLandmarks?: SelectedLandmark[];
 }
 
