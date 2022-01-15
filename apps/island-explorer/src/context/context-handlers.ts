@@ -398,8 +398,9 @@ function updateVehicleHeadings(
         vehicle.Heading * 5
       );
 
-      nextHeading.currentHeading =
-        weighted / (5 + (nextHeading.previousHeadings.length - 1));
+      nextHeading.currentHeading = Math.round(
+        weighted / (5 + (nextHeading.previousHeadings.length - 1))
+      );
     }
 
     nextRouteVehicleHeadings[vehicle.VehicleId] =
