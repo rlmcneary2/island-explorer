@@ -385,22 +385,12 @@ function updateVehicleHeadings(
       nextHeading.previousHeadings = [vehicle.Heading];
     }
 
+    // Only provide a heading if the vehicle is moving.
     if (vehicle.Speed) {
-      const weighted = nextHeading.previousHeadings.reduce(
-        (acc, heading, i) => {
-          if (i === 0) {
-            // Skip, set as the accumulator's initial value.
-            return acc;
-          }
-
-          return acc + heading;
-        },
-        vehicle.Heading * 5
-      );
-
-      nextHeading.currentHeading = Math.round(
-        weighted / (5 + (nextHeading.previousHeadings.length - 1))
-      );
+      // I haven't really come up with a better solution than just using the
+      // provided current heading even though it can appear as if the bus is
+      // heading away from the next station depending on the map's resolution.
+      nextHeading.currentHeading = vehicle.Heading;
     }
 
     nextRouteVehicleHeadings[vehicle.VehicleId] =
