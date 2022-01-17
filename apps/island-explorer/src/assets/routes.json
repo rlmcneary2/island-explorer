@@ -618,77 +618,10 @@
       "description": "RTE_BROWN_MOUNTAIN_DESC",
       "displayName": "Brown Mountain",
       "id": 6,
-      "landmarks": [1, 34, 35, 77, 53, 52, 38, 52, 53, 77, 35, 34],
-      "notices": ["NTE_SCHEDULED_STOPS"],
-      "scheduledStops": [
-        {
-          "dates": {
-            "begin": "2019-06-23",
-            "end": "2019-08-26"
-          },
-          "hours": {
-            "first": "08:30:00",
-            "last": "15:30:00"
-          },
-          "stops": [
-            {
-              "id": 1,
-              "description": "LMK_VILLAGE_GREEN_DESC",
-              "name": "Village Green"
-            },
-            {
-              "id": 34,
-              "description": "LMK_EAGLE_LAKE_DESC",
-              "name": "Eagle Lake"
-            },
-            {
-              "id": 35,
-              "description": "LMK_MID_HIGH_SCHOOL_DESC",
-              "name": "MDI High School"
-            },
-            {
-              "id": 77,
-              "description": "LMK_PARKMAN_MOUNTAIN_DESC",
-              "name": "Parkman Mountain"
-            },
-            {
-              "id": 53,
-              "description": "LMK_BROWN_MOUNTAIN_GATEHOUSE_DESC",
-              "name": "Brown Mountain Gatehouse"
-            },
-            {
-              "id": 38,
-              "description": "LMK_NORTHEAST_HARBOR_PIER_DESC",
-              "name": "Northeast Harbor Pier"
-            },
-            {
-              "id": 53,
-              "description": "LMK_BROWN_MOUNTAIN_GATEHOUSE_DESC",
-              "name": "Brown Mountain Gatehouse"
-            },
-            {
-              "id": 77,
-              "description": "LMK_PARKMAN_MOUNTAIN_DESC",
-              "name": "Parkman Mountain"
-            },
-            {
-              "id": 35,
-              "description": "LMK_MID_HIGH_SCHOOL_DESC",
-              "name": "MDI High School"
-            },
-            {
-              "id": 34,
-              "description": "LMK_EAGLE_LAKE_DESC",
-              "name": "Eagle Lake"
-            },
-            {
-              "id": 1,
-              "description": "LMK_VILLAGE_GREEN_DESC",
-              "name": "Village Green"
-            }
-          ]
-        }
+      "landmarks": [
+        1, 34, 35, 38000, 77, 53, 39000, 52, 38, 52, 53, 77, 35, 34
       ],
+      "notices": ["NTE_SCHEDULED_STOPS"],
       "tips": ["TIP_NOT_IN_SERVICE_COVID"]
     },
     {

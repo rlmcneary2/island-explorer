@@ -825,6 +825,28 @@
         "latitude": 44.34119439548791,
         "longitude": -68.25039989627989
       }
+    },
+    {
+      "description": "TRH_GIANT_SLIDE_DESC",
+      "features": ["hike"],
+      "id": 38000,
+      "landmarkType": "trail-head",
+      "displayName": "Giant Slide Trail",
+      "location": {
+        "latitude": 44.35022,
+        "longitude": -68.3023532
+      }
+    },
+    {
+      "description": "LMK_ASTICOU_AZALEA_GARDEN_DESC",
+      "features": ["accessible", "walk"],
+      "id": 39000,
+      "landmarkType": "point-of-interest",
+      "displayName": "Asticou Azalea Garden",
+      "location": {
+        "latitude": 44.305556,
+        "longitude": -68.2840012
+      }
     }
   ]
 }
