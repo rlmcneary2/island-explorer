@@ -107,7 +107,7 @@
     {
       "description": "LMK_SOUTHWEST_HARBOR_DESC",
       "displayName": "Southwest Harbor",
-      "features": ["dine", "gift"],
+      "features": ["dine", "gift", "inn"],
       "id": 44,
       "landmarkType": "village",
       "location": {
@@ -128,7 +128,7 @@
     },
     {
       "description": "LMK_SEAWALL_CAMPGROUND_DESC",
-      "features": ["camp"],
+      "features": ["camp", "wonder"],
       "landmarkType": "campground",
       "displayName": "Seawall Campground",
       "id": 46,
@@ -151,7 +151,6 @@
     {
       "description": "LMK_TREMONT_SCHOOL_DESC",
       "displayName": "Tremont School",
-      "features": [],
       "id": 48,
       "landmarkType": "village",
       "location": {
@@ -204,7 +203,6 @@
       }
     },
     {
-      "features": [],
       "description": "LMK_ACADIA_NATIONAL_PARK_HQ_DESC",
       "landmarkType": "point-of-interest",
       "displayName": "Acadia National Park Headquarters",
@@ -717,6 +715,11 @@
       "ref": 24
     },
     {
+      "description": "LMK_EAGLE_LAKE_DESC",
+      "id": 10034,
+      "ref": 34
+    },
+    {
       "description": "TRH_CHAMPLAIN_NORTH_RIDGE_DESC",
       "features": ["hike"],
       "id": 20000,
@@ -934,6 +937,39 @@
       "location": {
         "latitude": 44.305556,
         "longitude": -68.2840012
+      }
+    },
+    {
+      "description": "LMK_SEAWALL_DESC",
+      "features": ["accessible", "wonder"],
+      "id": 40000,
+      "landmarkType": "point-of-interest",
+      "displayName": "Seawall",
+      "location": {
+        "latitude": 44.2415699,
+        "longitude": -68.3009923
+      }
+    },
+    {
+      "description": "LMK_MAN_O_WAR_BROOK_TRAIL_DESC",
+      "features": ["hike"],
+      "id": 41000,
+      "landmarkType": "trail-head",
+      "displayName": "Man O War Brook Trail",
+      "location": {
+        "latitude": 44.32293880230726,
+        "longitude": -68.33216264297697
+      }
+    },
+    {
+      "description": "LMK_ACADIA_MOUNTAIN_TRAIL_DESC",
+      "features": ["hike"],
+      "id": 42000,
+      "landmarkType": "trail-head",
+      "displayName": "Acadia Mountain Trail",
+      "location": {
+        "latitude": 44.32175867470986,
+        "longitude": -68.33274200014776
       }
     }
   ]
