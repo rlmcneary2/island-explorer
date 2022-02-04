@@ -1,6 +1,26 @@
 {
   "landmarks": [
     {
+      "description": "LMK_VILLAGE_GREEN_DESC",
+      "features": [
+        "restroom",
+        "dine",
+        "snack",
+        "gift",
+        "inn",
+        "attraction",
+        "park",
+        "walk"
+      ],
+      "landmarkType": "point-of-interest",
+      "displayName": "Bar Harbor Village Green",
+      "id": 1,
+      "location": {
+        "latitude": 44.387919499573265,
+        "longitude": -68.20558682662836
+      }
+    },
+    {
       "description": "LMK_ACADIA_INN_DESC",
       "features": ["inn"],
       "landmarkType": "lodging",
@@ -9,6 +29,167 @@
       "location": {
         "latitude": 44.39526749,
         "longitude": -68.22457123
+      }
+    },
+    {
+      "description": "LMK_ATLANTIC_EYRIE_LODGE_DESC",
+      "displayName": "Atlantic Eyrie Lodge",
+      "features": ["inn"],
+      "landmarkType": "lodging",
+      "location": {
+        "latitude": 44.39187622,
+        "longitude": -68.22277832
+      },
+      "id": 18
+    },
+    {
+      "displayName": "MDI High School",
+      "features": ["park"],
+      "id": 35,
+      "landmarkType": "point-of-interest",
+      "location": {
+        "latitude": 44.37173843,
+        "longitude": -68.30102539
+      }
+    },
+    {
+      "description": "LMK_SOMESVILLE_DESC",
+      "displayName": "Somesville",
+      "features": ["park", "walk", "gift"],
+      "id": 39,
+      "landmarkType": "point-of-interest",
+      "location": {
+        "latitude": 44.3613205,
+        "longitude": -68.33518219
+      }
+    },
+    {
+      "description": "LMK_ECHO_LAKE_DESC",
+      "displayName": "Echo Lake",
+      "features": [
+        "restroom",
+        "water",
+        "beach",
+        "swim",
+        "hike",
+        "climb",
+        "tower"
+      ],
+      "id": 40,
+      "landmarkType": "point-of-interest",
+      "location": {
+        "latitude": 44.31499481,
+        "longitude": -68.33670044
+      }
+    },
+    {
+      "description": "LMK_SMUGGLERS_DEN_DESC",
+      "displayName": "Smugglers' Den Campground",
+      "features": ["camp"],
+      "id": 41,
+      "landmarkType": "campground",
+      "location": {
+        "latitude": 44.30040359,
+        "longitude": -68.33153534
+      }
+    },
+    {
+      "description": "LMK_CLARK_POINT_DESC",
+      "displayName": "Clark Point",
+      "features": ["inn", "dine"],
+      "id": 43,
+      "landmarkType": "village",
+      "location": {
+        "latitude": 44.27684784,
+        "longitude": -68.31338501
+      }
+    },
+    {
+      "description": "LMK_SOUTHWEST_HARBOR_DESC",
+      "displayName": "Southwest Harbor",
+      "features": ["dine", "gift"],
+      "id": 44,
+      "landmarkType": "village",
+      "location": {
+        "latitude": 44.2801857,
+        "longitude": -68.32499695
+      }
+    },
+    {
+      "description": "LMK_CRANBERRY_COVE_DESC",
+      "displayName": "Cranberry Cove",
+      "features": ["inn", "dine", "boat"],
+      "id": 45,
+      "landmarkType": "village",
+      "location": {
+        "latitude": 44.26898575,
+        "longitude": -68.31143188
+      }
+    },
+    {
+      "description": "LMK_SEAWALL_CAMPGROUND_DESC",
+      "features": ["camp"],
+      "landmarkType": "campground",
+      "displayName": "Seawall Campground",
+      "id": 46,
+      "location": {
+        "latitude": 44.23894882,
+        "longitude": -68.30301666
+      }
+    },
+    {
+      "description": "LMK_BASS_HARBOR_CAMPGROUND_DESC",
+      "features": ["camp"],
+      "landmarkType": "campground",
+      "displayName": "Bass Harbor Campground",
+      "id": 47,
+      "location": {
+        "latitude": 44.23036194,
+        "longitude": -68.33906555
+      }
+    },
+    {
+      "description": "LMK_TREMONT_SCHOOL_DESC",
+      "displayName": "Tremont School",
+      "features": [],
+      "id": 48,
+      "landmarkType": "village",
+      "location": {
+        "latitude": 44.25374985,
+        "longitude": -68.35064697
+      }
+    },
+    {
+      "description": "LMK_BERNARD_DESC",
+      "features": ["dine"],
+      "landmarkType": "point-of-interest",
+      "displayName": "Bernard",
+      "id": 50,
+      "location": {
+        "latitude": 44.23987198,
+        "longitude": -68.35358429
+      }
+    },
+    {
+      "description": "LMK_BASS_HARBOR_FERRY_DESC",
+      "features": ["ferry"],
+      "landmarkType": "ferry-transport",
+      "displayName": "Bass Harbor Ferry Terminal",
+      "id": 55,
+      "location": {
+        "latitude": 44.23500061,
+        "longitude": 34738159
+      }
+    },
+    {
+      "description": "LMK_MOUNT_DESERT_CAMPGROUND_DESC",
+      "features": ["camp"],
+      "landmarkType": "campground",
+      "displayName": "Mount Desert Campground",
+      "id": 62,
+      "location": {
+        "latitude": 44.36645889,
+        "longitude": -68.31780243
       }
     },
     {
@@ -23,15 +204,48 @@
       }
     },
     {
-      "description": "LMK_ATLANTIC_EYRIE_LODGE_DESC",
-      "displayName": "Atlantic Eyrie Lodge",
-      "features": ["inn"],
-      "landmarkType": "lodging",
+      "features": [],
+      "description": "LMK_ACADIA_NATIONAL_PARK_HQ_DESC",
+      "landmarkType": "point-of-interest",
+      "displayName": "Acadia National Park Headquarters",
+      "id": 82,
       "location": {
-        "latitude": 44.39187622,
-        "longitude": -68.22277832
-      },
-      "id": 18
+        "latitude": 44.37443,
+        "longitude": -68.25934
+      }
+    },
+    {
+      "features": ["ferry"],
+      "description": "LMK_MANSET_DOCK_DESC",
+      "landmarkType": "ferry-transport",
+      "displayName": "Manset Dock",
+      "id": 88,
+      "location": {
+        "latitude": 44.268904,
+        "longitude": -68.309941
+      }
+    },
+    {
+      "features": ["park"],
+      "description": "LMK_MCKINLEYS_STORE_DESC",
+      "landmarkType": "point-of-interest",
+      "displayName": "McKinley's Store",
+      "id": 89,
+      "location": {
+        "latitude": 44.251246,
+        "longitude": -68.343666
+      }
+    },
+    {
+      "description": "LMK_ACADIA_MOUNTAIN_DESC",
+      "displayName": "Acadia Mountain",
+      "features": ["hike"],
+      "id": 93,
+      "landmarkType": "trail-head",
+      "location": {
+        "latitude": 44.322398,
+        "longitude": -68.332654
+      }
     },
     {
       "displayName": "College of the Atlantic",
@@ -137,49 +351,6 @@
       }
     },
     {
-      "displayName": "MDI High School",
-      "features": ["park"],
-      "id": 35,
-      "landmarkType": "point-of-interest",
-      "location": {
-        "latitude": 44.37173843,
-        "longitude": -68.30102539
-      }
-    },
-    {
-      "description": "LMK_BASS_HARBOR_CAMPGROUND_DESC",
-      "features": ["camp"],
-      "landmarkType": "campground",
-      "displayName": "Bass Harbor Campground",
-      "id": 47,
-      "location": {
-        "latitude": 44.23036194,
-        "longitude": -68.33906555
-      }
-    },
-    {
-      "description": "LMK_BASS_HARBOR_FERRY_DESC",
-      "features": ["ferry"],
-      "landmarkType": "ferry-transport",
-      "displayName": "Bass Harbor Ferry Terminal",
-      "id": 55,
-      "location": {
-        "latitude": 44.23500061,
-        "longitude": 34738159
-      }
-    },
-    {
-      "description": "LMK_BERNARD_DESC",
-      "features": ["dine"],
-      "landmarkType": "point-of-interest",
-      "displayName": "Bernard",
-      "id": 50,
-      "location": {
-        "latitude": 44.23987198,
-        "longitude": -68.35358429
-      }
-    },
-    {
       "description": "LMK_BLACKWOODS_CAMPGROUND_DESC",
       "features": ["camp"],
       "landmarkType": "campground",
@@ -265,25 +436,6 @@
       }
     },
     {
-      "description": "LMK_ECHO_LAKE_DESC",
-      "features": [
-        "restroom",
-        "water",
-        "beach",
-        "swim",
-        "hike",
-        "climb",
-        "tower"
-      ],
-      "landmarkType": "point-of-interest",
-      "displayName": "Echo Lake",
-      "id": 40,
-      "location": {
-        "latitude": 44.31499481,
-        "longitude": -68.33670044
-      }
-    },
-    {
       "description": "LMK_WH_FERRY_TERMINAL_DESC",
       "features": ["ferry"],
       "landmarkType": "ferry-transport",
@@ -337,17 +489,6 @@
       "location": {
         "latitude": 44.32052201288366,
         "longitude": -68.25315534463009
-      }
-    },
-    {
-      "description": "LMK_MOUNT_DESERT_CAMPGROUND_DESC",
-      "features": ["camp"],
-      "landmarkType": "campground",
-      "displayName": "Mount Desert Campground",
-      "id": 62,
-      "location": {
-        "latitude": 44.36645889,
-        "longitude": -68.31780243
       }
     },
     {
@@ -469,17 +610,6 @@
       }
     },
     {
-      "description": "LMK_SEAWALL_CAMPGROUND_DESC",
-      "features": ["camp"],
-      "landmarkType": "campground",
-      "displayName": "Seawall Campground",
-      "id": 46,
-      "location": {
-        "latitude": 44.23894882,
-        "longitude": -68.30301666
-      }
-    },
-    {
       "description": "LMK_SIEUR_DE_MONTS_DESC",
       "features": [
         "accessible",
@@ -497,28 +627,6 @@
       "location": {
         "latitude": 44.36243439,
         "longitude": -68.20748138
-      }
-    },
-    {
-      "description": "LMK_SMUGGLERS_DEN_CAMPGROUND_DESC",
-      "features": ["camp"],
-      "landmarkType": "campground",
-      "displayName": "Smugglers' Den Campground",
-      "id": 41,
-      "location": {
-        "latitude": 44.30040359,
-        "longitude": -68.33153534
-      }
-    },
-    {
-      "description": "LMK_SOUTHWEST_HARBOR_DESC",
-      "features": ["dine"],
-      "landmarkType": "point-of-interest",
-      "displayName": "Southwest Harbor",
-      "id": 44,
-      "location": {
-        "latitude": 44.2801857,
-        "longitude": -68.32499695
       }
     },
     {
@@ -541,26 +649,6 @@
       "location": {
         "latitude": 44.39901733,
         "longitude": -68.33446503
-      }
-    },
-    {
-      "description": "LMK_VILLAGE_GREEN_DESC",
-      "features": [
-        "restroom",
-        "dine",
-        "snack",
-        "gift",
-        "inn",
-        "attraction",
-        "park",
-        "walk"
-      ],
-      "landmarkType": "point-of-interest",
-      "displayName": "Bar Harbor Village Green",
-      "id": 1,
-      "location": {
-        "latitude": 44.387919499573265,
-        "longitude": -68.20558682662836
       }
     },
     {
