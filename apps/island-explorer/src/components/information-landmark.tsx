@@ -27,7 +27,9 @@ export function InformationLandmark({ landmark, onClick, routeId }: Props) {
     "technical",
     "bike",
     "fish",
+    "fishing-pier",
     "boat",
+    "boat-launch",
     "airport",
     "ferry",
     "tower"

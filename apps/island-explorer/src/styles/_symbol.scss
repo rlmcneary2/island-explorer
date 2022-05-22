@@ -45,6 +45,11 @@
   background-position: dimension.$symbol-small * -10;
 }
 
+.sym-boat-launch {
+  @extend %symbol-small;
+  background-position: dimension.$symbol-small * -23;
+}
+
 .sym-bus-stop {
   @extend %symbol-small;
   background-position: dimension.$symbol-small * -21;
@@ -68,6 +73,11 @@
 .sym-ferry {
   @extend %symbol-small;
   background-position: dimension.$symbol-small * -8;
+}
+
+.sym-fishing-pier {
+  @extend %symbol-small;
+  background-position: dimension.$symbol-small * -24;
 }
 
 .sym-gift {

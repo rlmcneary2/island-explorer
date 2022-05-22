@@ -58,19 +58,16 @@
       "description": "RTE_SOUTHWEST_HARBOR_DESC",
       "id": 7,
       "displayName": "Southwest Harbor",
-      "landmarks": [
-        89, 88, 10034, 1, 82, 35, 62, 39, 41000, 93, 42000, 40, 41, 43, 44, 45,
-        40000, 46, 47, 50, 48, 55
-      ],
-      "notices": ["NTE_SCHEDULED_STOPS"],
+      "landmarks": [1, 35, 62, 39, 41000, 40, 41, 44, 40000, 46],
+      "notices": ["NTE_SCHEDULED_STOPS", "NTE_ROUTE_7_2022"],
       "tips": []
     },
     {
       "description": "RTE_SCHOODIC_DESC",
       "id": 8,
       "displayName": "Schoodic",
-      "landmarks": [],
-      "notices": ["NTE_SCHEDULED_STOPS"],
+      "landmarks": [56, 57, 79, 42000, 59, 43000, 44000, 60, 61],
+      "notices": ["NTE_SCHEDULED_STOPS", "NTE_SCHOODIC"],
       "tips": []
     },
     {

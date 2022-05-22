@@ -413,7 +413,6 @@
       }
     },
     {
-      "description": "LMK_SMUGGLERS_DEN_DESC",
       "displayName": "Smugglers' Den Campground",
       "features": ["camp"],
       "id": 41,
@@ -424,7 +423,6 @@
       }
     },
     {
-      "description": "LMK_CLARK_POINT_DESC",
       "displayName": "Clark Point",
       "features": ["inn", "dine"],
       "id": 43,
@@ -468,7 +466,6 @@
       }
     },
     {
-      "description": "LMK_BASS_HARBOR_CAMPGROUND_DESC",
       "features": ["camp"],
       "landmarkType": "campground",
       "displayName": "Bass Harbor Campground",
@@ -479,7 +476,6 @@
       }
     },
     {
-      "description": "LMK_TREMONT_SCHOOL_DESC",
       "displayName": "Tremont School",
       "id": 48,
       "landmarkType": "village",
@@ -564,7 +560,7 @@
     },
     {
       "description": "LMK_SCHOODIC_POINT_DESC",
-      "features": ["restroom", "wonder"],
+      "features": ["restroom", "wonder", "park"],
       "landmarkType": "point-of-interest",
       "displayName": "Schoodic Point",
       "id": 59,
@@ -574,7 +570,6 @@
       }
     },
     {
-      "description": "LMK_BIRCH_HARBOR_DESC",
       "features": ["dine"],
       "landmarkType": "point-of-interest",
       "displayName": "Birch Harbor",
@@ -585,7 +580,16 @@
       }
     },
     {
-      "description": "LMK_MOUNT_DESERT_CAMPGROUND_DESC",
+      "displayName": "Prospect Harbor",
+      "features": ["inn"],
+      "id": 61,
+      "landmarkType": "point-of-interest",
+      "location": {
+        "latitude": 44.40686798,
+        "longitude": -68.02690125
+      }
+    },
+    {
       "features": ["camp"],
       "landmarkType": "campground",
       "displayName": "Mount Desert Campground",
@@ -672,11 +676,11 @@
       }
     },
     {
-      "features": ["ferry"],
       "description": "LMK_MANSET_DOCK_DESC",
-      "landmarkType": "ferry-transport",
       "displayName": "Manset Dock",
+      "features": ["ferry", "fishing-pier", "boat-launch"],
       "id": 88,
+      "landmarkType": "ferry-transport",
       "location": {
         "latitude": 44.268904,
         "longitude": -68.309941
@@ -951,25 +955,46 @@
       }
     },
     {
-      "description": "LMK_MAN_O_WAR_BROOK_TRAIL_DESC",
+      "description": "TRH_ST_SAUVEUR_TRAIL_DESC",
       "features": ["hike"],
       "id": 41000,
       "landmarkType": "trail-head",
-      "displayName": "Man O War Brook Trail",
+      "displayName": "St. Sauveur Mountain Trail",
       "location": {
-        "latitude": 44.32293880230726,
-        "longitude": -68.33216264297697
+        "latitude": 44.32168180267373,
+        "longitude": -68.33276638656265
       }
     },
     {
-      "description": "LMK_ACADIA_MOUNTAIN_TRAIL_DESC",
-      "features": ["hike"],
+      "features": ["picnic", "restroom"],
       "id": 42000,
-      "landmarkType": "trail-head",
-      "displayName": "Acadia Mountain Trail",
+      "landmarkType": "point-of-interest",
+      "displayName": "Frazer Point",
       "location": {
-        "latitude": 44.32175867470986,
-        "longitude": -68.33274200014776
+        "latitude": 44.37565341073958,
+        "longitude": -68.0752401749348
+      }
+    },
+    {
+      "description": "TRH_SCHOODIC_HEAD_ANVIL_TRAIL",
+      "features": ["hike"],
+      "id": 43000,
+      "landmarkType": "trail-head",
+      "displayName": "Anvil Trail",
+      "location": {
+        "latitude": 44.3403817731503,
+        "longitude": -68.04474835305578
+      }
+    },
+    {
+      "description": "TRH_SCHOODIC_HEAD_EAST_TRAIL",
+      "features": ["hike"],
+      "id": 44000,
+      "landmarkType": "trail-head",
+      "displayName": "East Trail",
+      "location": {
+        "latitude": 44.352105588360374,
+        "longitude": -68.04719000014778
       }
     }
   ]

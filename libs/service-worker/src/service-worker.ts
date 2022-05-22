@@ -12,6 +12,7 @@ wgs.addEventListener("install", event => {
       cache.addAll([
         "favicon.ico",
         "icon-bus.svg",
+        "icon-direction.svg",
         "main.js",
         "polyfills.js",
         "runtime.js",
