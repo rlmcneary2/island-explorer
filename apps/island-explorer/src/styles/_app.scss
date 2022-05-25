@@ -3,6 +3,10 @@
 @use "./dimension";
 @use "./font";
 
+#root {
+  overflow: hidden;
+}
+
 %headline-1 {
   @extend %title-1;
   margin: dimension.$text-heading-margin 0 0 0;
