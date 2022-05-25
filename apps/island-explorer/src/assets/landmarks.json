@@ -548,7 +548,6 @@
       }
     },
     {
-      "description": "LMK_WINTER_HARBOR_DESC",
       "features": ["dine"],
       "landmarkType": "point-of-interest",
       "displayName": "Winter Harbor",
@@ -644,7 +643,6 @@
       }
     },
     {
-      "description": "LMK_SCHOODIC_WOODS_CAMPGROUND_DESC",
       "features": ["camp"],
       "landmarkType": "campground",
       "displayName": "Schoodic Woods Campground",
