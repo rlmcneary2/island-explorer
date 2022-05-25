@@ -36,6 +36,7 @@ $bus-stop-bullet-height: 20px;
 
     .landmarks {
       @extend %ulist;
+      list-style-type: none;
 
       .landmark {
         @extend %list-item;
@@ -43,8 +44,6 @@ $bus-stop-bullet-height: 20px;
       }
 
       .stop {
-        list-style-type: none;
-
         &::before {
           background: {
             image: url("../assets/symbols.svg");
