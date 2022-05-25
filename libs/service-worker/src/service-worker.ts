@@ -7,51 +7,46 @@ const wgs = self as unknown as ServiceWorkerGlobalScope;
 wgs.addEventListener("install", event => {
   console.log("service-worker: install event");
 
+  const routeIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const stopsPaths = routeIds.map(
+    id => `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=${id}`
+  );
+
+  const paths = [
+    "favicon.ico",
+    "icon-bus.svg",
+    "icon-direction.svg",
+    "main.js",
+    "polyfills.js",
+    "runtime.js",
+    "styles.css",
+    "styles.js",
+    "symbols.svg",
+    "vendor.js",
+    "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300&family=Oswald:wght@400;600&display=swap",
+    "https://api.mapbox.com/styles/v1/mapbox/outdoors-v11?access_token=pk.eyJ1IjoicmxtY25lYXJ5MiIsImEiOiJjajgyZjJuMDAyajJrMndzNmJqZDFucTIzIn0.BYE_k7mYhhVCdLckWeTg0g",
+    // "https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css",
+    "http://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css",
+    `${API_LEFT}/InfoPoint/rest/Routes/GetVisibleRoutes`,
+    `${API_LEFT}/InfoPoint/Resources/Traces/Oceanarium.kml`,
+    `${API_LEFT}/InfoPoint/Resources/Traces/VisitorCenter.kml`,
+    `${API_LEFT}/InfoPoint/Resources/Traces/EdenStreet.kml`,
+    `${API_LEFT}/InfoPoint/Resources/Traces/SandyBeach.kml`,
+    `${API_LEFT}/InfoPoint/Resources/Traces/LoopRoad.kml`,
+    `${API_LEFT}/InfoPoint/Resources/Traces/JordanPond.kml`,
+    `${API_LEFT}/InfoPoint/Resources/Traces/BrownMountain.kml`,
+    `${API_LEFT}/InfoPoint/Resources/Traces/SWH.kml`,
+    `${API_LEFT}/InfoPoint/Resources/Traces/Schoodic.kml`,
+    `${API_LEFT}/InfoPoint/Resources/Traces/Trenton.kml`,
+    `${API_LEFT}/InfoPoint/Resources/Traces/blackwoods.kml`,
+    ...stopsPaths
+  ];
+
   event.waitUntil(
-    caches.open(VERSION).then(cache =>
-      cache.addAll([
-        "favicon.ico",
-        "icon-bus.svg",
-        "icon-direction.svg",
-        "main.js",
-        "polyfills.js",
-        "runtime.js",
-        "styles.js",
-        "symbols.svg",
-        "vendor.js",
-
-        "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300&family=Oswald:wght@400;600&display=swap",
-
-        "https://api.mapbox.com/styles/v1/mapbox/outdoors-v11?access_token=pk.eyJ1IjoicmxtY25lYXJ5MiIsImEiOiJjajgyZjJuMDAyajJrMndzNmJqZDFucTIzIn0.BYE_k7mYhhVCdLckWeTg0g",
-        // "https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css",
-        "http://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css",
-
-        `${API_LEFT}/InfoPoint/rest/Routes/GetVisibleRoutes`,
-
-        `${API_LEFT}/InfoPoint/Resources/Traces/Oceanarium.kml`,
-        `${API_LEFT}/InfoPoint/Resources/Traces/VisitorCenter.kml`,
-        `${API_LEFT}/InfoPoint/Resources/Traces/EdenStreet.kml`,
-        `${API_LEFT}/InfoPoint/Resources/Traces/SandyBeach.kml`,
-        `${API_LEFT}/InfoPoint/Resources/Traces/LoopRoad.kml`,
-        `${API_LEFT}/InfoPoint/Resources/Traces/JordanPond.kml`,
-        `${API_LEFT}/InfoPoint/Resources/Traces/BrownMountain.kml`,
-        `${API_LEFT}/InfoPoint/Resources/Traces/SWH.kml`,
-        `${API_LEFT}/InfoPoint/Resources/Traces/Schoodic.kml`,
-        `${API_LEFT}/InfoPoint/Resources/Traces/Trenton.kml`,
-        `${API_LEFT}/InfoPoint/Resources/Traces/blackwoods.kml`,
-
-        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=1`,
-        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=2`,
-        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=3`,
-        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=4`,
-        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=5`,
-        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=6`,
-        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=7`,
-        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=8`,
-        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=9`,
-        `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=10`
-      ])
-    )
+    caches
+      .open(VERSION)
+      .then(cache => cache.addAll([...paths]))
+      .catch(err => console.error("service-worker: addAll err", err))
   );
 });
 
@@ -71,8 +66,20 @@ wgs.addEventListener("fetch", async event => {
     // } catch (err) {
     //   console.log("service-worker: header error=", err);
     // }
+
+    // Cache google fonts that vary by browser, etc.
+    const requestUrl = new URL(event.request.url).origin;
+    if (
+      requestUrl === "fonts.googleapis.com" ||
+      requestUrl === "fonts.gstatic.com"
+    ) {
+      (await caches.open(VERSION)).put(event.request, response);
+      console.log(`service-worker: CACHED '${event.request.url}'`);
+    }
+
     return response;
   } else {
+    console.log(`service-worker: CACHED '${event.request.url}'`);
     return response;
   }
 });
