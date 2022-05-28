@@ -1,7 +1,7 @@
 [Settings]
 
 [build]
-  command = "yarn build:sw && yarn build"
+  command = "yarn build:sw:prod && yarn build"
   publish = "dist/apps/island-explorer"
 
 [build.environment]
@@ -21,3 +21,8 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "http://localhost:4200"
