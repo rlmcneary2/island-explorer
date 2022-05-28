@@ -1,45 +1,18 @@
-const API_LEFT = "https://island-explorer.netlify.app/api";
+import * as pathData from "./paths.json";
 
 const VERSION = "2021a";
 
 const wgs = self as unknown as ServiceWorkerGlobalScope;
 
 wgs.addEventListener("install", event => {
-  console.log("service-worker: install event");
-
-  const routeIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const stopsPaths = routeIds.map(
-    id => `${API_LEFT}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=${id}`
-  );
+  console.log(`service-worker(${pathData.TARGET}): install event`);
 
   const paths = [
-    "favicon.ico",
-    "icon-bus.svg",
-    "icon-direction.svg",
-    "main.js",
-    "polyfills.js",
-    "runtime.js",
-    "styles.css",
-    "styles.js",
-    "symbols.svg",
-    "vendor.js",
-    "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300&family=Oswald:wght@400;600&display=swap",
-    "https://api.mapbox.com/styles/v1/mapbox/outdoors-v11?access_token=pk.eyJ1IjoicmxtY25lYXJ5MiIsImEiOiJjajgyZjJuMDAyajJrMndzNmJqZDFucTIzIn0.BYE_k7mYhhVCdLckWeTg0g",
-    // "https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css",
-    "http://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css",
-    `${API_LEFT}/InfoPoint/rest/Routes/GetVisibleRoutes`,
-    `${API_LEFT}/InfoPoint/Resources/Traces/Oceanarium.kml`,
-    `${API_LEFT}/InfoPoint/Resources/Traces/VisitorCenter.kml`,
-    `${API_LEFT}/InfoPoint/Resources/Traces/EdenStreet.kml`,
-    `${API_LEFT}/InfoPoint/Resources/Traces/SandyBeach.kml`,
-    `${API_LEFT}/InfoPoint/Resources/Traces/LoopRoad.kml`,
-    `${API_LEFT}/InfoPoint/Resources/Traces/JordanPond.kml`,
-    `${API_LEFT}/InfoPoint/Resources/Traces/BrownMountain.kml`,
-    `${API_LEFT}/InfoPoint/Resources/Traces/SWH.kml`,
-    `${API_LEFT}/InfoPoint/Resources/Traces/Schoodic.kml`,
-    `${API_LEFT}/InfoPoint/Resources/Traces/Trenton.kml`,
-    `${API_LEFT}/InfoPoint/Resources/Traces/blackwoods.kml`,
-    ...stopsPaths
+    ...pathData.paths,
+    ...pathData.apiLeftPaths.map(path => `${pathData.apiLeft}${path}`),
+    ...pathData.routeIds.map(
+      id => `${pathData.apiLeft}${pathData.stopsPath}${id}`
+    )
   ];
 
   event.waitUntil(
