@@ -23,6 +23,6 @@
   status = 200
 
 [[headers]]
-  for = "/api/*"
+  for = "/*"
   [headers.values]
-    Access-Control-Allow-Origin = "http://localhost:4200"
+    Access-Control-Allow-Origin = "*"
