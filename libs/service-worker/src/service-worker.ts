@@ -41,13 +41,25 @@ wgs.addEventListener("fetch", async event => {
     // }
 
     // Cache google fonts that vary by browser, etc.
-    const requestUrl = new URL(event.request.url).origin;
+    const { pathname: requestPathname, hostname: requestHostname } = new URL(
+      event.request.url
+    );
     if (
-      requestUrl === "fonts.googleapis.com" ||
-      requestUrl === "fonts.gstatic.com"
+      requestHostname === "fonts.googleapis.com" ||
+      requestHostname === "fonts.gstatic.com"
     ) {
       (await caches.open(VERSION)).put(event.request, response);
-      console.log(`service-worker: CACHED '${event.request.url}'`);
+      console.log(`service-worker: caching '${event.request.url}'`);
+    }
+
+    // Cache mapbox files
+    const mapboxUrl = `${requestHostname}${requestPathname}`;
+    if (
+      mapboxUrl.startsWith("api.mapbox.com/styles") ||
+      mapboxUrl.startsWith("api.mapbox.com/fonts")
+    ) {
+      (await caches.open(VERSION)).put(event.request, response);
+      console.log(`service-worker: caching '${event.request.url}'`);
     }
 
     return response;
