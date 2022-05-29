@@ -59,7 +59,10 @@
           "builder": "@nrwl/web:dev-server",
           "options": {
             "buildTarget": "island-explorer:build",
-            "hmr": true
+            "hmr": true,
+            "ssl": true,
+            "sslKey": "cert/localhost.key",
+            "sslCert": "cert/localhost.crt"
           },
           "configurations": {
             "production": {
