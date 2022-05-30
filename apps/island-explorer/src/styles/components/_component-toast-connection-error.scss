@@ -1,0 +1,6 @@
+@use "../dimension";
+@use "../app";
+
+.toast {
+  @extend %toast;
+}

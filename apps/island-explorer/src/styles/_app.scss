@@ -143,6 +143,47 @@
   margin: dimension.$text-para-margin 0 0 0;
 }
 
+%toast {
+  @extend %text;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  margin: 1rem 0.5rem 0 0.5rem;
+  position: absolute;
+  right: 0;
+  top: dimension.$header-height + (dimension.$header-padding * 2);
+
+  > .content {
+    background: color.$primary;
+    border: solid black 0;
+    border-radius: dimension.$control-rounded-border-radius-h unquote(" / ")
+      dimension.$control-rounded-border-radius-v;
+    box-sizing: border-box;
+    color: color.$text-inverse;
+    opacity: 0;
+    padding: dimension.$text-tip-padding;
+    transform: scale(0.8);
+    transition: all 100ms;
+    width: dimension.$toast-width;
+  }
+
+  &.animate-start-in {
+    & > .content {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  &.animate-end-in {
+    & > .content {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
 %ulist {
   list-style-type: disc; // Custom bullet?.
   margin-top: dimension.$text-para-margin;

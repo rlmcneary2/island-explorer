@@ -1,8 +1,21 @@
-export interface ModalDialogProps
+export interface ModalContainerProps
   extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
+    React.HTMLAttributes<HTMLElement>,
+    HTMLElement
   > {
+  containerId?: string;
+}
+
+export interface ModalDialogProps
+  extends ModalProps,
+    React.DetailedHTMLProps<
+      React.HTMLAttributes<HTMLDivElement>,
+      HTMLDivElement
+    > {
   onClose?: <T = unknown>(data?: T) => void;
   onExternalTap?: () => void;
+}
+
+export interface ModalProps {
+  containerId?: string;
 }

@@ -20,6 +20,7 @@ export default function Main() {
           <Redirect to={getRoutePath(3, MAP)} />
         </Switch>
       </div>
+      <ModalContainer className="toast-container" containerId="toast" />
       <ModalContainer className="modal-container" />
     </main>
   );

@@ -7,6 +7,7 @@ import { ModalDialogProps } from "../types";
  */
 export default function ModalDialog({
   children,
+  containerId,
   onExternalTap,
   ...props
 }: React.PropsWithChildren<ModalDialogProps>) {
@@ -24,7 +25,7 @@ export default function ModalDialog({
   useEffect(() => () => setEl(null), []);
 
   return (
-    <Modal>
+    <Modal containerId={containerId}>
       <div ref={ref => setEl(ref)} {...props}>
         {children}
       </div>

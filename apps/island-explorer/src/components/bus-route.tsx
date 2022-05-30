@@ -6,6 +6,7 @@ import Map from "./map";
 import Information from "./information";
 import useContextActions from "../context/use-context-actions";
 import useContextState from "../context/use-context-state";
+import { ConnectionStatus } from "./toast/connection-status/connection-status";
 
 export function BusRoute() {
   // The `paramRouteId` from the URL params is passed to context to fetch data
@@ -18,10 +19,11 @@ export function BusRoute() {
   // passed as a prop to child components that will use it to get the data they
   // need from state. Note that `paramRouteId` and `routeId` will not always
   // match!
-  const { nextVehicleUpdate, routeId } = useContextState(
-    ({ nextVehicleUpdate, routeId }) => ({
+  const { nextVehicleUpdate, routeId, routeVehicles } = useContextState(
+    ({ nextVehicleUpdate, routeId, routeVehicles }) => ({
       nextVehicleUpdate,
-      routeId
+      routeId,
+      routeVehicles
     })
   );
 
@@ -30,7 +32,6 @@ export function BusRoute() {
   }, [paramRouteId, setRoute]);
 
   const timeValue = Math.round((nextVehicleUpdate - Date.now()) / 1000);
-  console.log(`BusRoute: timeValue=${timeValue}`);
 
   return (
     <>
@@ -58,6 +59,10 @@ export function BusRoute() {
           </>
         )}
       </div>
+      <ConnectionStatus
+        connected={routeVehicles ? !routeVehicles.error : true}
+        messageId="CONNECTION_ERROR"
+      />
     </>
   );
 }

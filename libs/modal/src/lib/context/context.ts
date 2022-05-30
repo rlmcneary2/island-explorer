@@ -2,10 +2,17 @@ import React from "react";
 
 export default React.createContext<{
   el: HTMLElement;
-  setEl: (el: HTMLElement) => void;
+  elCollection: Record<string, HTMLElement>;
+  setEl: SetEl;
 }>({
   el: null,
+  elCollection: null,
   setEl: () => {
     /* noop */
-  },
+  }
 });
+
+interface SetEl {
+  (el: HTMLElement): void;
+  (key: string, el: HTMLElement): void;
+}

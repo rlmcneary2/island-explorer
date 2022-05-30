@@ -1,6 +1,8 @@
+@use "../dimension";
+
 div.header {
   display: flex;
-  flex: 0 0 5rem;
+  flex: 0 0 dimension.$header-height;
   justify-content: space-between;
   padding: 0.3rem;
 }

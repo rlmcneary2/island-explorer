@@ -16,6 +16,9 @@ $control-rounded-border-radius-v: 5px;
 $button-border-width: 1.5px;
 $button-width: $control-height * 3.5;
 
+$header-height: 5rem;
+$header-padding: 0.3rem;
+
 $icon-size: 35px;
 
 $modal-height: 70%;
@@ -40,3 +43,5 @@ $text-body-line-height: 1.35em;
 $text-para-margin: 8px;
 $text-heading-margin: $text-para-margin + 8;
 $text-tip-padding: $control-padding * 2;
+
+$toast-width: 100%;
