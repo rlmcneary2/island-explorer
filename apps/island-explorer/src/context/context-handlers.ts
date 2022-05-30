@@ -111,11 +111,6 @@ export function create(): ActionHandler<ContextState>[] {
       return [state];
     }
 
-    // console.log(
-    //   `fetchRouteVehicles: ${new Date(Date.now()).toTimeString()}, payload=`,
-    //   action.payload
-    // );
-
     fetchRouteVehiclesRouteId = nextRouteId;
     fetchVehiclesActive = true;
 
@@ -124,7 +119,7 @@ export function create(): ActionHandler<ContextState>[] {
     )
       .then(async response => {
         if (response.ok) {
-          return response.json();
+          return { body: await response.json() };
         }
 
         let body: string;
@@ -136,17 +131,14 @@ export function create(): ActionHandler<ContextState>[] {
 
         throw Error(`${response.status}${body ? `\nbody='${body}'` : ""}`);
       })
-      .then(body => {
-        const { dispatchTime = Date.now() + INTERVAL_SECONDS * 1000 } =
-          action.payload;
-        let lastDispatchTime = dispatchTime;
-        const slipDispatchTime = Date.now() + INTERVAL_SECONDS * 1000;
-        const processingTime = slipDispatchTime - lastDispatchTime;
-        let interval = INTERVAL_SECONDS * 1000 - processingTime;
-        if (interval < 0) {
-          lastDispatchTime = Date.now();
-          interval = 0;
-        }
+      .catch(error => {
+        console.log("fetchRouteVehicles: catch.");
+        return { body: null, error };
+      })
+      .then(data => {
+        const { interval, lastDispatchTime } = getVehicleUpdateInterval(
+          action.payload
+        );
 
         console.log("fetchRouteVehicles: fetch dispatch.");
 
@@ -154,23 +146,22 @@ export function create(): ActionHandler<ContextState>[] {
           {
             ...inlineState,
             nextVehicleUpdate: Date.now() + interval,
-            routeVehicles: { data: body, status: "idle" },
-            routeVehicleHeadings: updateVehicleHeadings(inlineState, body)
+            routeVehicles:
+              "error" in data
+                ? {
+                    error: data.error,
+                    status: "idle"
+                  }
+                : {
+                    data: data.body,
+                    status: "idle"
+                  },
+            routeVehicleHeadings: updateVehicleHeadings(inlineState, data.body)
           },
           true
         ]);
 
-        // console.log(
-        //   `fetchRouteVehicles: dispatchTime=${dispatchTime}, slipDispatchTime=${slipDispatchTime}`
-        // );
-        // console.log(
-        //   `fetchRouteVehicles: interval=${interval}, processingTime=${processingTime}`
-        // );
-
         setTimeout(() => {
-          // console.log(
-          //   `fetchRouteVehicles: timeout active; nextRouteId=${nextRouteId}, fetchRouteVehiclesRouteId=${fetchRouteVehiclesRouteId}.`
-          // );
           if (nextRouteId !== fetchRouteVehiclesRouteId) {
             return;
           }
@@ -187,15 +178,6 @@ export function create(): ActionHandler<ContextState>[] {
             }
           });
         }, interval);
-      })
-      .catch(err => {
-        dispatch(inlineState => [
-          {
-            ...inlineState,
-            routeVehicles: { error: err, status: "idle" }
-          },
-          true
-        ]);
       });
 
     return [
@@ -327,6 +309,23 @@ export const actionIds = Object.freeze({
   ACTION_SELECT_LANDMARK: "action-select-landmark"
 });
 
+function getVehicleUpdateInterval(payload: {
+  routeId: number;
+  dispatchTime?: number;
+}) {
+  const { dispatchTime = Date.now() + INTERVAL_SECONDS * 1000 } = payload;
+  let lastDispatchTime = dispatchTime;
+  const slipDispatchTime = Date.now() + INTERVAL_SECONDS * 1000;
+  const processingTime = slipDispatchTime - lastDispatchTime;
+  let interval = INTERVAL_SECONDS * 1000 - processingTime;
+  if (interval < 0) {
+    lastDispatchTime = Date.now();
+    interval = 0;
+  }
+
+  return { interval, lastDispatchTime };
+}
+
 async function handleStopsResponse(
   dispatch: Dispatcher<ContextState>,
   response: Response
@@ -364,6 +363,10 @@ function updateVehicleHeadings(
   { routeVehicleHeadings }: ContextData,
   vehicles: Vehicle[]
 ) {
+  if (!vehicles || !vehicles.length) {
+    return;
+  }
+
   const nextRouteVehicleHeadings: ContextData["routeVehicleHeadings"] = {};
 
   for (let i = 0; i < vehicles.length; i++) {
