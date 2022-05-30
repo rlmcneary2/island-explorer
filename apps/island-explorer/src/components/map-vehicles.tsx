@@ -5,11 +5,14 @@ import useContextState from "../context/use-context-state";
 import { VehiclePopup } from "./vehicle/vehicle-popup";
 
 export default function MapVehicles() {
+  console.log("MapVehicles: enter.");
   const { vehicleHeadings, vehicles, routeStops } = useContextState(selector);
 
   if (!vehicles || !vehicles.length) {
     return null;
   }
+
+  console.log("MapVehicles: render.");
 
   return (
     <>

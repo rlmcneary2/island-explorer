@@ -111,10 +111,10 @@ export function create(): ActionHandler<ContextState>[] {
       return [state];
     }
 
-    console.log(
-      `fetchRouteVehicles: ${new Date(Date.now()).toTimeString()}, payload=`,
-      action.payload
-    );
+    // console.log(
+    //   `fetchRouteVehicles: ${new Date(Date.now()).toTimeString()}, payload=`,
+    //   action.payload
+    // );
 
     fetchRouteVehiclesRouteId = nextRouteId;
     fetchVehiclesActive = true;
@@ -137,15 +137,6 @@ export function create(): ActionHandler<ContextState>[] {
         throw Error(`${response.status}${body ? `\nbody='${body}'` : ""}`);
       })
       .then(body => {
-        dispatch(inlineState => [
-          {
-            ...inlineState,
-            routeVehicles: { data: body, status: "idle" },
-            routeVehicleHeadings: updateVehicleHeadings(inlineState, body)
-          },
-          true
-        ]);
-
         const { dispatchTime = Date.now() + INTERVAL_SECONDS * 1000 } =
           action.payload;
         let lastDispatchTime = dispatchTime;
@@ -157,22 +148,36 @@ export function create(): ActionHandler<ContextState>[] {
           interval = 0;
         }
 
-        console.log(
-          `fetchRouteVehicles: dispatchTime=${dispatchTime}, slipDispatchTime=${slipDispatchTime}`
-        );
-        console.log(
-          `fetchRouteVehicles: interval=${interval}, processingTime=${processingTime}`
-        );
+        console.log("fetchRouteVehicles: fetch dispatch.");
+
+        dispatch(inlineState => [
+          {
+            ...inlineState,
+            nextVehicleUpdate: Date.now() + interval,
+            routeVehicles: { data: body, status: "idle" },
+            routeVehicleHeadings: updateVehicleHeadings(inlineState, body)
+          },
+          true
+        ]);
+
+        // console.log(
+        //   `fetchRouteVehicles: dispatchTime=${dispatchTime}, slipDispatchTime=${slipDispatchTime}`
+        // );
+        // console.log(
+        //   `fetchRouteVehicles: interval=${interval}, processingTime=${processingTime}`
+        // );
 
         setTimeout(() => {
-          console.log(
-            `fetchRouteVehicles: timeout active; nextRouteId=${nextRouteId}, fetchRouteVehiclesRouteId=${fetchRouteVehiclesRouteId}.`
-          );
+          // console.log(
+          //   `fetchRouteVehicles: timeout active; nextRouteId=${nextRouteId}, fetchRouteVehiclesRouteId=${fetchRouteVehiclesRouteId}.`
+          // );
           if (nextRouteId !== fetchRouteVehiclesRouteId) {
             return;
           }
 
           fetchVehiclesActive = false;
+
+          console.log("fetchRouteVehicles: timeout dispatch.");
 
           dispatch({
             id: actionIds.ACTION_FETCH_ROUTE_VEHICLES,

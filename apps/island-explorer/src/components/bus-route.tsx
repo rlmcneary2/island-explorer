@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
-import { Route, Switch, useParams } from "react-router-dom";
-import { INFORMATION, MAP } from "../constants/routes";
+import { useEffect } from "react";
+import { Route, useParams } from "react-router-dom";
+import { FormattedRelativeTime } from "react-intl";
+import { INFORMATION } from "../constants/routes";
 import Map from "./map";
 import Information from "./information";
 import useContextActions from "../context/use-context-actions";
@@ -17,11 +18,19 @@ export function BusRoute() {
   // passed as a prop to child components that will use it to get the data they
   // need from state. Note that `paramRouteId` and `routeId` will not always
   // match!
-  const routeId = useContextState(state => state.routeId);
+  const { nextVehicleUpdate, routeId } = useContextState(
+    ({ nextVehicleUpdate, routeId }) => ({
+      nextVehicleUpdate,
+      routeId
+    })
+  );
 
   useEffect(() => {
     setRoute(+paramRouteId);
   }, [paramRouteId, setRoute]);
+
+  const timeValue = Math.round((nextVehicleUpdate - Date.now()) / 1000);
+  console.log(`BusRoute: timeValue=${timeValue}`);
 
   return (
     <>
@@ -29,6 +38,26 @@ export function BusRoute() {
       <Route path={`*/${INFORMATION}`}>
         <Information routeId={routeId} />
       </Route>
+      <div
+        style={{
+          background: "white",
+          bottom: 0,
+          padding: "2px",
+          position: "absolute",
+          right: 0
+        }}
+      >
+        {!isNaN(timeValue) && 0 <= timeValue && (
+          <>
+            {"Update "}
+            <FormattedRelativeTime
+              numeric="auto"
+              value={timeValue}
+              updateIntervalInSeconds={1}
+            />
+          </>
+        )}
+      </div>
     </>
   );
 }

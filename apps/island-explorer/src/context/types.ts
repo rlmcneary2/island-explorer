@@ -1,6 +1,8 @@
 export type ContextState = ContextData & ContextActions;
 
 export interface ContextData {
+  /** Time in milliseconds when the next vehicle update will occur. */
+  nextVehicleUpdate?: number;
   /** The route ID that state data currently represents. This can be different
    * from the routeId URL parameter. */
   routeId?: number;
