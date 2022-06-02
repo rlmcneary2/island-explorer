@@ -664,14 +664,8 @@
     },
     {
       "description": "TRH_CADILLAC_NORTH_RIDGE_DESC",
-      "features": ["hike"],
-      "landmarkType": "trail-head",
-      "displayName": "Cadillac North Ridge",
       "id": 83,
-      "location": {
-        "latitude": 44.37951550727959,
-        "longitude": -68.23234479389386
-      }
+      "ref": 20
     },
     {
       "description": "LMK_MANSET_DOCK_DESC",
@@ -720,6 +714,11 @@
       "description": "LMK_EAGLE_LAKE_DESC",
       "id": 10034,
       "ref": 34
+    },
+    {
+      "description": "LMK_PARKMAN_MOUNTAIN_DESC",
+      "id": 10077,
+      "ref": 77
     },
     {
       "description": "TRH_CHAMPLAIN_NORTH_RIDGE_DESC",
@@ -939,6 +938,17 @@
       "location": {
         "latitude": 44.305556,
         "longitude": -68.2840012
+      }
+    },
+    {
+      "description": "TRH_ASTICOU_TERRACES_PATH_DESC",
+      "features": ["hike"],
+      "id": 39500,
+      "landmarkType": "trail-head",
+      "displayName": "Asticou Terraces",
+      "location": {
+        "latitude": 44.30016659928465,
+        "longitude": -68.27966687290977
       }
     },
     {
