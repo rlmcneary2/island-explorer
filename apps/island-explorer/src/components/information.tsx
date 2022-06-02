@@ -1,5 +1,6 @@
 import routesJson from "../assets/routes.json";
 import { FormattedMessage } from "react-intl";
+import { Landmark } from "../types/types";
 import useContextActions from "../context/use-context-actions";
 import { Message } from "./controls/message/message";
 import { MessageDismissible } from "./controls/message/message-dismissible";
@@ -16,12 +17,15 @@ export default function Information({ routeId }: Props) {
     return null;
   }
 
-  const routeLandmarks = (route.landmarks as number[])
-    .reduce(
-      (output, id) => (output.includes(id) ? output : [...output, id]),
-      [] as number[]
-    )
-    .map(id => getLandmark(id));
+  const routeLandmarks = route.landmarks
+    .map(id => getLandmark(id))
+    .reduce<Landmark[]>(
+      (output, lmk) =>
+        output.some(x => x.id === lmk.ref || x.id === lmk.id)
+          ? output
+          : [...output, lmk],
+      []
+    );
 
   return (
     <section className="information">

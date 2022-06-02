@@ -5,10 +5,10 @@ const { landmarks } = landmarksJson;
 
 export const LANDMARK_PATH_TEMPLATE = "/landmark/:landmarkId";
 
-export function getLandmark(id: number): Landmark {
+export function getLandmark(id: number): Landmark & { ref?: number } {
   const landmark = landmarks.find(lmk => lmk.id === id);
   if (!isLandmark(landmark)) {
-    return { ...getLandmark(landmark.ref), id: landmark.id };
+    return { ...getLandmark(landmark.ref), id: landmark.id, ref: landmark.ref };
   }
 
   return landmark;
