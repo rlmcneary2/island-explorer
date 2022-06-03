@@ -95,7 +95,6 @@
       }
     },
     {
-      "description": "LMK_BAR_HARBOR_KOA_DESC",
       "features": ["camp"],
       "landmarkType": "campground",
       "displayName": "Bar Harbor KOA Campground",
@@ -117,7 +116,6 @@
       }
     },
     {
-      "description": "LMK_NARROWS_TOO_CAMPGROUND_DESC",
       "features": ["camp"],
       "landmarkType": "campground",
       "displayName": "Narrows Too Campground",
@@ -719,6 +717,16 @@
       "description": "LMK_PARKMAN_MOUNTAIN_DESC",
       "id": 10077,
       "ref": 77
+    },
+    {
+      "id": 11000,
+      "features": ["camp"],
+      "landmarkType": "campground",
+      "displayName": "Teramor Resort",
+      "location": {
+        "latitude": 44.40440036730379,
+        "longitude": -68.34294606630657
+      }
     },
     {
       "description": "TRH_CHAMPLAIN_NORTH_RIDGE_DESC",

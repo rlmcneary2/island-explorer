@@ -48,7 +48,9 @@
       "description": "RTE_BROWN_MOUNTAIN_DESC",
       "displayName": "Northeast Harbor",
       "id": 6,
-      "landmarks": [1, 35, 38000, 10077, 53, 39000, 39500, 38, 29, 38, 53, 35],
+      "landmarks": [
+        1, 35, 62, 38000, 10077, 53, 39000, 39500, 38, 29, 38, 53, 35
+      ],
       "notices": ["NTE_SCHEDULED_STOPS"],
       "tips": ["RTE_NORTHEAST_HARBOR_TIP"]
     },
@@ -56,7 +58,9 @@
       "description": "RTE_SOUTHWEST_HARBOR_DESC",
       "id": 7,
       "displayName": "Southwest Harbor",
-      "landmarks": [1, 35, 62, 39, 41000, 40, 41, 44, 40000, 46],
+      "landmarks": [
+        1, 35, 62, 39, 41000, 40, 41, 44, 40000, 46, 88, 44, 39, 62, 1
+      ],
       "notices": ["NTE_SCHEDULED_STOPS", "NTE_ROUTE_7_2022"],
       "tips": []
     },
@@ -64,7 +68,7 @@
       "description": "RTE_SCHOODIC_DESC",
       "id": 8,
       "displayName": "Schoodic",
-      "landmarks": [56, 57, 79, 42000, 59, 43000, 44000, 60, 61],
+      "landmarks": [56, 57, 79, 42000, 59, 43000, 44000, 60, 61, 79, 57],
       "notices": ["NTE_SCHEDULED_STOPS", "NTE_SCHOODIC"],
       "tips": []
     },
@@ -72,7 +76,7 @@
       "description": "RTE_TRENTON_DESC",
       "id": 9,
       "displayName": "Trenton",
-      "landmarks": [],
+      "landmarks": [74, 10, 11, 9, 11000, 69, 35, 1, 35, 69, 11000, 9, 11, 10],
       "notices": ["NTE_SCHEDULED_STOPS"],
       "tips": []
     },
@@ -80,7 +84,7 @@
       "description": "RTE_BLACKWOODS_DESC",
       "id": 10,
       "displayName": "Blackwoods",
-      "landmarks": [],
+      "landmarks": [1, 21, 27, 24, 21],
       "notices": ["NTE_SCHEDULED_STOPS"],
       "tips": []
     }
