@@ -2,17 +2,17 @@
   "routes": [
     {
       "description": "RTE_OCEANARIUM_DESC",
-      "displayName": "Oceanarium",
+      "displayName": "Bar Harbor Road",
       "id": 1,
       "landmarks": [6, 5, 4, 3, 1, 3, 4, 5],
-      "notices": ["NTE_SCHEDULED_STOPS"]
+      "notices": ["NTE_COVID_05-11-2022", "NTE_SCHEDULED_STOPS"]
     },
     {
       "description": "RTE_VISITOR_CENTER_DESC",
-      "displayName": "Visitor Center",
+      "displayName": "Eden Street",
       "id": 2,
       "landmarks": [1, 13, 14, 2, 15, 16, 17],
-      "notices": ["NTE_SCHEDULED_STOPS"]
+      "notices": ["NTE_COVID_05-11-2022", "NTE_SCHEDULED_STOPS"]
     },
     {
       "description": "RTE_SAND_BEACH_DESC",
@@ -22,7 +22,7 @@
         1, 20, 28000, 29000, 30000, 31000, 32000, 20000, 21000, 22000, 23000,
         22, 23, 24000, 10024, 25000, 26000, 27000
       ],
-      "notices": ["NTE_SCHEDULED_STOPS"],
+      "notices": ["NTE_COVID_05-11-2022", "NTE_SCHEDULED_STOPS"],
       "tips": ["RTE_SAND_BEACH_TIP", "RTE_SAND_BEACH_TIP2"]
     },
     {
@@ -33,7 +33,7 @@
         3, 20, 21, 20000, 21000, 22000, 23000, 22, 10023, 24000, 10024, 25000,
         33000, 34000, 30, 29, 35000, 36000, 37000, 83
       ],
-      "notices": ["NTE_SCHEDULED_STOPS"],
+      "notices": ["NTE_COVID_05-11-2022", "NTE_SCHEDULED_STOPS"],
       "tips": ["RTE_LOOP_ROAD_TIP", "RTE_LOOP_ROAD_TIP2"]
     },
     {
@@ -41,7 +41,7 @@
       "displayName": "Jordan Pond",
       "id": 5,
       "landmarks": [3, 20, 28, 37000, 36000, 35000, 29, 28, 20],
-      "notices": ["NTE_SCHEDULED_STOPS"],
+      "notices": ["NTE_COVID_05-11-2022", "NTE_SCHEDULED_STOPS"],
       "tips": ["RTE_JORDAN_POND_TIP", "RTE_JORDAN_POND_TIP2"]
     },
     {
@@ -51,7 +51,7 @@
       "landmarks": [
         1, 35, 62, 38000, 10077, 53, 39000, 39500, 38, 29, 38, 53, 35
       ],
-      "notices": ["NTE_SCHEDULED_STOPS"],
+      "notices": ["NTE_COVID_05-11-2022", "NTE_SCHEDULED_STOPS"],
       "tips": ["RTE_NORTHEAST_HARBOR_TIP"]
     },
     {
@@ -61,7 +61,11 @@
       "landmarks": [
         1, 35, 62, 39, 41000, 40, 41, 44, 40000, 46, 88, 44, 39, 62, 1
       ],
-      "notices": ["NTE_SCHEDULED_STOPS", "NTE_ROUTE_7_2022"],
+      "notices": [
+        "NTE_COVID_05-11-2022",
+        "NTE_SCHEDULED_STOPS",
+        "NTE_ROUTE_7_2022"
+      ],
       "tips": []
     },
     {
@@ -69,7 +73,11 @@
       "id": 8,
       "displayName": "Schoodic",
       "landmarks": [56, 57, 79, 42000, 59, 43000, 44000, 60, 61, 79, 57],
-      "notices": ["NTE_SCHEDULED_STOPS", "NTE_SCHOODIC"],
+      "notices": [
+        "NTE_COVID_05-11-2022",
+        "NTE_SCHEDULED_STOPS",
+        "NTE_SCHOODIC"
+      ],
       "tips": []
     },
     {
@@ -77,7 +85,7 @@
       "id": 9,
       "displayName": "Trenton",
       "landmarks": [74, 10, 11, 9, 11000, 69, 35, 1, 35, 69, 11000, 9, 11, 10],
-      "notices": ["NTE_SCHEDULED_STOPS"],
+      "notices": ["NTE_COVID_05-11-2022", "NTE_SCHEDULED_STOPS"],
       "tips": []
     },
     {
@@ -85,7 +93,7 @@
       "id": 10,
       "displayName": "Blackwoods",
       "landmarks": [1, 21, 27, 24, 21],
-      "notices": ["NTE_SCHEDULED_STOPS"],
+      "notices": ["NTE_COVID_05-11-2022", "NTE_SCHEDULED_STOPS"],
       "tips": []
     }
   ]
