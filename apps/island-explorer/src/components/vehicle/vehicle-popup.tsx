@@ -22,7 +22,7 @@ export function VehiclePopup({ routeStops, vehicle, ...props }: Props) {
 
   const route = routes.data.find(route => route.id === vehicle.RouteId);
   const routeLandmarksStops = route.landmarks
-    .filter(x => x < 20000)
+    .filter(x => x < 10000)
     .map(x => getLandmark(x, landmarks.data));
 
   const lastStopId = mapLastStopToRouteId(vehicle.LastStop, routeStops);
@@ -42,7 +42,9 @@ export function VehiclePopup({ routeStops, vehicle, ...props }: Props) {
       <span className="header">
         <FormattedMessage id="NEXT_STOP" />
       </span>
-      <p className="description">{nextStop?.displayName ?? "?"}</p>
+      <p className="description">
+        {nextStop?.displayName ?? `?${vehicle.LastStop}?`}
+      </p>
     </div>
   );
 }
