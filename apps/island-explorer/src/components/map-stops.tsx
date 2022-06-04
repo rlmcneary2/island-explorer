@@ -5,16 +5,21 @@ import { LandmarkPopup } from "./landmark/landmark-popup";
 import { getLandmark } from "../util/landmark";
 
 export function MapStops() {
-  const selectedLandmarks = useContextState(selector);
+  const { landmarks, selectedLandmarks } = useContextState(selector);
 
-  if (!selectedLandmarks || !selectedLandmarks.length) {
+  if (
+    !selectedLandmarks ||
+    !selectedLandmarks.length ||
+    landmarks?.status !== "idle" ||
+    landmarks?.error
+  ) {
     return null;
   }
 
   return (
     <>
       {selectedLandmarks.map(({ landmarkId }) => {
-        const landmark = getLandmark(landmarkId);
+        const landmark = getLandmark(landmarkId, landmarks.data);
         return (
           <Marker
             color="#5F911B"
@@ -31,5 +36,8 @@ export function MapStops() {
 }
 
 function selector(state: ContextData) {
-  return state?.selectedLandmarks;
+  return {
+    landmarks: state?.landmarks,
+    selectedLandmarks: state?.selectedLandmarks
+  };
 }

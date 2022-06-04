@@ -6,6 +6,7 @@ export interface Landmark {
   features?: string[];
   id: number;
   location: { latitude: number; longitude: number };
+  ref?: number;
 }
 
 export type RoutePage = keyof { [INFORMATION]: null; [MAP]: null };

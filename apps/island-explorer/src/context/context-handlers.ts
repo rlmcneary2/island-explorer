@@ -1,7 +1,7 @@
 import { ActionHandler } from "reshape-state";
 import { Dispatcher } from "reshape-state/types";
 import { environment as env } from "../environments/environment";
-import { RoutesAssetItem } from "../types/types";
+import { Landmark, RoutesAssetItem } from "../types/types";
 import { ContextData, ContextState, SelectedLandmark, Vehicle } from "./types";
 import toGeoJson from "@mapbox/togeojson";
 
@@ -11,6 +11,42 @@ const INTERVAL_SECONDS = 60;
 export function create(): ActionHandler<ContextState>[] {
   let fetchRouteVehiclesRouteId: number = null;
   let fetchVehiclesActive = false;
+
+  const fetchLandmarks: ActionHandler<ContextState, null> = (
+    state,
+    _,
+    dispatch
+  ) => {
+    if (state?.landmarks) {
+      return [state];
+    }
+
+    fetch("../assets/landmarks.json")
+      .catch(error => ({ error }))
+      .then(async response => {
+        if ("error" in response) {
+          dispatch(inlineState => [
+            {
+              ...inlineState,
+              landmarks: { error: response.error, status: "idle" }
+            },
+            true
+          ]);
+          return;
+        }
+
+        const data = (await response.json()) as { landmarks: Landmark[] };
+        dispatch(inlineState => [
+          {
+            ...inlineState,
+            landmarks: { data: data.landmarks, status: "idle" }
+          },
+          true
+        ]);
+      });
+
+    return [{ ...state, landmarks: { status: "active" } }, true];
+  };
 
   const fetchRoutes: ActionHandler<ContextState, null> = (
     state,
@@ -304,6 +340,7 @@ export function create(): ActionHandler<ContextState>[] {
 
   return [
     deselectLandmark,
+    fetchLandmarks,
     fetchRoutes,
     fetchRoutesFinished,
     handleRouteChanged,
