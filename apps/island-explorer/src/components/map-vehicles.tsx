@@ -1,13 +1,30 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Marker } from "remapgl";
 import { ContextData } from "../context/types";
 import useContextState from "../context/use-context-state";
 import { VehiclePopup } from "./vehicle/vehicle-popup";
+import { getRouteOrderLandmarks } from "../util/landmark";
 
 export default function MapVehicles() {
-  const { vehicleHeadings, vehicles, routeStops } = useContextState(selector);
+  const { landmarks, routeId, routes, vehicleHeadings, vehicles } =
+    useContextState(selector);
 
-  if (!vehicles || !vehicles.length) {
+  const { data: landmarksData } = landmarks;
+  const { data: routesData } = routes;
+
+  const routeLandmarks = useMemo(
+    () => getRouteOrderLandmarks(routeId, routesData, landmarksData),
+    [landmarksData, routeId, routesData]
+  );
+
+  if (
+    landmarks?.status !== "idle" ||
+    landmarks?.error ||
+    routes?.status !== "idle" ||
+    routes?.error ||
+    !vehicles ||
+    !vehicles.length
+  ) {
     return null;
   }
 
@@ -20,7 +37,7 @@ export default function MapVehicles() {
           popup={obj => (
             <VehiclePopup
               onClick={() => obj.remove()}
-              routeStops={routeStops}
+              routeStops={routeLandmarks}
               vehicle={vehicle}
             />
           )}
@@ -56,7 +73,9 @@ function headingToRotateAngle(heading = 0) {
 
 function selector(state: ContextData) {
   return {
-    routeStops: state?.routeStops?.data,
+    landmarks: state?.landmarks,
+    routeId: state?.routeId,
+    routes: state?.routes,
     vehicleHeadings: state?.routeVehicleHeadings,
     vehicles: state?.routeVehicles?.data
   };

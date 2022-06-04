@@ -2,6 +2,7 @@ import type { Landmark, RoutesAssetItem } from "../types/types";
 export type ContextState = ContextData & ContextActions;
 
 export interface ContextData {
+  /** Asset landmarks.json data. Includes the data that will be used for stops. */
   landmarks?: AsyncActionData<Landmark[]>;
   /** Time in milliseconds when the next vehicle update will occur. */
   nextVehicleUpdate?: number;
@@ -9,7 +10,6 @@ export interface ContextData {
    * from the routeId URL parameter. */
   routeId?: number;
   routes?: AsyncActionData<RoutesAssetItem[]>;
-  routeStops?: AsyncActionData<Stop[]>;
   routeTrace?: AsyncActionData<Trace>;
   routeVehicles?: AsyncActionData<Vehicle[]>;
   routeVehicleHeadings?: Record<
@@ -55,28 +55,15 @@ export interface Route {
   IsHeadway?: boolean;
   IncludeInGoogle?: boolean;
   GoogleDescription?: string;
-  Stops?: any;
-  RouteStops?: any;
-  Directions?: any;
+  Stops?: unknown;
+  RouteStops?: unknown;
+  Directions?: unknown;
   Vehicles?: Vehicle[];
   Messages?: unknown[];
 }
 
 export interface SelectedLandmark extends Record<string, unknown> {
   landmarkId: number;
-}
-
-/**
- * Stop
- */
-export interface Stop {
-  Description: string;
-  IsTimePoint: boolean;
-  Latitude: number;
-  Longitude: number;
-  Name: string;
-  StopId: number;
-  StopRecordId: number;
 }
 
 /**
@@ -143,6 +130,6 @@ export interface Vehicle {
 export interface MapLayerCollectionItem {
   color: string;
   routeId: number;
-  stops?: Stop[];
+  stops?: Landmark[];
   trace?: Trace;
 }

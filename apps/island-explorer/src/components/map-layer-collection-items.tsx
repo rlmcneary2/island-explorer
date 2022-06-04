@@ -4,6 +4,7 @@ import bbox from "@turf/bbox";
 import { ContextData, MapLayerCollectionItem } from "../context/types";
 import useContextState from "../context/use-context-state";
 import MapLayerCollection from "./map-layer-collection";
+import { getRouteOrderLandmarks } from "../util/landmark";
 
 export default function MapLayerCollectionItems({
   fitBounds,
@@ -15,44 +16,58 @@ export default function MapLayerCollectionItems({
   const selector = useMemo(
     () => (state: ContextData) => ({
       color: state?.routes?.data?.find(x => x.id === routeId).color ?? "000",
-      routeStops: state?.routeStops ?? null,
+      landmarks: state?.landmarks,
+      routes: state?.routes,
       routeTrace: state?.routeTrace ?? null
     }),
     [routeId]
   );
 
-  const { color, routeStops, routeTrace } = useContextState(selector) ?? {};
+  const { color, landmarks, routes, routeTrace } =
+    useContextState(selector) ?? {};
+
+  const landmarksReady =
+    landmarks?.status === "idle" && !landmarks.error && landmarks.data;
 
   const traceReady =
     routeTrace?.status === "idle" && !routeTrace.error && routeTrace.data;
+
+  const landmarksData = landmarks?.data;
+  const routesData = routes?.data;
+
+  const routeLandmarks = useMemo(
+    () =>
+      getRouteOrderLandmarks(routeId, routesData, landmarksData).filter(
+        l => l.id < 10000
+      ),
+    [landmarksData, routeId, routesData]
+  );
 
   const { data: trace } = routeTrace ?? { data: null };
 
   // Update the map bounds based on the trace bounds.
   useEffect(() => {
-    if (!traceReady || !fitBounds) {
+    if (!landmarksReady || !traceReady || !fitBounds) {
       return;
     }
 
     const bounds = bbox(trace) as LngLatBoundsLike;
     fitBounds(bounds);
-  }, [fitBounds, trace, traceReady]);
-
-  const { data: stops } = routeStops ?? { data: null };
+  }, [fitBounds, landmarksReady, trace, traceReady]);
 
   const items = useMemo<MapLayerCollectionItem[]>(
     () => [
       {
         color,
         routeId,
-        stops: stops ?? null,
+        stops: routeLandmarks ?? null,
         trace: trace ?? null
       }
     ],
-    [color, routeId, stops, trace]
+    [color, routeId, routeLandmarks, trace]
   );
 
-  if (!traceReady) {
+  if (!landmarksReady || !traceReady) {
     return null;
   }
 

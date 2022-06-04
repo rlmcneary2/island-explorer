@@ -238,7 +238,7 @@ export function create(): ActionHandler<ContextState>[] {
     // If the routeId has changed reset state to the point where it has no
     // routeTrace or routeStops.
     if (state?.routeId !== action.payload) {
-      const { routeStops, routeTrace, ...remainingState } = state ?? {};
+      const { routeTrace, ...remainingState } = state ?? {};
 
       nextState = {
         ...remainingState,
@@ -279,26 +279,6 @@ export function create(): ActionHandler<ContextState>[] {
         routeTrace: { status: "active" }
       };
     }
-
-    // When there is no routeStops and routeStops is not being fetched, fetch
-    // the stops data for this route ID.
-    if (
-      !routeState?.routeStops &&
-      routeState?.routeStops?.status !== "active"
-    ) {
-      fetch(
-        `${env.apiLeft}/InfoPoint/rest/Stops/GetAllStopsForRoutes?routeIDs=${action.payload}`
-      ).then(response => handleStopsResponse(dispatch, response));
-
-      nextState = {
-        ...(nextState ?? state),
-        routeStops: { status: "active" }
-      };
-    }
-
-    console.log(
-      `handleRouteChanged: dispatching fetch vehicles for route ${action.payload}.`
-    );
 
     // Always dispatch the request to get vehicles, the handler function will
     // verify if the fetch needs to be made.
@@ -371,21 +351,6 @@ function getVehicleUpdateInterval(payload: {
   }
 
   return { interval, lastDispatchTime };
-}
-
-async function handleStopsResponse(
-  dispatch: Dispatcher<ContextState>,
-  response: Response
-) {
-  let nextState: Partial<ContextState>;
-
-  if (!response.ok) {
-    nextState = { routeStops: { status: "idle", error: response.status } };
-  } else {
-    nextState = { routeStops: { data: await response.json(), status: "idle" } };
-  }
-
-  dispatch(state => [{ ...state, ...nextState }, true]);
 }
 
 async function handleTraceResponse(

@@ -1,5 +1,5 @@
 import { FormattedMessage } from "react-intl";
-import { ContextState, Stop, Vehicle } from "../../context/types";
+import { ContextState, Vehicle } from "../../context/types";
 import useContextState from "../../context/use-context-state";
 import { getLandmark } from "../../util/landmark";
 import { Landmark } from "../../types/types";
@@ -47,12 +47,12 @@ export function VehiclePopup({ routeStops, vehicle, ...props }: Props) {
   );
 }
 
-function mapLastStopToRouteId(lastStop: string, routeStops: Stop[]) {
+function mapLastStopToRouteId(lastStop: string, routeStops: Landmark[]) {
   if (!routeStops) {
     return;
   }
 
-  return routeStops.find(x => x.Name === lastStop)?.StopId;
+  return routeStops.find(x => x.stopName === lastStop)?.id;
 }
 
 interface Props
@@ -60,7 +60,7 @@ interface Props
     DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
     "className"
   > {
-  routeStops: Stop[];
+  routeStops: Landmark[];
   vehicle: Vehicle;
 }
 

@@ -3,7 +3,8 @@ import { useEffect, useMemo, useState } from "react";
 import type { CircleLayer, CirclePaint, LineLayer } from "mapbox-gl";
 import * as geojson from "geojson/geojson";
 import { AnyLayer, LayerCollection } from "remapgl";
-import { MapLayerCollectionItem, Stop, Trace } from "../context/types";
+import { Landmark } from "../types/types";
+import { MapLayerCollectionItem, Trace } from "../context/types";
 
 const STOP_CIRCLE_RADIUS_BASE = 1.15;
 const STOP_CIRCLE_RADIUS_STEPS: number[][] = [
@@ -144,7 +145,7 @@ function createTraceLayer(
 function createStopsLayer(
   routeId: number,
   color: string,
-  stops: Stop[]
+  stops: Landmark[]
 ): CircleLayer {
   if (!stops) {
     return null;
@@ -164,11 +165,13 @@ function createStopsLayer(
     }
   };
 
-  const data = stops.map(({ Latitude: lat, Longitude: lng, Name: name }) => ({
-    lat,
-    lng,
-    name
-  }));
+  const data = stops.map(
+    ({ location: { latitude: lat, longitude: lng }, stopName: name }) => ({
+      lat,
+      lng,
+      name
+    })
+  );
 
   const geoJson = geojson.parse(data, {
     extra: { icon: "circle" },
