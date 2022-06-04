@@ -33,13 +33,13 @@ export function RoutesModal({ onClose, onExternalTap, routes }: Props) {
 
   const items = data.map(route => {
     return (
-      <li className="list-item" key={route.RouteId}>
+      <li className="list-item" key={route.id}>
         <Link
           onClick={handleLinkClick}
-          style={{ color: `#${route.Color}` }}
-          to={getRoutePath(route.RouteId, page)}
+          style={{ color: `#${route.color}` }}
+          to={getRoutePath(route.id, page)}
         >
-          {route.LongName}
+          {route.displayName}
         </Link>
       </li>
     );

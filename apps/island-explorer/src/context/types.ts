@@ -1,3 +1,4 @@
+import type { RoutesAssetItem } from "../types/types";
 export type ContextState = ContextData & ContextActions;
 
 export interface ContextData {
@@ -6,7 +7,7 @@ export interface ContextData {
   /** The route ID that state data currently represents. This can be different
    * from the routeId URL parameter. */
   routeId?: number;
-  routes?: AsyncActionData<Route[]>;
+  routes?: AsyncActionData<RoutesAssetItem[]>;
   routeStops?: AsyncActionData<Stop[]>;
   routeTrace?: AsyncActionData<Trace>;
   routeVehicles?: AsyncActionData<Vehicle[]>;
@@ -38,26 +39,26 @@ interface AsyncActionData<T> {
  */
 export interface Route {
   RouteId: number;
-  RouteRecordId: number;
+  RouteRecordId?: number;
   ShortName: string;
   LongName: string;
-  RouteAbbreviation: string;
+  RouteAbbreviation?: string;
   IvrDescription?: string;
   Color: string;
-  TextColor: string;
-  IsVisible: boolean;
+  TextColor?: string;
+  IsVisible?: boolean;
   Group?: string;
   SortOrder: number;
   RouteTraceFilename: string;
   RouteTraceHash64?: string;
-  IsHeadway: boolean;
-  IncludeInGoogle: boolean;
+  IsHeadway?: boolean;
+  IncludeInGoogle?: boolean;
   GoogleDescription?: string;
   Stops?: any;
   RouteStops?: any;
   Directions?: any;
-  Vehicles: Vehicle[];
-  Messages: unknown[];
+  Vehicles?: Vehicle[];
+  Messages?: unknown[];
 }
 
 export interface SelectedLandmark extends Record<string, unknown> {

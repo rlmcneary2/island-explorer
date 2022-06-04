@@ -1,6 +1,6 @@
 import { FormattedMessage } from "react-intl";
 import { Stop, Vehicle } from "../../context/types";
-import routesJson from "../../assets/routes.json";
+import useContextState from "../../context/use-context-state";
 import { getLandmark } from "../../util/landmark";
 import { Landmark } from "../../types/types";
 import {
@@ -8,10 +8,13 @@ import {
   HTMLAttributes
 } from "react-router/node_modules/@types/react";
 
-const { routes } = routesJson;
-
 export function VehiclePopup({ routeStops, vehicle, ...props }: Props) {
-  const route = routes.find(route => route.id === vehicle.RouteId);
+  const routes = useContextState(({ routes }) => routes);
+  if (routes?.status !== "idle" || routes?.error) {
+    return null;
+  }
+
+  const route = routes.data.find(route => route.id === vehicle.RouteId);
   const routeLandmarksStops = route.landmarks
     .filter(x => x < 20000)
     .map(x => getLandmark(x));

@@ -1,18 +1,21 @@
-import routesJson from "../assets/routes.json";
 import { FormattedMessage } from "react-intl";
 import { Landmark } from "../types/types";
 import useContextActions from "../context/use-context-actions";
+import useContextState from "../context/use-context-state";
 import { Message } from "./controls/message/message";
 import { MessageDismissible } from "./controls/message/message-dismissible";
 import { InformationLandmark } from "./information-landmark";
 import { getLandmark } from "../util/landmark";
 
-const { routes } = routesJson;
-
 export default function Information({ routeId }: Props) {
   const { selectLandmark } = useContextActions();
+  const routes = useContextState(({ routes }) => routes);
 
-  const route = routes.find(r => r.id === routeId);
+  if (routes?.status !== "idle" || routes?.error) {
+    return null;
+  }
+
+  const route = routes.data.find(r => r.id === routeId);
   if (!route) {
     return null;
   }

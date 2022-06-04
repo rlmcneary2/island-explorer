@@ -9,3 +9,14 @@ export interface Landmark {
 }
 
 export type RoutePage = keyof { [INFORMATION]: null; [MAP]: null };
+
+export interface RoutesAssetItem {
+  color: string;
+  description: string;
+  displayName: string;
+  id: number;
+  landmarks: number[];
+  notices: string[];
+  tips: string[];
+  trace: string;
+}

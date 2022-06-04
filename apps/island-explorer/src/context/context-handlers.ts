@@ -1,13 +1,8 @@
 import { ActionHandler } from "reshape-state";
 import { Dispatcher } from "reshape-state/types";
 import { environment as env } from "../environments/environment";
-import {
-  ContextData,
-  ContextState,
-  Route,
-  SelectedLandmark,
-  Vehicle
-} from "./types";
+import { RoutesAssetItem } from "../types/types";
+import { ContextData, ContextState, SelectedLandmark, Vehicle } from "./types";
 import toGeoJson from "@mapbox/togeojson";
 
 const ACTION_FETCH_ROUTES_FINISHED = "fetch-routes-finished";
@@ -42,7 +37,11 @@ export function create(): ActionHandler<ContextState>[] {
     }
 
     // Fetch the routes.
-    fetch(`${env.apiLeft}/InfoPoint/rest/Routes/GetVisibleRoutes`)
+
+    // OLD - now use a JSON data file.
+    // fetch(`${env.apiLeft}/InfoPoint/rest/Routes/GetVisibleRoutes`)
+
+    fetch("../assets/routes.json")
       .then(async response => {
         if (response.ok) {
           return response.json();
@@ -57,8 +56,8 @@ export function create(): ActionHandler<ContextState>[] {
 
         throw Error(`${response.status}${body ? `\nbody='${body}'` : ""}`);
       })
-      .then(body => {
-        dispatch({ id: ACTION_FETCH_ROUTES_FINISHED, payload: body });
+      .then((body: { routes: RoutesAssetItem[] }) => {
+        dispatch({ id: ACTION_FETCH_ROUTES_FINISHED, payload: body.routes });
       })
       .catch(err => {
         console.error(err);
@@ -73,7 +72,7 @@ export function create(): ActionHandler<ContextState>[] {
     return [nextState as ContextState, true];
   };
 
-  const fetchRoutesFinished: ActionHandler<ContextState, Route[]> = (
+  const fetchRoutesFinished: ActionHandler<ContextState, RoutesAssetItem[]> = (
     state,
     action,
     dispatch
@@ -220,13 +219,24 @@ export function create(): ActionHandler<ContextState>[] {
       routeState?.routeTrace?.status !== "active" &&
       hasRoutes
     ) {
-      const { RouteTraceFilename: traceFileName } = state.routes.data.find(
-        r => r.RouteId === action.payload
-      );
+      if (action.payload === 10 || action.payload === 11) {
+        import(`../assets/trace-${action.payload}.json`).then(imported => {
+          dispatch(inlineState => {
+            const nextState: ContextState = {
+              ...inlineState,
+              routeTrace: { data: imported.default, status: "idle" }
+            };
 
-      fetch(`${env.apiLeft}/InfoPoint/Resources/Traces/${traceFileName}`).then(
-        response => handleTraceResponse(dispatch, response)
-      );
+            return [nextState, true];
+          });
+        });
+      } else {
+        const { trace } = state.routes.data.find(r => r.id === action.payload);
+
+        fetch(`${env.apiLeft}/InfoPoint/Resources/Traces/${trace}`).then(
+          response => handleTraceResponse(dispatch, response)
+        );
+      }
 
       nextState = {
         ...(nextState ?? state),
