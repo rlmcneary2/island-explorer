@@ -255,7 +255,15 @@ export function create(): ActionHandler<ContextState>[] {
       routeState?.routeTrace?.status !== "active" &&
       hasRoutes
     ) {
-      if (action.payload === 10 || action.payload === 11) {
+      if (
+        action.payload === 1 ||
+        action.payload === 2 ||
+        action.payload === 3 ||
+        action.payload === 4 ||
+        action.payload === 10 ||
+        action.payload === 11 ||
+        action.payload === 12
+      ) {
         import(`../assets/trace-${action.payload}.json`).then(imported => {
           dispatch(inlineState => {
             const nextState: ContextState = {

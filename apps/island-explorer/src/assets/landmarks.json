@@ -59,7 +59,7 @@
     {
       "features": ["camp"],
       "landmarkType": "campground",
-      "displayName": "Hadley Point",
+      "displayName": "Hadley's Point Campground",
       "id": 5,
       "location": {
         "latitude": 44.43872833,
@@ -193,7 +193,6 @@
       "stopName": "Acadia Inn"
     },
     {
-      "description": "LMK_ATLANTIC_EYRIE_LODGE_DESC",
       "displayName": "Atlantic Eyrie Lodge",
       "features": ["inn"],
       "id": 18,
@@ -205,7 +204,6 @@
       "stopName": "Eryrie Lodge"
     },
     {
-      "description": "LMK_WONDER_VIEW_INN_DESC",
       "features": ["inn"],
       "landmarkType": "lodging",
       "displayName": "Wonder View Inn",
@@ -659,7 +657,6 @@
       "stopName": "Town Hill"
     },
     {
-      "description": "LMK_HAMPTON_INN_BAR_HARBOR_DESC",
       "features": ["inn"],
       "landmarkType": "lodging",
       "displayName": "Hampton Inn Bar Harbor",

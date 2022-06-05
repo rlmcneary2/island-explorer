@@ -78,8 +78,8 @@
       ],
       "notices": [
         "NTE_COVID_05-11-2022",
-        "NTE_SCHEDULED_STOPS",
-        "NTE_ROUTE_7_2022"
+        "NTE_ROUTE_7_2022",
+        "NTE_SCHEDULED_STOPS"
       ],
       "tips": [],
       "trace": "SWH.kml"
@@ -123,10 +123,24 @@
       "description": "RTE_TREMONT_DESC",
       "id": 11,
       "displayName": "Tremont",
-      "landmarks": [],
-      "notices": ["NTE_COVID_05-11-2022", "NTE_SCHEDULED_STOPS"],
+      "landmarks": [44, 88, 46, 47, 55, 48, 50, 48, 43],
+      "notices": [
+        "NTE_COVID_05-11-2022",
+        "NTE_ROUTE_11_2022",
+        "NTE_SCHEDULED_STOPS"
+      ],
       "tips": [],
       "trace": "trace-11.json"
+    },
+    {
+      "color": "C8177F",
+      "description": "RTE_HIGHBROOK_DESC",
+      "id": 12,
+      "displayName": "Highbrook",
+      "landmarks": [1, 18, 71, 19],
+      "notices": ["NTE_COVID_05-11-2022", "NTE_SCHEDULED_STOPS"],
+      "tips": [],
+      "trace": "trace-12.json"
     }
   ]
 }
