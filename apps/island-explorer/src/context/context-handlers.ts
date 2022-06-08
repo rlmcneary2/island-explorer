@@ -255,32 +255,16 @@ export function create(): ActionHandler<ContextState>[] {
       routeState?.routeTrace?.status !== "active" &&
       hasRoutes
     ) {
-      if (
-        action.payload === 1 ||
-        action.payload === 2 ||
-        action.payload === 3 ||
-        action.payload === 4 ||
-        action.payload === 10 ||
-        action.payload === 11 ||
-        action.payload === 12
-      ) {
-        import(`../assets/trace-${action.payload}.json`).then(imported => {
-          dispatch(inlineState => {
-            const nextState: ContextState = {
-              ...inlineState,
-              routeTrace: { data: imported.default, status: "idle" }
-            };
+      import(`../assets/trace-${action.payload}.json`).then(imported => {
+        dispatch(inlineState => {
+          const nextState: ContextState = {
+            ...inlineState,
+            routeTrace: { data: imported.default, status: "idle" }
+          };
 
-            return [nextState, true];
-          });
+          return [nextState, true];
         });
-      } else {
-        const { trace } = state.routes.data.find(r => r.id === action.payload);
-
-        fetch(`${env.apiLeft}/InfoPoint/Resources/Traces/${trace}`).then(
-          response => handleTraceResponse(dispatch, response)
-        );
-      }
+      });
 
       nextState = {
         ...(nextState ?? state),
