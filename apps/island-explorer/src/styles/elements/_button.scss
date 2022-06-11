@@ -1,4 +1,5 @@
 @use "../color";
+@use "../dimension";
 @use "../font";
 
 .button {
@@ -10,8 +11,9 @@
   display: flex;
   justify-content: center;
   max-width: 25rem;
+  margin: 0 0.2rem;
   min-width: 15rem;
-  padding: 0.5rem;
+  padding: dimension.$button-padding;
   text-decoration: none;
   &.primary {
     background-color: color.$secondary-lighter;
@@ -24,6 +26,12 @@
   }
   &.small {
     @extend %control-small;
+  }
+  &:first-child {
+    margin-left: 0;
+  }
+  &:last-child {
+    margin-right: 0;
   }
 }
 
