@@ -36,7 +36,6 @@
   "dependencies": {
     "@emotion/react": "11.5.0",
     "@emotion/styled": "11.3.0",
-    "@mapbox/togeojson": "^0.16.0",
     "@storybook/builder-webpack5": "~6.4.5",
     "@storybook/manager-webpack5": "~6.4.5",
     "@turf/bbox": "^6.4.0",

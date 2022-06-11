@@ -11,7 +11,11 @@ wgs.addEventListener("install", event => {
     ...pathData.paths,
     ...pathData.apiLeftPaths.map(path => `${pathData.apiLeft}${path}`),
     ...pathData.routeIds.reduce<string[]>((acc, id) => {
-      acc.push(`route/${id}/map`, `route/${id}/information`);
+      acc.push(
+        `route/${id}/map`,
+        `route/${id}/information`,
+        `assets/trace-${id}.json`
+      );
       return acc;
     }, [])
   ];

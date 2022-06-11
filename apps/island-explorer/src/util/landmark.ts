@@ -9,7 +9,6 @@ export function getLandmark(id: number, landmarks: Landmark[]): Landmark {
     return {
       ...refLandmark,
       id: landmark.id,
-      ref: landmark.ref,
       stopName: landmark.stopName ?? refLandmark.stopName
     };
   }

@@ -61,9 +61,7 @@
       "description": "RTE_BROWN_MOUNTAIN_DESC",
       "displayName": "Northeast Harbor",
       "id": 6,
-      "landmarks": [
-        1, 35, 62, 38000, 10077, 53, 39000, 39500, 38, 29, 38, 53, 35
-      ],
+      "landmarks": [1, 35, 38000, 10077, 53, 39000, 39500, 38, 29, 38, 53, 35],
       "notices": ["NTE_COVID_05-11-2022", "NTE_SCHEDULED_STOPS"],
       "tips": ["RTE_NORTHEAST_HARBOR_TIP"],
       "trace": "BrownMountain.kml"

@@ -1,9 +1,7 @@
 import { ActionHandler } from "reshape-state";
-import { Dispatcher } from "reshape-state/types";
 import { environment as env } from "../environments/environment";
 import { Landmark, RoutesAssetItem } from "../types/types";
 import { ContextData, ContextState, SelectedLandmark, Vehicle } from "./types";
-import toGeoJson from "@mapbox/togeojson";
 
 const ACTION_FETCH_ROUTES_FINISHED = "fetch-routes-finished";
 const INTERVAL_SECONDS = 60;
@@ -255,35 +253,38 @@ export function create(): ActionHandler<ContextState>[] {
       routeState?.routeTrace?.status !== "active" &&
       hasRoutes
     ) {
-      if (
-        action.payload === 1 ||
-        action.payload === 2 ||
-        action.payload === 3 ||
-        action.payload === 4 ||
-        action.payload === 7 ||
-        action.payload === 8 ||
-        action.payload === 9 ||
-        action.payload === 10 ||
-        action.payload === 11 ||
-        action.payload === 12
-      ) {
-        import(`../assets/trace-${action.payload}.json`).then(imported => {
+      fetch(`../assets/trace-${action.payload}.json`)
+        .then(async response => {
+          if (response.ok) {
+            return response.json();
+          }
+
+          let body: string;
+          try {
+            body = await response.text();
+          } catch (err) {
+            // Nothing to do here.
+          }
+
+          throw Error(`${response.status}${body ? `\nbody='${body}'` : ""}`);
+        })
+        .then(data => {
           dispatch(inlineState => {
             const nextState: ContextState = {
               ...inlineState,
-              routeTrace: { data: imported.default, status: "idle" }
+              routeTrace: { data, status: "idle" }
             };
 
             return [nextState, true];
           });
+        })
+        .catch(err => {
+          console.error(err);
+          dispatch(s => {
+            s.routes = { error: err, status: "idle" };
+            return [s, true];
+          });
         });
-      } else {
-        const { trace } = state.routes.data.find(r => r.id === action.payload);
-
-        fetch(`${env.apiLeft}/InfoPoint/Resources/Traces/${trace}`).then(
-          response => handleTraceResponse(dispatch, response)
-        );
-      }
 
       nextState = {
         ...(nextState ?? state),
@@ -362,24 +363,6 @@ function getVehicleUpdateInterval(payload: {
   }
 
   return { interval, lastDispatchTime };
-}
-
-async function handleTraceResponse(
-  dispatch: Dispatcher<ContextState>,
-  response: Response
-) {
-  let nextState: Partial<ContextState>;
-
-  if (!response.ok) {
-    nextState = { routeTrace: { status: "idle", error: response.status } };
-  } else {
-    const text = await response.text();
-    const doc = new DOMParser().parseFromString(text, "text/xml");
-    const json = toGeoJson.kml(doc);
-    nextState = { routeTrace: { data: json, status: "idle" } };
-  }
-
-  dispatch(state => [{ ...state, ...nextState }, true]);
 }
 
 function updateVehicleHeadings(
