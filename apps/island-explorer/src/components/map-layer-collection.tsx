@@ -121,8 +121,6 @@ function createTraceLayer(
       ? trace.features[0]
       : null;
 
-  console.log(`createTraceLayer: routeId=${routeId}, trace=`, trace);
-
   return {
     id: `trace-${routeId}`,
     layout: {
@@ -177,8 +175,6 @@ function createStopsLayer(
     extra: { icon: "circle" },
     Point: ["lat", "lng"]
   });
-
-  console.log(`createStopsLayer: routeId=${routeId}, stops=`, stops);
 
   return {
     id: `stops-${routeId}`,

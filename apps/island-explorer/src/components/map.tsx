@@ -1,5 +1,5 @@
-import { useRef } from "react";
-import type { Map as MapGL } from "mapbox-gl";
+import { useMemo, useRef } from "react";
+import type { LngLatBoundsLike, Map as MapGL } from "mapbox-gl";
 import { RemapGL } from "remapgl";
 import MapLayerCollectionItems from "./map-layer-collection-items";
 import MapVehicles from "./map-vehicles";
@@ -15,6 +15,13 @@ export default function Map({ routeId }: Props) {
   const ref = useRef(null);
   const map = useRef<MapGL>(null);
 
+  const fitBounds = useMemo(
+    () => (bounds: LngLatBoundsLike) =>
+      map.current &&
+      map.current.fitBounds(bounds, { padding: ZOOM_TO_FIT_PADDING }),
+    []
+  );
+
   return (
     <div className="map">
       <RemapGL
@@ -24,13 +31,7 @@ export default function Map({ routeId }: Props) {
         ref={ref}
         zoom={START_ZOOM}
       >
-        <MapLayerCollectionItems
-          fitBounds={bounds =>
-            map.current &&
-            map.current.fitBounds(bounds, { padding: ZOOM_TO_FIT_PADDING })
-          }
-          routeId={routeId}
-        />
+        <MapLayerCollectionItems fitBounds={fitBounds} routeId={routeId} />
         <MapStops />
         <MapVehicles />
       </RemapGL>
