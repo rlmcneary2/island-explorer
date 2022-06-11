@@ -1,0 +1,35 @@
+{
+  "background_color": "#e87d69",
+  "categories": ["navigation", "travel"],
+  "description": "Helpful information about the Island Explorer buses that operate in Acadia National Park and Mount Desert Island including: routes, stops, points-of-interest, and bus locations.",
+  "display": "standalone",
+  "lang": "en",
+  "icons": [
+    {
+      "sizes": "512x512",
+      "src": "assets/manifest-icon_512.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "sizes": "512x512",
+      "src": "assets/manifest-icon-maskable_512.png",
+      "type": "image/png"
+    },
+    {
+      "sizes": "1024x1024",
+      "src": "assets/manifest-icon_1024.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "sizes": "1024x1024",
+      "src": "assets/manifest-icon-maskable_1024.png",
+      "type": "image/png"
+    }
+  ],
+  "id": "/index.html",
+  "name": "Acadia's Island Explorer",
+  "short_name": "Island Explorer",
+  "start_url": "index.html"
+}

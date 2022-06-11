@@ -19,6 +19,7 @@
             "polyfills": "apps/island-explorer/src/polyfills.ts",
             "tsConfig": "apps/island-explorer/tsconfig.app.json",
             "assets": [
+              "apps/island-explorer/src/app.webmanifest",
               "apps/island-explorer/src/favicon.ico",
               "apps/island-explorer/src/assets",
               {
