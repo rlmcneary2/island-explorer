@@ -1,4 +1,5 @@
 import type { Landmark, RoutesAssetItem } from "../types/types";
+import { options } from "../constants/options";
 export type ContextState = ContextData & ContextActions;
 
 export interface ContextData {
@@ -6,7 +7,7 @@ export interface ContextData {
   landmarks?: AsyncActionData<Landmark[]>;
   /** Time in milliseconds when the next vehicle update will occur. */
   nextVehicleUpdate?: number;
-  options?: Record<string, string>;
+  options?: Record<keyof typeof options, string>;
   /** The route ID that state data currently represents. This can be different
    * from the routeId URL parameter. */
   routeId?: number;

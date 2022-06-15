@@ -4,7 +4,9 @@ import type { CircleLayer, CirclePaint, LineLayer } from "mapbox-gl";
 import * as geojson from "geojson/geojson";
 import { AnyLayer, LayerCollection } from "remapgl";
 import { Landmark } from "../types/types";
-import { MapLayerCollectionItem, Trace } from "../context/types";
+import { ContextState, MapLayerCollectionItem, Trace } from "../context/types";
+import { stringToBoolean } from "../util/type-coercion";
+import useContextState from "../context/use-context-state";
 
 const STOP_CIRCLE_RADIUS_BASE = 1.15;
 const STOP_CIRCLE_RADIUS_STEPS: number[][] = [
@@ -24,8 +26,11 @@ export default function MapLayerCollection({
 }: {
   items: MapLayerCollectionItem[];
 }) {
+  const options = useContextState(selector);
   const [traceLayers, setTraceLayers] = useState<LineLayer[]>(null);
   const [stopsLayers, setStopsLayers] = useState<CircleLayer[]>(null);
+
+  const showStops = stringToBoolean(options?.SHOW_STOPS, true);
 
   useEffect(() => {
     setTraceLayers(current => {
@@ -62,6 +67,10 @@ export default function MapLayerCollection({
 
   useEffect(() => {
     setStopsLayers(current => {
+      if (!showStops) {
+        return !current?.length ? current : [];
+      }
+
       // Use items to determine the order because it's up to the client to set
       // that order when it's passed to remapgl.
       const temp = _unionWith<MapLayerCollectionItem | CircleLayer>(
@@ -91,7 +100,7 @@ export default function MapLayerCollection({
         ? current
         : nextAnyLayers;
     });
-  }, [items]);
+  }, [items, showStops]);
 
   const layers = useMemo(
     () => [...(traceLayers ?? []), ...(stopsLayers ?? [])],
@@ -185,4 +194,8 @@ function createStopsLayer(
     },
     type: "circle"
   };
+}
+
+function selector(state: ContextState) {
+  return state?.options;
 }

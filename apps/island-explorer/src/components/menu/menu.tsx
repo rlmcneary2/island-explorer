@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { Checkbox } from "../controls/checkbox/checkbox";
+import { ContextState } from "../../context/types";
 import useContextActions from "../../context/use-context-actions";
 import useContextState from "../../context/use-context-state";
 import { AnimatedModalDialog } from "modal";
-import { ContextState } from "../../context/types";
+import { stringToBoolean } from "../../util/type-coercion";
 
 export function Menu({ show }: Props) {
   const [hide, setHide] = useState(false);
@@ -13,11 +14,7 @@ export function Menu({ show }: Props) {
   const { setOption } = useContextActions();
   const options = useContextState(selector);
 
-  const showStops = options?.SHOW_STOPS
-    ? options.SHOW_STOPS === "true"
-      ? true
-      : false
-    : true;
+  const showStops = stringToBoolean(options?.SHOW_STOPS, true);
 
   useEffect(() => {
     if (show) {
