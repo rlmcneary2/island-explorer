@@ -21,6 +21,7 @@ export default function Main() {
         </Switch>
       </div>
       <ModalContainer className="toast-container" containerId="toast" />
+      <ModalContainer className="menu-container" containerId="menu" />
       <ModalContainer className="modal-container" />
     </main>
   );

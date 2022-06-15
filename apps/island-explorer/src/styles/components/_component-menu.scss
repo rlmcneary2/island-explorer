@@ -1,0 +1,44 @@
+@use "../color";
+@use "../dimension";
+@use "../font";
+
+.menu {
+  > .content {
+    @extend %text;
+    background: color.$background;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    left: 0;
+    max-width: 30rem;
+    padding-top: dimension.$icon-button-size +
+      (dimension.$icon-button-padding * 2);
+    position: absolute;
+    top: 0;
+    transition: transform 100ms ease-out;
+    transform: translateX(-100%);
+    width: 75%;
+
+    > button.icon {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    &.animate-start-in {
+      transform: translateX(0);
+    }
+
+    &.animate-end-in {
+      transform: translateX(0);
+    }
+
+    &.animate-before-out {
+      transition-timing-function: ease-in;
+    }
+
+    &.animate-start-out {
+      transition-timing-function: ease-in;
+    }
+  }
+}

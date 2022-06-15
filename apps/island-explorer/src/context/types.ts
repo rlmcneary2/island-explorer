@@ -6,6 +6,7 @@ export interface ContextData {
   landmarks?: AsyncActionData<Landmark[]>;
   /** Time in milliseconds when the next vehicle update will occur. */
   nextVehicleUpdate?: number;
+  options?: Record<string, string>;
   /** The route ID that state data currently represents. This can be different
    * from the routeId URL parameter. */
   routeId?: number;
@@ -26,6 +27,7 @@ export interface ContextData {
 export interface ContextActions {
   deselectLandmark: (id: number) => void;
   selectLandmark: (landmark: SelectedLandmark) => void;
+  setOption: (name: string, value: string) => void;
   setRoute: (routeId: number) => void;
 }
 

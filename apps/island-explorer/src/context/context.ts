@@ -3,13 +3,16 @@ import { ContextState } from "./types";
 
 const Context = React.createContext<ContextState>({
   deselectLandmark: () => {
-    /* void */
+    /* noop */
   },
   selectLandmark: () => {
-    /* void */
+    /* noop */
+  },
+  setOption: () => {
+    /* noop */
   },
   setRoute: () => {
-    /* void */
+    /* noop */
   }
 });
 

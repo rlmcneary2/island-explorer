@@ -222,6 +222,24 @@ export function create(): ActionHandler<ContextState>[] {
     ];
   };
 
+  const getOptions: ActionHandler<ContextState> = (state, action) => {
+    if (action.id !== null || state.options) {
+      return [state];
+    }
+
+    const options: Record<string, string> = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const name = localStorage.key(i);
+      if (!name.startsWith("OPTION_")) {
+        continue;
+      }
+
+      options[name.substring("OPTION_".length)] = localStorage.getItem(name);
+    }
+
+    return [{ ...state, options }, true];
+  };
+
   const handleRouteChanged: ActionHandler<ContextState, number> = (
     state,
     action,
@@ -314,6 +332,20 @@ export function create(): ActionHandler<ContextState>[] {
     return [state, true];
   };
 
+  const setOption: ActionHandler<
+    ContextState,
+    { name: string; value: string }
+  > = (state, { id, payload }) => {
+    if (id !== actionIds.ACTION_SET_OPTION) {
+      return [state];
+    }
+
+    localStorage.setItem(`OPTION_${payload.name}`, `${payload.value}`);
+
+    const { options, ...nextState } = state;
+    return [nextState, true];
+  };
+
   const deselectLandmark: ActionHandler<ContextState, number> = (
     state,
     action
@@ -335,9 +367,11 @@ export function create(): ActionHandler<ContextState>[] {
     fetchLandmarks,
     fetchRoutes,
     fetchRoutesFinished,
+    getOptions,
     handleRouteChanged,
     fetchRouteVehicles,
-    selectLandmark
+    selectLandmark,
+    setOption
   ];
 }
 
@@ -345,7 +379,8 @@ export const actionIds = Object.freeze({
   ACTION_DESELECT_LANDMARK: "action-deselect-landmark",
   ACTION_FETCH_ROUTE_VEHICLES: "action-fetch-route-vehicles",
   ACTION_ROUTE_CHANGED: "action-route-changed",
-  ACTION_SELECT_LANDMARK: "action-select-landmark"
+  ACTION_SELECT_LANDMARK: "action-select-landmark",
+  ACTION_SET_OPTION: "action-set-option"
 });
 
 function getVehicleUpdateInterval(payload: {

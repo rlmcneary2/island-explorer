@@ -23,6 +23,12 @@ export function ContextProvider({
           id: actionIds.ACTION_SELECT_LANDMARK,
           payload: landmark
         }),
+      setOption: (name, value) =>
+        reshaper &&
+        reshaper.dispatch({
+          id: actionIds.ACTION_SET_OPTION,
+          payload: { name, value }
+        }),
       setRoute: routeId =>
         reshaper &&
         reshaper.dispatch({

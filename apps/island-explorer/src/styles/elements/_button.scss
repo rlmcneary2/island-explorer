@@ -15,17 +15,23 @@
   min-width: 15rem;
   padding: dimension.$button-padding;
   text-decoration: none;
+  &.plain {
+    background-color: transparent;
+    border-radius: 0;
+    max-width: initial;
+    min-width: initial;
+  }
   &.primary {
     background-color: color.$secondary-lighter;
     &:active {
       filter: brightness(108%) saturate(70%);
     }
   }
-  &:active {
-    filter: brightness(105%);
-  }
   &.small {
     @extend %control-small;
+  }
+  &:active {
+    filter: brightness(105%);
   }
   &:first-child {
     margin-left: 0;
@@ -33,6 +39,14 @@
   &:last-child {
     margin-right: 0;
   }
+}
+
+button.icon {
+  background-color: transparent;
+  box-sizing: content-box;
+  height: dimension.$icon-button-size;
+  padding: dimension.$icon-button-padding;
+  width: dimension.$icon-button-size;
 }
 
 a.button {

@@ -6,13 +6,20 @@ import { INFORMATION, MAP } from "../constants/routes";
 import useContextState from "../context/use-context-state";
 import { RoutesModal } from "./routes-modal";
 import { getRouteParameters, getRoutePath } from "../util/route";
+import { Menu } from "./menu/menu";
 
 export default function Header() {
+  const [showMenu, setShowMenu] = useState(false);
   const [showRoutesModal, setShowRoutesModal] = useState(false);
   const { pathname } = useLocation();
 
   const routes =
     useContextState(state => state.routes) ?? ({} as ContextState["routes"]);
+
+  const handleMenuButtonClick = useCallback(() => {
+    setShowMenu(true);
+    setTimeout(() => setShowMenu(false), 0);
+  }, []);
 
   const handleRouteClick = useCallback(() => {
     setShowRoutesModal(current => !current);
@@ -22,6 +29,9 @@ export default function Header() {
 
   return (
     <div className="header">
+      <button className="button options" onClick={handleMenuButtonClick}>
+        <span>Menu</span>
+      </button>
       <button className="button primary" onClick={handleRouteClick}>
         <FormattedMessage id="SELECT_ROUTE" />
       </button>
@@ -42,6 +52,8 @@ export default function Header() {
           routes={routes}
         />
       ) : null}
+
+      <Menu show={showMenu} />
     </div>
   );
 }
