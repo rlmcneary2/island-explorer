@@ -1,6 +1,7 @@
 @use "../color";
 @use "../dimension";
 @use "../font";
+@use "../app";
 
 .menu {
   > .content {
@@ -23,6 +24,21 @@
       position: absolute;
       right: 0;
       top: 0;
+    }
+
+    h1 {
+      @extend %headline-1;
+    }
+
+    .checkbox {
+      margin-bottom: 1rem;
+      &:first-of-type {
+        @extend %para-margin;
+        margin-bottom: 1rem;
+      }
+      &:last-of-type {
+        margin-bottom: 0;
+      }
     }
 
     &.animate-start-in {

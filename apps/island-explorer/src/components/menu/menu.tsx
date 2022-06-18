@@ -5,6 +5,7 @@ import useContextActions from "../../context/use-context-actions";
 import useContextState from "../../context/use-context-state";
 import { AnimatedModalDialog } from "modal";
 import { stringToBoolean } from "../../util/type-coercion";
+import { FormattedMessage } from "react-intl";
 
 export function Menu({ show }: Props) {
   const [hide, setHide] = useState(false);
@@ -40,6 +41,9 @@ export function Menu({ show }: Props) {
         <button className="icon" onClick={handleClose}>
           <i className="icon-dismiss" />
         </button>
+        <h1>
+          <FormattedMessage id="OPTIONS" />
+        </h1>
         <Checkbox
           checked={showStops}
           id="OPTION_SHOW_STOPS"
