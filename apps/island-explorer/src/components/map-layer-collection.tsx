@@ -1,12 +1,12 @@
 import _unionWith from "lodash/unionWith";
 import { useEffect, useMemo, useState } from "react";
-import type { CircleLayer, CirclePaint, LineLayer } from "mapbox-gl";
+import type { AnyLayout, CircleLayer, CirclePaint, LineLayer } from "mapbox-gl";
 import * as geojson from "geojson/geojson";
-import { AnyLayer, LayerCollection } from "remapgl";
-import { Landmark } from "../types/types";
+import { AnyLayer, LayerCollection, SymbolIconLayer } from "remapgl";
 import { ContextState, MapLayerCollectionItem, Trace } from "../context/types";
-import { stringToBoolean } from "../util/type-coercion";
+import { Landmark } from "../types/types";
 import useContextState from "../context/use-context-state";
+import { stringToBoolean } from "../util/type-coercion";
 
 const STOP_CIRCLE_RADIUS_BASE = 1.15;
 const STOP_CIRCLE_RADIUS_STEPS: number[][] = [
@@ -26,24 +26,23 @@ export default function MapLayerCollection({
 }: {
   items: MapLayerCollectionItem[];
 }) {
-  const options = useContextState(selector);
   const [traceLayers, setTraceLayers] = useState<LineLayer[]>(null);
   const [stopsLayers, setStopsLayers] = useState<CircleLayer[]>(null);
-
-  const showStops = stringToBoolean(options?.SHOW_STOPS, true);
+  const [trailheadsLayers, setTrailheadsLayers] =
+    useState<SymbolIconLayer[]>(null);
 
   useEffect(() => {
-    setTraceLayers(current => {
+    setTraceLayers(currentTraces => {
       // Use items to determine the order because it's up to the client to set
       // that order when it's passed to remapgl.
       const temp = _unionWith<MapLayerCollectionItem | LineLayer>(
         items,
-        current,
+        currentTraces,
         (a, b) => compareLayers(a, b, "trace")
       );
 
       if (temp.every(x => "id" in x)) {
-        return current;
+        return currentTraces;
       }
 
       const nextAnyLayers = temp.map(x => {
@@ -52,59 +51,63 @@ export default function MapLayerCollection({
         }
 
         return (
-          current?.find(y => y.id === `trace-${x.routeId}`) ??
+          currentTraces?.find(y => y.id === `trace-${x.routeId}`) ??
           createTraceLayer(x.routeId, x.color, x.trace)
         );
       });
 
       return nextAnyLayers
         .filter(x => !!x)
-        .every(x => current?.some(y => y.id === x.id))
-        ? current
+        .every(x => currentTraces?.some(y => y.id === x.id))
+        ? currentTraces
         : nextAnyLayers;
     });
   }, [items]);
 
+  const options = useContextState(selector);
+  const showStops = stringToBoolean(options?.SHOW_STOPS, true);
+  const showTrailheads = stringToBoolean(options?.SHOW_TRAILHEADS, false);
+
   useEffect(() => {
-    setStopsLayers(current => {
-      if (!showStops) {
-        return !current?.length ? current : [];
-      }
-
-      // Use items to determine the order because it's up to the client to set
-      // that order when it's passed to remapgl.
-      const temp = _unionWith<MapLayerCollectionItem | CircleLayer>(
+    setStopsLayers(currentStopsLayers =>
+      createLayersFromItems(
+        currentStopsLayers,
         items,
-        current,
-        (a, b) => compareLayers(a, b, "stops")
-      );
-
-      if (temp.every(x => "id" in x)) {
-        return current;
-      }
-
-      const nextAnyLayers = temp.map(x => {
-        if ("id" in x) {
-          return x;
-        }
-
-        return (
-          current?.find(y => y.id === `stops-${x.routeId}`) ??
-          createStopsLayer(x.routeId, x.color, x.stops)
-        );
-      });
-
-      return nextAnyLayers
-        .filter(x => !!x)
-        .every(x => current?.some(y => y.id === x.id))
-        ? current
-        : nextAnyLayers;
-    });
+        "stops",
+        item => item.stops,
+        (routeId, landmarks, options) =>
+          createStopsLayer(routeId, landmarks, {
+            ...options,
+            visibility: showStops ? "visible" : "none"
+          })
+      )
+    );
   }, [items, showStops]);
 
+  useEffect(() => {
+    setTrailheadsLayers(currentTrailheadsLayers =>
+      createLayersFromItems(
+        currentTrailheadsLayers,
+        items,
+        "trailheads",
+        item => item.trailheads,
+        (routeId, landmarks) =>
+          createSymbolLayer(routeId, landmarks, "trailheads", {
+            iconImage: "trh",
+            iconImageUrl: "assets/trailhead.png",
+            visibility: showTrailheads ? "visible" : "none"
+          })
+      )
+    );
+  }, [items, showTrailheads]);
+
   const layers = useMemo(
-    () => [...(traceLayers ?? []), ...(stopsLayers ?? [])],
-    [stopsLayers, traceLayers]
+    () => [
+      ...(traceLayers ?? []),
+      ...(trailheadsLayers ?? []),
+      ...(stopsLayers ?? [])
+    ],
+    [stopsLayers, traceLayers, trailheadsLayers]
   );
 
   return <LayerCollection layers={layers} />;
@@ -118,6 +121,151 @@ function compareLayers(
   const aId = "id" in a ? a.id : `${layerPrefix}-${a.routeId}`;
   const bId = "id" in b ? b.id : `${layerPrefix}-${b.routeId}`;
   return aId === bId;
+}
+
+function createCircleLayer(
+  routeId: number,
+  landmarks: Landmark[],
+  layerPrefix: string,
+  { color, visibility }: { color: string; visibility: AnyLayout["visibility"] }
+): CircleLayer {
+  if (!landmarks) {
+    return null;
+  }
+
+  const paint: CirclePaint = {
+    "circle-color": `#${color}`,
+    "circle-radius": {
+      base: STOP_CIRCLE_RADIUS_BASE,
+      stops: STOP_CIRCLE_RADIUS_STEPS
+    },
+    "circle-stroke-color": STOP_CIRCLE_STROKE_COLOR,
+    "circle-stroke-opacity": 0.8,
+    "circle-stroke-width": {
+      base: STOP_CIRCLE_STROKE_BASE,
+      stops: STOP_CIRCLE_STROKE_STEPS
+    }
+  };
+
+  const data = landmarks.map(
+    ({ location: { latitude: lat, longitude: lng }, displayName: name }) => ({
+      lat,
+      lng,
+      name
+    })
+  );
+
+  const geoJson = geojson.parse(data, {
+    extra: { icon: "circle" },
+    Point: ["lat", "lng"]
+  });
+
+  return {
+    id: `${layerPrefix}-${routeId}`,
+    layout: { visibility: visibility ?? "visible" },
+    paint,
+    source: {
+      data: geoJson,
+      type: "geojson"
+    },
+    type: "circle"
+  };
+}
+
+function createLayersFromItems<T extends AnyLayer>(
+  currentLayers: T[],
+  items: MapLayerCollectionItem[],
+  layerPrefix: string,
+  getLandmarks: (item: MapLayerCollectionItem) => Landmark[],
+  createLayer: (
+    routeId: number,
+    landmarks: Landmark[],
+    options?: { color: string }
+  ) => T
+): T[] {
+  // Use items to determine the order because it's up to the client to set
+  // that order when it's passed to remapgl.
+  const ordered = _unionWith<MapLayerCollectionItem | AnyLayer>(
+    items,
+    currentLayers,
+    (a, b) => compareLayers(a, b, layerPrefix)
+  );
+
+  const nextLayers = ordered.map(item => {
+    if ("id" in item) {
+      return item;
+    }
+
+    const itemLandmarks = getLandmarks(item);
+    if (!itemLandmarks) {
+      return null;
+    }
+
+    return createLayer(item.routeId, itemLandmarks, {
+      color: item.color
+    });
+  });
+
+  // nextLayers can contain null elements.
+  return nextLayers.filter(x => !!x) as T[];
+}
+
+function createSymbolLayer(
+  routeId: number,
+  landmarks: Landmark[],
+  layerPrefix: string,
+  {
+    iconImage,
+    iconImageUrl,
+    visibility
+  }: {
+    iconImage: string;
+    iconImageUrl: string;
+    visibility: AnyLayout["visibility"];
+  }
+): SymbolIconLayer {
+  if (!landmarks) {
+    return null;
+  }
+
+  const data = landmarks.map(
+    ({ location: { latitude: lat, longitude: lng }, displayName: name }) => ({
+      lat,
+      lng,
+      name
+    })
+  );
+
+  const geoJson = geojson.parse(data, {
+    Point: ["lat", "lng"]
+  });
+
+  console.log(`createSymbolLayer: visibility='${visibility}'`);
+
+  const output: SymbolIconLayer = {
+    iconImageUrl,
+    id: `${layerPrefix}-${routeId}`,
+    imageOptions: { sdf: true },
+    layout: {
+      "icon-anchor": "bottom",
+      "icon-image": iconImage,
+      "icon-size": 0.3,
+      "text-anchor": "top",
+      "text-field": ["get", "name"],
+      "text-offset": [0, 1],
+      visibility: visibility ?? "visible"
+    },
+    paint: {
+      "icon-color": "#774036"
+    },
+    source: {
+      data: geoJson,
+      type: "geojson"
+    },
+    type: "symbol"
+  };
+
+  return output;
 }
 
 function createTraceLayer(
@@ -151,49 +299,10 @@ function createTraceLayer(
 
 function createStopsLayer(
   routeId: number,
-  color: string,
-  stops: Landmark[]
+  stops: Landmark[],
+  options: { color: string; visibility: AnyLayout["visibility"] }
 ): CircleLayer {
-  if (!stops) {
-    return null;
-  }
-
-  const paint: CirclePaint = {
-    "circle-color": `#${color}`,
-    "circle-radius": {
-      base: STOP_CIRCLE_RADIUS_BASE,
-      stops: STOP_CIRCLE_RADIUS_STEPS
-    },
-    "circle-stroke-color": STOP_CIRCLE_STROKE_COLOR,
-    "circle-stroke-opacity": 0.8,
-    "circle-stroke-width": {
-      base: STOP_CIRCLE_STROKE_BASE,
-      stops: STOP_CIRCLE_STROKE_STEPS
-    }
-  };
-
-  const data = stops.map(
-    ({ location: { latitude: lat, longitude: lng }, stopName: name }) => ({
-      lat,
-      lng,
-      name
-    })
-  );
-
-  const geoJson = geojson.parse(data, {
-    extra: { icon: "circle" },
-    Point: ["lat", "lng"]
-  });
-
-  return {
-    id: `stops-${routeId}`,
-    paint,
-    source: {
-      data: geoJson,
-      type: "geojson"
-    },
-    type: "circle"
-  };
+  return createCircleLayer(routeId, stops, "stops", options);
 }
 
 function selector(state: ContextState) {

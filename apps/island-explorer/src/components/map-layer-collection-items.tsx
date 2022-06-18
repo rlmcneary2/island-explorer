@@ -43,6 +43,14 @@ export default function MapLayerCollectionItems({
     [landmarksData, routeId, routesData]
   );
 
+  const trailheadLandmarks = useMemo(
+    () =>
+      getRouteOrderLandmarks(routeId, routesData, landmarksData).filter(
+        l => 20000 <= l.id && l.landmarkType === "trail-head"
+      ),
+    [landmarksData, routeId, routesData]
+  );
+
   const { data: trace } = routeTrace ?? { data: null };
 
   // Update the map bounds based on the trace bounds.
@@ -61,10 +69,11 @@ export default function MapLayerCollectionItems({
         color,
         routeId,
         stops: routeLandmarks ?? null,
-        trace: trace ?? null
+        trace: trace ?? null,
+        trailheads: trailheadLandmarks ?? null
       }
     ],
-    [color, routeId, routeLandmarks, trace]
+    [color, routeId, routeLandmarks, trace, trailheadLandmarks]
   );
 
   if (!landmarksReady || !traceReady) {

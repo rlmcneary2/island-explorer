@@ -7,7 +7,7 @@ export interface ContextData {
   landmarks?: AsyncActionData<Landmark[]>;
   /** Time in milliseconds when the next vehicle update will occur. */
   nextVehicleUpdate?: number;
-  options?: Record<keyof typeof options, string>;
+  options?: Record<OptionKeys, string>;
   /** The route ID that state data currently represents. This can be different
    * from the routeId URL parameter. */
   routeId?: number;
@@ -37,6 +37,8 @@ interface AsyncActionData<T> {
   error?: unknown;
   status: "active" | "idle";
 }
+
+export type OptionKeys = keyof typeof options;
 
 /**
  * Route
@@ -135,4 +137,5 @@ export interface MapLayerCollectionItem {
   routeId: number;
   stops?: Landmark[];
   trace?: Trace;
+  trailheads?: Landmark[];
 }

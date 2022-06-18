@@ -5,6 +5,7 @@ export interface Landmark {
   displayName: string;
   features?: string[];
   id: number;
+  landmarkType: "point-of-interest" | "trail-head";
   location: { latitude: number; longitude: number };
   ref?: number;
   /** This is the availtec Stop `Name` property; any are misspelled. `stopName`

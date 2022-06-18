@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Checkbox } from "../controls/checkbox/checkbox";
-import { ContextState } from "../../context/types";
+import { ContextState, OptionKeys } from "../../context/types";
 import useContextActions from "../../context/use-context-actions";
 import useContextState from "../../context/use-context-state";
 import { AnimatedModalDialog } from "modal";
@@ -15,6 +15,7 @@ export function Menu({ show }: Props) {
   const options = useContextState(selector);
 
   const showStops = stringToBoolean(options?.SHOW_STOPS, true);
+  const showTrailheads = stringToBoolean(options?.SHOW_TRAILHEADS, false);
 
   useEffect(() => {
     if (show) {
@@ -23,7 +24,7 @@ export function Menu({ show }: Props) {
     }
   }, [show]);
 
-  function handleOptionChanged(name: string, value: string): void {
+  function handleOptionChanged(name: OptionKeys, value: string): void {
     setOption(name, value);
   }
 
@@ -43,6 +44,13 @@ export function Menu({ show }: Props) {
           checked={showStops}
           id="OPTION_SHOW_STOPS"
           onChange={checked => handleOptionChanged("SHOW_STOPS", `${checked}`)}
+        />
+        <Checkbox
+          checked={showTrailheads}
+          id="OPTION_SHOW_TRAILHEADS"
+          onChange={checked =>
+            handleOptionChanged("SHOW_TRAILHEADS", `${checked}`)
+          }
         />
         {/* <button className="button plain" onClick={handleAboutClick}>
           <FormattedMessage id="ABOUT_APP" />
