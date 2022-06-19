@@ -62,9 +62,44 @@ export function Menu({ show }: Props) {
           id="OPTION_SHOW_POIS"
           onChange={checked => handleOptionChanged("SHOW_POIS", `${checked}`)}
         />
-        {/* <button className="button plain" onClick={handleAboutClick}>
-          <FormattedMessage id="ABOUT_APP" />
-        </button> */}
+        <h1>
+          <FormattedMessage id="ABOUT_TITLE" />
+        </h1>
+        <p>
+          <FormattedMessage
+            id="ABOUT_MESSAGE"
+            values={{
+              link: <a href="mailto:rich@limnous.com">Rich McNeary</a>
+            }}
+          />
+        </p>
+        <p className="breaker">
+          <FormattedMessage
+            id="ABOUT_MESSAGE_2"
+            values={{
+              linkHome: (
+                <a href="https://islandexplorer.app/">
+                  https://islandexplorer.app/
+                </a>
+              )
+            }}
+          />
+        </p>
+        <p className="breaker">
+          <FormattedMessage
+            id="ABOUT_MESSAGE_3"
+            values={{
+              linkGithub: (
+                <a href="https://github.com/rlmcneary2/island-explorer">
+                  https://github.com/rlmcneary2/island-explorer
+                </a>
+              )
+            }}
+          />
+        </p>
+        <p>
+          <FormattedMessage id="COPYRIGHT" />
+        </p>
       </div>
     </AnimatedModalDialog>
   ) : null;

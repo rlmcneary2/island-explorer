@@ -1,5 +1,10 @@
 {
+  "ABOUT_MESSAGE": "Please send corrections or comments to {link}.",
+  "ABOUT_MESSAGE_2": "Home: {linkHome}",
+  "ABOUT_MESSAGE_3": "Github: {linkGithub}",
+  "ABOUT_TITLE": "About",
   "CONNECTION_ERROR": "Unable to update bus locations; we will keep trying. Please check your network connection.",
+  "COPYRIGHT": "©2022 Richard L. McNeary II",
   "INFORMATION": "Information",
   "LMK_ACADIA_NATIONAL_PARK_HQ_DESC": "Acadia National Park NPS headquarters. There are no visitor services here.",
   "LMK_ASTICOU_AZALEA_GARDEN_DESC": "A beautifully manicured zen-like garden with native plants and water features connected by looping gravel paths. The azaleas that bloom in June. There is accessible parking and access in a small parking lot just south of the main parking lot.",

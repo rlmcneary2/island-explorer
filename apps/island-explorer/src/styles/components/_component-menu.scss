@@ -30,6 +30,13 @@
       @extend %headline-1;
     }
 
+    p {
+      @extend %para-margin;
+      &.breaker {
+        word-break: break-all;
+      }
+    }
+
     .checkbox {
       margin-bottom: 1rem;
       &:first-of-type {
