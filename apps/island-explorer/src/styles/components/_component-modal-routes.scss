@@ -24,6 +24,7 @@
 
     &.routes {
       @extend %text;
+      max-width: 35rem;
     }
   }
 }

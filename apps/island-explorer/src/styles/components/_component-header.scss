@@ -6,6 +6,10 @@ div.header {
   flex: 0 0 dimension.$header-height;
   justify-content: space-between;
   padding: 0.3rem;
+
+  @media screen and (min-width: 420px) {
+    justify-content: flex-start;
+  }
 }
 
 .header > .options {
