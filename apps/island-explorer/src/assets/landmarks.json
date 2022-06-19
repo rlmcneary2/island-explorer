@@ -751,7 +751,7 @@
     {
       "description": "LMK_OTTER_POINT_DESC",
       "displayName": "Otter Point",
-      "features": ["hike", "walk", "technical", "wonder"],
+      "features": ["wonder"],
       "id": 92,
       "landmarkType": "point-of-interest",
       "location": {
