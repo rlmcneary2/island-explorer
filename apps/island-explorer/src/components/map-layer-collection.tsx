@@ -26,6 +26,7 @@ export default function MapLayerCollection({
 }: {
   items: MapLayerCollectionItem[];
 }) {
+  const [poiLayers, setPoiLayers] = useState<SymbolIconLayer[]>(null);
   const [traceLayers, setTraceLayers] = useState<LineLayer[]>(null);
   const [stopsLayers, setStopsLayers] = useState<CircleLayer[]>(null);
   const [trailheadsLayers, setTrailheadsLayers] =
@@ -66,7 +67,6 @@ export default function MapLayerCollection({
 
   const options = useContextState(selector);
   const showStops = stringToBoolean(options?.SHOW_STOPS, true);
-  const showTrailheads = stringToBoolean(options?.SHOW_TRAILHEADS, false);
 
   useEffect(() => {
     setStopsLayers(currentStopsLayers =>
@@ -84,6 +84,8 @@ export default function MapLayerCollection({
     );
   }, [items, showStops]);
 
+  const showTrailheads = stringToBoolean(options?.SHOW_TRAILHEADS, false);
+
   useEffect(() => {
     setTrailheadsLayers(currentTrailheadsLayers =>
       createLayersFromItems(
@@ -91,9 +93,11 @@ export default function MapLayerCollection({
         items,
         "trailheads",
         item => item.trailheads,
-        (routeId, landmarks) =>
-          createSymbolLayer(routeId, landmarks, "trailheads", {
-            iconImage: "trh",
+        (routeId, landmarks, options) =>
+          createSymbolLayer(routeId, landmarks, {
+            ...options,
+            iconColor: "#774036",
+            iconImage: "trailhead",
             iconImageUrl: "assets/trailhead.png",
             visibility: showTrailheads ? "visible" : "none"
           })
@@ -101,13 +105,35 @@ export default function MapLayerCollection({
     );
   }, [items, showTrailheads]);
 
+  const showPois = stringToBoolean(options?.SHOW_POIS, false);
+
+  useEffect(() => {
+    setPoiLayers(currentPoiLayers =>
+      createLayersFromItems(
+        currentPoiLayers,
+        items,
+        "pois",
+        item => item.pointsOfInterest,
+        (routeId, landmarks, options) =>
+          createSymbolLayer(routeId, landmarks, {
+            ...options,
+            iconColor: "#2C515D",
+            iconImage: "trailhead",
+            iconImageUrl: "assets/trailhead.png",
+            visibility: showPois ? "visible" : "none"
+          })
+      )
+    );
+  }, [items, showPois]);
+
   const layers = useMemo(
     () => [
       ...(traceLayers ?? []),
       ...(trailheadsLayers ?? []),
+      ...(poiLayers ?? []),
       ...(stopsLayers ?? [])
     ],
-    [stopsLayers, traceLayers, trailheadsLayers]
+    [poiLayers, stopsLayers, traceLayers, trailheadsLayers]
   );
 
   return <LayerCollection layers={layers} />;
@@ -180,7 +206,7 @@ function createLayersFromItems<T extends AnyLayer>(
   createLayer: (
     routeId: number,
     landmarks: Landmark[],
-    options?: { color: string }
+    options?: { color: string; layerPrefix: string }
   ) => T
 ): T[] {
   // Use items to determine the order because it's up to the client to set
@@ -202,7 +228,8 @@ function createLayersFromItems<T extends AnyLayer>(
     }
 
     return createLayer(item.routeId, itemLandmarks, {
-      color: item.color
+      color: item.color,
+      layerPrefix
     });
   });
 
@@ -213,14 +240,17 @@ function createLayersFromItems<T extends AnyLayer>(
 function createSymbolLayer(
   routeId: number,
   landmarks: Landmark[],
-  layerPrefix: string,
   {
+    iconColor,
     iconImage,
     iconImageUrl,
+    layerPrefix,
     visibility
   }: {
+    iconColor: string;
     iconImage: string;
     iconImageUrl: string;
+    layerPrefix: string;
     visibility: AnyLayout["visibility"];
   }
 ): SymbolIconLayer {
@@ -249,14 +279,14 @@ function createSymbolLayer(
     layout: {
       "icon-anchor": "bottom",
       "icon-image": iconImage,
-      "icon-size": 0.3,
+      "icon-size": 0.2,
       "text-anchor": "top",
       "text-field": ["get", "name"],
       "text-offset": [0, 1],
       visibility: visibility ?? "visible"
     },
     paint: {
-      "icon-color": "#774036"
+      "icon-color": iconColor
     },
     source: {
       data: geoJson,

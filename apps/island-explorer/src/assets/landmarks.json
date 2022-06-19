@@ -798,6 +798,11 @@
       "ref": 77
     },
     {
+      "description": "LMK_OTTER_POINT_DESC",
+      "id": 10092,
+      "ref": 92
+    },
+    {
       "id": 11000,
       "features": ["camp"],
       "landmarkType": "campground",
@@ -826,8 +831,8 @@
       "landmarkType": "point-of-interest",
       "displayName": "Fabbri",
       "location": {
-        "latitude": 44.31446883310579,
-        "longitude": -68.19492700059263
+        "latitude": 44.314157664169166,
+        "longitude": -68.19603738042137
       },
       "stopName": "Fabbri Tower Site"
     },
@@ -979,7 +984,7 @@
       "features": ["hike"],
       "id": 34000,
       "landmarkType": "trail-head",
-      "displayName": "Little Hunters Brook Trail",
+      "displayName": "Hunters Brook Trail",
       "location": {
         "latitude": 44.30983510606855,
         "longitude": -68.22264482851874

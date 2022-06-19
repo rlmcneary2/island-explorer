@@ -134,6 +134,7 @@ export interface Vehicle {
 
 export interface MapLayerCollectionItem {
   color: string;
+  pointsOfInterest: Landmark[];
   routeId: number;
   stops?: Landmark[];
   trace?: Trace;

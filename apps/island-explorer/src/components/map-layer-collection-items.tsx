@@ -35,7 +35,7 @@ export default function MapLayerCollectionItems({
   const landmarksData = landmarks?.data;
   const routesData = routes?.data;
 
-  const routeLandmarks = useMemo(
+  const stops = useMemo(
     () =>
       getRouteOrderLandmarks(routeId, routesData, landmarksData).filter(
         l => l.id < 10000
@@ -43,10 +43,19 @@ export default function MapLayerCollectionItems({
     [landmarksData, routeId, routesData]
   );
 
-  const trailheadLandmarks = useMemo(
+  const pointsOfInterest = useMemo(() => {
+    return getRouteOrderLandmarks(routeId, routesData, landmarksData)
+      .filter(l => l.landmarkType === "point-of-interest")
+      .filter(l => stops.every(r => l.id !== r.id));
+  }, [landmarksData, routeId, stops, routesData]);
+
+  const trailheads = useMemo(
     () =>
       getRouteOrderLandmarks(routeId, routesData, landmarksData).filter(
-        l => 20000 <= l.id && l.landmarkType === "trail-head"
+        l =>
+          20000 <= l.id &&
+          (l.landmarkType === "trail-head" ||
+            l.landmarkType === "trail-crossing")
       ),
     [landmarksData, routeId, routesData]
   );
@@ -55,25 +64,26 @@ export default function MapLayerCollectionItems({
 
   // Update the map bounds based on the trace bounds.
   useEffect(() => {
-    if (!landmarksReady || !traceReady || !fitBounds) {
+    if (!traceReady || !fitBounds) {
       return;
     }
 
     const bounds = bbox(trace) as LngLatBoundsLike;
     fitBounds(bounds);
-  }, [fitBounds, landmarksReady, trace, traceReady]);
+  }, [fitBounds, trace, traceReady]);
 
   const items = useMemo<MapLayerCollectionItem[]>(
     () => [
       {
         color,
+        pointsOfInterest: pointsOfInterest ?? null,
         routeId,
-        stops: routeLandmarks ?? null,
+        stops: stops ?? null,
         trace: trace ?? null,
-        trailheads: trailheadLandmarks ?? null
+        trailheads: trailheads ?? null
       }
     ],
-    [color, routeId, routeLandmarks, trace, trailheadLandmarks]
+    [color, pointsOfInterest, routeId, stops, trace, trailheads]
   );
 
   if (!landmarksReady || !traceReady) {

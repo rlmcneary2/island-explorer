@@ -15,6 +15,7 @@ export function Menu({ show }: Props) {
   const { setOption } = useContextActions();
   const options = useContextState(selector);
 
+  const showPois = stringToBoolean(options?.SHOW_POIS, false);
   const showStops = stringToBoolean(options?.SHOW_STOPS, true);
   const showTrailheads = stringToBoolean(options?.SHOW_TRAILHEADS, false);
 
@@ -55,6 +56,11 @@ export function Menu({ show }: Props) {
           onChange={checked =>
             handleOptionChanged("SHOW_TRAILHEADS", `${checked}`)
           }
+        />
+        <Checkbox
+          checked={showPois}
+          id="OPTION_SHOW_POIS"
+          onChange={checked => handleOptionChanged("SHOW_POIS", `${checked}`)}
         />
         {/* <button className="button plain" onClick={handleAboutClick}>
           <FormattedMessage id="ABOUT_APP" />
