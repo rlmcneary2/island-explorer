@@ -1,5 +1,5 @@
 import _unionWith from "lodash/unionWith";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { AnyLayout, CircleLayer, CirclePaint, LineLayer } from "mapbox-gl";
 import * as geojson from "geojson/geojson";
 import { AnyLayer, LayerCollection, SymbolIconLayer } from "remapgl";
@@ -7,6 +7,7 @@ import { ContextState, MapLayerCollectionItem, Trace } from "../context/types";
 import { Landmark } from "../types/types";
 import useContextState from "../context/use-context-state";
 import { stringToBoolean } from "../util/type-coercion";
+import useContextActions from "../context/use-context-actions";
 
 const STOP_CIRCLE_RADIUS_BASE = 1.15;
 const STOP_CIRCLE_RADIUS_STEPS: number[][] = [
@@ -26,11 +27,18 @@ export default function MapLayerCollection({
 }: {
   items: MapLayerCollectionItem[];
 }) {
+  const { selectLandmark } = useContextActions();
+  const { options } = useContextState(selector);
   const [poiLayers, setPoiLayers] = useState<SymbolIconLayer[]>(null);
   const [traceLayers, setTraceLayers] = useState<LineLayer[]>(null);
   const [stopsLayers, setStopsLayers] = useState<CircleLayer[]>(null);
   const [trailheadsLayers, setTrailheadsLayers] =
     useState<SymbolIconLayer[]>(null);
+
+  const handleLayerClick = useCallback(
+    (landmarkId: number) => selectLandmark({ landmarkId }),
+    [selectLandmark]
+  );
 
   useEffect(() => {
     setTraceLayers(currentTraces => {
@@ -65,7 +73,6 @@ export default function MapLayerCollection({
     });
   }, [items]);
 
-  const options = useContextState(selector);
   const showStops = stringToBoolean(options?.SHOW_STOPS, true);
 
   useEffect(() => {
@@ -78,11 +85,12 @@ export default function MapLayerCollection({
         (routeId, landmarks, options) =>
           createStopsLayer(routeId, landmarks, {
             ...options,
+            onClick: handleLayerClick,
             visibility: showStops ? "visible" : "none"
           })
       )
     );
-  }, [items, showStops]);
+  }, [handleLayerClick, items, showStops]);
 
   const showTrailheads = stringToBoolean(options?.SHOW_TRAILHEADS, false);
 
@@ -99,11 +107,12 @@ export default function MapLayerCollection({
             iconColor: "#774036",
             iconImage: "trailhead",
             iconImageUrl: "assets/trailhead.png",
+            onClick: handleLayerClick,
             visibility: showTrailheads ? "visible" : "none"
           })
       )
     );
-  }, [items, showTrailheads]);
+  }, [handleLayerClick, items, showTrailheads]);
 
   const showPois = stringToBoolean(options?.SHOW_POIS, false);
 
@@ -120,11 +129,12 @@ export default function MapLayerCollection({
             iconColor: "#2C515D",
             iconImage: "trailhead",
             iconImageUrl: "assets/trailhead.png",
+            onClick: handleLayerClick,
             visibility: showPois ? "visible" : "none"
           })
       )
     );
-  }, [items, showPois]);
+  }, [handleLayerClick, items, showPois]);
 
   const layers = useMemo(
     () => [
@@ -153,7 +163,15 @@ function createCircleLayer(
   routeId: number,
   landmarks: Landmark[],
   layerPrefix: string,
-  { color, visibility }: { color: string; visibility: AnyLayout["visibility"] }
+  {
+    color,
+    onClick,
+    visibility
+  }: {
+    color: string;
+    onClick?: (landmarkId: number) => void;
+    visibility: AnyLayout["visibility"];
+  }
 ): CircleLayer {
   if (!landmarks) {
     return null;
@@ -174,7 +192,12 @@ function createCircleLayer(
   };
 
   const data = landmarks.map(
-    ({ location: { latitude: lat, longitude: lng }, displayName: name }) => ({
+    ({
+      displayName: name,
+      id,
+      location: { latitude: lat, longitude: lng }
+    }) => ({
+      id,
       lat,
       lng,
       name
@@ -186,7 +209,7 @@ function createCircleLayer(
     Point: ["lat", "lng"]
   });
 
-  return {
+  const layer: CircleLayer = {
     id: `${layerPrefix}-${routeId}`,
     layout: { visibility: visibility ?? "visible" },
     paint,
@@ -196,6 +219,14 @@ function createCircleLayer(
     },
     type: "circle"
   };
+
+  (layer as AnyLayer).on = {
+    click: evt => {
+      onClick && onClick(evt.features[0].properties.id);
+    }
+  };
+
+  return layer;
 }
 
 function createLayersFromItems<T extends AnyLayer>(
@@ -245,12 +276,14 @@ function createSymbolLayer(
     iconImage,
     iconImageUrl,
     layerPrefix,
+    onClick,
     visibility
   }: {
     iconColor: string;
     iconImage: string;
     iconImageUrl: string;
     layerPrefix: string;
+    onClick?: (landmarkId: number) => void;
     visibility: AnyLayout["visibility"];
   }
 ): SymbolIconLayer {
@@ -259,7 +292,12 @@ function createSymbolLayer(
   }
 
   const data = landmarks.map(
-    ({ location: { latitude: lat, longitude: lng }, displayName: name }) => ({
+    ({
+      displayName: name,
+      id,
+      location: { latitude: lat, longitude: lng }
+    }) => ({
+      id,
       lat,
       lng,
       name
@@ -270,9 +308,7 @@ function createSymbolLayer(
     Point: ["lat", "lng"]
   });
 
-  console.log(`createSymbolLayer: visibility='${visibility}'`);
-
-  const output: SymbolIconLayer = {
+  const layer: SymbolIconLayer = {
     iconImageUrl,
     id: `${layerPrefix}-${routeId}`,
     imageOptions: { sdf: true },
@@ -295,7 +331,14 @@ function createSymbolLayer(
     type: "symbol"
   };
 
-  return output;
+  (layer as AnyLayer).on = {
+    click: evt => {
+      // console.log("SYMBOL CLICKED: evt.features=", evt.features[0].properties);
+      onClick && onClick(evt.features[0].properties.id);
+    }
+  };
+
+  return layer;
 }
 
 function createTraceLayer(
@@ -330,11 +373,17 @@ function createTraceLayer(
 function createStopsLayer(
   routeId: number,
   stops: Landmark[],
-  options: { color: string; visibility: AnyLayout["visibility"] }
+  options: {
+    color: string;
+    onClick?: (landmarkId: number) => void;
+    visibility: AnyLayout["visibility"];
+  }
 ): CircleLayer {
   return createCircleLayer(routeId, stops, "stops", options);
 }
 
 function selector(state: ContextState) {
-  return state?.options;
+  return {
+    options: state?.options
+  };
 }
