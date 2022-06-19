@@ -1,6 +1,6 @@
 {
   "TARGET": "PRODUCTION",
-  "apiLeft": "https://island-explorer.netlify.app/api",
+  "apiLeft": "https://islandexplorer.app/api",
   "apiLeftPaths": [
     "/InfoPoint/rest/Routes/GetVisibleRoutes",
     "/InfoPoint/Resources/Traces/Oceanarium.kml",
