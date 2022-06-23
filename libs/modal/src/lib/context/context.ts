@@ -12,7 +12,7 @@ export default React.createContext<{
   }
 });
 
-interface SetEl {
+export interface SetEl {
   (el: HTMLElement): void;
   (key: string, el: HTMLElement): void;
 }

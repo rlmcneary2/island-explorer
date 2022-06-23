@@ -42,64 +42,70 @@ export function Menu({ show }: Props) {
         <button className="icon" onClick={handleClose}>
           <i className="icon-dismiss" />
         </button>
-        <h1>
-          <FormattedMessage id="OPTIONS" />
-        </h1>
-        <Checkbox
-          checked={showStops}
-          id="OPTION_SHOW_STOPS"
-          onChange={checked => handleOptionChanged("SHOW_STOPS", `${checked}`)}
-        />
-        <Checkbox
-          checked={showTrailheads}
-          id="OPTION_SHOW_TRAILHEADS"
-          onChange={checked =>
-            handleOptionChanged("SHOW_TRAILHEADS", `${checked}`)
-          }
-        />
-        <Checkbox
-          checked={showPois}
-          id="OPTION_SHOW_POIS"
-          onChange={checked => handleOptionChanged("SHOW_POIS", `${checked}`)}
-        />
-        <h1>
-          <FormattedMessage id="ABOUT_TITLE" />
-        </h1>
-        <p>
-          <FormattedMessage
-            id="ABOUT_MESSAGE"
-            values={{
-              link: <a href="mailto:rich@limnous.com">Rich McNeary</a>
-            }}
+        <div className="menu-group">
+          <h1>
+            <FormattedMessage id="OPTIONS" />
+          </h1>
+          <Checkbox
+            checked={showStops}
+            id="OPTION_SHOW_STOPS"
+            onChange={checked =>
+              handleOptionChanged("SHOW_STOPS", `${checked}`)
+            }
           />
-        </p>
-        <p className="breaker">
-          <FormattedMessage
-            id="ABOUT_MESSAGE_2"
-            values={{
-              linkHome: (
-                <a href="https://islandexplorer.app/">
-                  https://islandexplorer.app/
-                </a>
-              )
-            }}
+          <Checkbox
+            checked={showTrailheads}
+            id="OPTION_SHOW_TRAILHEADS"
+            onChange={checked =>
+              handleOptionChanged("SHOW_TRAILHEADS", `${checked}`)
+            }
           />
-        </p>
-        <p className="breaker">
-          <FormattedMessage
-            id="ABOUT_MESSAGE_3"
-            values={{
-              linkGithub: (
-                <a href="https://github.com/rlmcneary2/island-explorer">
-                  https://github.com/rlmcneary2/island-explorer
-                </a>
-              )
-            }}
+          <Checkbox
+            checked={showPois}
+            id="OPTION_SHOW_POIS"
+            onChange={checked => handleOptionChanged("SHOW_POIS", `${checked}`)}
           />
-        </p>
-        <p>
-          <FormattedMessage id="COPYRIGHT" />
-        </p>
+        </div>
+        <div>
+          <h1>
+            <FormattedMessage id="ABOUT_TITLE" />
+          </h1>
+          <p>
+            <FormattedMessage
+              id="ABOUT_MESSAGE"
+              values={{
+                link: <a href="mailto:rich@limnous.com">Rich McNeary</a>
+              }}
+            />
+          </p>
+          <p className="breaker">
+            <FormattedMessage
+              id="ABOUT_MESSAGE_2"
+              values={{
+                linkHome: (
+                  <a href="https://islandexplorer.app/">
+                    https://islandexplorer.app/
+                  </a>
+                )
+              }}
+            />
+          </p>
+          <p className="breaker">
+            <FormattedMessage
+              id="ABOUT_MESSAGE_3"
+              values={{
+                linkGithub: (
+                  <a href="https://github.com/rlmcneary2/island-explorer">
+                    https://github.com/rlmcneary2/island-explorer
+                  </a>
+                )
+              }}
+            />
+          </p>
+          <p>
+            <FormattedMessage id="COPYRIGHT" />
+          </p>
+        </div>
       </div>
     </AnimatedModalDialog>
   ) : null;

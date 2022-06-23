@@ -20,6 +20,10 @@
     transform: translateX(-100%);
     width: 75%;
 
+    > .menu-group {
+      flex: 1;
+    }
+
     > button.icon {
       position: absolute;
       right: 0;
