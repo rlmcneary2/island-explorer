@@ -1,10 +1,12 @@
-import { Marker } from "remapgl";
+import { MapPopup } from "remapgl";
 import { ContextData } from "../context/types";
+import useContextActions from "../context/use-context-actions";
 import useContextState from "../context/use-context-state";
-import { LandmarkPopup } from "./landmark/landmark-popup";
 import { getLandmark } from "../util/landmark";
+import { LandmarkDetails } from "./landmark/landmark-details";
 
 export function MapStops() {
+  const { deselectLandmark } = useContextActions();
   const { landmarks, selectedLandmarks } = useContextState(selector);
 
   if (
@@ -21,14 +23,16 @@ export function MapStops() {
       {selectedLandmarks.map(({ landmarkId }) => {
         const landmark = getLandmark(landmarkId, landmarks.data);
         return (
-          <Marker
-            color="#5F911B"
+          <MapPopup
             key={landmarkId}
-            lnglat={[landmark.location.longitude, landmark.location.latitude]}
-            obj={obj => obj.togglePopup()}
-            popup={popupGL => <LandmarkPopup popupGL={popupGL} {...landmark} />}
-            popupOptions={{ closeButton: false }}
-          />
+            onClose={() => deselectLandmark(landmarkId)}
+            options={{ closeButton: false }}
+            lngLat={[landmark.location.longitude, landmark.location.latitude]}
+          >
+            <div className="popup">
+              <LandmarkDetails {...landmark} />
+            </div>
+          </MapPopup>
         );
       })}
     </>

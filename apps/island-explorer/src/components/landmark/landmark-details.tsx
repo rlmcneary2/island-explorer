@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import { Landmark } from "../../types/types";
-import useContextActions from "../../context/use-context-actions";
 import useContextState from "../../context/use-context-state";
 import { getRouteParameters, getRoutePath } from "../../util/route";
 
@@ -11,7 +10,6 @@ export function LandmarkDetails({
   features,
   id
 }: Landmark) {
-  const { deselectLandmark } = useContextActions();
   const routes = useContextState(state => state.routes);
 
   if (routes?.status !== "idle" || routes?.error) {
@@ -45,11 +43,6 @@ export function LandmarkDetails({
           <FormattedMessage id={description} />
         </p>
       )}
-      <div className="button-container">
-        <button className="button small" onClick={() => deselectLandmark(id)}>
-          <FormattedMessage id="REMOVE_MARKER" />
-        </button>
-      </div>
     </>
   );
 }
