@@ -15,7 +15,7 @@ export default function MapLayerCollectionItems({
 }) {
   const selector = useMemo(
     () => (state: ContextData) => ({
-      color: state?.routes?.data?.find(x => x.id === routeId).color ?? "000",
+      color: state?.routes?.data?.find(x => x.id === routeId)?.color ?? "000",
       landmarks: state?.landmarks,
       routes: state?.routes,
       routeTrace: state?.routeTrace ?? null
