@@ -1,5 +1,6 @@
 import * as pathData from "./paths.json";
 
+const OLD_VERSIONS = ["2021a"];
 const VERSION = "2021b";
 
 const wgs = self as unknown as ServiceWorkerGlobalScope;
@@ -37,7 +38,10 @@ wgs.addEventListener("activate", event => {
     caches.keys().then(async keys => {
       await Promise.all([
         keys.map(key => {
-          if (key !== VERSION) {
+          // Have to check a list of our old versions because other things (like
+          // mapbox) can create a cache that they need and those caches will be
+          // included in the collection of keys, they must NOT be deleted.
+          if (OLD_VERSIONS.includes(key)) {
             console.log(`service-worker[${VERSION}]: deleting cache '${key}'.`);
             return caches.delete(key);
           }
