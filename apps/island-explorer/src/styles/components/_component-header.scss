@@ -23,7 +23,7 @@ div.header {
     size: dimension.$header-height * 0.75;
   }
   max-width: dimension.$header-height * 0.9;
-  min-width: initial;
+  min-width: 4.5rem;
   > span:not(:focus):not(:active) {
     clip: rect(0 0 0 0);
     clip-path: inset(100%);

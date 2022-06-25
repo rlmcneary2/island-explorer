@@ -9,10 +9,11 @@
   border-radius: 6px;
   box-sizing: content-box;
   display: flex;
+  flex: 1;
   justify-content: center;
   max-width: 25rem;
   margin: 0 0.2rem;
-  min-width: 15rem;
+  min-width: 10.5rem;
   padding: dimension.$button-padding;
   text-decoration: none;
   &.plain {
