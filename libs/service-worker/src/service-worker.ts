@@ -1,11 +1,11 @@
 import * as pathData from "./paths.json";
 
-const VERSION = "2021a";
+const VERSION = "2021b";
 
 const wgs = self as unknown as ServiceWorkerGlobalScope;
 
 wgs.addEventListener("install", event => {
-  console.log(`service-worker(${pathData.TARGET}): install event`);
+  console.log(`service-worker[${VERSION}](${pathData.TARGET}): install event.`);
 
   const paths = [
     ...pathData.paths,
@@ -24,7 +24,28 @@ wgs.addEventListener("install", event => {
     caches
       .open(VERSION)
       .then(cache => cache.addAll(paths))
-      .catch(err => console.error("service-worker: addAll err", err))
+      .catch(err =>
+        console.error(`service-worker[${VERSION}]: addAll err `, err)
+      )
+  );
+});
+
+wgs.addEventListener("activate", event => {
+  console.log(`service-worker[${VERSION}]: activate event`);
+
+  event.waitUntil(
+    caches.keys().then(async keys => {
+      await Promise.all([
+        keys.map(key => {
+          if (key !== VERSION) {
+            console.log(`service-worker[${VERSION}]: deleting cache '${key}'.`);
+            return caches.delete(key);
+          }
+        })
+      ]);
+
+      console.log(`service-worker[${VERSION}]: caches delete completed.`);
+    })
   );
 });
 
