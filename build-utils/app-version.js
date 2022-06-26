@@ -12,14 +12,25 @@ const commit = require("child_process")
   .toString()
   .trim();
 
-const fqFilename = path.join(
+const content = JSON.stringify(
+  {
+    commit,
+    version: process.env.npm_package_version
+  },
+  null,
+  2
+);
+
+const fqAppFilename = path.join(
   process.cwd(),
   "apps/island-explorer/src/assets/version.json"
 );
 
-const content = {
-  commit,
-  version: process.env.npm_package_version
-};
+fs.writeFileSync(fqAppFilename, content);
 
-fs.writeFileSync(fqFilename, JSON.stringify(content, null, 2));
+const fqSwFilename = path.join(
+  process.cwd(),
+  "libs/service-worker/src/version.json"
+);
+
+fs.writeFileSync(fqSwFilename, content);

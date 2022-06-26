@@ -1,12 +1,15 @@
+import * as version from "./version.json";
 import * as pathData from "./paths.json";
 
-const OLD_VERSIONS = ["2021a"];
-const VERSION = "2021b";
+const OLD_CACHE_VERSIONS = ["2021a"];
+const CACHE_VERSION = "2021b";
 
 const wgs = self as unknown as ServiceWorkerGlobalScope;
 
 wgs.addEventListener("install", event => {
-  console.log(`service-worker[${VERSION}](${pathData.TARGET}): install event.`);
+  console.log(
+    `service-worker[${version.version}](${pathData.TARGET}): install event.`
+  );
 
   const paths = [
     ...pathData.paths,
@@ -23,16 +26,16 @@ wgs.addEventListener("install", event => {
 
   event.waitUntil(
     caches
-      .open(VERSION)
+      .open(CACHE_VERSION)
       .then(cache => cache.addAll(paths))
       .catch(err =>
-        console.error(`service-worker[${VERSION}]: addAll err `, err)
+        console.error(`service-worker[${CACHE_VERSION}]: addAll err `, err)
       )
   );
 });
 
 wgs.addEventListener("activate", event => {
-  console.log(`service-worker[${VERSION}]: activate event`);
+  console.log(`service-worker[${version.version}]: activate event`);
 
   event.waitUntil(
     caches.keys().then(async keys => {
@@ -41,14 +44,16 @@ wgs.addEventListener("activate", event => {
           // Have to check a list of our old versions because other things (like
           // mapbox) can create a cache that they need and those caches will be
           // included in the collection of keys, they must NOT be deleted.
-          if (OLD_VERSIONS.includes(key)) {
-            console.log(`service-worker[${VERSION}]: deleting cache '${key}'.`);
+          if (OLD_CACHE_VERSIONS.includes(key)) {
+            console.log(
+              `service-worker[${CACHE_VERSION}]: deleting cache '${key}'.`
+            );
             return caches.delete(key);
           }
         })
       ]);
 
-      console.log(`service-worker[${VERSION}]: caches delete completed.`);
+      console.log(`service-worker[${CACHE_VERSION}]: caches delete completed.`);
     })
   );
 });
@@ -56,7 +61,9 @@ wgs.addEventListener("activate", event => {
 wgs.addEventListener("fetch", async event => {
   event.respondWith(
     (async () => {
-      let response = await caches.match(event.request, { cacheName: VERSION });
+      let response = await caches.match(event.request, {
+        cacheName: CACHE_VERSION
+      });
 
       if (!response) {
         console.log(`service-worker: fetching '${event.request.url}'`);
@@ -79,7 +86,10 @@ wgs.addEventListener("fetch", async event => {
           requestHostname === "fonts.gstatic.com"
         ) {
           console.log(`service-worker: caching '${event.request.url}'`);
-          (await caches.open(VERSION)).put(event.request, response.clone());
+          (await caches.open(CACHE_VERSION)).put(
+            event.request,
+            response.clone()
+          );
         }
 
         // Cache mapbox files
@@ -89,7 +99,10 @@ wgs.addEventListener("fetch", async event => {
           mapboxUrl.startsWith("api.mapbox.com/fonts")
         ) {
           console.log(`service-worker: caching '${event.request.url}'`);
-          (await caches.open(VERSION)).put(event.request, response.clone());
+          (await caches.open(CACHE_VERSION)).put(
+            event.request,
+            response.clone()
+          );
         }
 
         return response;

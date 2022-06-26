@@ -1,6 +1,6 @@
 {
   "name": "island-explorer",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "nx": "nx",
@@ -8,7 +8,9 @@
     "prestart": "node build-utils/app-version.js",
     "start": "nx serve",
     "build": "nx build",
-    "build:sw": "nx run service-worker:build --buildable --deleteOutputPath --skipNxCache",
+    "build:sw": "yarn build:sw:pre && nx run service-worker:build --buildable --deleteOutputPath --skipNxCache && yarn build:sw:post",
+    "build:sw:pre": "shx cp libs/service-worker/src/version.json libs/service-worker/src/version.json.orig && yarn prebuild",
+    "build:sw:post": "shx cp libs/service-worker/src/version.json.orig libs/service-worker/src/version.json && shx rm libs/service-worker/src/version.json.orig",
     "build:sw:prod": "yarn build:sw:prod:pre && yarn build:sw && yarn build:sw:prod:post",
     "build:sw:prod:pre": "shx cp libs/service-worker/src/paths.json libs/service-worker/src/paths.json.orig && shx cp libs/service-worker/src/paths.prod.json libs/service-worker/src/paths.json",
     "build:sw:prod:post": "shx cp libs/service-worker/src/paths.json.orig libs/service-worker/src/paths.json && shx rm libs/service-worker/src/paths.json.orig",
