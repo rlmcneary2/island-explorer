@@ -1,12 +1,27 @@
 import * as version from "./version.json";
 import * as pathData from "./paths.json";
 
-const OLD_CACHE_VERSIONS = ["2021a"];
-const CACHE_VERSION = "2021b";
+const CACHE_VERSION = "Island-Explorer-2021c";
+console.log("18");
 
 const wgs = self as unknown as ServiceWorkerGlobalScope;
 
-wgs.addEventListener("install", event => {
+wgs.addEventListener("message", evt => {
+  if (evt.data === "SKIP_WAITING") {
+    const source = evt.source as Client;
+
+    if (!wgs.registration.waiting) {
+      source.postMessage({ clientData: evt.data, response: "IGNORED" });
+      return;
+    }
+
+    wgs.skipWaiting().then(() => {
+      source.postMessage({ clientData: evt.data, response: "COMPLETED" });
+    });
+  }
+});
+
+wgs.addEventListener("install", async event => {
   console.log(
     `service-worker[${version.version}](${pathData.TARGET}): install event.`
   );
@@ -27,7 +42,10 @@ wgs.addEventListener("install", event => {
   event.waitUntil(
     caches
       .open(CACHE_VERSION)
-      .then(cache => cache.addAll(paths))
+      .then(async cache => {
+        await cache.addAll(paths);
+        console.log(`service-worker[${version.version}]: addAll completed.`);
+      })
       .catch(err =>
         console.error(`service-worker[${CACHE_VERSION}]: addAll err `, err)
       )
@@ -44,7 +62,12 @@ wgs.addEventListener("activate", event => {
           // Have to check a list of our old versions because other things (like
           // mapbox) can create a cache that they need and those caches will be
           // included in the collection of keys, they must NOT be deleted.
-          if (OLD_CACHE_VERSIONS.includes(key)) {
+          if (
+            key !== CACHE_VERSION &&
+            (key.startsWith("Island-Explorer-") ||
+              key === "2021a" ||
+              key === "2021b")
+          ) {
             console.log(
               `service-worker[${CACHE_VERSION}]: deleting cache '${key}'.`
             );

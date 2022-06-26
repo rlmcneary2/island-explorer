@@ -1,0 +1,40 @@
+import { useCallback, useEffect, useState } from "react";
+import { FormattedMessage } from "react-intl";
+import { AnimatedModalDialog } from "modal";
+import { useServiceWorker } from "react-service-worker-provider";
+
+export function UpdateAvailable() {
+  const { updateAvailable = false, update } =
+    useServiceWorker(ctx => ctx) ?? {};
+  const [hide, setHide] = useState(false);
+  const [mount, setMount] = useState(false);
+  const handleHidden = useCallback(() => setMount(false), []);
+
+  useEffect(() => {
+    if (updateAvailable) {
+      setMount(true);
+      setHide(false);
+    } else {
+      setHide(true);
+    }
+  }, [updateAvailable]);
+
+  return mount ? (
+    <AnimatedModalDialog
+      className="toast"
+      containerId="toast"
+      hide={hide}
+      onHidden={handleHidden}
+    >
+      <div className="content update">
+        <FormattedMessage id={"UPDATE_AVAILABLE"} />
+        <button
+          className="button small narrow primary"
+          onClick={() => update && update()}
+        >
+          <FormattedMessage id={"UPDATE_NOW"} />
+        </button>
+      </div>
+    </AnimatedModalDialog>
+  ) : null;
+}

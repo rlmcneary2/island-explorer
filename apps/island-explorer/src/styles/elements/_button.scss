@@ -31,6 +31,9 @@
   &.small {
     @extend %control-small;
   }
+  &.narrow {
+    max-width: dimension.$button-narrow-width;
+  }
   &:active {
     filter: brightness(105%);
   }

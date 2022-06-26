@@ -4,6 +4,7 @@ import Header from "./header";
 import { MAP } from "../constants/routes";
 import { BusRoute } from "./bus-route";
 import { getRoutePath, ROUTE_TEMPLATE } from "../util/route";
+import { UpdateAvailable } from "./toast/update-available/update-available";
 import version from "../assets/version.json";
 
 export default function Main() {
@@ -20,6 +21,7 @@ export default function Main() {
           <Redirect to={getRoutePath(3, MAP)} />
         </Switch>
       </div>
+      <UpdateAvailable />
       <ModalContainer className="toast-container" containerId="toast" />
       <ModalContainer className="menu-container" containerId="menu" />
       <ModalContainer className="modal-container" />

@@ -138,6 +138,51 @@
         }
       }
     },
+    "react-service-worker-provider": {
+      "root": "libs/react-service-worker-provider",
+      "sourceRoot": "libs/react-service-worker-provider/src",
+      "projectType": "library",
+      "tags": [],
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:rollup",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/react-service-worker-provider",
+            "tsConfig": "libs/react-service-worker-provider/tsconfig.lib.json",
+            "project": "libs/react-service-worker-provider/package.json",
+            "entryFile": "libs/react-service-worker-provider/src/index.ts",
+            "external": ["react/jsx-runtime", "@emotion/styled/base"],
+            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+            "compiler": "babel",
+            "assets": [
+              {
+                "glob": "libs/react-service-worker-provider/README.md",
+                "input": ".",
+                "output": "."
+              }
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/react-service-worker-provider/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/react-service-worker-provider"],
+          "options": {
+            "jestConfig": "libs/react-service-worker-provider/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "service-worker": {
       "root": "libs/service-worker",
       "sourceRoot": "libs/service-worker/src",

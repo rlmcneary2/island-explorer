@@ -97,5 +97,7 @@
   "TRL_GORGE_PATH_DESC": "Access to the north end of the Gorge Path, a rocky hike between the peaks of Cadillac and Dorr Mountains. Via Loop Road.",
   "TRL_JESSUP_PATH_DESC": "Access to the north end of the Jessup Path as well as the Great Meadow Loop from the Loop Road.",
   "TRL_JORDAN_BUBBLE_PONDS_TRAIL_DESC": "Access to Jordan Pond Bubble Pond Trail",
-  "TRL_KEBO_MOUNTAIN_DESC": "Access to the north end of the Kebo Mountain Trail as well as the Kebo Brook Trail from the Loop Road."
+  "TRL_KEBO_MOUNTAIN_DESC": "Access to the north end of the Kebo Mountain Trail as well as the Kebo Brook Trail from the Loop Road.",
+  "UPDATE_AVAILABLE": "New version available.",
+  "UPDATE_NOW": "Update"
 }

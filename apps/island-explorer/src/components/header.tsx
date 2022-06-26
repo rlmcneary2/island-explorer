@@ -32,7 +32,7 @@ export default function Header() {
       <button className="button options" onClick={handleMenuButtonClick}>
         <span>Menu</span>
       </button>
-      <button className="button primary" onClick={handleRouteClick}>
+      <button className="button" onClick={handleRouteClick}>
         <FormattedMessage id="SELECT_ROUTE" />
       </button>
 
