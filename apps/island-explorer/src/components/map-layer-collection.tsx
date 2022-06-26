@@ -313,8 +313,10 @@ function createSymbolLayer(
     id: `${layerPrefix}-${routeId}`,
     imageOptions: { sdf: true },
     layout: {
+      "icon-allow-overlap": true,
       "icon-anchor": "bottom",
       "icon-image": iconImage,
+      "icon-padding": 0,
       "icon-size": 0.2,
       "text-anchor": "top",
       "text-field": ["get", "name"],
