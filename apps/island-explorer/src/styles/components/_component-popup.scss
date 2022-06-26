@@ -22,3 +22,7 @@
     @extend %headline-2;
   }
 }
+
+.mapboxgl-popup-content {
+  max-width: 25rem;
+}
