@@ -1,6 +1,6 @@
 import { useMemo, useRef } from "react";
 import type { LngLatBoundsLike, Map as MapGL } from "mapbox-gl";
-import { RemapGL } from "remapgl";
+import { NavigationControl, RemapGL } from "remapgl";
 import MapLayerCollectionItems from "./map-layer-collection-items";
 import MapVehicles from "./map-vehicles";
 import { MapStops } from "./map-stops";
@@ -31,6 +31,7 @@ export default function Map({ routeId }: Props) {
         ref={ref}
         zoom={START_ZOOM}
       >
+        <NavigationControl showCompass={true} />
         <MapLayerCollectionItems fitBounds={fitBounds} routeId={routeId} />
         <MapStops />
         <MapVehicles />
