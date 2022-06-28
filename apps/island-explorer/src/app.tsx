@@ -8,7 +8,10 @@ import { ReactServiceWorkerProvider } from "react-service-worker-provider";
 import messages from "./assets/messages-en-us.json";
 
 ReactDOM.render(
-  <ReactServiceWorkerProvider filename="service-worker.js">
+  <ReactServiceWorkerProvider
+    filename="service-worker.js"
+    reloadOnSkipWaiting={true}
+  >
     <BrowserRouter>
       <IntlProvider locale="en-US" messages={messages}>
         <ModalProvider>

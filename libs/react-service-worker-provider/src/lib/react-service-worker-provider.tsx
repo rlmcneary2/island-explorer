@@ -3,116 +3,147 @@ import { Context, ContextValue } from "./context";
 
 export function ReactServiceWorkerProvider({
   children,
-  filename
+  filename,
+  reloadOnSkipWaiting = false
 }: React.PropsWithChildren<Props>) {
-  const [updateAvailable, setUpdateAvailable] = useState(false);
-  const [stateChange, setStateChange] = useState<
-    "installed" | "activating" | "activated" | null
-  >(null);
-  const timeoutId = useRef(0);
-  const serviceWorker = useRef<ServiceWorker>();
+  const serviceWorkerRegistration = useRef<ServiceWorkerRegistration>();
+  const [serviceWorker, setServiceWorker] = useState<ServiceWorker>();
+  const [flag, setFlag] = useState(0);
+  const [waiting, setWaiting] = useState(false);
 
+  // Listen for visibility changes and manually do an update to check for new
+  // versions.
   useEffect(() => {
-    let reg: ServiceWorkerRegistration;
-
     function handleVisibilityChange() {
-      console.log(
-        `ReactServiceWorkerProvider: document visibility=${document.visibilityState}`
-      );
       if (document.visibilityState === "visible") {
-        console.log("ReactServiceWorkerProvider: registration update.");
-        reg?.update();
+        serviceWorkerRegistration.current?.update();
       }
     }
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () =>
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, []);
 
-    function handleStateChange(evt: Event) {
-      // After "installed" the "activating" phase should happen. If that
-      // doesn't happen and some other state hasn't happened. The user should
-      // be prompted to install.
-      const target = evt.target as ServiceWorker;
-      console.log(
-        `ReactServiceWorkerProvider: service-worker statechange; state='${target.state}'`
-      );
-
-      if (target.state === "installed") {
-        serviceWorker.current = target;
-        setStateChange("installed");
-      } else if (target.state === "activating") {
-        setStateChange("activating");
-      } else if (target.state === "activated") {
-        serviceWorker.current = target;
-        setStateChange("activated");
+  // Register the service worker file, get the ServiceWorkerRegistration, listen
+  // for its events.
+  useEffect(() => {
+    function handleMessage(
+      evt: MessageEvent<{ clientData: string; response: string }>
+    ) {
+      if (
+        evt.data.clientData === "SKIP_WAITING" &&
+        evt.data.response === "COMPLETED" &&
+        reloadOnSkipWaiting
+      ) {
+        // Reload the page so the newly active SW becomes the owner.
+        window.location.reload();
       } else {
-        setStateChange(null);
+        console.log(
+          `ReactServiceWorkerProvider: message arrived from '${filename}'; evt=`,
+          evt
+        );
       }
     }
-
-    let updatedReg: ServiceWorker;
 
     function handleUpdateFound() {
-      console.log(
-        "ReactServiceWorkerProvider: service-worker update available."
-      );
-      const updatedReg = reg?.installing ?? reg?.waiting ?? reg?.active;
-      updatedReg?.addEventListener("statechange", handleStateChange);
+      setFlag(current => current + 1);
     }
 
+    let swr: ServiceWorkerRegistration;
     (async () => {
-      navigator.serviceWorker.addEventListener("message", evt =>
-        console.log("ReactServiceWorkerProvider: message arrived.", evt)
-      );
+      navigator.serviceWorker.addEventListener("message", handleMessage);
 
-      reg = await navigator.serviceWorker.register(filename);
-      reg.addEventListener("updatefound", handleUpdateFound);
+      swr = await navigator.serviceWorker.register(filename);
 
-      if (reg.waiting) {
-        serviceWorker.current = reg.waiting;
-        setUpdateAvailable(true);
-        console.log(`ReactServiceWorkerProvider: workerWaiting=${reg.waiting}`);
-      }
+      serviceWorkerRegistration.current = swr;
+
+      swr.addEventListener("updatefound", handleUpdateFound);
+
+      setFlag(current => current + 1);
     })();
 
     return () => {
-      updatedReg?.removeEventListener("statechange", handleStateChange);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-      reg?.removeEventListener("updatefound", handleUpdateFound);
+      navigator.serviceWorker.removeEventListener("message", handleMessage);
+      swr?.removeEventListener("updatefound", handleUpdateFound);
     };
-  }, [filename]);
+  }, [filename, reloadOnSkipWaiting]);
 
+  // Set the active SW.
   useEffect(() => {
-    if (stateChange === "installed") {
-      timeoutId.current = setTimeout(() => {
-        setUpdateAvailable(true);
-        setStateChange(null);
-      }, 1000);
-    } else if (stateChange === "activating") {
-      timeoutId.current && clearTimeout(timeoutId.current);
-      timeoutId.current = 0;
-      setStateChange(null);
-    } else if (stateChange === "activated") {
-      timeoutId.current && clearTimeout(timeoutId.current);
-      timeoutId.current = 0;
-      setUpdateAvailable(false);
+    if (flag < 0) {
+      return;
     }
-  }, [stateChange]);
+
+    const swr = serviceWorkerRegistration.current;
+    if (!swr || !swr.active) {
+      return;
+    }
+
+    if (serviceWorker === swr.active) {
+      return;
+    }
+
+    setServiceWorker(swr.active);
+  }, [flag, serviceWorker]);
+
+  // Connect to SW events.
+  useEffect(() => {
+    if (!serviceWorker) {
+      return;
+    }
+
+    function handleStateChange(evt: Event) {
+      setFlag(current => current + 1);
+    }
+
+    serviceWorker.addEventListener("statechange", handleStateChange);
+
+    // It's possible that the user has reloaded the page and there is also an
+    // update available. As the current SW is loading the one that is waiting
+    // will be ignored. This timeout will force a check for an update then
+    // change the flag causing a check for the status of a waiting SW.
+    setTimeout(() => {
+      serviceWorkerRegistration.current?.update();
+      setTimeout(() => setFlag(current => current + 1), 30 * 1000);
+    }, 5 * 1000);
+
+    return () => {
+      serviceWorker?.removeEventListener("statechange", handleStateChange);
+    };
+  }, [serviceWorker]);
+
+  // Check to see if there is a new SW waiting.
+  useEffect(() => {
+    if (flag < 0) {
+      return;
+    }
+
+    setWaiting(() =>
+      serviceWorkerRegistration.current?.waiting &&
+      serviceWorkerRegistration.current?.waiting.state === "installed"
+        ? true
+        : false
+    );
+  }, [flag]);
 
   const value = useMemo<ContextValue>(
     () => ({
-      update: () => {
-        serviceWorker.current?.postMessage("SKIP_WAITING");
+      skipWaiting: () => {
+        serviceWorkerRegistration.current?.waiting?.postMessage("SKIP_WAITING");
       },
-      updateAvailable
+      waiting
     }),
-    [updateAvailable]
+    [waiting]
   );
-
-  console.log("ReactServiceWorkerProvider: value=", value);
 
   return <Context.Provider value={value}>{children}</Context.Provider>;
 }
 
 interface Props {
+  /** The filename of the ServiceWorker file to load. */
   filename: string;
+  /** If true the browser will reload when the skipWaiting function has
+   * completed. */
+  reloadOnSkipWaiting?: boolean;
 }
