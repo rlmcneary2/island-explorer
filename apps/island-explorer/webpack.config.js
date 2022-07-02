@@ -1,3 +1,5 @@
+const { merge } = require("webpack-merge");
+
 module.exports = (config, context) => {
   console.log(`---\n--- apps/island-explorer/webpack.config.js\n---`);
 
@@ -7,5 +9,14 @@ module.exports = (config, context) => {
     config.devServer.historyApiFallback.htmlAcceptHeaders = ["*/*"];
   }
 
-  return config;
+  return merge(config, {
+    module: {
+      rules: [
+        {
+          test: /\.svg$/,
+          use: ["@svgr/webpack"]
+        }
+      ]
+    }
+  });
 };

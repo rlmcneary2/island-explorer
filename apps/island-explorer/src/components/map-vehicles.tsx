@@ -4,6 +4,7 @@ import { ContextData } from "../context/types";
 import useContextState from "../context/use-context-state";
 import { VehiclePopup } from "./vehicle/vehicle-popup";
 import { getRouteOrderLandmarks } from "../util/landmark";
+import Icon from "../assets/icon-bus.svg";
 
 export default function MapVehicles() {
   const { landmarks, routeId, routes, vehicleHeadings, vehicles } =
@@ -52,7 +53,15 @@ export default function MapVehicles() {
                 )}deg)`
               } as React.CSSProperties
             }
-          ></div>
+          >
+            <div
+              className={`map-vehicle-image${
+                vehicle.DisplayStatus === "Late" ? " late" : ""
+              }`}
+            >
+              <Icon />
+            </div>
+          </div>
         </Marker>
       ))}
     </>

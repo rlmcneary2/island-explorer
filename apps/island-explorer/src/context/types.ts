@@ -108,27 +108,27 @@ interface TraceFeature {
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Vehicle {
-  VehicleId: number;
-  Name: string;
-  Latitude: number;
-  Longitude: number;
-  RouteId: number;
-  TripId: number;
-  RunId: number;
+  CommStatus: "GOOD";
+  Destination: string;
+  Deviation: number;
   Direction: "I" | "L" | "O";
   DirectionLong: "Inbound" | "Loop" | "Outbound";
-  Destination: string;
-  Speed: number;
-  Heading: number;
-  Deviation: number;
-  OpStatus: "EARLY" | "LOGGED IN" | "ONTIME" | "TRIP START";
-  CommStatus: "GOOD";
-  GPSStatus: 2;
+  DisplayStatus: "Late" | "On Time";
   DriverName: string;
+  GPSStatus: 2;
+  Heading: number;
   LastStop: string;
-  OnBoard: number;
   LastUpdated: "/Date(1627821090000-0400)/";
-  DisplayStatus: "On Time";
+  Latitude: number;
+  Longitude: number;
+  Name: string;
+  OnBoard: number;
+  OpStatus: "EARLY" | "LOGGED IN" | "ONTIME" | "TRIP START";
+  RouteId: number;
+  RunId: number;
+  Speed: number;
+  TripId: number;
+  VehicleId: number;
   BlockFareboxId: number;
 }
 

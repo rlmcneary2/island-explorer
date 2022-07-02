@@ -17,7 +17,6 @@ div.map {
 }
 
 .map-vehicle {
-  background: url("../assets/icon-bus.svg");
   height: $icon-size;
   width: $icon-size;
   &::before {
@@ -32,6 +31,18 @@ div.map {
   &.no-direction {
     &::before {
       display: none;
+    }
+  }
+
+  & > .map-vehicle-image {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    &.late > svg #icon-fill {
+      fill: color.$vehicle-late;
     }
   }
 }
