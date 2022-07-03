@@ -9,6 +9,19 @@ wgs.addEventListener("message", evt => {
   if (evt.data === "SKIP_WAITING") {
     const source = evt.source as Client;
 
+    console.log(
+      `service-worker[${version.version}]: active=${!!wgs.registration
+        .active}, active state='${wgs.registration.active?.state}'.`
+    );
+    console.log(
+      `service-worker[${version.version}]: installing=${!!wgs.registration
+        .installing}, installing state='${wgs.registration.installing?.state}'.`
+    );
+    console.log(
+      `service-worker[${version.version}]: waiting=${!!wgs.registration
+        .waiting}, waiting state='${wgs.registration.waiting?.state}'.`
+    );
+
     if (!wgs.registration.waiting) {
       source.postMessage({
         clientData: evt.data,
