@@ -19,6 +19,7 @@ div.map {
 .map-vehicle {
   height: $icon-size;
   width: $icon-size;
+
   &::before {
     content: url("../assets/icon-direction.svg");
     display: block;
@@ -41,8 +42,16 @@ div.map {
     right: 0;
     top: 0;
 
+    & > svg #bus-2:hover {
+      cursor: default;
+    }
+
     &.late > svg #icon-fill {
       fill: color.$vehicle-late;
     }
   }
+}
+
+.mapboxgl-canvas-container.mapboxgl-interactive.hover {
+  cursor: pointer;
 }

@@ -226,6 +226,8 @@ function createCircleLayer(
     }
   };
 
+  setHoverClass(layer);
+
   return layer;
 }
 
@@ -335,10 +337,11 @@ function createSymbolLayer(
 
   (layer as AnyLayer).on = {
     click: evt => {
-      // console.log("SYMBOL CLICKED: evt.features=", evt.features[0].properties);
       onClick && onClick(evt.features[0].properties.id);
     }
   };
+
+  setHoverClass(layer);
 
   return layer;
 }
@@ -387,5 +390,27 @@ function createStopsLayer(
 function selector(state: ContextState) {
   return {
     options: state?.options
+  };
+}
+
+function setHoverClass(layer: AnyLayer) {
+  layer.on = {
+    ...(layer.on ?? {}),
+    mouseenter: () => {
+      const mcc = document.body.querySelectorAll(
+        ".mapboxgl-canvas-container.mapboxgl-interactive"
+      );
+      if (mcc?.length) {
+        mcc[0].classList.add("hover");
+      }
+    },
+    mouseleave: () => {
+      const mcc = document.body.querySelectorAll(
+        ".mapboxgl-canvas-container.mapboxgl-interactive"
+      );
+      if (mcc?.length) {
+        mcc[0].classList.remove("hover");
+      }
+    }
   };
 }
