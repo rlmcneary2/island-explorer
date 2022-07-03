@@ -10,12 +10,21 @@ wgs.addEventListener("message", evt => {
     const source = evt.source as Client;
 
     if (!wgs.registration.waiting) {
-      source.postMessage({ clientData: evt.data, response: "IGNORED" });
+      source.postMessage({
+        clientData: evt.data,
+        response: "IGNORED",
+        version: version.version
+      });
       return;
     }
 
     wgs.skipWaiting().then(() => {
-      source.postMessage({ clientData: evt.data, response: "COMPLETED" });
+      source.postMessage({
+        cacheVersion: CACHE_VERSION,
+        clientData: evt.data,
+        response: "COMPLETED",
+        version: version.version
+      });
     });
   }
 });
