@@ -35,14 +35,14 @@ export default function MapVehicles() {
         <Marker
           key={vehicle.VehicleId}
           lnglat={[vehicle.Longitude, vehicle.Latitude]}
-          popup={obj => (
-            <VehiclePopup
-              onClick={() => obj.remove()}
-              routeStops={routeLandmarks}
-              vehicle={vehicle}
-            />
-          )}
-          popupOptions={{ closeButton: false, offset: 15 }}
+          // popup={obj => (
+          //   <VehiclePopup
+          //     onClick={() => obj.remove()}
+          //     routeStops={routeLandmarks}
+          //     vehicle={vehicle}
+          //   />
+          // )}
+          // popupOptions={{ closeButton: false, offset: 15 }}
         >
           <div
             className={`map-vehicle${vehicle.Speed ? "" : " no-direction"}`}
