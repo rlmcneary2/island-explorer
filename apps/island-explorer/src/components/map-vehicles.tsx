@@ -56,7 +56,7 @@ export default function MapVehicles() {
           >
             <div
               className={`map-vehicle-image${
-                vehicle.DisplayStatus === "Late" ? " late" : ""
+                vehicle.DisplayStatus.toLowerCase() === "late" ? " late" : ""
               }`}
             >
               <Icon />

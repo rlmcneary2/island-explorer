@@ -645,6 +645,17 @@
       "stopName": "Mount Dessert Campground"
     },
     {
+      "features": ["inn"],
+      "landmarkType": "lodging",
+      "displayName": "Edenbrook Motel",
+      "id": 68,
+      "location": {
+        "latitude": 44.39410019,
+        "longitude": -68.22350311
+      },
+      "stopName": "Edenbrook Motel"
+    },
+    {
       "description": "LMK_TOWN_HILL_DESC",
       "features": ["dine"],
       "landmarkType": "point-of-interest",
@@ -718,6 +729,18 @@
       "id": 83,
       "ref": 20,
       "stopName": "Cadillac North Ridge Inbound"
+    },
+    {
+      "description": "LMK_FABBRI_DESC",
+      "features": ["restroom", "water", "picnic", "walk", "hike"],
+      "id": 87,
+      "landmarkType": "point-of-interest",
+      "displayName": "Fabbri",
+      "location": {
+        "latitude": 44.314157664169166,
+        "longitude": -68.19603738042137
+      },
+      "stopName": "Fabbri Picnic Area"
     },
     {
       "description": "LMK_MANSET_DOCK_DESC",
