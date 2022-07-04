@@ -645,6 +645,30 @@
       "stopName": "Mount Dessert Campground"
     },
     {
+      "description": "TRH_BLACK_WOODS_DESC",
+      "features": ["walk"],
+      "landmarkType": "trail-crossing",
+      "displayName": "Black Woods Trail",
+      "id": 65,
+      "location": {
+        "latitude": 44.30659866,
+        "longitude": -68.20140076
+      },
+      "stopName": "Black Woods Trail"
+    },
+    {
+      "description": "LMK_LITTLE_HUNTERS_BEACH_DESC",
+      "features": ["wonder"],
+      "id": 66,
+      "landmarkType": "point-of-interest",
+      "displayName": "Little Hunters Beach",
+      "location": {
+        "latitude": 44.298611124889234,
+        "longitude": -68.21121526429744
+      },
+      "stopName": "Hunters Beach"
+    },
+    {
       "features": ["inn"],
       "landmarkType": "lodging",
       "displayName": "Edenbrook Motel",
@@ -871,6 +895,11 @@
       }
     },
     {
+      "description": "TRH_BLACK_WOODS_DESC",
+      "id": 20065,
+      "ref": 65
+    },
+    {
       "description": "TRH_ORANGE_AND_BLACK_DESC",
       "features": ["hike"],
       "id": 21000,
@@ -890,7 +919,8 @@
       "location": {
         "latitude": 44.3494761423687,
         "longitude": -68.18807842390841
-      }
+      },
+      "stopName": "Precipice Trail"
     },
     {
       "description": "TRH_BOWL_DESC",
@@ -970,6 +1000,11 @@
       }
     },
     {
+      "description": "LMK_LITTLE_HUNTERS_BEACH_DESC",
+      "id": 30066,
+      "ref": 66
+    },
+    {
       "description": "TRL_JESSUP_PATH_DESC",
       "features": ["walk"],
       "id": 31000,
@@ -989,17 +1024,6 @@
       "location": {
         "latitude": 44.36248156454828,
         "longitude": -68.19549011673008
-      }
-    },
-    {
-      "description": "LMK_LITTLE_HUNTERS_BEACH_DESC",
-      "features": ["wonder"],
-      "id": 33000,
-      "landmarkType": "point-of-interest",
-      "displayName": "Little Hunters Beach",
-      "location": {
-        "latitude": 44.298611124889234,
-        "longitude": -68.21121526429744
       }
     },
     {
