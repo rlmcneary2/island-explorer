@@ -1,7 +1,7 @@
 import * as version from "./version.json";
 import * as pathData from "./paths.json";
 
-const CACHE_VERSION = "Island-Explorer-2021f";
+const CACHE_VERSION = "Island-Explorer-2021g";
 
 const wgs = self as unknown as ServiceWorkerGlobalScope;
 
