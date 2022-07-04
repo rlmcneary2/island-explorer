@@ -1000,6 +1000,11 @@
       }
     },
     {
+      "description": "LMK_BUBBLE_POND_DESC",
+      "id": 30028,
+      "ref": 28
+    },
+    {
       "description": "LMK_LITTLE_HUNTERS_BEACH_DESC",
       "id": 30066,
       "ref": 66
