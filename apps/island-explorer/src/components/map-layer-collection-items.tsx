@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from "react";
 import type { LngLatBoundsLike } from "mapbox-gl";
 import bbox from "@turf/bbox";
+import { useMapGL } from "remapgl";
 import { ContextData, MapLayerCollectionItem } from "../context/types";
 import useContextState from "../context/use-context-state";
 import MapLayerCollection from "./map-layer-collection";
@@ -13,6 +14,7 @@ export default function MapLayerCollectionItems({
   fitBounds: (bounds: LngLatBoundsLike) => void;
   routeId: number;
 }) {
+  const { ready } = useMapGL();
   const selector = useMemo(
     () => (state: ContextData) => ({
       color: state?.routes?.data?.find(x => x.id === routeId)?.color ?? "000",
@@ -64,13 +66,13 @@ export default function MapLayerCollectionItems({
 
   // Update the map bounds based on the trace bounds.
   useEffect(() => {
-    if (!traceReady || !fitBounds) {
+    if (!ready || !traceReady || !fitBounds) {
       return;
     }
 
     const bounds = bbox(trace) as LngLatBoundsLike;
     fitBounds(bounds);
-  }, [fitBounds, trace, traceReady]);
+  }, [fitBounds, ready, trace, traceReady]);
 
   const items = useMemo<MapLayerCollectionItem[]>(
     () => [
