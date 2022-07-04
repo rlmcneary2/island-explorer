@@ -4,7 +4,7 @@ import { Landmark, RoutesAssetItem } from "../types/types";
 import { ContextData, ContextState, SelectedLandmark, Vehicle } from "./types";
 
 const ACTION_FETCH_ROUTES_FINISHED = "fetch-routes-finished";
-const INTERVAL_SECONDS = 60;
+const INTERVAL_SECONDS = 15;
 
 export function create(): ActionHandler<ContextState>[] {
   let fetchRouteVehiclesRouteId: number = null;
@@ -131,10 +131,13 @@ export function create(): ActionHandler<ContextState>[] {
     ContextState,
     { routeId: number; dispatchTime?: number }
   > = (state, action, dispatch) => {
-    const isVehicleAction = action.id === actionIds.ACTION_FETCH_ROUTE_VEHICLES;
-    const isReadyToStart = !fetchVehiclesActive && state?.routeId;
+    if (action.id !== actionIds.ACTION_FETCH_ROUTE_VEHICLES) {
+      return [state];
+    }
 
-    if (!isVehicleAction && !isReadyToStart) {
+    const isRouteChanged = fetchRouteVehiclesRouteId !== action.payload.routeId;
+
+    if (fetchVehiclesActive && !isRouteChanged) {
       return [state];
     }
 
@@ -173,8 +176,6 @@ export function create(): ActionHandler<ContextState>[] {
           action.payload
         );
 
-        console.log("fetchRouteVehicles: fetch dispatch.");
-
         dispatch(inlineState => [
           {
             ...inlineState,
@@ -200,8 +201,6 @@ export function create(): ActionHandler<ContextState>[] {
           }
 
           fetchVehiclesActive = false;
-
-          console.log("fetchRouteVehicles: timeout dispatch.");
 
           dispatch({
             id: actionIds.ACTION_FETCH_ROUTE_VEHICLES,
