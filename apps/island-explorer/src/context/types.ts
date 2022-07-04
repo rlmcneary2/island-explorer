@@ -123,7 +123,13 @@ export interface Vehicle {
   Longitude: number;
   Name: string;
   OnBoard: number;
-  OpStatus: "EARLY" | "LOGGED IN" | "ONTIME" | "TRIP START";
+  OpStatus:
+    | "DRIVER OFF"
+    | "EARLY"
+    | "LATE"
+    | "LOGGED IN"
+    | "ONTIME"
+    | "TRIP START";
   RouteId: number;
   RunId: number;
   Speed: number;

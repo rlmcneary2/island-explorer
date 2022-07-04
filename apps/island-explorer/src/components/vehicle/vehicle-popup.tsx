@@ -21,29 +21,26 @@ export function VehiclePopup({ routeStops, vehicle, ...props }: Props) {
   }
 
   const route = routes.data.find(route => route.id === vehicle.RouteId);
-  const routeLandmarksStops = route.landmarks
-    .filter(x => x < 10000)
-    .map(x => getLandmark(x, landmarks.data));
+  const routeLandmarksStops = route.landmarks.map(x =>
+    getLandmark(x, landmarks.data)
+  );
 
   const lastStopId = mapLastStopToRouteId(vehicle.LastStop, routeStops);
-  let nextStop: Landmark;
+  let lastStop: Landmark;
   if (lastStopId) {
-    const currentIndex = routeLandmarksStops.findIndex(
-      x => x.id === lastStopId
-    );
-    nextStop =
-      routeLandmarksStops[
-        currentIndex + 1 < routeLandmarksStops.length ? currentIndex + 1 : 0
-      ];
+    lastStop = routeLandmarksStops.find(x => x.id === lastStopId);
   }
 
   return (
     <div {...props} className="popup">
       <span className="header">
-        <FormattedMessage id="NEXT_STOP" />
+        <FormattedMessage id="BUS_NAME" values={{ name: vehicle.Name }} />
       </span>
       <p className="description">
-        {nextStop?.displayName ?? `?${vehicle.LastStop}?`}
+        <FormattedMessage
+          id="LAST_STOP"
+          values={{ name: lastStop?.displayName ?? `?${vehicle.LastStop}?` }}
+        />
       </p>
     </div>
   );

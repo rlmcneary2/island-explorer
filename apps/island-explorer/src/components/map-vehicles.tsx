@@ -31,39 +31,42 @@ export default function MapVehicles() {
 
   return (
     <>
-      {vehicles.map(vehicle => (
-        <Marker
-          key={vehicle.VehicleId}
-          lnglat={[vehicle.Longitude, vehicle.Latitude]}
-          // popup={obj => (
-          //   <VehiclePopup
-          //     onClick={() => obj.remove()}
-          //     routeStops={routeLandmarks}
-          //     vehicle={vehicle}
-          //   />
-          // )}
-          // popupOptions={{ closeButton: false, offset: 15 }}
-        >
-          <div
-            className={`map-vehicle${vehicle.Speed ? "" : " no-direction"}`}
-            style={
-              {
-                "--vehicle-rotation": `rotate(${headingToRotateAngle(
-                  vehicleHeadings[vehicle.VehicleId].currentHeading
-                )}deg)`
-              } as React.CSSProperties
-            }
+      {vehicles.map(vehicle => {
+        const directionClassName = vehicle.Speed ? "" : " no-direction";
+        return (
+          <Marker
+            key={vehicle.VehicleId}
+            lnglat={[vehicle.Longitude, vehicle.Latitude]}
+            popup={obj => (
+              <VehiclePopup
+                onClick={() => obj.remove()}
+                routeStops={routeLandmarks}
+                vehicle={vehicle}
+              />
+            )}
+            popupOptions={{ closeButton: false, offset: 15 }}
           >
             <div
-              className={`map-vehicle-image${
-                vehicle.DisplayStatus.toLowerCase() === "late" ? " late" : ""
-              }`}
+              className={`map-vehicle${directionClassName}`}
+              style={
+                {
+                  "--vehicle-rotation": `rotate(${headingToRotateAngle(
+                    vehicleHeadings[vehicle.VehicleId].currentHeading
+                  )}deg)`
+                } as React.CSSProperties
+              }
             >
-              <Icon />
+              <div
+                className={`map-vehicle-image${
+                  vehicle.OpStatus.toLowerCase() === "late" ? " late" : ""
+                }`}
+              >
+                <Icon />
+              </div>
             </div>
-          </div>
-        </Marker>
-      ))}
+          </Marker>
+        );
+      })}
     </>
   );
 }
