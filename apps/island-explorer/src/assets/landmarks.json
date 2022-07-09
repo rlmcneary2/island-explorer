@@ -992,7 +992,7 @@
       "description": "TRH_STRATHEDEN_PATH_DESC",
       "features": ["hike"],
       "id": 30000,
-      "landmarkType": "trail-crossing",
+      "landmarkType": "trail-head",
       "displayName": "Stratheden Path Trailhead",
       "location": {
         "latitude": 44.37578062864385,
