@@ -38,6 +38,7 @@
     "assets/manifest-icon-maskable_512.png",
     "assets/manifest-icon_1024.png",
     "assets/manifest-icon-maskable_1024.png",
+    "assets/poi.png",
     "assets/trailhead.png"
   ],
   "routeIds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]

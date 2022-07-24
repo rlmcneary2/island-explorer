@@ -9,6 +9,7 @@ import useContextState from "../context/use-context-state";
 import { stringToBoolean } from "../util/type-coercion";
 import useContextActions from "../context/use-context-actions";
 
+const ICON_SIZE = 0.5;
 const STOP_CIRCLE_RADIUS_BASE = 1.15;
 const STOP_CIRCLE_RADIUS_STEPS: number[][] = [
   [10, 5],
@@ -104,7 +105,6 @@ export default function MapLayerCollection({
         (routeId, landmarks, options) =>
           createSymbolLayer(routeId, landmarks, {
             ...options,
-            iconColor: "#774036",
             iconImage: "trailhead",
             iconImageUrl: "assets/trailhead.png",
             onClick: handleLayerClick,
@@ -126,9 +126,8 @@ export default function MapLayerCollection({
         (routeId, landmarks, options) =>
           createSymbolLayer(routeId, landmarks, {
             ...options,
-            iconColor: "#2C515D",
-            iconImage: "trailhead",
-            iconImageUrl: "assets/trailhead.png",
+            iconImage: "poi",
+            iconImageUrl: "assets/poi.png",
             onClick: handleLayerClick,
             visibility: showPois ? "visible" : "none"
           })
@@ -274,18 +273,18 @@ function createSymbolLayer(
   routeId: number,
   landmarks: Landmark[],
   {
-    iconColor,
     iconImage,
     iconImageUrl,
     layerPrefix,
     onClick,
+    sdfColor,
     visibility
   }: {
-    iconColor: string;
     iconImage: string;
     iconImageUrl: string;
     layerPrefix: string;
     onClick?: (landmarkId: number) => void;
+    sdfColor?: string;
     visibility: AnyLayout["visibility"];
   }
 ): SymbolIconLayer {
@@ -313,27 +312,29 @@ function createSymbolLayer(
   const layer: SymbolIconLayer = {
     iconImageUrl,
     id: `${layerPrefix}-${routeId}`,
-    imageOptions: { sdf: true },
     layout: {
       "icon-allow-overlap": true,
       "icon-anchor": "bottom",
       "icon-image": iconImage,
       "icon-padding": 0,
-      "icon-size": 0.2,
+      "icon-size": ICON_SIZE,
       "text-anchor": "top",
       "text-field": ["get", "name"],
       "text-offset": [0, 1],
       visibility: visibility ?? "visible"
     },
-    paint: {
-      "icon-color": iconColor
-    },
+    paint: {},
     source: {
       data: geoJson,
       type: "geojson"
     },
     type: "symbol"
   };
+
+  if (sdfColor) {
+    layer.imageOptions = { sdf: true };
+    layer.paint["icon-color"] = sdfColor;
+  }
 
   (layer as AnyLayer).on = {
     click: evt => {
