@@ -30,7 +30,7 @@ export default function Information({ routeId }: Props) {
     .map(id => getLandmark(id, landmarks.data))
     .reduce<Landmark[]>(
       (output, lmk) =>
-        output.some(x => x.id === lmk.ref || x.id === lmk.id)
+        output.some(x => x.id === lmk.refId || x.id === lmk.id)
           ? output
           : [...output, lmk],
       []

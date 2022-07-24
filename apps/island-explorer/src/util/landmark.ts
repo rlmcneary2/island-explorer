@@ -4,11 +4,12 @@ export const LANDMARK_PATH_TEMPLATE = "/landmark/:landmarkId";
 
 export function getLandmark(id: number, landmarks: Landmark[]): Landmark {
   const landmark = landmarks.find(lmk => lmk.id === id);
-  if ("ref" in landmark) {
-    const refLandmark = getLandmark(landmark.ref, landmarks);
+  if ("refId" in landmark) {
+    const refLandmark = getLandmark(landmark.refId, landmarks);
     return {
       ...refLandmark,
       id: landmark.id,
+      refId: landmark.refId,
       stopName: landmark.stopName ?? refLandmark.stopName
     };
   }

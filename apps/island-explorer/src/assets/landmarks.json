@@ -751,7 +751,7 @@
     {
       "description": "TRH_CADILLAC_NORTH_RIDGE_DESC",
       "id": 83,
-      "ref": 20,
+      "refId": 20,
       "stopName": "Cadillac North Ridge Inbound"
     },
     {
@@ -792,7 +792,7 @@
     },
     {
       "id": 90,
-      "ref": 79,
+      "refId": 79,
       "stopName": "Schoodic Woods2"
     },
     {
@@ -821,33 +821,33 @@
     },
     {
       "id": 94,
-      "ref": 57,
+      "refId": 57,
       "stopName": "Winter Harbor 2"
     },
     {
       "description": "LMK_THUNDER_HOLE_DESC",
       "id": 10023,
-      "ref": 23
+      "refId": 23
     },
     {
       "description": "LMK_OTTER_CLIFFS_DESC",
       "id": 10024,
-      "ref": 24
+      "refId": 24
     },
     {
       "description": "LMK_EAGLE_LAKE_DESC",
       "id": 10034,
-      "ref": 34
+      "refId": 34
     },
     {
       "description": "LMK_PARKMAN_MOUNTAIN_DESC",
       "id": 10077,
-      "ref": 77
+      "refId": 77
     },
     {
       "description": "LMK_OTTER_POINT_DESC",
       "id": 10092,
-      "ref": 92
+      "refId": 92
     },
     {
       "id": 11000,
@@ -897,7 +897,7 @@
     {
       "description": "TRH_BLACK_WOODS_DESC",
       "id": 20065,
-      "ref": 65
+      "refId": 65
     },
     {
       "description": "TRH_ORANGE_AND_BLACK_DESC",
@@ -1002,12 +1002,12 @@
     {
       "description": "LMK_BUBBLE_POND_DESC",
       "id": 30028,
-      "ref": 28
+      "refId": 28
     },
     {
       "description": "LMK_LITTLE_HUNTERS_BEACH_DESC",
       "id": 30066,
-      "ref": 66
+      "refId": 66
     },
     {
       "description": "TRL_JESSUP_PATH_DESC",
