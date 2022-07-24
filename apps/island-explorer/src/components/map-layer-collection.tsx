@@ -317,7 +317,15 @@ function createSymbolLayer(
       "icon-anchor": "bottom",
       "icon-image": iconImage,
       "icon-padding": 0,
-      "icon-size": ICON_SIZE,
+      "icon-size": [
+        "interpolate",
+        ["exponential", 1.7],
+        ["zoom"],
+        13,
+        ICON_SIZE,
+        16,
+        ICON_SIZE * 2
+      ],
       "text-anchor": "top",
       "text-field": ["get", "name"],
       "text-offset": [0, 1],
