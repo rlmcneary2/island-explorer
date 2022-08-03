@@ -82,11 +82,7 @@ export function Menu({ show }: Props) {
             <FormattedMessage
               id="ABOUT_MESSAGE_2"
               values={{
-                linkHome: (
-                  <a href="https://islandexplorer.app/">
-                    https://islandexplorer.app/
-                  </a>
-                )
+                linkHome: <a href="/">https://islandexplorer.app/</a>
               }}
             />
           </p>

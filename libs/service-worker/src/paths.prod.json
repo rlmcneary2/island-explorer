@@ -1,6 +1,6 @@
 {
   "TARGET": "PRODUCTION",
-  "apiLeft": "https://islandexplorer.app/api",
+  "apiLeft": "/api",
   "apiLeftPaths": [
     "/InfoPoint/rest/Routes/GetVisibleRoutes"
   ],
