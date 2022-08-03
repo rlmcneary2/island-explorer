@@ -1,7 +1,7 @@
 import * as version from "./version.json";
 import * as pathData from "./paths.json";
 
-const CACHE_VERSION = "Island-Explorer-2022o";
+const CACHE_VERSION = "Island-Explorer-2022p";
 
 const wgs = self as unknown as ServiceWorkerGlobalScope;
 
@@ -42,7 +42,18 @@ wgs.addEventListener("install", async event => {
     caches
       .open(CACHE_VERSION)
       .then(async cache => {
-        await cache.addAll(paths);
+        await Promise.all(
+          paths.map(async path => {
+            try {
+              await cache.add(path);
+            } catch (ex) {
+              console.log(
+                `service-worker[${version.version}]: path='${path}', ex=`,
+                ex
+              );
+            }
+          })
+        );
         console.log(`service-worker[${version.version}]: addAll completed.`);
       })
       .catch(err =>
