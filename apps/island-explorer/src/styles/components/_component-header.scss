@@ -17,7 +17,7 @@ div.header {
   display: flex;
   flex: 1;
   mask: {
-    image: url("../assets/controls.svg");
+    image: url("/assets/controls.svg");
     position: center;
     repeat: no-repeat;
     size: dimension.$header-height * 0.75;

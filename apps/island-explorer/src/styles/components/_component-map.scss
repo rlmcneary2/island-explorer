@@ -21,7 +21,7 @@ div.map {
   width: $icon-size;
 
   &::before {
-    content: url("../assets/icon-direction.svg");
+    content: url("/assets/icon-direction.svg");
     display: block;
     height: $icon-size;
     position: relative;

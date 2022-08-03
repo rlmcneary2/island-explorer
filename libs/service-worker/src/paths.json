@@ -2,18 +2,7 @@
   "TARGET": "DEBUG",
   "apiLeft": "https://islandexplorer.netlify.app/api",
   "apiLeftPaths": [
-    "/InfoPoint/rest/Routes/GetVisibleRoutes",
-    "/InfoPoint/Resources/Traces/Oceanarium.kml",
-    "/InfoPoint/Resources/Traces/VisitorCenter.kml",
-    "/InfoPoint/Resources/Traces/EdenStreet.kml",
-    "/InfoPoint/Resources/Traces/SandyBeach.kml",
-    "/InfoPoint/Resources/Traces/LoopRoad.kml",
-    "/InfoPoint/Resources/Traces/JordanPond.kml",
-    "/InfoPoint/Resources/Traces/BrownMountain.kml",
-    "/InfoPoint/Resources/Traces/SWH.kml",
-    "/InfoPoint/Resources/Traces/Schoodic.kml",
-    "/InfoPoint/Resources/Traces/Trenton.kml",
-    "/InfoPoint/Resources/Traces/blackwoods.kml"
+    "/InfoPoint/rest/Routes/GetVisibleRoutes"
   ],
   "paths": [
     "/",
@@ -21,16 +10,15 @@
     "https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css",
     "https://api.mapbox.com/styles/v1/mapbox/outdoors-v11?access_token=pk.eyJ1IjoicmxtY25lYXJ5MiIsImEiOiJjajgyZjJuMDAyajJrMndzNmJqZDFucTIzIn0.BYE_k7mYhhVCdLckWeTg0g",
     "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300&family=Oswald:wght@400;600&display=swap",
-    "controls.svg",
-    "icon-bus.svg",
-    "icon-direction.svg",
     "main.js",
     "polyfills.js",
     "runtime.js",
     "styles.css",
     "styles.js",
-    "symbols.svg",
     "vendor.js",
+    "assets/controls.svg",
+    "assets/icon-bus.svg",
+    "assets/icon-direction.svg",
     "assets/routes.json",
     "assets/landmarks.json",
     "assets/manifest-icon_512.png",
@@ -38,7 +26,21 @@
     "assets/manifest-icon_1024.png",
     "assets/manifest-icon-maskable_1024.png",
     "assets/poi.png",
+    "assets/symbols.svg",
     "assets/trailhead.png"
   ],
-  "routeIds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+  "routeIds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ]
 }

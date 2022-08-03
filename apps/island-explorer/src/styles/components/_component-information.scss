@@ -46,7 +46,7 @@ $bus-stop-bullet-height: 20px;
       .stop {
         &::before {
           background: {
-            image: url("../assets/symbols.svg");
+            image: url("/assets/symbols.svg");
             position: $bus-stop-bullet-height * -21;
             size: cover;
           }
