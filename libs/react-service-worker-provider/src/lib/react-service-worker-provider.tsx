@@ -10,6 +10,7 @@ export function ReactServiceWorkerProvider({
   const [serviceWorker, setServiceWorker] = useState<ServiceWorker>();
   const [flag, setFlag] = useState(0);
   const [waiting, setWaiting] = useState(false);
+  const [online, setOnline] = useState(window.navigator.onLine);
 
   // Listen for visibility changes and manually do an update to check for new
   // versions.
@@ -104,7 +105,10 @@ export function ReactServiceWorkerProvider({
     // will be ignored. This timeout will force a check for an update then
     // change the flag causing a check for the status of a waiting SW.
     setTimeout(() => {
-      serviceWorkerRegistration.current?.update();
+      serviceWorkerRegistration.current?.update().catch(err => {
+        console.log(`ReactServiceWorkerProvider: update failed; err=`, err);
+      });
+
       setTimeout(() => setFlag(current => current + 1), 30 * 1000);
     }, 5 * 1000);
 
@@ -127,6 +131,25 @@ export function ReactServiceWorkerProvider({
     );
   }, [flag]);
 
+  // Listen for online offline events.
+  useEffect(() => {
+    function handleOnline() {
+      setOnline(true);
+    }
+
+    function handleOffline() {
+      setOnline(false);
+    }
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
+
   const value = useMemo<ContextValue>(
     () => ({
       skipWaiting: () => {
@@ -136,6 +159,8 @@ export function ReactServiceWorkerProvider({
     }),
     [waiting]
   );
+
+  console.log(`ReactServiceWorkerProvider: online=${online}`);
 
   return <Context.Provider value={value}>{children}</Context.Provider>;
 }
