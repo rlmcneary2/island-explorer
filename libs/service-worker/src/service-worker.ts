@@ -131,10 +131,14 @@ wgs.addEventListener("fetch", async event => {
         }
 
         // Cache mapbox files
-        const mapboxUrl = `${requestHostname}${requestPathname}`;
+        requestHostname === "api.mapbox.com" &&
+          console.log(`service-worker: pathname='${requestPathname}'`);
+
         if (
-          mapboxUrl.startsWith("api.mapbox.com/styles") ||
-          mapboxUrl.startsWith("api.mapbox.com/fonts")
+          (requestHostname === "api.mapbox.com" &&
+            !requestPathname.endsWith(".vector.pbf") &&
+            !requestPathname.startsWith("/map-sessions")) ||
+          requestHostname === "api.tiles.mapbox.com"
         ) {
           console.log(`service-worker: caching '${event.request.url}'`);
           (await caches.open(CACHE_VERSION)).put(
