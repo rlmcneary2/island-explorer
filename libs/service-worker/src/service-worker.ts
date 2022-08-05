@@ -1,7 +1,7 @@
 import * as version from "./version.json";
 import * as pathData from "./paths.json";
 
-const CACHE_VERSION = "Island-Explorer-2022r";
+const CACHE_VERSION = "Island-Explorer-2022s";
 
 const wgs = self as unknown as ServiceWorkerGlobalScope;
 
@@ -111,7 +111,7 @@ wgs.addEventListener("fetch", async event => {
           );
 
           return new Response(null, {
-            status: err instanceof TypeError ? 401 : 418,
+            status: err instanceof TypeError ? 404 : 418,
             statusText: err instanceof TypeError ? "CORS" : err.message
           });
         }

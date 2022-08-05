@@ -165,10 +165,18 @@ export function create(): ActionHandler<ContextState>[] {
           // Nothing to do here.
         }
 
-        throw Error(`${response.status}${body ? `\nbody='${body}'` : ""}`);
+        throw Error(
+          `${response.status}${
+            body
+              ? `\nbody='${body}'`
+              : response.statusText
+              ? `\nstatusText='${response.statusText}'`
+              : ""
+          }`
+        );
       })
       .catch(error => {
-        console.log("fetchRouteVehicles: catch.");
+        console.log("fetchRouteVehicles: catch; error=", error);
         return { body: null, error };
       })
       .then(data => {
