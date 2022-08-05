@@ -6,6 +6,7 @@ import useContextState from "../../context/use-context-state";
 import { AnimatedModalDialog } from "modal";
 import { stringToBoolean } from "../../util/type-coercion";
 import { FormattedMessage } from "react-intl";
+import * as version from "../../assets/version.json";
 
 export function Menu({ show }: Props) {
   const [hide, setHide] = useState(false);
@@ -71,6 +72,14 @@ export function Menu({ show }: Props) {
             <FormattedMessage id="ABOUT_TITLE" />
           </h1>
           <p>
+            <FormattedMessage
+              id="ABOUT_MESSAGE_0"
+              values={{
+                version: version.version
+              }}
+            />
+          </p>
+          <p className="breaker">
             <FormattedMessage
               id="ABOUT_MESSAGE"
               values={{

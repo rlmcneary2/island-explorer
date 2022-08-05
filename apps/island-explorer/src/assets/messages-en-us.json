@@ -1,5 +1,6 @@
 {
   "ABOUT_MESSAGE": "Please send corrections or comments to {link}.",
+  "ABOUT_MESSAGE_0": "Version: {version}",
   "ABOUT_MESSAGE_2": "Home: {linkHome}",
   "ABOUT_MESSAGE_3": "Github: {linkGithub}",
   "ABOUT_TITLE": "About",
