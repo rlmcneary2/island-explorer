@@ -25,6 +25,7 @@
   "LMK_FABBRI_DESC": "Never crowded the Fabbri picnic area overlooks Otter Cover and granite beaches.",
   "LMK_HULLS_COVE_VISITOR_CENTER_DESC": "The visitor center has access to the Paradise Hill carriage road (intersection 1) and the Park Road.",
   "LMK_JORDAN_POND_DESC": "This most central location in Acadia is a hub for trails and carriage roads. The Jordan Pond House restaurant is a popular destination for afternoon tea and popovers. The lawn has sublime views of the pond with the two Bubbles in the distance. Jordan Pond is often crowded and has limited parking. Access to the Jordan Pond Path as well as trails on Penobscot and Sargent Mountains to the west and Pemetic to the east. Carriage road intersections 15 and 16 are nearby where connections can be made to the Around Mountain carriage road loop as well as Jordan Stream. Day Mountain (intersection 17) is further to the east.",
+  "LMK_JORDAN_POND_GATEHOUSE_DESC": "The carriage road between intersections 16 and 17 crosses the Loop Road here. Board or exit the bus at the Jordan Pond House which is a short distance away.",
   "LMK_LITTLE_HUNTERS_BEACH_DESC": "Steep stairs connect to a small beach of wave smoothed cobbles.",
   "LMK_MANSET_DOCK_DESC": "Southwest Harbor's town dock; ferry to Cranberry Island.",
   "LMK_NORTHEAST_HARBOR_PIER_DESC": "The ferry for Cranberry Islands and Isleford leaves from the pier.",
@@ -97,10 +98,13 @@
   "TRH_SCHOODIC_HEAD_ANVIL_TRAIL": "Hike to Schoodic Head by way of The Anvil.",
   "TRH_ST_SAUVEUR_TRAIL_DESC": "Access to St. Sauveur Mountain to the south and Acadia Mountain to the north as well as the Man o' War Brook trail. The trailhead is on the east side of Route 102.",
   "TRH_STRATHEDEN_PATH_DESC": "Access to the Stratheden Path from the Loop Road.",
+  "TRH_TRIAD_TRAIL_DESC": "Access to the Triad Trail as well as carriage road intersections 17 and 37. Day Mountain Trail starts at intersection 37.",
+  "TRL_BEACHCROFT_PATH_DESC": "Trail crosses Route 3 west to east. To the east a climb over many rocky steps to the summit of Champlain Mountain. West to intersections with Wild Gardens Path, Kane Path, and Jessup Path before becoming Kurt Diederich's Climb.",
   "TRL_GORGE_PATH_DESC": "Access to the north end of the Gorge Path, a rocky hike between the peaks of Cadillac and Dorr Mountains. Via Loop Road.",
   "TRL_JESSUP_PATH_DESC": "Access to the north end of the Jessup Path as well as the Great Meadow Loop from the Loop Road.",
   "TRL_JORDAN_BUBBLE_PONDS_TRAIL_DESC": "Access to Jordan Pond Bubble Pond Trail",
   "TRL_KEBO_MOUNTAIN_DESC": "Access to the north end of the Kebo Mountain Trail as well as the Kebo Brook Trail from the Loop Road.",
+  "TRL_OTTER_COVE_DESC": "West to the Quarry Path and Blackwoods Campground, east the trail ends at the Gorham Mountain Trailhead.",
   "UPDATE_AVAILABLE": "New version available.",
   "UPDATE_NOW": "Update"
 }

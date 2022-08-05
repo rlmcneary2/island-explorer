@@ -24,7 +24,9 @@
     {
       "description": "LMK_BAR_HARBOR_FERRY_DESC",
       "displayName": "Bar Harbor Ferry Terminal",
-      "features": ["ferry"],
+      "features": [
+        "ferry"
+      ],
       "id": 2,
       "landmarkType": "ferry-transport",
       "location": {
@@ -35,7 +37,14 @@
     },
     {
       "description": "LMK_HULLS_COVE_VISITOR_CENTER_DESC",
-      "features": ["restroom", "water", "station", "park", "walk", "bike"],
+      "features": [
+        "restroom",
+        "water",
+        "station",
+        "park",
+        "walk",
+        "bike"
+      ],
       "landmarkType": "visitor-center",
       "displayName": "Hulls Cove Visitor Center",
       "id": 3,
@@ -46,7 +55,9 @@
       "stopName": "Visitor Center"
     },
     {
-      "features": ["camp"],
+      "features": [
+        "camp"
+      ],
       "landmarkType": "campground",
       "displayName": "Bar Harbor Campground",
       "id": 4,
@@ -57,7 +68,9 @@
       "stopName": "Bar Habor Campground"
     },
     {
-      "features": ["camp"],
+      "features": [
+        "camp"
+      ],
       "landmarkType": "campground",
       "displayName": "Hadley's Point Campground",
       "id": 5,
@@ -68,7 +81,9 @@
       "stopName": "Hadly Point"
     },
     {
-      "features": ["camp"],
+      "features": [
+        "camp"
+      ],
       "landmarkType": "campground",
       "displayName": "Mount Desert Narrows Campground",
       "id": 6,
@@ -80,7 +95,9 @@
     },
     {
       "description": "LMK_OCEANARIUM_DESC",
-      "features": ["attraction"],
+      "features": [
+        "attraction"
+      ],
       "landmarkType": "attraction",
       "displayName": "Oceanarium",
       "id": 7,
@@ -92,7 +109,9 @@
     },
     {
       "description": "LMK_WOODLANDS_KOA_DESC",
-      "features": ["camp"],
+      "features": [
+        "camp"
+      ],
       "landmarkType": "campground",
       "displayName": "Woodlands KOA Campground",
       "id": 8,
@@ -103,7 +122,9 @@
       "stopName": "Woodlands KOA"
     },
     {
-      "features": ["camp"],
+      "features": [
+        "camp"
+      ],
       "landmarkType": "campground",
       "displayName": "Bar Harbor KOA Campground",
       "id": 9,
@@ -115,7 +136,9 @@
     },
     {
       "description": "LMK_BAR_HARBOR_AIRPORT_DESC",
-      "features": ["airport"],
+      "features": [
+        "airport"
+      ],
       "landmarkType": "airport",
       "displayName": "Bar Harbor Airport",
       "id": 10,
@@ -126,7 +149,9 @@
       "stopName": "Airport"
     },
     {
-      "features": ["camp"],
+      "features": [
+        "camp"
+      ],
       "landmarkType": "campground",
       "displayName": "Narrows Too Campground",
       "id": 11,
@@ -147,7 +172,9 @@
       "stopName": "College of the Atlantic"
     },
     {
-      "features": ["inn"],
+      "features": [
+        "inn"
+      ],
       "landmarkType": "lodging",
       "displayName": "Atlantic Oceanside Hotel",
       "id": 14,
@@ -159,7 +186,9 @@
     },
     {
       "description": "LMK_BAR_HARBOR_REGENCY_DESC",
-      "features": ["inn"],
+      "features": [
+        "inn"
+      ],
       "landmarkType": "lodging",
       "displayName": "Bar Harbor Regency",
       "id": 15,
@@ -170,7 +199,9 @@
       "stopName": "Regency"
     },
     {
-      "features": ["inn"],
+      "features": [
+        "inn"
+      ],
       "landmarkType": "lodging",
       "displayName": "Bar Harbor Motel",
       "id": 16,
@@ -182,7 +213,9 @@
     },
     {
       "description": "LMK_ACADIA_INN_DESC",
-      "features": ["inn"],
+      "features": [
+        "inn"
+      ],
       "landmarkType": "lodging",
       "displayName": "Acadia Inn",
       "id": 17,
@@ -194,7 +227,9 @@
     },
     {
       "displayName": "Atlantic Eyrie Lodge",
-      "features": ["inn"],
+      "features": [
+        "inn"
+      ],
       "id": 18,
       "landmarkType": "lodging",
       "location": {
@@ -204,7 +239,9 @@
       "stopName": "Eryrie Lodge"
     },
     {
-      "features": ["inn"],
+      "features": [
+        "inn"
+      ],
       "landmarkType": "lodging",
       "displayName": "Wonder View Inn",
       "id": 19,
@@ -216,7 +253,9 @@
     },
     {
       "description": "TRH_CADILLAC_NORTH_RIDGE_DESC",
-      "features": ["hike"],
+      "features": [
+        "hike"
+      ],
       "landmarkType": "trail-head",
       "displayName": "Cadillac North Ridge",
       "id": 20,
@@ -270,7 +309,13 @@
     },
     {
       "description": "LMK_THUNDER_HOLE_DESC",
-      "features": ["accessible", "restroom", "snack", "wonder", "walk"],
+      "features": [
+        "accessible",
+        "restroom",
+        "snack",
+        "wonder",
+        "walk"
+      ],
       "landmarkType": "point-of-interest",
       "displayName": "Thunder Hole",
       "id": 23,
@@ -282,7 +327,12 @@
     },
     {
       "description": "LMK_OTTER_CLIFFS_DESC",
-      "features": ["wonder", "walk", "hike", "technical"],
+      "features": [
+        "wonder",
+        "walk",
+        "hike",
+        "technical"
+      ],
       "landmarkType": "point-of-interest",
       "displayName": "Otter Cliffs",
       "id": 24,
@@ -294,7 +344,9 @@
     },
     {
       "description": "LMK_BLACKWOODS_CAMPGROUND_DESC",
-      "features": ["camp"],
+      "features": [
+        "camp"
+      ],
       "landmarkType": "campground",
       "displayName": "Blackwoods Campground",
       "id": 27,
@@ -306,7 +358,13 @@
     },
     {
       "description": "LMK_BUBBLE_POND_DESC",
-      "features": ["restroom", "walk", "hike", "climb", "bike"],
+      "features": [
+        "restroom",
+        "walk",
+        "hike",
+        "climb",
+        "bike"
+      ],
       "landmarkType": "point-of-interest",
       "displayName": "Bubble Pond",
       "id": 28,
@@ -342,7 +400,13 @@
     },
     {
       "description": "LMK_WILDWOOD_STABLES_DESC",
-      "features": ["accessible", "restroom", "walk", "hike", "bike"],
+      "features": [
+        "accessible",
+        "restroom",
+        "walk",
+        "hike",
+        "bike"
+      ],
       "landmarkType": "point-of-interest",
       "displayName": "Wildwood Stables",
       "id": 30,
@@ -354,7 +418,11 @@
     },
     {
       "description": "LMK_SEAL_HARBOR_DESC",
-      "features": ["dine", "beach", "swim"],
+      "features": [
+        "dine",
+        "beach",
+        "swim"
+      ],
       "landmarkType": "point-of-interest",
       "displayName": "Seal Harbor",
       "id": 31,
@@ -388,7 +456,9 @@
     },
     {
       "displayName": "MDI High School",
-      "features": ["park"],
+      "features": [
+        "park"
+      ],
       "id": 35,
       "landmarkType": "point-of-interest",
       "location": {
@@ -399,7 +469,9 @@
     },
     {
       "description": "LMK_NORTHEAST_HARBOR_PIER_DESC",
-      "features": ["ferry"],
+      "features": [
+        "ferry"
+      ],
       "landmarkType": "ferry-transport",
       "displayName": "Northeast Harbor Pier",
       "id": 38,
@@ -412,7 +484,11 @@
     {
       "description": "LMK_SOMESVILLE_DESC",
       "displayName": "Somesville",
-      "features": ["park", "walk", "gift"],
+      "features": [
+        "park",
+        "walk",
+        "gift"
+      ],
       "id": 39,
       "landmarkType": "point-of-interest",
       "location": {
@@ -443,7 +519,9 @@
     },
     {
       "displayName": "Smugglers' Den Campground",
-      "features": ["camp"],
+      "features": [
+        "camp"
+      ],
       "id": 41,
       "landmarkType": "campground",
       "location": {
@@ -454,7 +532,10 @@
     },
     {
       "displayName": "Clark Point",
-      "features": ["inn", "dine"],
+      "features": [
+        "inn",
+        "dine"
+      ],
       "id": 43,
       "landmarkType": "village",
       "location": {
@@ -466,7 +547,11 @@
     {
       "description": "LMK_SOUTHWEST_HARBOR_DESC",
       "displayName": "Southwest Harbor",
-      "features": ["dine", "gift", "inn"],
+      "features": [
+        "dine",
+        "gift",
+        "inn"
+      ],
       "id": 44,
       "landmarkType": "village",
       "location": {
@@ -478,7 +563,11 @@
     {
       "description": "LMK_CRANBERRY_COVE_DESC",
       "displayName": "Cranberry Cove",
-      "features": ["inn", "dine", "boat"],
+      "features": [
+        "inn",
+        "dine",
+        "boat"
+      ],
       "id": 45,
       "landmarkType": "village",
       "location": {
@@ -489,7 +578,10 @@
     },
     {
       "description": "LMK_SEAWALL_CAMPGROUND_DESC",
-      "features": ["camp", "wonder"],
+      "features": [
+        "camp",
+        "wonder"
+      ],
       "landmarkType": "campground",
       "displayName": "Seawall Campground",
       "id": 46,
@@ -500,7 +592,9 @@
       "stopName": "Seawall Campground"
     },
     {
-      "features": ["camp"],
+      "features": [
+        "camp"
+      ],
       "landmarkType": "campground",
       "displayName": "Bass Harbor Campground",
       "id": 47,
@@ -522,7 +616,9 @@
     },
     {
       "description": "LMK_BERNARD_DESC",
-      "features": ["dine"],
+      "features": [
+        "dine"
+      ],
       "landmarkType": "point-of-interest",
       "displayName": "Bernard",
       "id": 50,
@@ -554,7 +650,12 @@
     },
     {
       "description": "LMK_BROWN_MOUNTAIN_GATEHOUSE_DESC",
-      "features": ["restroom", "walk", "hike", "bike"],
+      "features": [
+        "restroom",
+        "walk",
+        "hike",
+        "bike"
+      ],
       "landmarkType": "point-of-interest",
       "displayName": "Brown Mountain Gatehouse",
       "id": 53,
@@ -566,7 +667,9 @@
     },
     {
       "description": "LMK_BASS_HARBOR_FERRY_DESC",
-      "features": ["ferry"],
+      "features": [
+        "ferry"
+      ],
       "landmarkType": "ferry-transport",
       "displayName": "Bass Harbor Ferry Terminal",
       "id": 55,
@@ -578,7 +681,9 @@
     },
     {
       "description": "LMK_WH_FERRY_TERMINAL_DESC",
-      "features": ["ferry"],
+      "features": [
+        "ferry"
+      ],
       "landmarkType": "ferry-transport",
       "displayName": "Winter Harbor Ferry Terminal",
       "id": 56,
@@ -589,7 +694,9 @@
       "stopName": "Winter Harbor Ferry"
     },
     {
-      "features": ["dine"],
+      "features": [
+        "dine"
+      ],
       "landmarkType": "point-of-interest",
       "displayName": "Winter Harbor",
       "id": 57,
@@ -601,7 +708,11 @@
     },
     {
       "description": "LMK_SCHOODIC_POINT_DESC",
-      "features": ["restroom", "wonder", "park"],
+      "features": [
+        "restroom",
+        "wonder",
+        "park"
+      ],
       "landmarkType": "point-of-interest",
       "displayName": "Schoodic Point",
       "id": 59,
@@ -612,7 +723,9 @@
       "stopName": "Schoodic Point"
     },
     {
-      "features": ["dine"],
+      "features": [
+        "dine"
+      ],
       "landmarkType": "point-of-interest",
       "displayName": "Birch Harbor",
       "id": 60,
@@ -624,7 +737,9 @@
     },
     {
       "displayName": "Prospect Harbor",
-      "features": ["inn"],
+      "features": [
+        "inn"
+      ],
       "id": 61,
       "landmarkType": "point-of-interest",
       "location": {
@@ -634,7 +749,9 @@
       "stopName": "Prospect Harbor"
     },
     {
-      "features": ["camp"],
+      "features": [
+        "camp"
+      ],
       "landmarkType": "campground",
       "displayName": "Mount Desert Campground",
       "id": 62,
@@ -646,7 +763,9 @@
     },
     {
       "description": "TRH_BLACK_WOODS_DESC",
-      "features": ["walk"],
+      "features": [
+        "walk"
+      ],
       "landmarkType": "trail-crossing",
       "displayName": "Black Woods Trail",
       "id": 65,
@@ -658,7 +777,9 @@
     },
     {
       "description": "LMK_LITTLE_HUNTERS_BEACH_DESC",
-      "features": ["wonder"],
+      "features": [
+        "wonder"
+      ],
       "id": 66,
       "landmarkType": "point-of-interest",
       "displayName": "Little Hunters Beach",
@@ -669,7 +790,9 @@
       "stopName": "Hunters Beach"
     },
     {
-      "features": ["inn"],
+      "features": [
+        "inn"
+      ],
       "landmarkType": "lodging",
       "displayName": "Edenbrook Motel",
       "id": 68,
@@ -681,7 +804,9 @@
     },
     {
       "description": "LMK_TOWN_HILL_DESC",
-      "features": ["dine"],
+      "features": [
+        "dine"
+      ],
       "landmarkType": "point-of-interest",
       "displayName": "Town Hill",
       "id": 69,
@@ -692,7 +817,9 @@
       "stopName": "Town Hill"
     },
     {
-      "features": ["inn"],
+      "features": [
+        "inn"
+      ],
       "landmarkType": "lodging",
       "displayName": "Hampton Inn Bar Harbor",
       "id": 71,
@@ -703,7 +830,9 @@
       "stopName": "Hampton Inn"
     },
     {
-      "features": ["park"],
+      "features": [
+        "park"
+      ],
       "description": "LMK_ACADIA_GATEWAY_CENTER_DESC",
       "landmarkType": "ground-transport",
       "displayName": "Acadia Gateway Center",
@@ -716,7 +845,13 @@
     },
     {
       "description": "LMK_PARKMAN_MOUNTAIN_DESC",
-      "features": ["restroom", "walk", "hike", "climb", "bike"],
+      "features": [
+        "restroom",
+        "walk",
+        "hike",
+        "climb",
+        "bike"
+      ],
       "landmarkType": "trail-head",
       "displayName": "Parkman Mountain",
       "id": 77,
@@ -727,7 +862,9 @@
       "stopName": "Parkman  Mountain"
     },
     {
-      "features": ["camp"],
+      "features": [
+        "camp"
+      ],
       "landmarkType": "campground",
       "displayName": "Schoodic Woods Campground",
       "id": 79,
@@ -756,7 +893,13 @@
     },
     {
       "description": "LMK_FABBRI_DESC",
-      "features": ["restroom", "water", "picnic", "walk", "hike"],
+      "features": [
+        "restroom",
+        "water",
+        "picnic",
+        "walk",
+        "hike"
+      ],
       "id": 87,
       "landmarkType": "point-of-interest",
       "displayName": "Fabbri",
@@ -769,7 +912,11 @@
     {
       "description": "LMK_MANSET_DOCK_DESC",
       "displayName": "Manset Dock",
-      "features": ["ferry", "fishing-pier", "boat-launch"],
+      "features": [
+        "ferry",
+        "fishing-pier",
+        "boat-launch"
+      ],
       "id": 88,
       "landmarkType": "ferry-transport",
       "location": {
@@ -779,7 +926,9 @@
       "stopName": "Manset Dock"
     },
     {
-      "features": ["park"],
+      "features": [
+        "park"
+      ],
       "description": "LMK_MCKINLEYS_STORE_DESC",
       "landmarkType": "point-of-interest",
       "displayName": "McKinley's Store",
@@ -798,7 +947,9 @@
     {
       "description": "LMK_OTTER_POINT_DESC",
       "displayName": "Otter Point",
-      "features": ["wonder"],
+      "features": [
+        "wonder"
+      ],
       "id": 92,
       "landmarkType": "point-of-interest",
       "location": {
@@ -810,7 +961,9 @@
     {
       "description": "LMK_ACADIA_MOUNTAIN_DESC",
       "displayName": "Acadia Mountain",
-      "features": ["hike"],
+      "features": [
+        "hike"
+      ],
       "id": 93,
       "landmarkType": "trail-head",
       "location": {
@@ -851,7 +1004,9 @@
     },
     {
       "id": 11000,
-      "features": ["camp"],
+      "features": [
+        "camp"
+      ],
       "landmarkType": "campground",
       "displayName": "Teramor Resort",
       "location": {
@@ -861,7 +1016,9 @@
     },
     {
       "description": "TRH_BUBBLE_ROCK_DESC",
-      "features": ["hike"],
+      "features": [
+        "hike"
+      ],
       "id": 11051,
       "landmarkType": "trail-head",
       "displayName": "Bubble Rock",
@@ -873,7 +1030,13 @@
     },
     {
       "description": "LMK_FABBRI_DESC",
-      "features": ["restroom", "water", "picnic", "walk", "hike"],
+      "features": [
+        "restroom",
+        "water",
+        "picnic",
+        "walk",
+        "hike"
+      ],
       "id": 11064,
       "landmarkType": "point-of-interest",
       "displayName": "Fabbri",
@@ -885,7 +1048,9 @@
     },
     {
       "description": "TRH_CHAMPLAIN_NORTH_RIDGE_DESC",
-      "features": ["hike"],
+      "features": [
+        "hike"
+      ],
       "id": 20000,
       "landmarkType": "trail-head",
       "displayName": "Champlain North Ridge Trailhead",
@@ -901,7 +1066,9 @@
     },
     {
       "description": "TRH_ORANGE_AND_BLACK_DESC",
-      "features": ["hike"],
+      "features": [
+        "hike"
+      ],
       "id": 21000,
       "landmarkType": "trail-head",
       "displayName": "Orange and Black Path",
@@ -912,7 +1079,11 @@
     },
     {
       "description": "TRH_PRECIPICE_DESC",
-      "features": ["walk", "hike", "climb"],
+      "features": [
+        "walk",
+        "hike",
+        "climb"
+      ],
       "id": 22000,
       "landmarkType": "trail-head",
       "displayName": "Precipice Trailhead",
@@ -924,7 +1095,10 @@
     },
     {
       "description": "TRH_BOWL_DESC",
-      "features": ["hike", "climb"],
+      "features": [
+        "hike",
+        "climb"
+      ],
       "id": 23000,
       "landmarkType": "trail-head",
       "displayName": "Bowl Trailhead",
@@ -935,7 +1109,9 @@
     },
     {
       "description": "TRH_GORHAM_DESC",
-      "features": ["hike"],
+      "features": [
+        "hike"
+      ],
       "id": 24000,
       "landmarkType": "trail-head",
       "displayName": "Gorham Mountain Trailhead",
@@ -945,8 +1121,23 @@
       }
     },
     {
+      "description": "TRL_OTTER_COVE_DESC",
+      "features": [
+        "hike"
+      ],
+      "id": 25000,
+      "landmarkType": "trail-crossing",
+      "displayName": "Otter Cove Trail",
+      "location": {
+        "latitude": 44.31733275927135,
+        "longitude": -68.1962493345326
+      }
+    },
+    {
       "description": "TRH_CANON_BROOK_DESC",
-      "features": ["hike"],
+      "features": [
+        "hike"
+      ],
       "id": 26000,
       "landmarkType": "trail-head",
       "displayName": "Cañon Brook Trailhead",
@@ -957,7 +1148,10 @@
     },
     {
       "description": "TRH_LADDER_TRAIL_DESC",
-      "features": ["hike", "climb"],
+      "features": [
+        "hike",
+        "climb"
+      ],
       "id": 27000,
       "landmarkType": "trail-head",
       "displayName": "Ladder Trail Trailhead",
@@ -967,8 +1161,24 @@
       }
     },
     {
+      "description": "TRL_BEACHCROFT_PATH_DESC",
+      "features": [
+        "hike",
+        "climb"
+      ],
+      "id": 27500,
+      "landmarkType": "trail-crossing",
+      "displayName": "Beachcroft Path",
+      "location": {
+        "latitude": 44.35841380191816,
+        "longitude": -68.20541024561048
+      }
+    },
+    {
       "description": "TRL_GORGE_PATH_DESC",
-      "features": ["hike"],
+      "features": [
+        "hike"
+      ],
       "id": 28000,
       "landmarkType": "trail-crossing",
       "displayName": "Gorge Path",
@@ -979,7 +1189,9 @@
     },
     {
       "description": "TRL_KEBO_MOUNTAIN_DESC",
-      "features": ["hike"],
+      "features": [
+        "hike"
+      ],
       "id": 29000,
       "landmarkType": "trail-crossing",
       "displayName": "Kebo Mountain Trail",
@@ -990,7 +1202,9 @@
     },
     {
       "description": "TRH_STRATHEDEN_PATH_DESC",
-      "features": ["hike"],
+      "features": [
+        "hike"
+      ],
       "id": 30000,
       "landmarkType": "trail-head",
       "displayName": "Stratheden Path Trailhead",
@@ -1011,7 +1225,9 @@
     },
     {
       "description": "TRL_JESSUP_PATH_DESC",
-      "features": ["walk"],
+      "features": [
+        "walk"
+      ],
       "id": 31000,
       "landmarkType": "trail-crossing",
       "displayName": "Jessup Path",
@@ -1022,7 +1238,9 @@
     },
     {
       "description": "LMK_BEAVER_DAM_POND_DESC",
-      "features": ["wonder"],
+      "features": [
+        "wonder"
+      ],
       "id": 32000,
       "landmarkType": "point-of-interest",
       "displayName": "Beaver Dam Pond",
@@ -1033,7 +1251,9 @@
     },
     {
       "description": "TRH_HUNTERS_BROOK_TRAIL_DESC",
-      "features": ["hike"],
+      "features": [
+        "hike"
+      ],
       "id": 34000,
       "landmarkType": "trail-head",
       "displayName": "Hunters Brook Trail",
@@ -1043,8 +1263,36 @@
       }
     },
     {
+      "description": "TRH_TRIAD_TRAIL_DESC",
+      "features": [
+        "hike"
+      ],
+      "id": 34300,
+      "landmarkType": "trail-head",
+      "displayName": "Triad Trail",
+      "location": {
+        "latitude": 44.31595017090449,
+        "longitude": -68.23409670111407
+      }
+    },
+    {
+      "description": "LMK_JORDAN_POND_GATEHOUSE_DESC",
+      "features": [
+        "bike", "walk"
+      ],
+      "id": 34600,
+      "landmarkType": "point-of-interest",
+      "displayName": "Jordan Pond Gatehouse",
+      "location": {
+        "latitude": 44.31915676131903,
+        "longitude": -68.25240951525198
+      }
+    },
+    {
       "description": "TRL_JORDAN_BUBBLE_PONDS_TRAIL_DESC",
-      "features": ["hike"],
+      "features": [
+        "hike"
+      ],
       "id": 35000,
       "landmarkType": "trail-crossing",
       "displayName": "Jordan Pond-Bubble Pond Trail",
@@ -1055,7 +1303,9 @@
     },
     {
       "description": "TRH_JORDAN_POND_CARRY_ACCESS_TRAIL_DESC",
-      "features": ["hike"],
+      "features": [
+        "hike"
+      ],
       "id": 36000,
       "landmarkType": "trail-crossing",
       "displayName": "Jordan Pond North",
@@ -1066,7 +1316,9 @@
     },
     {
       "description": "TRH_BUBBLES_TRAIL_DESC",
-      "features": ["hike"],
+      "features": [
+        "hike"
+      ],
       "id": 37000,
       "landmarkType": "trail-head",
       "displayName": "Bubbles Trail",
@@ -1077,7 +1329,9 @@
     },
     {
       "description": "TRH_GIANT_SLIDE_DESC",
-      "features": ["hike"],
+      "features": [
+        "hike"
+      ],
       "id": 38000,
       "landmarkType": "trail-head",
       "displayName": "Giant Slide Trail",
@@ -1088,7 +1342,10 @@
     },
     {
       "description": "LMK_ASTICOU_AZALEA_GARDEN_DESC",
-      "features": ["accessible", "walk"],
+      "features": [
+        "accessible",
+        "walk"
+      ],
       "id": 39000,
       "landmarkType": "point-of-interest",
       "displayName": "Asticou Azalea Garden",
@@ -1099,7 +1356,9 @@
     },
     {
       "description": "TRH_ASTICOU_TERRACES_PATH_DESC",
-      "features": ["hike"],
+      "features": [
+        "hike"
+      ],
       "id": 39500,
       "landmarkType": "trail-head",
       "displayName": "Asticou Terraces",
@@ -1110,7 +1369,10 @@
     },
     {
       "description": "LMK_SEAWALL_DESC",
-      "features": ["accessible", "wonder"],
+      "features": [
+        "accessible",
+        "wonder"
+      ],
       "id": 40000,
       "landmarkType": "point-of-interest",
       "displayName": "Seawall",
@@ -1121,7 +1383,9 @@
     },
     {
       "description": "TRH_ST_SAUVEUR_TRAIL_DESC",
-      "features": ["hike"],
+      "features": [
+        "hike"
+      ],
       "id": 41000,
       "landmarkType": "trail-head",
       "displayName": "St. Sauveur Mountain Trail",
@@ -1131,7 +1395,10 @@
       }
     },
     {
-      "features": ["picnic", "restroom"],
+      "features": [
+        "picnic",
+        "restroom"
+      ],
       "id": 42000,
       "landmarkType": "point-of-interest",
       "displayName": "Frazer Point",
@@ -1142,7 +1409,9 @@
     },
     {
       "description": "TRH_SCHOODIC_HEAD_ANVIL_TRAIL",
-      "features": ["hike"],
+      "features": [
+        "hike"
+      ],
       "id": 43000,
       "landmarkType": "trail-head",
       "displayName": "Anvil Trail",
@@ -1153,7 +1422,9 @@
     },
     {
       "description": "TRH_SCHOODIC_HEAD_EAST_TRAIL",
-      "features": ["hike"],
+      "features": [
+        "hike"
+      ],
       "id": 44000,
       "landmarkType": "trail-head",
       "displayName": "East Trail",
