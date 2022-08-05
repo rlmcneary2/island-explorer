@@ -110,9 +110,13 @@ wgs.addEventListener("fetch", async event => {
             err
           );
 
+          // Some browsers (mobile PWA running in Chrome) will interpret an
+          // error response in such a way that the app is broken. Because of
+          // that this special header was created to return error information in
+          // a 200 response (gross).
           return new Response(null, {
-            status: err instanceof TypeError ? 404 : 418,
-            statusText: err instanceof TypeError ? "CORS" : err.message
+            headers: { "X-SW-Error": "CORS_OR_NETWORK_ERROR" },
+            status: 204
           });
         }
 

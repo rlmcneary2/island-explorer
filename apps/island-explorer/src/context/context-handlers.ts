@@ -155,6 +155,14 @@ export function create(): ActionHandler<ContextState>[] {
     )
       .then(async response => {
         if (response.ok) {
+          // Some browsers (mobile PWA running in Chrome) will interpret an
+          // error response in such a way that the app is broken. Because of
+          // that this special header was created to return error information in
+          // a 200 response (gross).
+          if (response.headers.has("X-SW-Error")) {
+            return { error: response.headers.get("X-SW-Error") };
+          }
+
           return { body: await response.json() };
         }
 
