@@ -1,7 +1,7 @@
 import * as version from "./version.json";
 import * as pathData from "./paths.json";
 
-const CACHE_VERSION = "Island-Explorer-2022q";
+const CACHE_VERSION = "Island-Explorer-2022r";
 
 const wgs = self as unknown as ServiceWorkerGlobalScope;
 
@@ -109,6 +109,11 @@ wgs.addEventListener("fetch", async event => {
             `service-worker: fetch error;\nurl='${event.request.url}'\nerr=`,
             err
           );
+
+          return new Response(null, {
+            status: err instanceof TypeError ? 401 : 418,
+            statusText: err instanceof TypeError ? "CORS" : err.message
+          });
         }
 
         // Cache google fonts that vary by browser, etc.
