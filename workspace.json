@@ -21,6 +21,7 @@
             "assets": [
               "apps/island-explorer/src/app.webmanifest",
               "apps/island-explorer/src/favicon.ico",
+              "apps/island-explorer/src/robots.txt",
               "apps/island-explorer/src/sitemap.txt",
               "apps/island-explorer/src/assets",
               {
