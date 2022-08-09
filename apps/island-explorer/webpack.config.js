@@ -1,3 +1,4 @@
+const path = require("path");
 const { merge } = require("webpack-merge");
 
 module.exports = (config, context) => {
@@ -14,6 +15,12 @@ module.exports = (config, context) => {
           use: ["@svgr/webpack"]
         }
       ]
+    },
+    resolve: {
+      alias: {
+        react: path.resolve("node_modules/react"),
+        "react-dom": path.resolve("node_modules/react-dom")
+      }
     }
   });
 };
