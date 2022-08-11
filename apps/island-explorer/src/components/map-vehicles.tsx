@@ -1,10 +1,8 @@
-import React, { useMemo } from "react";
-import { Marker } from "remapgl";
+import { useMemo } from "react";
 import { ContextData } from "../context/types";
 import useContextState from "../context/use-context-state";
-import { VehiclePopup } from "./vehicle/vehicle-popup";
+import { VehicleMarker } from "./vehicle/vehicle-marker";
 import { getRouteOrderLandmarks } from "../util/landmark";
-import Icon from "../assets/icon-bus.svg";
 
 export default function MapVehicles() {
   const { landmarks, routeId, routes, vehicleHeadings, vehicles } =
@@ -31,42 +29,16 @@ export default function MapVehicles() {
 
   return (
     <>
-      {vehicles.map(vehicle => {
-        const directionClassName = vehicle.Speed ? "" : " no-direction";
-        return (
-          <Marker
-            key={vehicle.VehicleId}
-            lnglat={[vehicle.Longitude, vehicle.Latitude]}
-            popup={obj => (
-              <VehiclePopup
-                onClick={() => obj.remove()}
-                routeStops={routeLandmarks}
-                vehicle={vehicle}
-              />
-            )}
-            popupOptions={{ closeButton: false, offset: 15 }}
-          >
-            <div
-              className={`map-vehicle${directionClassName}`}
-              style={
-                {
-                  "--vehicle-rotation": `rotate(${headingToRotateAngle(
-                    vehicleHeadings[vehicle.VehicleId].currentHeading
-                  )}deg)`
-                } as React.CSSProperties
-              }
-            >
-              <div
-                className={`map-vehicle-image${
-                  vehicle.OpStatus.toLowerCase() === "late" ? " late" : ""
-                }`}
-              >
-                <Icon />
-              </div>
-            </div>
-          </Marker>
-        );
-      })}
+      {vehicles.map(vehicle => (
+        <VehicleMarker
+          headingAngle={headingToRotateAngle(
+            vehicleHeadings[vehicle.VehicleId].currentHeading
+          )}
+          key={vehicle.VehicleId}
+          routeLandmarks={routeLandmarks}
+          vehicle={vehicle}
+        />
+      ))}
     </>
   );
 }

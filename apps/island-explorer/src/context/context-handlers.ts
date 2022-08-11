@@ -1,3 +1,4 @@
+import { isEqual as _isEqual } from "lodash";
 import { ActionHandler } from "reshape-state";
 import { environment as env } from "../environments/environment";
 import { Landmark, RoutesAssetItem } from "../types/types";
@@ -153,7 +154,7 @@ export function create(): ActionHandler<ContextState>[] {
     fetch(
       `${env.apiLeft}/InfoPoint/rest/Vehicles/GetAllVehiclesForRoutes?routeIDs=${nextRouteId}`
     )
-      .then(async response => {
+      .then<{ error: string } | { body: Vehicle[] }>(async response => {
         if (response.ok) {
           // Some browsers (mobile PWA running in Chrome) will interpret an
           // error response in such a way that the app is broken. Because of
@@ -163,7 +164,7 @@ export function create(): ActionHandler<ContextState>[] {
             return { error: response.headers.get("X-SW-Error") };
           }
 
-          return { body: await response.json() };
+          return { body: (await response.json()) as Vehicle[] };
         }
 
         let body: string;
@@ -183,33 +184,65 @@ export function create(): ActionHandler<ContextState>[] {
           }`
         );
       })
-      .catch(error => {
+      .catch((error: Error) => {
         console.log("fetchRouteVehicles: catch; error=", error);
-        return { body: null, error };
+        return { error };
       })
       .then(data => {
         const { interval, lastDispatchTime } = getVehicleUpdateInterval(
           action.payload
         );
 
-        dispatch(inlineState => [
-          {
-            ...inlineState,
-            nextVehicleUpdate: Date.now() + interval,
-            routeVehicles:
-              "error" in data
-                ? {
-                    error: data.error,
-                    status: "idle"
-                  }
-                : {
-                    data: data.body,
-                    status: "idle"
-                  },
-            routeVehicleHeadings: updateVehicleHeadings(inlineState, data.body)
-          },
-          true
-        ]);
+        dispatch(inlineState => {
+          let changed = false;
+          const currentRouteVehicles = [...(state.routeVehicles?.data ?? [])];
+          const nextRouteVehicles: Vehicle[] = [];
+
+          "body" in data &&
+            data.body.forEach(nextVehicle => {
+              const index = currentRouteVehicles.findIndex(
+                rVehicle => rVehicle.VehicleId === nextVehicle.VehicleId
+              );
+
+              if (-1 < index) {
+                changed = changed
+                  ? changed
+                  : !_isEqual(nextVehicle, currentRouteVehicles[index]);
+                nextRouteVehicles.push(
+                  currentRouteVehicles.splice(index, 1)[0]
+                );
+              } else {
+                changed = true;
+                nextRouteVehicles.push(nextVehicle);
+              }
+            });
+
+          changed = changed ? changed : 0 < currentRouteVehicles.length;
+
+          return [
+            {
+              ...inlineState,
+              nextVehicleUpdate: Date.now() + interval,
+              routeVehicles:
+                "error" in data
+                  ? {
+                      error: data.error,
+                      status: "idle"
+                    }
+                  : {
+                      data: changed
+                        ? nextRouteVehicles
+                        : state.routeVehicles?.data,
+                      status: "idle"
+                    },
+              routeVehicleHeadings:
+                "error" in data
+                  ? null
+                  : updateVehicleHeadings(inlineState, data.body)
+            },
+            true
+          ];
+        });
 
         setTimeout(() => {
           if (nextRouteId !== fetchRouteVehiclesRouteId) {
@@ -228,13 +261,10 @@ export function create(): ActionHandler<ContextState>[] {
         }, interval);
       });
 
-    return [
-      {
-        ...state,
-        routeVehicles: { ...state.routeVehicles, status: "active" }
-      },
-      true
-    ];
+    state.routeVehicles = state.routeVehicles ?? { status: "active" };
+    state.routeVehicles.status = "active";
+
+    return [state, true];
   };
 
   const getOptions: ActionHandler<ContextState> = (state, action) => {

@@ -1,4 +1,5 @@
-import { useContext, useMemo } from "react";
+import { isEqual as _isEqual } from "lodash";
+import { useContext, useEffect, useState } from "react";
 import { ContextData } from "./types";
 import { Context } from "./context";
 
@@ -6,7 +7,14 @@ export default function useContextState<Slice>(
   selector: (ctx: ContextData) => Slice
 ) {
   const ctx = useContext(Context);
-  const memoSelector = useMemo(() => selector, [selector]);
+  const [selected, setSelected] = useState(selector(ctx));
 
-  return useMemo(() => memoSelector(ctx), [ctx, memoSelector]);
+  useEffect(() => {
+    setSelected(current => {
+      const next = selector(ctx);
+      return _isEqual(current, next) ? current : next;
+    });
+  }, [ctx, selector]);
+
+  return selected;
 }
