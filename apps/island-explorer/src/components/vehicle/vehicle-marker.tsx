@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { LngLatLike } from "mapbox-gl";
 import { Marker } from "remapgl";
 import { Landmark } from "../../types/types";
 import { Vehicle } from "../../context/types";
@@ -27,10 +28,18 @@ export function VehicleMarker({
 
   const popupOptions = useMemo(() => ({ closeButton: false, offset: 15 }), []);
 
+  const vehicleLng = vehicle.Longitude;
+  const vehicleLat = vehicle.Latitude;
+  const vehicleName = vehicle.Name;
+  const lnglat = useMemo<LngLatLike>(() => {
+    console.log(`VehicleMarker[${vehicleName}] location changed.`);
+    return [vehicleLng, vehicleLat];
+  }, [vehicleLat, vehicleLng, vehicleName]);
+
   return (
     <Marker
       key={vehicle.VehicleId}
-      lnglat={[vehicle.Longitude, vehicle.Latitude]}
+      lnglat={lnglat}
       popup={renderPopup}
       popupOptions={popupOptions}
     >

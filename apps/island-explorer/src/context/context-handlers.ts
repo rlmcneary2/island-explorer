@@ -194,7 +194,7 @@ export function create(): ActionHandler<ContextState>[] {
         );
 
         dispatch(inlineState => {
-          let changed = false;
+          let anyChanged = false;
           const currentRouteVehicles = [...(state.routeVehicles?.data ?? [])];
           const nextRouteVehicles: Vehicle[] = [];
 
@@ -205,19 +205,30 @@ export function create(): ActionHandler<ContextState>[] {
               );
 
               if (-1 < index) {
-                changed = changed
-                  ? changed
-                  : !_isEqual(nextVehicle, currentRouteVehicles[index]);
+                const vehicleSame = _isEqual(
+                  nextVehicle,
+                  currentRouteVehicles[index]
+                );
+
+                anyChanged = anyChanged
+                  ? anyChanged
+                  : vehicleSame === true
+                  ? false
+                  : true;
+
+                const [currentVehicle] = currentRouteVehicles.splice(index, 1);
                 nextRouteVehicles.push(
-                  currentRouteVehicles.splice(index, 1)[0]
+                  vehicleSame ? currentVehicle : nextVehicle
                 );
               } else {
-                changed = true;
+                anyChanged = true;
                 nextRouteVehicles.push(nextVehicle);
               }
             });
 
-          changed = changed ? changed : 0 < currentRouteVehicles.length;
+          anyChanged = anyChanged
+            ? anyChanged
+            : 0 < currentRouteVehicles.length;
 
           return [
             {
@@ -230,7 +241,7 @@ export function create(): ActionHandler<ContextState>[] {
                       status: "idle"
                     }
                   : {
-                      data: changed
+                      data: anyChanged
                         ? nextRouteVehicles
                         : state.routeVehicles?.data,
                       status: "idle"
