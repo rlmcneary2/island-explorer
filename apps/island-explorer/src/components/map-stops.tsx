@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Anchor, LngLatLike, Point } from "mapbox-gl";
 import { MapPopup, useMapGL } from "remapgl";
 import { ContextData } from "../context/types";
@@ -11,46 +12,61 @@ export function MapStops() {
   const { landmarks, selectedLandmarks } = useContextState(selector);
   const { mapGL } = useMapGL();
 
-  if (
-    !selectedLandmarks ||
-    !selectedLandmarks.length ||
-    landmarks?.status !== "idle" ||
-    landmarks?.error
-  ) {
-    return null;
-  }
+  const landmarksData = landmarks.data;
+  const landmarksStatus = landmarks?.status;
+  const landmarksError = !!landmarks?.error;
 
-  const container = mapGL.getContainer();
+  const popups = useMemo(() => {
+    if (
+      !selectedLandmarks ||
+      !selectedLandmarks.length ||
+      landmarksStatus !== "idle" ||
+      landmarksError
+    ) {
+      return null;
+    }
 
-  return (
-    <>
-      {selectedLandmarks.map(({ landmarkId }) => {
-        const landmark = getLandmark(landmarkId, landmarks.data);
-        const lngLat: LngLatLike = [
-          landmark.location.longitude,
-          landmark.location.latitude
-        ];
-        const landmarkPoint = mapGL.project(lngLat);
+    const container = mapGL.getContainer();
 
-        return (
-          <MapPopup
-            key={landmarkId}
-            onClose={() => deselectLandmark(landmarkId)}
-            options={{
-              anchor: getAnchor(landmarkPoint, container),
-              closeButton: false,
-              maxWidth: "none"
-            }}
-            lngLat={lngLat}
-          >
-            <div className="popup">
-              <LandmarkDetails {...landmark} />
-            </div>
-          </MapPopup>
-        );
-      })}
-    </>
-  );
+    return (
+      <>
+        {selectedLandmarks.map(({ landmarkId }) => {
+          const landmark = getLandmark(landmarkId, landmarksData);
+          const lngLat: LngLatLike = [
+            landmark.location.longitude,
+            landmark.location.latitude
+          ];
+          const landmarkPoint = mapGL.project(lngLat);
+
+          return (
+            <MapPopup
+              key={landmarkId}
+              onClose={() => deselectLandmark(landmarkId)}
+              options={{
+                anchor: getAnchor(landmarkPoint, container),
+                closeButton: false,
+                maxWidth: "none"
+              }}
+              lngLat={lngLat}
+            >
+              <div className="popup">
+                <LandmarkDetails {...landmark} />
+              </div>
+            </MapPopup>
+          );
+        })}
+      </>
+    );
+  }, [
+    deselectLandmark,
+    landmarksData,
+    landmarksError,
+    landmarksStatus,
+    mapGL,
+    selectedLandmarks
+  ]);
+
+  return popups;
 }
 
 function selector(state: ContextData) {

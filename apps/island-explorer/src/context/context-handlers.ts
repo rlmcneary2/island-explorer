@@ -297,9 +297,9 @@ export function create(): ActionHandler<ContextState>[] {
     let nextState: Partial<ContextState>;
 
     // If the routeId has changed reset state to the point where it has no
-    // routeTrace or routeStops.
+    // routeTrace, routeStops, or selected landmarks.
     if (state?.routeId !== action.payload) {
-      const { routeTrace, ...remainingState } = state ?? {};
+      const { routeTrace, selectedLandmarks, ...remainingState } = state ?? {};
 
       nextState = {
         ...remainingState,
@@ -399,7 +399,7 @@ export function create(): ActionHandler<ContextState>[] {
       return [state];
     }
 
-    if (state.selectedLandmarks.some(x => x.landmarkId === action.payload)) {
+    if (state.selectedLandmarks?.some(x => x.landmarkId === action.payload)) {
       state.selectedLandmarks = [];
       return [state, true];
     }
