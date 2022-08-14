@@ -1,4 +1,6 @@
 @use "reset";
+@use "dimension";
+@use "font";
 @use "tags";
 @use "symbol";
 @use "icon";
@@ -25,4 +27,11 @@
 
 .mapboxgl-popup-content {
   padding: 0 !important;
+}
+
+.mapboxgl-popup-close-button {
+  font-family: sans-serif;
+  font-size: font.$text-control;
+  height: dimension.$control-height;
+  width: dimension.$control-height;
 }

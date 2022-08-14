@@ -44,7 +44,6 @@ export function MapStops() {
               onClose={() => deselectLandmark(landmarkId)}
               options={{
                 anchor: getAnchor(landmarkPoint, container),
-                closeButton: false,
                 maxWidth: "none"
               }}
               lngLat={lngLat}
