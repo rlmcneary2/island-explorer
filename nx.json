@@ -9,7 +9,9 @@
     "nx.json": "*",
     "tsconfig.base.json": "*",
     ".eslintrc.json": "*",
-    "dist/libs/service-worker/src/service-worker.js": ["island-explorer"]
+    "dist/libs/service-worker/src/service-worker.js": [
+      "island-explorer"
+    ]
   },
   "affected": {
     "defaultBase": "master"
@@ -17,7 +19,7 @@
   "npmScope": "island-explorer",
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
+      "runner": "nx/tasks-runners/default",
       "options": {
         "cacheableOperations": [
           "build",
