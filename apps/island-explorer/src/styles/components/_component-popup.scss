@@ -20,6 +20,7 @@
 
   .header {
     @extend %headline-2;
+    margin-right: dimension.$control-height - dimension.$popup-padding;
   }
 }
 
