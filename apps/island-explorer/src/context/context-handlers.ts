@@ -7,11 +7,11 @@ import { ContextData, ContextState, SelectedLandmark, Vehicle } from "./types";
 const ACTION_FETCH_ROUTES_FINISHED = "fetch-routes-finished";
 const INTERVAL_SECONDS = 15;
 
-export function create(): ActionHandler<ContextState>[] {
+export function create(): ActionHandler<ContextData>[] {
   let fetchRouteVehiclesRouteId: number = null;
   let fetchVehiclesActive = false;
 
-  const fetchLandmarks: ActionHandler<ContextState, null> = (
+  const fetchLandmarks: ActionHandler<ContextData, null> = (
     state,
     _,
     dispatch
@@ -47,7 +47,7 @@ export function create(): ActionHandler<ContextState>[] {
     return [{ ...state, landmarks: { status: "active" } }, true];
   };
 
-  const fetchRoutes: ActionHandler<ContextState, null> = (
+  const fetchRoutes: ActionHandler<ContextData, null> = (
     state,
     action,
     dispatch
@@ -107,7 +107,7 @@ export function create(): ActionHandler<ContextState>[] {
     return [nextState as ContextState, true];
   };
 
-  const fetchRoutesFinished: ActionHandler<ContextState, RoutesAssetItem[]> = (
+  const fetchRoutesFinished: ActionHandler<ContextData, RoutesAssetItem[]> = (
     state,
     action,
     dispatch
@@ -129,7 +129,7 @@ export function create(): ActionHandler<ContextState>[] {
   };
 
   const fetchRouteVehicles: ActionHandler<
-    ContextState,
+    ContextData,
     { routeId: number; dispatchTime?: number }
   > = (state, action, dispatch) => {
     if (action.id !== actionIds.ACTION_FETCH_ROUTE_VEHICLES) {
@@ -278,7 +278,7 @@ export function create(): ActionHandler<ContextState>[] {
     return [state, true];
   };
 
-  const getOptions: ActionHandler<ContextState> = (state, action) => {
+  const getOptions: ActionHandler<ContextData> = (state, action) => {
     if (action.id !== null || state.options) {
       return [state];
     }
@@ -296,7 +296,7 @@ export function create(): ActionHandler<ContextState>[] {
     return [{ ...state, options }, true];
   };
 
-  const handleRouteChanged: ActionHandler<ContextState, number> = (
+  const handleRouteChanged: ActionHandler<ContextData, number> = (
     state,
     action,
     dispatch
@@ -305,7 +305,7 @@ export function create(): ActionHandler<ContextState>[] {
       return [state];
     }
 
-    let nextState: Partial<ContextState>;
+    let nextState: Partial<ContextData>;
 
     // If the routeId has changed reset state to the point where it has no
     // routeTrace, routeStops, or selected landmarks.
@@ -344,7 +344,7 @@ export function create(): ActionHandler<ContextState>[] {
         })
         .then(data => {
           dispatch(inlineState => {
-            const nextState: ContextState = {
+            const nextState: ContextData = {
               ...inlineState,
               routeTrace: { data, status: "idle" }
             };
@@ -373,10 +373,10 @@ export function create(): ActionHandler<ContextState>[] {
       payload: { routeId: action.payload }
     });
 
-    return [(nextState as ContextState) ?? state, !!nextState];
+    return [(nextState as ContextData) ?? state, !!nextState];
   };
 
-  const selectLandmark: ActionHandler<ContextState, SelectedLandmark> = (
+  const selectLandmark: ActionHandler<ContextData, SelectedLandmark> = (
     state,
     action
   ) => {
@@ -388,21 +388,19 @@ export function create(): ActionHandler<ContextState>[] {
     return [state, true];
   };
 
-  const setOption: ActionHandler<
-    ContextState,
-    { name: string; value: string }
-  > = (state, { id, payload }) => {
-    if (id !== actionIds.ACTION_SET_OPTION) {
-      return [state];
-    }
+  const setOption: ActionHandler<ContextData, { name: string; value: string }> =
+    (state, { id, payload }) => {
+      if (id !== actionIds.ACTION_SET_OPTION) {
+        return [state];
+      }
 
-    localStorage.setItem(`OPTION_${payload.name}`, `${payload.value}`);
+      localStorage.setItem(`OPTION_${payload.name}`, `${payload.value}`);
 
-    const { options, ...nextState } = state;
-    return [nextState, true];
-  };
+      const { options, ...nextState } = state;
+      return [nextState, true];
+    };
 
-  const deselectLandmark: ActionHandler<ContextState, number> = (
+  const deselectLandmark: ActionHandler<ContextData, number> = (
     state,
     action
   ) => {
