@@ -185,7 +185,6 @@
       "stopName": "Atlantic Oceanside"
     },
     {
-      "description": "LMK_BAR_HARBOR_REGENCY_DESC",
       "features": [
         "inn"
       ],
@@ -212,7 +211,6 @@
       "stopName": "Bar Habor Motel"
     },
     {
-      "description": "LMK_ACADIA_INN_DESC",
       "features": [
         "inn"
       ],
@@ -1278,7 +1276,8 @@
     {
       "description": "LMK_JORDAN_POND_GATEHOUSE_DESC",
       "features": [
-        "bike", "walk"
+        "bike",
+        "walk"
       ],
       "id": 34600,
       "landmarkType": "point-of-interest",
