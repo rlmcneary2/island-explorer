@@ -2,15 +2,12 @@ import { isEqual as _isEqual } from "lodash";
 import { ActionHandler } from "reshape-state";
 import { environment as env } from "../environments/environment";
 import { Landmark, RoutesAssetItem } from "../types/types";
-import { ContextData, ContextState, SelectedLandmark, Vehicle } from "./types";
+import { ContextData, SelectedLandmark, Vehicle } from "./types";
 
 const ACTION_FETCH_ROUTES_FINISHED = "fetch-routes-finished";
 const INTERVAL_SECONDS = 15;
 
 export function create(): ActionHandler<ContextData>[] {
-  let fetchRouteVehiclesRouteId: number = null;
-  let fetchVehiclesActive = false;
-
   const fetchLandmarks: ActionHandler<ContextData, null> = (
     state,
     _,
@@ -44,7 +41,8 @@ export function create(): ActionHandler<ContextData>[] {
         ]);
       });
 
-    return [{ ...state, landmarks: { status: "active" } }, true];
+    const result: ContextData = { ...state, landmarks: { status: "active" } };
+    return [result, true];
   };
 
   const fetchRoutes: ActionHandler<ContextData, null> = (
@@ -104,7 +102,7 @@ export function create(): ActionHandler<ContextData>[] {
 
     const nextState: ContextData = state ?? {};
     nextState.routes = { status: "active" };
-    return [nextState as ContextState, true];
+    return [nextState, true];
   };
 
   const fetchRoutesFinished: ActionHandler<ContextData, RoutesAssetItem[]> = (
@@ -117,42 +115,85 @@ export function create(): ActionHandler<ContextData>[] {
     }
 
     state.routes = { data: action.payload, status: "idle" };
+    return [state, true];
+  };
 
-    if (state.routeId) {
-      console.log(
-        `fetchRoutesFinished: routeId '${state.routeId}' exists in state; dispatching route changed request.`
-      );
-      dispatch({ id: actionIds.ACTION_ROUTE_CHANGED, payload: state.routeId });
+  const fetchRouteTrace: ActionHandler<ContextData, null> = (
+    state,
+    _,
+    dispatch
+  ) => {
+    if (state?.routeTrace || !state?.routeId) {
+      return [state];
     }
 
-    return [state, true];
+    fetch(`../assets/trace-${state.routeId}.json`)
+      .then(async response => {
+        if (response.ok) {
+          return response.json();
+        }
+
+        let body: string;
+        try {
+          body = await response.text();
+        } catch (err) {
+          // Nothing to do here.
+        }
+
+        throw Error(`${response.status}${body ? `\nbody='${body}'` : ""}`);
+      })
+      .then(data => {
+        dispatch(inlineState => {
+          const nextState: ContextData = {
+            ...inlineState,
+            routeTrace: { data, status: "idle" }
+          };
+
+          return [nextState, true];
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        dispatch(s => {
+          s.routes = { error: err, status: "idle" };
+          return [s, true];
+        });
+      });
+
+    return [
+      {
+        ...state,
+        routeTrace: { status: "active" }
+      }
+    ];
   };
 
   const fetchRouteVehicles: ActionHandler<
     ContextData,
-    { routeId: number; dispatchTime?: number }
+    { dispatchTime?: number; routeId?: number }
   > = (state, action, dispatch) => {
-    if (action.id !== actionIds.ACTION_FETCH_ROUTE_VEHICLES) {
+    if (!state.routeId) {
       return [state];
     }
 
-    const isRouteChanged = fetchRouteVehiclesRouteId !== action.payload.routeId;
-
-    if (fetchVehiclesActive && !isRouteChanged) {
+    if (action.payload?.routeId && action.payload?.routeId !== state.routeId) {
       return [state];
     }
 
-    const nextRouteId = action?.payload?.routeId || state?.routeId;
+    if (state.routeVehicles) {
+      if (action.id !== actionIds.ACTION_FETCH_ROUTE_VEHICLES) {
+        return [state];
+      }
 
-    if (fetchVehiclesActive && fetchRouteVehiclesRouteId === nextRouteId) {
-      return [state];
+      if (state.routeVehicles.status !== "idle") {
+        return [state];
+      }
     }
 
-    fetchRouteVehiclesRouteId = nextRouteId;
-    fetchVehiclesActive = true;
+    const requestedRouteId = state.routeId;
 
     fetch(
-      `${env.apiLeft}/InfoPoint/rest/Vehicles/GetAllVehiclesForRoutes?routeIDs=${nextRouteId}`
+      `${env.apiLeft}/InfoPoint/rest/Vehicles/GetAllVehiclesForRoutes?routeIDs=${requestedRouteId}`
     )
       .then<{ error: string } | { body: Vehicle[] }>(async response => {
         if (response.ok) {
@@ -189,93 +230,44 @@ export function create(): ActionHandler<ContextData>[] {
         return { error };
       })
       .then(data => {
-        const { interval, lastDispatchTime } = getVehicleUpdateInterval(
-          action.payload
-        );
-
         dispatch(inlineState => {
-          let anyChanged = false;
-          const currentRouteVehicles = [...(state.routeVehicles?.data ?? [])];
-          const nextRouteVehicles: Vehicle[] = [];
-
-          "body" in data &&
-            data.body.forEach(nextVehicle => {
-              const index = currentRouteVehicles.findIndex(
-                rVehicle => rVehicle.VehicleId === nextVehicle.VehicleId
-              );
-
-              if (-1 < index) {
-                const vehicleSame = _isEqual(
-                  nextVehicle,
-                  currentRouteVehicles[index]
-                );
-
-                anyChanged = anyChanged
-                  ? anyChanged
-                  : vehicleSame === true
-                  ? false
-                  : true;
-
-                const [currentVehicle] = currentRouteVehicles.splice(index, 1);
-                nextRouteVehicles.push(
-                  vehicleSame ? currentVehicle : nextVehicle
-                );
-              } else {
-                anyChanged = true;
-                nextRouteVehicles.push(nextVehicle);
-              }
-            });
-
-          anyChanged = anyChanged
-            ? anyChanged
-            : 0 < currentRouteVehicles.length;
-
-          return [
-            {
-              ...inlineState,
-              nextVehicleUpdate: Date.now() + interval,
-              routeVehicles:
-                "error" in data
-                  ? {
-                      error: data.error,
-                      status: "idle"
-                    }
-                  : {
-                      data: anyChanged
-                        ? nextRouteVehicles
-                        : state.routeVehicles?.data,
-                      status: "idle"
-                    },
-              routeVehicleHeadings:
-                "error" in data
-                  ? null
-                  : updateVehicleHeadings(inlineState, data.body)
-            },
-            true
-          ];
-        });
-
-        setTimeout(() => {
-          if (nextRouteId !== fetchRouteVehiclesRouteId) {
-            return;
+          if (requestedRouteId !== inlineState.routeId) {
+            return [inlineState];
           }
 
-          fetchVehiclesActive = false;
+          const { interval, lastDispatchTime } = getVehicleUpdateInterval(
+            action.payload
+          );
 
-          dispatch({
-            id: actionIds.ACTION_FETCH_ROUTE_VEHICLES,
-            payload: {
-              dispatchTime: lastDispatchTime + INTERVAL_SECONDS * 1000, // Always increment like a clock.
-              routeId: nextRouteId
-            }
-          });
-        }, interval);
+          const nextState = processVehicleResponse(
+            inlineState,
+            data,
+            requestedRouteId,
+            interval
+          );
+
+          setTimeout(() => {
+            // Can't check here to see if the routeId in state (or inlineState)
+            // has changed because by now that state is out-of-date. So dispatch
+            // and a check will be done in the handler with the current state.
+            dispatch({
+              id: actionIds.ACTION_FETCH_ROUTE_VEHICLES,
+              payload: {
+                dispatchTime: lastDispatchTime + INTERVAL_SECONDS * 1000, // Always increment like a clock.
+                routeId: requestedRouteId
+              }
+            });
+          }, interval);
+
+          return nextState;
+        });
       });
 
-    state.routeVehicles = state.routeVehicles ?? { status: "active" };
-    state.routeVehicles.status = "active";
-
-    return [state, true];
+    const result: ContextData = {
+      ...state,
+      routeVehicles: { ...state.routeVehicles, status: "active" }
+    };
+    return [result, true];
   };
 
   const getOptions: ActionHandler<ContextData> = (state, action) => {
@@ -293,7 +285,8 @@ export function create(): ActionHandler<ContextData>[] {
       options[name.substring("OPTION_".length)] = localStorage.getItem(name);
     }
 
-    return [{ ...state, options }, true];
+    const result = { ...state, options };
+    return [result, true];
   };
 
   const handleRouteChanged: ActionHandler<ContextData, number> = (
@@ -305,75 +298,29 @@ export function create(): ActionHandler<ContextData>[] {
       return [state];
     }
 
-    let nextState: Partial<ContextData>;
+    let nextState: ContextData;
 
     // If the routeId has changed reset state to the point where it has no
-    // routeTrace, routeStops, or selected landmarks.
+    // routeTrace, route vehicle information, routeStops, or selected landmarks.
     if (state?.routeId !== action.payload) {
-      const { routeTrace, selectedLandmarks, ...remainingState } = state ?? {};
-
-      nextState = {
-        ...remainingState,
-        routeId: action.payload
-      };
-    }
-
-    // When there is no routeTrace, routeTrace is not being fetched, and the
-    // data for all the routes is in state fetch the KML trace file.
-    const routeState = nextState ?? state;
-    const hasRoutes = !!state?.routes?.data && state.routes.status === "idle";
-    if (
-      !routeState?.routeTrace &&
-      routeState?.routeTrace?.status !== "active" &&
-      hasRoutes
-    ) {
-      fetch(`../assets/trace-${action.payload}.json`)
-        .then(async response => {
-          if (response.ok) {
-            return response.json();
-          }
-
-          let body: string;
-          try {
-            body = await response.text();
-          } catch (err) {
-            // Nothing to do here.
-          }
-
-          throw Error(`${response.status}${body ? `\nbody='${body}'` : ""}`);
-        })
-        .then(data => {
-          dispatch(inlineState => {
-            const nextState: ContextData = {
-              ...inlineState,
-              routeTrace: { data, status: "idle" }
-            };
-
-            return [nextState, true];
-          });
-        })
-        .catch(err => {
-          console.error(err);
-          dispatch(s => {
-            s.routes = { error: err, status: "idle" };
-            return [s, true];
-          });
-        });
-
-      nextState = {
-        ...(nextState ?? state),
-        routeTrace: { status: "active" }
-      };
+      const {
+        routeTrace,
+        routeVehicleHeadings,
+        routeVehicles,
+        selectedLandmarks,
+        ...remainingState
+      } = state ?? {};
+      nextState = remainingState;
+      nextState.routeId = action.payload;
     }
 
     // Always dispatch the request to get vehicles, the handler function will
     // verify if the fetch needs to be made.
     dispatch({
-      id: actionIds.ACTION_FETCH_ROUTE_VEHICLES,
-      payload: { routeId: action.payload }
+      id: actionIds.ACTION_FETCH_ROUTE_VEHICLES
     });
 
-    return [(nextState as ContextData) ?? state, !!nextState];
+    return [nextState ?? state, !!nextState];
   };
 
   const selectLandmark: ActionHandler<ContextData, SelectedLandmark> = (
@@ -388,17 +335,19 @@ export function create(): ActionHandler<ContextData>[] {
     return [state, true];
   };
 
-  const setOption: ActionHandler<ContextData, { name: string; value: string }> =
-    (state, { id, payload }) => {
-      if (id !== actionIds.ACTION_SET_OPTION) {
-        return [state];
-      }
+  const setOption: ActionHandler<
+    ContextData,
+    { name: string; value: string }
+  > = (state, { id, payload }) => {
+    if (id !== actionIds.ACTION_SET_OPTION) {
+      return [state];
+    }
 
-      localStorage.setItem(`OPTION_${payload.name}`, `${payload.value}`);
+    localStorage.setItem(`OPTION_${payload.name}`, `${payload.value}`);
 
-      const { options, ...nextState } = state;
-      return [nextState, true];
-    };
+    const { options, ...nextState } = state;
+    return [nextState, true];
+  };
 
   const deselectLandmark: ActionHandler<ContextData, number> = (
     state,
@@ -421,6 +370,7 @@ export function create(): ActionHandler<ContextData>[] {
     fetchLandmarks,
     fetchRoutes,
     fetchRoutesFinished,
+    fetchRouteTrace,
     getOptions,
     handleRouteChanged,
     fetchRouteVehicles,
@@ -437,10 +387,7 @@ export const actionIds = Object.freeze({
   ACTION_SET_OPTION: "action-set-option"
 });
 
-function getVehicleUpdateInterval(payload: {
-  routeId: number;
-  dispatchTime?: number;
-}) {
+function getVehicleUpdateInterval(payload: { dispatchTime?: number }) {
   const { dispatchTime = Date.now() + INTERVAL_SECONDS * 1000 } = payload;
   let lastDispatchTime = dispatchTime;
   const slipDispatchTime = Date.now() + INTERVAL_SECONDS * 1000;
@@ -452,6 +399,69 @@ function getVehicleUpdateInterval(payload: {
   }
 
   return { interval, lastDispatchTime };
+}
+
+function processVehicleResponse(
+  state: ContextData,
+  response: { body: Vehicle[] } | { error: string } | { error: Error },
+  requestedRouteId: number,
+  fetchInterval: number
+): [ContextData, boolean?] {
+  if (requestedRouteId !== state.routeId) {
+    return [state];
+  }
+
+  let anyChanged = false;
+  const currentVehicles = [...(state.routeVehicles?.data ?? [])];
+  const nextRouteVehicles: Vehicle[] = [];
+
+  "body" in response &&
+    response.body.forEach(nextVehicle => {
+      const index = currentVehicles.findIndex(
+        rVehicle => rVehicle.VehicleId === nextVehicle.VehicleId
+      );
+
+      if (-1 < index) {
+        const vehicleSame = _isEqual(nextVehicle, currentVehicles[index]);
+
+        anyChanged = anyChanged
+          ? anyChanged
+          : vehicleSame === true
+          ? false
+          : true;
+
+        const [currentVehicle] = currentVehicles.splice(index, 1);
+        nextRouteVehicles.push(vehicleSame ? currentVehicle : nextVehicle);
+      } else {
+        anyChanged = true;
+        nextRouteVehicles.push(nextVehicle);
+      }
+    });
+
+  anyChanged = anyChanged ? anyChanged : 0 < currentVehicles.length;
+
+  const nextUpdate = Date.now() + fetchInterval;
+
+  return [
+    {
+      ...state,
+      routeVehicles:
+        "error" in response
+          ? {
+              error: response.error,
+              nextUpdate,
+              status: "idle"
+            }
+          : {
+              data: anyChanged ? nextRouteVehicles : state.routeVehicles?.data,
+              nextUpdate,
+              status: "idle"
+            },
+      routeVehicleHeadings:
+        "error" in response ? null : updateVehicleHeadings(state, response.body)
+    },
+    true
+  ];
 }
 
 function updateVehicleHeadings(

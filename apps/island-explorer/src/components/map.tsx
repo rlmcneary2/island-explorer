@@ -32,7 +32,9 @@ export default function Map({ routeId }: Props) {
         zoom={START_ZOOM}
       >
         <NavigationControl showCompass={true} />
-        <MapLayerCollectionItems fitBounds={fitBounds} routeId={routeId} />
+        {routeId && (
+          <MapLayerCollectionItems fitBounds={fitBounds} routeId={routeId} />
+        )}
         <MapStops />
         <MapVehicles />
       </RemapGL>

@@ -5,15 +5,16 @@ export type ContextState = ContextData & ContextActions;
 export interface ContextData {
   /** Asset landmarks.json data. Includes the data that will be used for stops. */
   landmarks?: AsyncActionData<Landmark[]>;
-  /** Time in milliseconds when the next vehicle update will occur. */
-  nextVehicleUpdate?: number;
   options?: Record<OptionKeys, string>;
   /** The route ID that state data currently represents. This can be different
    * from the routeId URL parameter. */
   routeId?: number;
   routes?: AsyncActionData<RoutesAssetItem[]>;
   routeTrace?: AsyncActionData<Trace>;
-  routeVehicles?: AsyncActionData<Vehicle[]>;
+  routeVehicles?: AsyncActionData<Vehicle[]> & {
+    /** Time in milliseconds when the next vehicle update will occur. */
+    nextUpdate?: number;
+  };
   routeVehicleHeadings?: Record<
     Vehicle["VehicleId"],
     {

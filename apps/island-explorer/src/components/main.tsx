@@ -2,7 +2,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import { ModalContainer } from "modal";
 import Header from "./header";
 import { MAP } from "../constants/routes";
-import { BusRoute } from "./bus-route";
+import { BusRoute } from "./bus-route/bus-route";
 import { getRoutePath, ROUTE_TEMPLATE } from "../util/route";
 import { UpdateAvailable } from "./toast/update-available/update-available";
 import version from "../assets/version.json";
