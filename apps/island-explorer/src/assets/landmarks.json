@@ -825,11 +825,6 @@
       "stopName": "Winter Harbor 2"
     },
     {
-      "description": "LMK_THUNDER_HOLE_DESC",
-      "id": 10023,
-      "refId": 23
-    },
-    {
       "description": "LMK_OTTER_CLIFFS_DESC",
       "id": 10024,
       "refId": 24
@@ -1000,6 +995,11 @@
       }
     },
     {
+      "description": "LMK_THUNDER_HOLE_DESC",
+      "id": 30023,
+      "refId": 23
+    },
+    {
       "description": "LMK_BUBBLE_POND_DESC",
       "id": 30028,
       "refId": 28
@@ -1106,6 +1106,17 @@
       "location": {
         "latitude": 44.30016659928465,
         "longitude": -68.27966687290977
+      }
+    },
+    {
+      "description": "TRL_HADLOCK_PONDS_DESC",
+      "features": ["hike"],
+      "id": 39510,
+      "landmarkType": "trail-crossing",
+      "displayName": "Hadlock Ponds Trail",
+      "location": {
+        "latitude": 44.31784586583491,
+        "longitude": -68.28774498334826
       }
     },
     {
