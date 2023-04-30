@@ -4,7 +4,17 @@ export const LANDMARK_PATH_TEMPLATE = "/landmark/:landmarkId";
 
 export function getLandmark(id: number, landmarks: Landmark[]): Landmark {
   const landmark = landmarks.find(lmk => lmk.id === id);
-  if ("refId" in landmark) {
+  if (!landmark) {
+    return {
+      description: "",
+      displayName: "",
+      id,
+      landmarkType: "point-of-interest",
+      location: { latitude: 0, longitude: 0 }
+    };
+  }
+
+  if ("refId" in landmark && (landmark.refId || landmark.refId === 0)) {
     const refLandmark = getLandmark(landmark.refId, landmarks);
     return {
       ...refLandmark,
