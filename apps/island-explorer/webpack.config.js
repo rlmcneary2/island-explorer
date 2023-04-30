@@ -6,7 +6,8 @@ module.exports = (config, context) => {
 
   return merge(config, {
     devServer: {
-      historyApiFallback: true
+      historyApiFallback: true,
+      host: "0.0.0.0"
     },
     module: {
       rules: [

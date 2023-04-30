@@ -67,7 +67,7 @@
           "options": {
             "buildTarget": "island-explorer:build",
             "hmr": true,
-            "ssl": true,
+            "ssl": false,
             "sslKey": "cert/localhost.key",
             "sslCert": "cert/localhost.crt"
           },
