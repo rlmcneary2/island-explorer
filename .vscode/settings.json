@@ -39,5 +39,6 @@
     "trailheads",
     "Tremont",
     "ulist"
-  ]
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
