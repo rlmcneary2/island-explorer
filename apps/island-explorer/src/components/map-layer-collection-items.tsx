@@ -62,7 +62,7 @@ export default function MapLayerCollectionItems({
     [landmarksData, routeId, routesData]
   );
 
-  const { data: trace } = routeTrace ?? { data: null };
+  const { data: trace } = routeTrace ?? {};
 
   // Update the map bounds based on the trace bounds.
   useEffect(() => {
@@ -81,7 +81,7 @@ export default function MapLayerCollectionItems({
         pointsOfInterest: pointsOfInterest ?? null,
         routeId,
         stops: stops ?? null,
-        trace: trace ?? null,
+        trace: trace,
         trailheads: trailheads ?? null
       }
     ],

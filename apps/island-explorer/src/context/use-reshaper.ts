@@ -4,8 +4,8 @@ import { ContextData } from "./types";
 import { create as createHandlers } from "./context-handlers";
 
 export function useReshaper() {
-  const [reshaper, setReshaper] = useState<Reshaper<ContextData>>(null);
-  const [data, setData] = useState<ContextData>(null);
+  const [reshaper, setReshaper] = useState<Reshaper<ContextData> | null>(null);
+  const [data, setData] = useState<ContextData>({});
 
   useEffect(() => {
     if (reshaper) {
@@ -18,11 +18,12 @@ export function useReshaper() {
       .addOnChange(nextData => setData({ ...nextData }));
     setReshaper(nextReshaper);
 
-    setTimeout(() => nextReshaper.dispatch({ id: null }), 25);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    setTimeout(() => nextReshaper.dispatch({ id: null } as any), 25);
   }, [reshaper]);
 
   useEffect(() => {
-    reshaper && reshaper.setGetState(() => data);
+    reshaper?.setGetState(() => data);
   }, [data, reshaper]);
 
   return { data, reshaper };

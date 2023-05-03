@@ -2,7 +2,12 @@ import { isEqual as _isEqual } from "lodash";
 import { ActionHandler } from "reshape-state";
 import { environment as env } from "../environments/environment";
 import { Landmark, RoutesAssetItem } from "../types/types";
-import { ContextData, SelectedLandmark, Vehicle } from "./types";
+import type {
+  ContextData,
+  RouteVehicleHeading,
+  SelectedLandmark,
+  Vehicle
+} from "./types";
 
 const ACTION_FETCH_ROUTES_FINISHED = "fetch-routes-finished";
 const INTERVAL_SECONDS = 15;
@@ -80,7 +85,7 @@ export function create(): ActionHandler<ContextData>[] {
           return response.json();
         }
 
-        let body: string;
+        let body: string | undefined;
         try {
           body = await response.text();
         } catch (err) {
@@ -133,7 +138,7 @@ export function create(): ActionHandler<ContextData>[] {
           return response.json();
         }
 
-        let body: string;
+        let body: string | undefined;
         try {
           body = await response.text();
         } catch (err) {
@@ -195,7 +200,7 @@ export function create(): ActionHandler<ContextData>[] {
     fetch(
       `${env.apiLeft}/InfoPoint/rest/Vehicles/GetAllVehiclesForRoutes?routeIDs=${requestedRouteId}`
     )
-      .then<{ error: string } | { body: Vehicle[] }>(async response => {
+      .then(async response => {
         if (response.ok) {
           // Some browsers (mobile PWA running in Chrome) will interpret an
           // error response in such a way that the app is broken. Because of
@@ -208,7 +213,7 @@ export function create(): ActionHandler<ContextData>[] {
           return { body: (await response.json()) as Vehicle[] };
         }
 
-        let body: string;
+        let body: string | undefined;
         try {
           body = await response.text();
         } catch (err) {
@@ -236,7 +241,7 @@ export function create(): ActionHandler<ContextData>[] {
           }
 
           const { interval, lastDispatchTime } = getVehicleUpdateInterval(
-            action.payload
+            action.payload as { dispatchTime?: number; routeId?: number }
           );
 
           const nextState = processVehicleResponse(
@@ -278,11 +283,14 @@ export function create(): ActionHandler<ContextData>[] {
     const options: Record<string, string> = {};
     for (let i = 0; i < localStorage.length; i++) {
       const name = localStorage.key(i);
-      if (!name.startsWith("OPTION_")) {
+      if (!name?.startsWith("OPTION_")) {
         continue;
       }
 
-      options[name.substring("OPTION_".length)] = localStorage.getItem(name);
+      const optValue = localStorage.getItem(name);
+      if (optValue) {
+        options[name.substring("OPTION_".length)] = optValue;
+      }
     }
 
     const result = { ...state, options };
@@ -298,7 +306,7 @@ export function create(): ActionHandler<ContextData>[] {
       return [state];
     }
 
-    let nextState: ContextData;
+    let nextState: ContextData | undefined;
 
     // If the routeId has changed reset state to the point where it has no
     // routeTrace, route vehicle information, routeStops, or selected landmarks.
@@ -331,8 +339,13 @@ export function create(): ActionHandler<ContextData>[] {
       return [state];
     }
 
-    state.selectedLandmarks = [action.payload];
-    return [state, true];
+    const { payload } = action;
+    const { selectedLandmarks, ...nextState } = state;
+    if (payload) {
+      (nextState as ContextData).selectedLandmarks = [payload];
+    }
+
+    return [nextState, true];
   };
 
   const setOption: ActionHandler<
@@ -343,7 +356,9 @@ export function create(): ActionHandler<ContextData>[] {
       return [state];
     }
 
-    localStorage.setItem(`OPTION_${payload.name}`, `${payload.value}`);
+    if (payload) {
+      localStorage.setItem(`OPTION_${payload.name}`, `${payload.value}`);
+    }
 
     const { options, ...nextState } = state;
     return [nextState, true];
@@ -403,7 +418,7 @@ function getVehicleUpdateInterval(payload: { dispatchTime?: number }) {
 
 function processVehicleResponse(
   state: ContextData,
-  response: { body: Vehicle[] } | { error: string } | { error: Error },
+  response: { body: Vehicle[] } | { error: string | null } | { error: Error },
   requestedRouteId: number,
   fetchInterval: number
 ): [ContextData, boolean?] {
@@ -442,26 +457,27 @@ function processVehicleResponse(
 
   const nextUpdate = Date.now() + fetchInterval;
 
-  return [
-    {
-      ...state,
-      routeVehicles:
-        "error" in response
-          ? {
-              error: response.error,
-              nextUpdate,
-              status: "idle"
-            }
-          : {
-              data: anyChanged ? nextRouteVehicles : state.routeVehicles?.data,
-              nextUpdate,
-              status: "idle"
-            },
-      routeVehicleHeadings:
-        "error" in response ? null : updateVehicleHeadings(state, response.body)
-    },
-    true
-  ];
+  const ctx: ContextData = {
+    ...state,
+    routeVehicles:
+      "error" in response
+        ? {
+            error: response.error,
+            nextUpdate,
+            status: "idle"
+          }
+        : {
+            data: anyChanged ? nextRouteVehicles : state.routeVehicles?.data,
+            nextUpdate,
+            status: "idle"
+          }
+  };
+
+  if (!("error" in response)) {
+    ctx.routeVehicleHeadings = updateVehicleHeadings(state, response.body);
+  }
+
+  return [ctx, true];
 }
 
 function updateVehicleHeadings(
@@ -477,12 +493,12 @@ function updateVehicleHeadings(
   for (let i = 0; i < vehicles.length; i++) {
     const vehicle = vehicles[i];
 
-    const currentHeading: ContextData["routeVehicleHeadings"][0] =
-      (routeVehicleHeadings && routeVehicleHeadings[vehicle.VehicleId]) ?? {
-        currentHeading: vehicle.Heading,
-        lastStop: vehicle.LastStop,
-        previousHeadings: []
-      };
+    const currentHeading: RouteVehicleHeading = (routeVehicleHeadings &&
+      routeVehicleHeadings[vehicle.VehicleId]) ?? {
+      currentHeading: vehicle.Heading,
+      lastStop: vehicle.LastStop,
+      previousHeadings: []
+    };
 
     const nextHeading: Partial<typeof currentHeading> = {
       lastStop: vehicle.LastStop

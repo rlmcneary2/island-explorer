@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Checkbox } from "../controls/checkbox/checkbox";
-import { ContextState, OptionKeys } from "../../context/types";
+import type { ContextData, OptionKeys } from "../../context/types";
 import useContextActions from "../../context/use-context-actions";
 import useContextState from "../../context/use-context-state";
 import { AnimatedModalDialog } from "modal";
@@ -120,6 +120,6 @@ interface Props {
   show: boolean;
 }
 
-function selector(state: ContextState) {
+function selector(state: ContextData) {
   return state?.options;
 }

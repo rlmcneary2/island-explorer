@@ -26,18 +26,16 @@ export function ConnectionStatus({
     });
   }, [connected]);
 
-  return (
-    ((!connected && !hide) || (connected && !hide)) && (
-      <AnimatedModalDialog
-        className="toast"
-        containerId="toast"
-        hide={hide}
-        onHidden={handleHidden}
-      >
-        <div className="content">
-          <FormattedMessage id={messageId} />
-        </div>
-      </AnimatedModalDialog>
-    )
-  );
+  return (!connected && !hide) || (connected && !hide) ? (
+    <AnimatedModalDialog
+      className="toast"
+      containerId="toast"
+      hide={hide}
+      onHidden={handleHidden}
+    >
+      <div className="content">
+        <FormattedMessage id={messageId} />
+      </div>
+    </AnimatedModalDialog>
+  ) : null;
 }

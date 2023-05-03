@@ -1,5 +1,5 @@
 import { FormattedMessage } from "react-intl";
-import { ContextState, Vehicle } from "../../context/types";
+import type { ContextData, Vehicle } from "../../context/types";
 import useContextState from "../../context/use-context-state";
 import { getLandmark } from "../../util/landmark";
 import { Landmark } from "../../types/types";
@@ -20,13 +20,16 @@ export function VehiclePopup({ routeStops, vehicle, ...props }: Props) {
     return null;
   }
 
-  const route = routes.data.find(route => route.id === vehicle.RouteId);
-  const routeLandmarksStops = route.landmarks.map(x =>
-    getLandmark(x, landmarks.data)
-  );
+  const route = routes.data?.find(route => route.id === vehicle.RouteId);
+
+  const landmarksData = landmarks.data;
+  const routeLandmarksStops =
+    route && landmarksData
+      ? route.landmarks.map(x => getLandmark(x, landmarksData))
+      : [];
 
   const lastStopId = mapLastStopToRouteId(vehicle.LastStop, routeStops);
-  let lastStop: Landmark;
+  let lastStop: Landmark | undefined;
   if (lastStopId) {
     lastStop = routeLandmarksStops.find(x => x.id === lastStopId);
   }
@@ -63,6 +66,6 @@ interface Props
   vehicle: Vehicle;
 }
 
-function selector(state: ContextState) {
+function selector(state: ContextData) {
   return { landmarks: state?.landmarks, routes: state?.routes };
 }

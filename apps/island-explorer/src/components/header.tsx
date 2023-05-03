@@ -36,14 +36,16 @@ export default function Header() {
         <FormattedMessage id="SELECT_ROUTE" />
       </button>
 
-      <Link
-        className="button"
-        to={getRoutePath(routeId, page === MAP ? INFORMATION : MAP)}
-      >
-        <FormattedMessage
-          id={(page === MAP ? INFORMATION : MAP).toUpperCase()}
-        />
-      </Link>
+      {routeId ? (
+        <Link
+          className="button"
+          to={getRoutePath(routeId, page === MAP ? INFORMATION : MAP)}
+        >
+          <FormattedMessage
+            id={(page === MAP ? INFORMATION : MAP).toUpperCase()}
+          />
+        </Link>
+      ) : null}
 
       {showRoutesModal ? (
         <RoutesModal

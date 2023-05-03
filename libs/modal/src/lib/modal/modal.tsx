@@ -9,9 +9,10 @@ import useModalContext from "../context/use-modal-context";
 export function Modal({
   children,
   containerId
-}: React.PropsWithChildren<ModalProps>): React.ReactPortal {
+}: React.PropsWithChildren<ModalProps>): React.ReactPortal | null {
   const { el, elCollection } = useModalContext();
 
-  const nextPortal = containerId ? elCollection[containerId] : el;
+  const nextPortal =
+    containerId && elCollection ? elCollection[containerId] : el;
   return nextPortal ? createPortal(children, nextPortal) : null;
 }

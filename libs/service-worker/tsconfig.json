@@ -2,7 +2,8 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "lib": ["es2017", "WebWorker"],
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "strict": true
   },
   "files": [],
   "include": [],

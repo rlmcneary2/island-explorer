@@ -16,9 +16,11 @@ export function LandmarkDetails({
     return null;
   }
 
-  const stopsRoutes = routes.data.filter(route => route.landmarks.includes(id));
+  const stopsRoutes = routes.data?.filter(route =>
+    route.landmarks.includes(id)
+  );
 
-  const { page } = getRouteParameters();
+  const { page } = getRouteParameters() ?? {};
 
   return (
     <>
@@ -30,13 +32,15 @@ export function LandmarkDetails({
           ))}
       </div>
       <div className="route-circle-container">
-        {stopsRoutes.map(x => (
-          <Link
-            key={x.id}
-            style={{ color: `#${x.color}` }}
-            to={getRoutePath(x.id, page)}
-          />
-        ))}
+        {stopsRoutes && page
+          ? stopsRoutes.map(x => (
+              <Link
+                key={x.id}
+                style={{ color: `#${x.color}` }}
+                to={getRoutePath(x.id, page)}
+              />
+            ))
+          : null}
       </div>
       {description && (
         <p className="description">

@@ -54,7 +54,12 @@ export function ReactServiceWorkerProvider({
     (async () => {
       navigator.serviceWorker.addEventListener("message", handleMessage);
 
-      swr = await navigator.serviceWorker.register(filename);
+      try {
+        swr = await navigator.serviceWorker.register(filename);
+      } catch (err) {
+        console.error("ReactServiceWorkerProvider: register err=", err);
+        return;
+      }
 
       serviceWorkerRegistration.current = swr;
 

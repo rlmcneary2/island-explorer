@@ -11,12 +11,13 @@ export function ModalContainer({ containerId, ...props }: ModalContainerProps) {
 
   useEffect(() => {
     if (ref.current) {
-      const portalEl = containerId ? elCollection[containerId] : el;
+      const portalEl =
+        containerId && elCollection ? elCollection[containerId] : el;
       if (portalEl !== ref.current) {
         containerId ? setEl(containerId, ref.current) : setEl(ref.current);
       }
     } else if (el !== null) {
-      containerId ? setEl(containerId, null) : setEl(null);
+      containerId ? setEl(containerId) : setEl();
     }
   }, [el, elCollection, containerId, setEl]);
 

@@ -2,8 +2,8 @@ import { Landmark, RoutesAssetItem } from "../types/types";
 
 export const LANDMARK_PATH_TEMPLATE = "/landmark/:landmarkId";
 
-export function getLandmark(id: number, landmarks: Landmark[]): Landmark {
-  const landmark = landmarks.find(lmk => lmk.id === id);
+export function getLandmark(id: number, landmarks?: Landmark[]): Landmark {
+  const landmark = landmarks?.find(lmk => lmk.id === id);
   if (!landmark) {
     return {
       description: "",
@@ -33,8 +33,8 @@ export function getLandmarkPath(id: number, landmarks: Landmark[]) {
 
 export function getRouteOrderLandmarks(
   routeId: number,
-  routes: RoutesAssetItem[],
-  landmarks: Landmark[]
+  routes?: RoutesAssetItem[],
+  landmarks?: Landmark[]
 ) {
   if (!routes || !landmarks) {
     return [];

@@ -1,26 +1,35 @@
 import React, { useMemo, useState } from "react";
+import type { ContextValue } from "./context";
 import Context from "./context";
 
 export function ModalProvider({ children }: React.PropsWithChildren<unknown>) {
-  const [el, setEl] = useState<HTMLElement>(null);
-  const [elCollection, setElCollection] = useState<Record<string, HTMLElement>>(
-    {}
-  );
+  const [el, setEl] = useState<ContextValue["el"]>();
+  const [elCollection, setElCollection] =
+    useState<ContextValue["elCollection"]>();
   const actions = useMemo(() => {
     return {
-      setEl: (input: HTMLElement | string, el?: HTMLElement) => {
-        if (!input || typeof input !== "string") {
-          setEl(input as HTMLElement);
+      setEl: (elOrKey?: HTMLElement | string, el?: HTMLElement) => {
+        if (!elOrKey || typeof elOrKey !== "string") {
+          setEl(elOrKey as HTMLElement);
         } else {
           setElCollection(current => {
-            if (current[input] === el) {
+            if (current && current[elOrKey] === el) {
               return current;
             }
 
-            const nextCollection = { [input]: el };
-            for (const [key, value] of Object.entries(current)) {
-              if (key !== input) {
-                nextCollection[key] = value;
+            const nextCollection: Record<string, HTMLElement> = el
+              ? { [elOrKey]: el }
+              : {};
+
+            if (current) {
+              for (const [key, value] of Object.entries(current)) {
+                if (key !== elOrKey) {
+                  nextCollection[key] = value;
+                } else {
+                  if (el) {
+                    nextCollection[elOrKey] = el;
+                  }
+                }
               }
             }
 

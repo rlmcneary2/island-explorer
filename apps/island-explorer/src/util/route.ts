@@ -6,7 +6,7 @@ export const ROUTE_TEMPLATE = "/route/:routeId/:routePage";
 export function getRouteParameters(pathname?: Location["pathname"]): {
   page: RoutePage;
   routeId: string;
-} {
+} | null {
   const path = (pathname || window.location.pathname).slice(1);
   if (!path) {
     return null;

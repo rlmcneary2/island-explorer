@@ -15,14 +15,7 @@ export interface ContextData {
     /** Time in milliseconds when the next vehicle update will occur. */
     nextUpdate?: number;
   };
-  routeVehicleHeadings?: Record<
-    Vehicle["VehicleId"],
-    {
-      currentHeading?: Vehicle["Heading"];
-      lastStop: Vehicle["LastStop"];
-      previousHeadings: Vehicle["Heading"][];
-    }
-  >;
+  routeVehicleHeadings?: Record<Vehicle["VehicleId"], RouteVehicleHeading>;
   selectedLandmarks?: SelectedLandmark[];
 }
 
@@ -66,6 +59,12 @@ export interface Route {
   Directions?: unknown;
   Vehicles?: Vehicle[];
   Messages?: unknown[];
+}
+
+export interface RouteVehicleHeading {
+  currentHeading?: Vehicle["Heading"];
+  lastStop: Vehicle["LastStop"];
+  previousHeadings: Vehicle["Heading"][];
 }
 
 export interface SelectedLandmark extends Record<string, unknown> {

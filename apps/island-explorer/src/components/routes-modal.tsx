@@ -7,12 +7,11 @@ import { getRouteParameters, getRoutePath } from "../util/route";
 
 export function RoutesModal({ onClose, onExternalTap, routes }: Props) {
   const [hide, setHide] = useState(false);
-  const callbackFunc = useRef<() => void>(null);
+  const callbackFunc = useRef<(() => void) | undefined>();
 
-  const { page } = getRouteParameters();
-  const { data, status } = routes;
+  const routeParameters = getRouteParameters();
 
-  const handleLinkClick = useCallback<Props["onClose"]>(() => {
+  const handleLinkClick = useCallback<Required<Props>["onClose"]>(() => {
     callbackFunc.current = onClose;
     setHide(true);
   }, [onClose]);
@@ -27,23 +26,25 @@ export function RoutesModal({ onClose, onExternalTap, routes }: Props) {
     []
   );
 
-  if (status !== "idle") {
+  if (routes?.status !== "idle") {
     return <p>loading...</p>;
   }
 
-  const items = data.map(route => {
-    return (
-      <li className="list-item" key={route.id}>
-        <Link
-          onClick={handleLinkClick}
-          style={{ color: `#${route.color}` }}
-          to={getRoutePath(route.id, page)}
-        >
-          {route.displayName}
-        </Link>
-      </li>
-    );
-  });
+  const items = routes?.data
+    ? routes.data.map(route => {
+        return (
+          <li className="list-item" key={route.id}>
+            <Link
+              onClick={handleLinkClick}
+              style={{ color: `#${route.color}` }}
+              to={getRoutePath(route.id, routeParameters?.page ?? "map")}
+            >
+              {route.displayName}
+            </Link>
+          </li>
+        );
+      })
+    : [];
 
   return (
     <AnimatedModalDialog

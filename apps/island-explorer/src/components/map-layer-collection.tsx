@@ -1,9 +1,9 @@
 import _unionWith from "lodash/unionWith";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import type { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
 import type { AnyLayout, CircleLayer, CirclePaint, LineLayer } from "mapbox-gl";
-import * as geojson from "geojson/geojson";
 import { AnyLayer, LayerCollection, SymbolIconLayer } from "remapgl";
-import { ContextState, MapLayerCollectionItem, Trace } from "../context/types";
+import { ContextData, MapLayerCollectionItem, Trace } from "../context/types";
 import { Landmark } from "../types/types";
 import useContextState from "../context/use-context-state";
 import { stringToBoolean } from "../util/type-coercion";
@@ -30,11 +30,12 @@ export default function MapLayerCollection({
 }) {
   const { selectLandmark } = useContextActions();
   const { options } = useContextState(selector);
-  const [poiLayers, setPoiLayers] = useState<SymbolIconLayer[]>(null);
-  const [traceLayers, setTraceLayers] = useState<LineLayer[]>(null);
-  const [stopsLayers, setStopsLayers] = useState<CircleLayer[]>(null);
-  const [trailheadsLayers, setTrailheadsLayers] =
-    useState<SymbolIconLayer[]>(null);
+  const [poiLayers, setPoiLayers] = useState<SymbolIconLayer[] | undefined>();
+  const [traceLayers, setTraceLayers] = useState<LineLayer[] | undefined>();
+  const [stopsLayers, setStopsLayers] = useState<CircleLayer[] | undefined>();
+  const [trailheadsLayers, setTrailheadsLayers] = useState<
+    SymbolIconLayer[] | undefined
+  >();
 
   const handleLayerClick = useCallback(
     (landmarkId: number) => selectLandmark({ landmarkId }),
@@ -77,20 +78,21 @@ export default function MapLayerCollection({
   const showStops = stringToBoolean(options?.SHOW_STOPS, true);
 
   useEffect(() => {
-    setStopsLayers(currentStopsLayers =>
-      createLayersFromItems(
-        currentStopsLayers,
+    setStopsLayers(currentStopsLayers => {
+      return createLayersFromItems(
         items,
         "stops",
-        item => item.stops,
-        (routeId, landmarks, options) =>
-          createStopsLayer(routeId, landmarks, {
+        item => item.stops ?? [],
+        (routeId, landmarks, options) => {
+          return createStopsLayer(routeId, landmarks, {
             ...options,
             onClick: handleLayerClick,
             visibility: showStops ? "visible" : "none"
-          })
-      )
-    );
+          });
+        },
+        currentStopsLayers
+      );
+    });
   }, [handleLayerClick, items, showStops]);
 
   const showTrailheads = stringToBoolean(options?.SHOW_TRAILHEADS, false);
@@ -98,10 +100,9 @@ export default function MapLayerCollection({
   useEffect(() => {
     setTrailheadsLayers(currentTrailheadsLayers =>
       createLayersFromItems(
-        currentTrailheadsLayers,
         items,
         "trailheads",
-        item => item.trailheads,
+        item => item.trailheads ?? [],
         (routeId, landmarks, options) =>
           createSymbolLayer(routeId, landmarks, {
             ...options,
@@ -109,7 +110,8 @@ export default function MapLayerCollection({
             iconImageUrl: "assets/trailhead.png",
             onClick: handleLayerClick,
             visibility: showTrailheads ? "visible" : "none"
-          })
+          }),
+        currentTrailheadsLayers
       )
     );
   }, [handleLayerClick, items, showTrailheads]);
@@ -119,7 +121,6 @@ export default function MapLayerCollection({
   useEffect(() => {
     setPoiLayers(currentPoiLayers =>
       createLayersFromItems(
-        currentPoiLayers,
         items,
         "pois",
         item => item.pointsOfInterest,
@@ -130,7 +131,8 @@ export default function MapLayerCollection({
             iconImageUrl: "assets/poi.png",
             onClick: handleLayerClick,
             visibility: showPois ? "visible" : "none"
-          })
+          }),
+        currentPoiLayers
       )
     );
   }, [handleLayerClick, items, showPois]);
@@ -167,11 +169,11 @@ function createCircleLayer(
     onClick,
     visibility
   }: {
-    color: string;
+    color?: string;
     onClick?: (landmarkId: number) => void;
     visibility: AnyLayout["visibility"];
   }
-): CircleLayer {
+): CircleLayer | null {
   if (!landmarks) {
     return null;
   }
@@ -203,17 +205,24 @@ function createCircleLayer(
     })
   );
 
-  const geoJson = geojson.parse(data, {
-    extra: { icon: "circle" },
-    Point: ["lat", "lng"]
-  });
+  const sourceData: FeatureCollection<Geometry, GeoJsonProperties> = {
+    features: data.map(d => ({
+      geometry: { type: "Point", coordinates: [d.lat, d.lng] },
+      properties: {
+        icon: "circle",
+        name: d.name
+      },
+      type: "Feature"
+    })),
+    type: "FeatureCollection"
+  };
 
   const layer: CircleLayer = {
     id: `${layerPrefix}-${routeId}`,
     layout: { visibility: visibility ?? "visible" },
     paint,
     source: {
-      data: geoJson,
+      data: sourceData,
       type: "geojson"
     },
     type: "circle"
@@ -221,7 +230,11 @@ function createCircleLayer(
 
   (layer as AnyLayer).on = {
     click: evt => {
-      onClick && onClick(evt.features[0].properties.id);
+      const { features } = evt;
+      if (features) {
+        const [feature] = features;
+        onClick && onClick(feature.properties?.id);
+      }
     }
   };
 
@@ -231,15 +244,15 @@ function createCircleLayer(
 }
 
 function createLayersFromItems<T extends AnyLayer>(
-  currentLayers: T[],
   items: MapLayerCollectionItem[],
   layerPrefix: string,
   getLandmarks: (item: MapLayerCollectionItem) => Landmark[],
   createLayer: (
     routeId: number,
     landmarks: Landmark[],
-    options?: { color: string; layerPrefix: string }
-  ) => T
+    options?: { color?: string; layerPrefix: string }
+  ) => T | null,
+  currentLayers?: T[]
 ): T[] {
   // Use items to determine the order because it's up to the client to set
   // that order when it's passed to remapgl.
@@ -282,12 +295,12 @@ function createSymbolLayer(
   }: {
     iconImage: string;
     iconImageUrl: string;
-    layerPrefix: string;
+    layerPrefix?: string;
     onClick?: (landmarkId: number) => void;
     sdfColor?: string;
     visibility: AnyLayout["visibility"];
   }
-): SymbolIconLayer {
+): SymbolIconLayer | null {
   if (!landmarks) {
     return null;
   }
@@ -305,9 +318,16 @@ function createSymbolLayer(
     })
   );
 
-  const geoJson = geojson.parse(data, {
-    Point: ["lat", "lng"]
-  });
+  const sourceData: FeatureCollection<Geometry, GeoJsonProperties> = {
+    features: data.map(d => ({
+      geometry: { type: "Point", coordinates: [d.lat, d.lng] },
+      properties: {
+        name: d.name
+      },
+      type: "Feature"
+    })),
+    type: "FeatureCollection"
+  };
 
   const layer: SymbolIconLayer = {
     iconImageUrl,
@@ -333,7 +353,7 @@ function createSymbolLayer(
     },
     paint: {},
     source: {
-      data: geoJson,
+      data: sourceData,
       type: "geojson"
     },
     type: "symbol"
@@ -341,12 +361,17 @@ function createSymbolLayer(
 
   if (sdfColor) {
     layer.imageOptions = { sdf: true };
+    layer.paint = layer.paint || {};
     layer.paint["icon-color"] = sdfColor;
   }
 
   (layer as AnyLayer).on = {
     click: evt => {
-      onClick && onClick(evt.features[0].properties.id);
+      const { features } = evt;
+      if (features) {
+        const [feature] = features;
+        onClick && onClick(feature.properties?.id);
+      }
     }
   };
 
@@ -358,7 +383,7 @@ function createSymbolLayer(
 function createTraceLayer(
   routeId: number,
   color: string,
-  trace: Trace
+  trace?: Trace
 ): LineLayer {
   const feature =
     trace && trace.features && 0 < trace.features.length
@@ -373,7 +398,7 @@ function createTraceLayer(
     },
     paint: {
       "line-color": `#${color}`,
-      "line-opacity": feature.properties["stroke-opacity"] || 1,
+      "line-opacity": feature?.properties["stroke-opacity"] || 1,
       "line-width": ROUTE_LINE_WIDTH
     },
     source: {
@@ -388,15 +413,15 @@ function createStopsLayer(
   routeId: number,
   stops: Landmark[],
   options: {
-    color: string;
+    color?: string;
     onClick?: (landmarkId: number) => void;
     visibility: AnyLayout["visibility"];
   }
-): CircleLayer {
+): CircleLayer | null {
   return createCircleLayer(routeId, stops, "stops", options);
 }
 
-function selector(state: ContextState) {
+function selector(state: ContextData) {
   return {
     options: state?.options
   };

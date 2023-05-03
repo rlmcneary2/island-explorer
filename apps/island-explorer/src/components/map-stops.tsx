@@ -12,7 +12,7 @@ export function MapStops() {
   const { landmarks, selectedLandmarks } = useContextState(selector);
   const { mapGL } = useMapGL();
 
-  const landmarksData = landmarks.data;
+  const landmarksData = landmarks?.data;
   const landmarksStatus = landmarks?.status;
   const landmarksError = !!landmarks?.error;
 
@@ -31,7 +31,7 @@ export function MapStops() {
     return (
       <>
         {selectedLandmarks.map(({ landmarkId }) => {
-          const landmark = getLandmark(landmarkId, landmarksData);
+          const landmark = getLandmark(landmarkId, landmarksData ?? []);
           const lngLat: LngLatLike = [
             landmark.location.longitude,
             landmark.location.latitude

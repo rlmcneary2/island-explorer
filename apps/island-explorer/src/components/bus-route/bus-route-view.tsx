@@ -10,9 +10,13 @@ import { ContextData } from "../../context/types";
 export function BusRouteView() {
   const { routeId, routeVehicles } = useContextState(selector);
 
-  const timeValue = routeVehicles
+  const timeValue = routeVehicles?.nextUpdate
     ? Math.round((routeVehicles.nextUpdate - Date.now()) / 1000)
     : 0;
+
+  if (!routeId && routeId !== 0) {
+    return null;
+  }
 
   return (
     <>

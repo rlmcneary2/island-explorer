@@ -13,7 +13,7 @@ const START_ZOOM = 8.5;
 
 export default function Map({ routeId }: Props) {
   const ref = useRef(null);
-  const map = useRef<MapGL>(null);
+  const map = useRef<MapGL | null>(null);
 
   const fitBounds = useMemo(
     () => (bounds: LngLatBoundsLike) =>

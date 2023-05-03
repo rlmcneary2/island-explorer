@@ -1,11 +1,11 @@
-export function stringToBoolean(value: string, defaultResult = true): boolean {
+export function stringToBoolean(value?: string, defaultResult = true): boolean {
   if ((value ?? null) === null) {
     return defaultResult;
   }
 
-  return value.toLowerCase() === "true"
+  return (value as string).toLowerCase() === "true"
     ? true
-    : value.toLowerCase() === "false"
+    : (value as string).toLowerCase() === "false"
     ? false
     : defaultResult;
 }

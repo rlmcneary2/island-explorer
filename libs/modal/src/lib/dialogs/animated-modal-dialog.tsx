@@ -28,8 +28,8 @@ export default function AnimatedModalDialog({
   ...props
 }: React.PropsWithChildren<Props>) {
   const [animating, setAnimating] = useState<string>(beforeAnimateInClassName);
-  const getAnimation = useRef<() => string>(null);
-  const callbackFunc = useRef<() => void>(null);
+  const getAnimation = useRef<(() => string) | null>(null);
+  const callbackFunc = useRef<(() => void) | null>(null);
   const timeoutHandle = useRef(0);
   const disposed = useRef(false);
 
@@ -47,7 +47,10 @@ export default function AnimatedModalDialog({
 
     return () => {
       disposed.current = true;
-      if (getAnimation.current() !== endAnimateOutClassName) {
+      if (
+        getAnimation.current &&
+        getAnimation.current() !== endAnimateOutClassName
+      ) {
         console.log(
           "AnimatedModalDialog: dialog being removed during animation."
         );
@@ -230,9 +233,9 @@ export default function AnimatedModalDialog({
     [animationTransitionEnd]
   );
 
-  const handleOnModalClose = useCallback<ModalDialogProps["onClose"]>(
+  const handleOnModalClose = useCallback<Required<ModalDialogProps>["onClose"]>(
     data => {
-      callbackFunc.current = () => onClose(data);
+      callbackFunc.current = () => onClose && onClose(data);
       console.log(`AnimatedModalDialog[close]: ${beforeAnimateOutClassName}`);
       setAnimating(beforeAnimateOutClassName);
     },
@@ -240,7 +243,7 @@ export default function AnimatedModalDialog({
   );
 
   const handleOnModalExternalTap = useCallback(() => {
-    callbackFunc.current = () => onExternalTap();
+    callbackFunc.current = () => onExternalTap && onExternalTap();
     console.log(
       `AnimatedModalDialog[externalTap]: ${beforeAnimateOutClassName}`
     );
@@ -263,7 +266,7 @@ export default function AnimatedModalDialog({
       onAnimationEnd={handleAnimationEnd}
       onTransitionEnd={handleTransitionEnd}
       onClose={handleOnModalClose}
-      onExternalTap={onExternalTap ? handleOnModalExternalTap : null}
+      onExternalTap={onExternalTap ? handleOnModalExternalTap : undefined}
     />
   );
 }
