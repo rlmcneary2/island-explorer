@@ -6,7 +6,7 @@
   "ABOUT_TITLE": "About",
   "BUS_NAME": "Bus {name}",
   "CONNECTION_ERROR": "Unable to update bus locations; we will keep trying. Please check your network connection.",
-  "COPYRIGHT": "©2022 Richard L. McNeary II",
+  "COPYRIGHT": "©2023 Richard L. McNeary II",
   "INFORMATION": "Information",
   "LAST_STOP": "Last stop: {name}",
   "LMK_ACADIA_NATIONAL_PARK_HQ_DESC": "Acadia National Park NPS headquarters. There are no visitor services here.",
