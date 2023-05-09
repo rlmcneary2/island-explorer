@@ -7,6 +7,8 @@ import useContextState from "../context/use-context-state";
 import { getLandmark } from "../util/landmark";
 import { LandmarkDetails } from "./landmark/landmark-details";
 
+const FIRST_POI_LANDMARK_ID = 11000;
+
 export function MapStops() {
   const { deselectLandmark } = useContextActions();
   const { landmarks, selectedLandmarks } = useContextState(selector);
@@ -28,6 +30,9 @@ export function MapStops() {
 
     const container = mapGL.getContainer();
 
+    // TODO: there are now popups for things other than stops. This code should
+    // be moved into another component that is responsible for displaying the
+    // popups.
     return (
       <>
         {selectedLandmarks.map(({ landmarkId }) => {
@@ -44,7 +49,8 @@ export function MapStops() {
               onClose={() => deselectLandmark(landmarkId)}
               options={{
                 anchor: getAnchor(landmarkPoint, container),
-                maxWidth: "none"
+                maxWidth: "none",
+                offset: [0, FIRST_POI_LANDMARK_ID <= landmarkId ? -15 : 0] // This value should be different based on the anchor point...
               }}
               lngLat={lngLat}
             >
