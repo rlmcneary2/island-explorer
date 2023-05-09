@@ -207,9 +207,10 @@ function createCircleLayer(
 
   const sourceData: FeatureCollection<Geometry, GeoJsonProperties> = {
     features: data.map(d => ({
-      geometry: { type: "Point", coordinates: [d.lat, d.lng] },
+      geometry: { type: "Point", coordinates: [d.lng, d.lat] },
       properties: {
         icon: "circle",
+        id: d.id,
         name: d.name
       },
       type: "Feature"
@@ -320,8 +321,9 @@ function createSymbolLayer(
 
   const sourceData: FeatureCollection<Geometry, GeoJsonProperties> = {
     features: data.map(d => ({
-      geometry: { type: "Point", coordinates: [d.lat, d.lng] },
+      geometry: { type: "Point", coordinates: [d.lng, d.lat] },
       properties: {
+        id: d.id,
         name: d.name
       },
       type: "Feature"
