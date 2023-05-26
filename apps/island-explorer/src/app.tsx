@@ -4,14 +4,11 @@ import { IntlProvider } from "react-intl";
 import { ModalProvider } from "modal";
 import Main from "./components/main";
 import { ContextProvider } from "./context/context-provider";
-import { ReactServiceWorkerProvider } from "react-service-worker-provider";
+import { ServiceWorkerProvider } from "service-worker-provider";
 import messages from "./assets/messages-en-us.json";
 
 ReactDOM.render(
-  <ReactServiceWorkerProvider
-    filename="service-worker.js"
-    reloadOnSkipWaiting={true}
-  >
+  <ServiceWorkerProvider url="service-worker.js" reloadOnSkipWaiting={true}>
     <BrowserRouter>
       <IntlProvider locale="en-US" messages={messages}>
         <ModalProvider>
@@ -21,6 +18,6 @@ ReactDOM.render(
         </ModalProvider>
       </IntlProvider>
     </BrowserRouter>
-  </ReactServiceWorkerProvider>,
+  </ServiceWorkerProvider>,
   document.getElementById("root")
 );

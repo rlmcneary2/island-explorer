@@ -9,9 +9,7 @@
       "architect": {
         "build": {
           "builder": "@nrwl/web:webpack",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "defaultConfiguration": "production",
           "options": {
             "compiler": "babel",
@@ -32,9 +30,7 @@
                 "output": "./service-worker.js"
               }
             ],
-            "styles": [
-              "apps/island-explorer/src/styles/styles.scss"
-            ],
+            "styles": ["apps/island-explorer/src/styles/styles.scss"],
             "scripts": [],
             "webpackConfig": "apps/island-explorer/webpack.config.js"
           },
@@ -67,7 +63,7 @@
           "options": {
             "buildTarget": "island-explorer:build",
             "hmr": true,
-            "ssl": false,
+            "ssl": true,
             "sslKey": "cert/localhost.key",
             "sslCert": "cert/localhost.crt"
           },
@@ -100,9 +96,7 @@
             "jestConfig": "apps/island-explorer/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/island-explorer"
-          ]
+          "outputs": ["coverage/apps/island-explorer"]
         }
       }
     },
@@ -113,18 +107,13 @@
       "architect": {
         "build": {
           "builder": "@nrwl/web:rollup",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/libs/modal",
             "tsConfig": "libs/modal/tsconfig.lib.json",
             "project": "libs/modal/package.json",
             "entryFile": "libs/modal/src/index.ts",
-            "external": [
-              "react",
-              "react-dom"
-            ],
+            "external": ["react", "react-dom"],
             "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
             "assets": [
               {
@@ -138,72 +127,14 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/modal/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/modal/**/*.{ts,tsx,js,jsx}"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/modal"
-          ],
+          "outputs": ["coverage/libs/modal"],
           "options": {
             "jestConfig": "libs/modal/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "react-service-worker-provider": {
-      "root": "libs/react-service-worker-provider",
-      "sourceRoot": "libs/react-service-worker-provider/src",
-      "projectType": "library",
-      "tags": [],
-      "architect": {
-        "build": {
-          "builder": "@nrwl/web:rollup",
-          "outputs": [
-            "{options.outputPath}"
-          ],
-          "options": {
-            "outputPath": "dist/libs/react-service-worker-provider",
-            "tsConfig": "libs/react-service-worker-provider/tsconfig.lib.json",
-            "project": "libs/react-service-worker-provider/package.json",
-            "entryFile": "libs/react-service-worker-provider/src/index.ts",
-            "external": [
-              "react/jsx-runtime",
-              "@emotion/styled/base"
-            ],
-            "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
-            "compiler": "babel",
-            "assets": [
-              {
-                "glob": "libs/react-service-worker-provider/README.md",
-                "input": ".",
-                "output": "."
-              }
-            ]
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
-          "options": {
-            "lintFilePatterns": [
-              "libs/react-service-worker-provider/**/*.{ts,tsx,js,jsx}"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/react-service-worker-provider"
-          ],
-          "options": {
-            "jestConfig": "libs/react-service-worker-provider/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -217,16 +148,12 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/service-worker/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/service-worker/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/service-worker"
-          ],
+          "outputs": ["coverage/libs/service-worker"],
           "options": {
             "jestConfig": "libs/service-worker/jest.config.js",
             "passWithNoTests": true
@@ -234,9 +161,7 @@
         },
         "build": {
           "builder": "@nrwl/web:rollup",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/libs/service-worker",
             "tsConfig": "libs/service-worker/tsconfig.lib.json",

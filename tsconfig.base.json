@@ -17,10 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@island-explorer/service-worker": ["libs/service-worker/src/index.ts"],
-      "modal": ["libs/modal/src/index.ts"],
-      "react-service-worker-provider": [
-        "libs/react-service-worker-provider/src/index.ts"
-      ]
+      "modal": ["libs/modal/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

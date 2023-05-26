@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { AnimatedModalDialog } from "modal";
-import { useServiceWorker } from "react-service-worker-provider";
+import { useServiceWorker } from "service-worker-provider";
 
 export function UpdateAvailable() {
   const { waiting = false, skipWaiting } = useServiceWorker(ctx => ctx) ?? {};
