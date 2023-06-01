@@ -18,9 +18,7 @@ export function getLandmark(id: number, landmarks?: Landmark[]): Landmark {
     const refLandmark = getLandmark(landmark.refId, landmarks);
     return {
       ...refLandmark,
-      id: landmark.id,
-      refId: landmark.refId,
-      stopName: landmark.stopName ?? refLandmark.stopName
+      ...landmark
     };
   }
 

@@ -55,7 +55,7 @@ export default function MapLayerCollectionItems({
     () =>
       getRouteOrderLandmarks(routeId, routesData, landmarksData).filter(
         l =>
-          20000 <= l.id &&
+          10000 <= l.id &&
           (l.landmarkType === "trail-head" ||
             l.landmarkType === "trail-crossing")
       ),
