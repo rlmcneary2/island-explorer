@@ -10,17 +10,9 @@ import { stringToBoolean } from "../util/type-coercion";
 import useContextActions from "../context/use-context-actions";
 
 const ICON_SIZE = 0.5;
-const STOP_CIRCLE_RADIUS_BASE = 1.15;
-const STOP_CIRCLE_RADIUS_STEPS: number[][] = [
-  [10, 5],
-  [14, 5]
-];
-const STOP_CIRCLE_STROKE_BASE = 1.15;
+const STOP_CIRCLE_RADIUS_BASE = 7;
+const STOP_CIRCLE_STROKE_BASE = 3;
 const STOP_CIRCLE_STROKE_COLOR = "#FFF";
-const STOP_CIRCLE_STROKE_STEPS: number[][] = [
-  [10, 3],
-  [14, 3]
-];
 const ROUTE_LINE_WIDTH = 4;
 
 export default function MapLayerCollection({
@@ -180,16 +172,34 @@ function createCircleLayer(
 
   const paint: CirclePaint = {
     "circle-color": `#${color}`,
-    "circle-radius": {
-      base: STOP_CIRCLE_RADIUS_BASE,
-      stops: STOP_CIRCLE_RADIUS_STEPS
-    },
+    // "circle-radius": {
+    //   base: STOP_CIRCLE_RADIUS_BASE,
+    //   stops: STOP_CIRCLE_RADIUS_STEPS
+    // },
+    "circle-radius": [
+      "interpolate",
+      ["exponential", 1.7],
+      ["zoom"],
+      13,
+      STOP_CIRCLE_RADIUS_BASE,
+      16,
+      STOP_CIRCLE_RADIUS_BASE * 2
+    ],
     "circle-stroke-color": STOP_CIRCLE_STROKE_COLOR,
     "circle-stroke-opacity": 0.8,
-    "circle-stroke-width": {
-      base: STOP_CIRCLE_STROKE_BASE,
-      stops: STOP_CIRCLE_STROKE_STEPS
-    }
+    // "circle-stroke-width": {
+    //   base: STOP_CIRCLE_STROKE_BASE,
+    //   stops: STOP_CIRCLE_STROKE_STEPS
+    // }
+    "circle-stroke-width": [
+      "interpolate",
+      ["exponential", 1.7],
+      ["zoom"],
+      13,
+      STOP_CIRCLE_STROKE_BASE,
+      16,
+      STOP_CIRCLE_STROKE_BASE * 2
+    ]
   };
 
   const data = landmarks.map(
