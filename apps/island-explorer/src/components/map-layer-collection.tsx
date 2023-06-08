@@ -172,10 +172,6 @@ function createCircleLayer(
 
   const paint: CirclePaint = {
     "circle-color": `#${color}`,
-    // "circle-radius": {
-    //   base: STOP_CIRCLE_RADIUS_BASE,
-    //   stops: STOP_CIRCLE_RADIUS_STEPS
-    // },
     "circle-radius": [
       "interpolate",
       ["exponential", 1.7],
@@ -187,10 +183,6 @@ function createCircleLayer(
     ],
     "circle-stroke-color": STOP_CIRCLE_STROKE_COLOR,
     "circle-stroke-opacity": 0.8,
-    // "circle-stroke-width": {
-    //   base: STOP_CIRCLE_STROKE_BASE,
-    //   stops: STOP_CIRCLE_STROKE_STEPS
-    // }
     "circle-stroke-width": [
       "interpolate",
       ["exponential", 1.7],
