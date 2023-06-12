@@ -112,7 +112,7 @@
         45000
       ],
       "notices": ["NTE_SCHEDULED_STOPS"],
-      "tips": [],
+      "tips": ["RTE_BLACKWOODS_TIP"],
       "trace": "blackwoods.kml"
     },
     {
