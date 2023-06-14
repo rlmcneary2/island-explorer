@@ -15,7 +15,7 @@
       "description": "RTE_VISITOR_CENTER_DESC",
       "displayName": "Eden Street",
       "id": 2,
-      "landmarks": [1, 13, 14, 2, 15, 16, 17],
+      "landmarks": [1, 13, 14, 2, 15, 16, 17, 18, 19],
       "notices": ["NTE_ROUTE_2_2023", "NTE_SCHEDULED_STOPS"],
       "tips": [],
       "trace": "EdenStreet.kml"
@@ -63,8 +63,8 @@
       "displayName": "Northeast Harbor",
       "id": 6,
       "landmarks": [
-        1, 35, 38000, 10077, 53, 39000, 39500, 39510, 38, 10031, 29, 34600, 38,
-        53, 35
+        1, 35, 38000, 10077, 53, 46000, 39000, 39500, 39510, 38, 10031, 29,
+        34600, 38, 53, 35
       ],
       "notices": ["NTE_SCHEDULED_STOPS"],
       "tips": ["RTE_NORTHEAST_HARBOR_TIP"],
