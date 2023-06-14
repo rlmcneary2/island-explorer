@@ -352,7 +352,7 @@ function createSymbolLayer(
       ],
       "text-anchor": "top",
       "text-field": ["get", "name"],
-      "text-offset": [0, 1],
+      "text-offset": [0, 0.25],
       visibility: visibility ?? "visible"
     },
     paint: {},
