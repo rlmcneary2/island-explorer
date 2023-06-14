@@ -1174,7 +1174,7 @@
     },
     {
       "description": "LMK_SEAWALL_DESC",
-      "features": ["accessible", "wonder"],
+      "features": ["accessible", "wonder", "picnic"],
       "id": 40000,
       "landmarkType": "point-of-interest",
       "displayName": "Seawall",
@@ -1195,7 +1195,6 @@
       }
     },
     {
-      "description": "POI_FRAZER_POINT_DESC",
       "features": ["picnic", "restroom"],
       "id": 42000,
       "landmarkType": "point-of-interest",
@@ -1240,7 +1239,7 @@
     },
     {
       "description": "TRH_HADLOCK_BROOK_TRAIL_DESC",
-      "features": ["hike", "walk"],
+      "features": ["hike", "climb"],
       "id": 46000,
       "landmarkType": "trail-head",
       "displayName": "Hadlock Brook Trail",

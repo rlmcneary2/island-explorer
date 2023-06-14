@@ -63,8 +63,8 @@
       "displayName": "Northeast Harbor",
       "id": 6,
       "landmarks": [
-        1, 35, 38000, 10077, 53, 46000, 39000, 39500, 39510, 38, 10031, 29,
-        34600, 38, 53, 35
+        1, 10034, 35, 38000, 10077, 53, 46000, 39000, 39500, 39510, 38, 10031,
+        29, 34600, 38, 53, 35
       ],
       "notices": ["NTE_SCHEDULED_STOPS"],
       "tips": ["RTE_NORTHEAST_HARBOR_TIP"],
@@ -76,7 +76,7 @@
       "id": 7,
       "displayName": "Southwest Harbor",
       "landmarks": [
-        1, 35, 62, 39, 41000, 40, 41, 44, 40000, 46, 88, 44, 39, 62, 1
+        1, 10034, 35, 62, 39, 41000, 40, 41, 44, 40000, 46, 88, 44, 39, 62, 1
       ],
       "notices": ["NTE_SCHEDULED_STOPS"],
       "tips": [],
@@ -97,7 +97,9 @@
       "description": "RTE_TRENTON_DESC",
       "id": 9,
       "displayName": "Trenton",
-      "landmarks": [74, 10, 11, 9, 11000, 69, 35, 1, 35, 69, 11000, 9, 11, 10],
+      "landmarks": [
+        74, 10, 11, 9, 11000, 69, 35, 10034, 1, 10034, 35, 69, 11000, 9, 11, 10
+      ],
       "notices": ["NTE_SCHEDULED_STOPS"],
       "tips": [],
       "trace": "Trenton.kml"
@@ -120,7 +122,7 @@
       "description": "RTE_TREMONT_DESC",
       "id": 11,
       "displayName": "Tremont",
-      "landmarks": [44, 88, 46, 47, 55, 48, 50, 48, 43],
+      "landmarks": [44, 88, 40000, 46, 47, 55, 48, 50, 48, 43],
       "notices": ["NTE_SCHEDULED_STOPS"],
       "tips": [],
       "trace": "trace-11.json"
