@@ -24,6 +24,7 @@
     "mapbox",
     "mapboxgl",
     "MONTS",
+    "Norumbega",
     "ONTIME",
     "Parens",
     "Pemetic",
@@ -42,5 +43,5 @@
     "ulist"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "prettier.prettierPath": "./node_modules/prettier" 
+  "prettier.prettierPath": "./node_modules/prettier"
 }
