@@ -1,7 +1,7 @@
 import * as version from "./version.json";
 import * as pathData from "./paths.json";
 
-const CACHE_VERSION = "Island-Explorer-2023c";
+const CACHE_VERSION = "Island-Explorer-2023d";
 
 const wgs = self as unknown as ServiceWorkerGlobalScope;
 
@@ -27,7 +27,6 @@ wgs.addEventListener("install", async event => {
 
   const paths = [
     ...pathData.paths,
-    ...pathData.apiLeftPaths.map(path => `${pathData.apiLeft}${path}`),
     ...pathData.routeIds.reduce<string[]>((acc, id) => {
       acc.push(
         `route/${id}/map`,
