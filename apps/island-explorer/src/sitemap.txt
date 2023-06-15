@@ -22,5 +22,3 @@ https://www.islandexplorer.app/route/10/information
 https://www.islandexplorer.app/route/10/map
 https://www.islandexplorer.app/route/11/information
 https://www.islandexplorer.app/route/11/map
-https://www.islandexplorer.app/route/12/information
-https://www.islandexplorer.app/route/12/map
