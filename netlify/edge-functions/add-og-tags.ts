@@ -8,7 +8,7 @@ export default async (req: Request, ctx: any) => {
   }
 
   console.log(`parts=`, parts);
-  const routeId = +parts[1];
+  const routeId = +parts[2];
 
   console.log(`routeId='${routeId}'`);
   const route = routes.find(
