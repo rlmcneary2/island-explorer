@@ -30,7 +30,7 @@ export function BusRoute() {
   }, [paramRouteId, routeId, setRoute]);
 
   setCanonical();
-  setOpenGraph(routeId, routes, formatMessage);
+  // setOpenGraph(routeId, routes, formatMessage);
 
   return <BusRouteView />;
 }
