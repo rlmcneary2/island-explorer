@@ -7,14 +7,19 @@ export default async (req: Request, ctx: any) => {
     return ctx.next();
   }
 
+  console.log(`parts=`, parts);
+  const routeId = +parts[1];
+
+  console.log(`routeId='${routeId}'`);
   const route = routes.find(
-    route => route.id === +parts[1]
+    route => route.id === routeId
   ) as (typeof routes)[0] & { url: string };
-  route.url = req.url;
 
   if (!route) {
     return ctx.next();
   }
+
+  route.url = req.url;
 
   const res = (await ctx.next()) as Response;
   const html = await res.text();
