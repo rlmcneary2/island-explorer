@@ -1,3 +1,5 @@
+import { DOMParser } from "https://deno.land/x/deno_dom/deno-dom-wasm.ts";
+
 export default async (req: Request, ctx: any) => {
   const url = new URL(req.url);
   console.log(`url='${req.url}'`);
