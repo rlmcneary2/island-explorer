@@ -7,6 +7,11 @@
 [build.environment]
   NODE_VERSION = "18"
 
+[[edge_functions]]
+  excludedPath = "/api/*"
+  function = "add-og-tags"
+  path = "/route/*"
+
 # For use during development.
 # [[redirects]]
 #  from = "/api/InfoPoint/rest/Vehicles/GetAllVehiclesForRoutes/*"
