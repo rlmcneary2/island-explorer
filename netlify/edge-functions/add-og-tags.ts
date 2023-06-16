@@ -1,5 +1,6 @@
 export default async (req: Request, ctx: any) => {
   const url = new URL(req.url);
+  console.log(`url='${req.url}'`);
   const parts = url.pathname.split("/");
 
   if (parts.length < 3) {
@@ -20,6 +21,8 @@ export default async (req: Request, ctx: any) => {
 
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, "text/html");
+
+  console.log("parsed doc=", doc);
 
   // Add OG tags.
   setOpenGraph(doc, route);
@@ -54,7 +57,7 @@ function setOpenGraph(
 
 function updateOpenGraphTag(doc: Document, property: string, content: string) {
   const id = `og-${property.replace(":", "-")}`;
-  const meta = document.head.querySelector(`#${id}`) as HTMLMetaElement;
+  const meta = doc.head.querySelector(`#${id}`) as HTMLMetaElement;
   const attr = meta?.getAttribute("content");
   if (attr === content) {
     return;
@@ -64,11 +67,11 @@ function updateOpenGraphTag(doc: Document, property: string, content: string) {
 
   meta?.remove();
 
-  const nextMeta = document.createElement("meta") as HTMLMetaElement;
+  const nextMeta = doc.createElement("meta") as HTMLMetaElement;
   nextMeta.id = id;
   nextMeta.setAttribute("property", `og:${property}`);
   nextMeta.setAttribute("content", content);
-  document.head.appendChild(nextMeta);
+  doc.head.appendChild(nextMeta);
 }
 
 const routes = [
