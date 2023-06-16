@@ -8,7 +8,6 @@
   NODE_VERSION = "18"
 
 [[edge_functions]]
-  excludedPath = "/api/*"
   function = "add-og-tags"
   path = "/route/*"
 
