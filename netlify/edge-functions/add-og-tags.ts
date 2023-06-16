@@ -1,5 +1,5 @@
-import { routes } from "../../apps/island-explorer/src/assets/routes.json";
-import messages from "../../apps/island-explorer/src/assets/messages-en-us.json";
+import { routes } from "../../apps/island-explorer/src/assets/routes.json" assert { type: "json" };
+import messages from "../../apps/island-explorer/src/assets/messages-en-us.json" assert { type: "json" };
 
 export default async (req: Request, ctx: any) => {
   const url = new URL(req.url);
