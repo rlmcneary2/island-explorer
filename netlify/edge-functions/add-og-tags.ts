@@ -30,11 +30,12 @@ export default async (req: Request, ctx: any) => {
   const doc = parser.parseFromString(html, "text/html");
 
   console.log("parsed doc=", doc);
+  console.log("parsed doc to string=", doc.toString());
 
   // Add OG tags.
   setOpenGraph(doc, route);
 
-  return new Response(new XMLSerializer().serializeToString(doc), res);
+  return new Response(doc.toString(), res);
 };
 
 // Set `<meta>` open graph tags that will allow previews to be generated from a
