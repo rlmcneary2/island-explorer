@@ -1,16 +1,13 @@
 export default async (req: Request, ctx: any) => {
   const url = new URL(req.url);
-  console.log(`url='${req.url}'`);
   const parts = url.pathname.split("/");
 
   if (parts.length < 3) {
     return ctx.next();
   }
 
-  console.log(`parts=`, parts);
   const routeId = +parts[2];
 
-  console.log(`routeId='${routeId}'`);
   const route = routes.find(
     route => route.id === routeId
   ) as (typeof routes)[0] & { url: string };
@@ -24,6 +21,10 @@ export default async (req: Request, ctx: any) => {
   const res = (await ctx.next()) as Response;
   const html = await res.text();
 
+  // Deno (and Node) have terrible support for parsing, manipulating, and
+  // serializing HTML documents. So we're just going to insert strings for the
+  // meta tags.
+
   // Add OG tags.
   setOpenGraph(html, route);
 
@@ -33,10 +34,10 @@ export default async (req: Request, ctx: any) => {
 // Set `<meta>` open graph tags that will allow previews to be generated from a
 // link to an Island Explorer route.
 function setOpenGraph(
-  doc: string,
+  html: string,
   route: { description: string; displayName: string; url: string }
 ): string {
-  let nextHtml = updateOpenGraphTag(doc, "description", route.description);
+  let nextHtml = updateOpenGraphTag(html, "description", route.description);
   nextHtml = updateOpenGraphTag(
     nextHtml,
     "image",
@@ -69,14 +70,14 @@ function updateOpenGraphTag(
   property: string,
   content: string
 ): string {
-  const id = `og-${property.replace(":", "-")}`;
   const index = doc.indexOf("</head>");
   return `${doc.substring(
     0,
     index
-  )}<meta content="${content}" id="${id}" property="og:${property}" />${doc.substring(
-    index
-  )}`;
+  )}<meta content="${content}" id="og-${property.replace(
+    ":",
+    "-"
+  )}" property="og:${property}" />${doc.substring(index)}`;
 }
 
 const routes = [
