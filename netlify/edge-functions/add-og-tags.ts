@@ -1,7 +1,3 @@
-// import { DOMParser } from "https://deno.land/x/deno_dom/deno-dom-wasm.ts";
-// import * as parse5 from "https://deno.land/x/parse5/parse5/lib/index.js";
-// import * as cheerio from "https://esm.sh/cheerio";
-
 export default async (req: Request, ctx: any) => {
   const url = new URL(req.url);
   console.log(`url='${req.url}'`);
@@ -28,18 +24,9 @@ export default async (req: Request, ctx: any) => {
   const res = (await ctx.next()) as Response;
   const html = await res.text();
 
-  // const parser = new DOMParser();
-  // const doc = parser.parseFromString(html, "text/html");
-  // const doc = parse5.parse(html, {treeAdapter: });
-  // const doc = cheerio.load(html);
-
-  // console.log("parsed doc=", doc);
-  // console.log("parsed doc to string=", doc.toString());
-
   // Add OG tags.
   setOpenGraph(html, route);
 
-  // return new Response(doc.toString(), res);
   return new Response(setOpenGraph(html, route), res);
 };
 
@@ -49,24 +36,32 @@ function setOpenGraph(
   doc: string,
   route: { description: string; displayName: string; url: string }
 ): string {
-  updateOpenGraphTag(doc, "description", route.description);
-  updateOpenGraphTag(
-    doc,
+  let nextHtml = updateOpenGraphTag(doc, "description", route.description);
+  nextHtml = updateOpenGraphTag(
+    nextHtml,
     "image",
     "https://www.islandexplorer.app/assets/opengraph-image.png"
   );
-  updateOpenGraphTag(
-    doc,
+  nextHtml = updateOpenGraphTag(
+    nextHtml,
     "image:alt",
     "A map of Island Explorer routes displayed in the Acadia's Island Explorer app."
   );
-  updateOpenGraphTag(doc, "image:height", "1080");
-  updateOpenGraphTag(doc, "image:width", "1080");
-  updateOpenGraphTag(doc, "site_name", "Acadia's Island Explorer");
-  updateOpenGraphTag(doc, "title", `Island Explorer - ${route.displayName}`);
-  updateOpenGraphTag(doc, "type", "website");
-  updateOpenGraphTag(doc, "url", route.url);
-  return doc;
+  nextHtml = updateOpenGraphTag(nextHtml, "image:height", "1080");
+  nextHtml = updateOpenGraphTag(nextHtml, "image:width", "1080");
+  nextHtml = updateOpenGraphTag(
+    nextHtml,
+    "site_name",
+    "Acadia's Island Explorer"
+  );
+  nextHtml = updateOpenGraphTag(
+    nextHtml,
+    "title",
+    `Island Explorer - ${route.displayName}`
+  );
+  nextHtml = updateOpenGraphTag(nextHtml, "type", "website");
+  nextHtml = updateOpenGraphTag(nextHtml, "url", route.url);
+  return nextHtml;
 }
 
 function updateOpenGraphTag(
