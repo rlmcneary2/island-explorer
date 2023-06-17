@@ -1,5 +1,6 @@
 // import { DOMParser } from "https://deno.land/x/deno_dom/deno-dom-wasm.ts";
-import * as parse5 from "https://deno.land/x/parse5/parse5/lib/index.js";
+// import * as parse5 from "https://deno.land/x/parse5/parse5/lib/index.js";
+// import * as cheerio from "https://esm.sh/cheerio";
 
 export default async (req: Request, ctx: any) => {
   const url = new URL(req.url);
@@ -29,24 +30,25 @@ export default async (req: Request, ctx: any) => {
 
   // const parser = new DOMParser();
   // const doc = parser.parseFromString(html, "text/html");
-  const doc = parse5.parse(html);
+  // const doc = parse5.parse(html, {treeAdapter: });
+  // const doc = cheerio.load(html);
 
-  console.log("parsed doc=", doc);
+  // console.log("parsed doc=", doc);
   // console.log("parsed doc to string=", doc.toString());
 
   // Add OG tags.
-  setOpenGraph(doc, route);
+  setOpenGraph(html, route);
 
   // return new Response(doc.toString(), res);
-  return new Response(parse5.serialize(doc), res);
+  return new Response(setOpenGraph(html, route), res);
 };
 
 // Set `<meta>` open graph tags that will allow previews to be generated from a
 // link to an Island Explorer route.
 function setOpenGraph(
-  doc: Document,
+  doc: string,
   route: { description: string; displayName: string; url: string }
-) {
+): string {
   updateOpenGraphTag(doc, "description", route.description);
   updateOpenGraphTag(
     doc,
@@ -64,15 +66,22 @@ function setOpenGraph(
   updateOpenGraphTag(doc, "title", `Island Explorer - ${route.displayName}`);
   updateOpenGraphTag(doc, "type", "website");
   updateOpenGraphTag(doc, "url", route.url);
+  return doc;
 }
 
-function updateOpenGraphTag(doc: Document, property: string, content: string) {
+function updateOpenGraphTag(
+  doc: string,
+  property: string,
+  content: string
+): string {
   const id = `og-${property.replace(":", "-")}`;
-  const nextMeta = doc.createElement("meta") as HTMLMetaElement;
-  nextMeta.id = id;
-  nextMeta.setAttribute("property", `og:${property}`);
-  nextMeta.setAttribute("content", content);
-  doc.head.appendChild(nextMeta);
+  const index = doc.indexOf("</head>");
+  return `${doc.substring(
+    0,
+    index
+  )}<meta content="${content}" id="${id}" property="og:${property}" />${doc.substring(
+    index
+  )}`;
 }
 
 const routes = [
