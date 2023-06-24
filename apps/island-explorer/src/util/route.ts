@@ -1,6 +1,7 @@
 import { MAP } from "../constants/routes";
 import { RoutePage } from "../types/types";
 
+export const HELP_TEMPLATE = "/help";
 export const ROUTE_TEMPLATE = "/route/:routeId/:routePage";
 
 export function getRouteParameters(pathname?: Location["pathname"]): {
