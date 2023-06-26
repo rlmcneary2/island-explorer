@@ -8,9 +8,11 @@ import type {
   SelectedLandmark,
   Vehicle
 } from "./types";
+import { Periodic } from "./periodic/periodic";
 
 const ACTION_FETCH_ROUTES_FINISHED = "fetch-routes-finished";
 const INTERVAL_SECONDS = 15;
+const periodic = new Periodic(INTERVAL_SECONDS * 1000);
 
 export function create(): ActionHandler<ContextData>[] {
   const fetchLandmarks: ActionHandler<ContextData, null> = (
@@ -185,92 +187,69 @@ export function create(): ActionHandler<ContextData>[] {
       return [state];
     }
 
-    if (state.routeVehicles) {
-      if (action.id !== actionIds.ACTION_FETCH_ROUTE_VEHICLES) {
-        return [state];
-      }
-
-      if (state.routeVehicles.status !== "idle") {
+    const periodicRouteId = periodic.getContextValue("routeId");
+    if (periodic.active) {
+      if (state.routeId === periodicRouteId) {
         return [state];
       }
     }
 
-    const requestedRouteId = state.routeId;
+    async function periodicCallback(routeId: number) {
+      let response: Response | undefined;
+      let error: Error | string | undefined;
+      try {
+        response = await fetch(
+          `${env.apiLeft}/InfoPoint/rest/Vehicles/GetAllVehiclesForRoutes?routeIDs=${routeId}`
+        );
+      } catch (err) {
+        error = err as Error;
+      }
 
-    fetch(
-      `${env.apiLeft}/InfoPoint/rest/Vehicles/GetAllVehiclesForRoutes?routeIDs=${requestedRouteId}`
-    )
-      .then(async response => {
-        if (response.ok) {
-          // Some browsers (mobile PWA running in Chrome) will interpret an
-          // error response in such a way that the app is broken. Because of
-          // that this special header was created to return error information in
-          // a 200 response (gross).
-          if (response.headers.has("X-SW-Error")) {
-            return { error: response.headers.get("X-SW-Error") };
-          }
-
-          return { body: (await response.json()) as Vehicle[] };
-        }
-
-        let body: string | undefined;
+      // Some browsers (mobile PWA running in Chrome) will interpret an error
+      // response in such a way that the app is broken. Because of that this
+      // special header was created to return error information in a 200
+      // response (gross).
+      if (
+        !error &&
+        response &&
+        (!response.ok || response.headers.has("X-SW-Error"))
+      ) {
         try {
-          body = await response.text();
-        } catch (err) {
+          error = await response.text();
+        } catch {
           // Nothing to do here.
         }
 
-        throw Error(
-          `${response.status}${
-            body
-              ? `\nbody='${body}'`
-              : response.statusText
-              ? `\nstatusText='${response.statusText}'`
-              : ""
-          }`
+        error =
+          !error && response.headers.has("X-SW-Error")
+            ? (response.headers.get("X-SW-Error") as string)
+            : error;
+      }
+
+      const body = response && ((await response.json()) as Vehicle[]);
+
+      const options = error ? { error } : { body };
+
+      dispatch(inlineState => {
+        return processVehicleResponse(
+          inlineState,
+          options,
+          periodic.nextUpdate
         );
-      })
-      .catch((error: Error) => {
-        console.log("fetchRouteVehicles: catch; error=", error);
-        return { error };
-      })
-      .then(data => {
-        dispatch(inlineState => {
-          if (requestedRouteId !== inlineState.routeId) {
-            return [inlineState];
-          }
-
-          const { interval, lastDispatchTime } = getVehicleUpdateInterval(
-            action.payload as { dispatchTime?: number; routeId?: number }
-          );
-
-          const nextState = processVehicleResponse(
-            inlineState,
-            data,
-            requestedRouteId,
-            interval
-          );
-
-          setTimeout(() => {
-            // Can't check here to see if the routeId in state (or inlineState)
-            // has changed because by now that state is out-of-date. So dispatch
-            // and a check will be done in the handler with the current state.
-            dispatch({
-              id: actionIds.ACTION_FETCH_ROUTE_VEHICLES,
-              payload: {
-                dispatchTime: lastDispatchTime + INTERVAL_SECONDS * 1000, // Always increment like a clock.
-                routeId: requestedRouteId
-              }
-            });
-          }, interval);
-
-          return nextState;
-        });
       });
+    }
+
+    periodic
+      .start(periodicCallback, [state.routeId], true)
+      .setContextValue("routeId", state.routeId);
 
     const result: ContextData = {
       ...state,
-      routeVehicles: { ...state.routeVehicles, status: "active" }
+      routeVehicles: {
+        ...state.routeVehicles,
+        nextUpdate: periodic.nextUpdate,
+        status: "active"
+      }
     };
     return [result, true];
   };
@@ -402,35 +381,17 @@ export const actionIds = Object.freeze({
   ACTION_SET_OPTION: "action-set-option"
 });
 
-function getVehicleUpdateInterval(payload: { dispatchTime?: number }) {
-  const { dispatchTime = Date.now() + INTERVAL_SECONDS * 1000 } = payload;
-  let lastDispatchTime = dispatchTime;
-  const slipDispatchTime = Date.now() + INTERVAL_SECONDS * 1000;
-  const processingTime = slipDispatchTime - lastDispatchTime;
-  let interval = INTERVAL_SECONDS * 1000 - processingTime;
-  if (interval < 0) {
-    lastDispatchTime = Date.now();
-    interval = 0;
-  }
-
-  return { interval, lastDispatchTime };
-}
-
 function processVehicleResponse(
   state: ContextData,
-  response: { body: Vehicle[] } | { error: string | null } | { error: Error },
-  requestedRouteId: number,
-  fetchInterval: number
+  response: { body: Vehicle[] | undefined } | { error: Error | string },
+  nextUpdate: number
 ): [ContextData, boolean?] {
-  if (requestedRouteId !== state.routeId) {
-    return [state];
-  }
-
   let anyChanged = false;
   const currentVehicles = [...(state.routeVehicles?.data ?? [])];
   const nextRouteVehicles: Vehicle[] = [];
 
   "body" in response &&
+    response.body &&
     response.body.forEach(nextVehicle => {
       const index = currentVehicles.findIndex(
         rVehicle => rVehicle.VehicleId === nextVehicle.VehicleId
@@ -455,8 +416,6 @@ function processVehicleResponse(
 
   anyChanged = anyChanged ? anyChanged : 0 < currentVehicles.length;
 
-  const nextUpdate = Date.now() + fetchInterval;
-
   const ctx: ContextData = {
     ...state,
     routeVehicles:
@@ -474,7 +433,10 @@ function processVehicleResponse(
   };
 
   if (!("error" in response)) {
-    ctx.routeVehicleHeadings = updateVehicleHeadings(state, response.body);
+    ctx.routeVehicleHeadings = updateVehicleHeadings(
+      state,
+      response.body as Vehicle[]
+    );
   }
 
   return [ctx, true];

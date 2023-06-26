@@ -11,7 +11,7 @@ export interface ContextData {
   routeId?: number;
   routes?: AsyncActionData<RoutesAssetItem[]>;
   routeTrace?: AsyncActionData<Trace>;
-  routeVehicles?: AsyncActionData<Vehicle[]> & {
+  routeVehicles?: RouteVehiclesAsyncActionData<Vehicle[]> & {
     /** Time in milliseconds when the next vehicle update will occur. */
     nextUpdate?: number;
   };
@@ -65,6 +65,11 @@ export interface RouteVehicleHeading {
   currentHeading?: Vehicle["Heading"];
   lastStop: Vehicle["LastStop"];
   previousHeadings: Vehicle["Heading"][];
+}
+
+export interface RouteVehiclesAsyncActionData<T>
+  extends Omit<AsyncActionData<T>, "status"> {
+  status: AsyncActionData<T>["status"] | "pending";
 }
 
 export interface SelectedLandmark extends Record<string, unknown> {
