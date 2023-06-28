@@ -7,6 +7,30 @@
   overflow: hidden;
 }
 
+@mixin content-region() {
+  background-color: color.$color-app-background;
+  box-sizing: border-box;
+  grid-column-start: 1;
+  grid-row-start: 1;
+  height: 100%;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: dimension.$control-padding-large;
+  position: absolute;
+  top: 0;
+  width: 100%;
+
+  h1 {
+    @extend %headline-1;
+  }
+
+  h2 {
+    @extend %headline-2;
+    margin: 0;
+  }
+}
+
 %headline-1 {
   @extend %title-1;
   margin: dimension.$text-heading-margin 0 0 0;

@@ -1,0 +1,29 @@
+@use "../color";
+@use "../dimension";
+@use "../font";
+@use "../app";
+
+.content {
+  .help {
+    @include app.content-region;
+    @extend %para;
+
+    .toc {
+      @extend %text;
+      margin-top: dimension.$text-para-margin;
+
+      .toc-list {
+        @extend %ulist;
+        list-style-type: none;
+
+        li {
+          margin-top: dimension.$text-para-margin;
+        }
+      }
+    }
+
+    .chapter {
+      margin-top: dimension.$text-para-margin;
+    }
+  }
+}
