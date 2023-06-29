@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import React, { useMemo, useRef } from "react";
 import type { LngLatBoundsLike, Map as MapGL } from "mapbox-gl";
 import { NavigationControl, RemapGL } from "remapgl";
 import MapLayerCollectionItems from "./map-layer-collection-items";
@@ -14,13 +14,25 @@ const START_ZOOM = 8.5;
 export default function Map({ routeId }: Props) {
   const ref = useRef(null);
   const map = useRef<MapGL | null>(null);
+  const lastBounds = useRef<LngLatBoundsLike | undefined>();
 
   const fitBounds = useMemo(
-    () => (bounds: LngLatBoundsLike) =>
+    () => (bounds: LngLatBoundsLike) => {
+      lastBounds.current = bounds;
       map.current &&
-      map.current.fitBounds(bounds, { padding: ZOOM_TO_FIT_PADDING }),
+        map.current.fitBounds(bounds, { padding: ZOOM_TO_FIT_PADDING });
+    },
     []
   );
+
+  const handleResetBoundsClick: React.MouseEventHandler<
+    HTMLButtonElement
+  > = () => {
+    lastBounds.current &&
+      map.current?.fitBounds(lastBounds.current, {
+        padding: ZOOM_TO_FIT_PADDING
+      });
+  };
 
   return (
     <div className="map">
@@ -38,6 +50,9 @@ export default function Map({ routeId }: Props) {
         <MapStops />
         <MapVehicles />
       </RemapGL>
+      <button className="button reset-bounds" onClick={handleResetBoundsClick}>
+        <span className="material-symbols-outlined">fit_screen</span>
+      </button>
     </div>
   );
 }

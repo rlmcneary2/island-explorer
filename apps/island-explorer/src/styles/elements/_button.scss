@@ -8,6 +8,7 @@
   background-color: color.$control-background;
   border-radius: 6px;
   box-sizing: content-box;
+  cursor: pointer;
   display: flex;
   flex: 1;
   justify-content: center;
@@ -48,6 +49,7 @@
 button.icon {
   background-color: transparent;
   box-sizing: content-box;
+  cursor: pointer;
   height: dimension.$icon-button-size;
   padding: dimension.$icon-button-padding;
   width: dimension.$icon-button-size;

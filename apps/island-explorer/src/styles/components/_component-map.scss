@@ -1,4 +1,6 @@
 @use "../color";
+@use "../dimension";
+@use "../elements//button";
 
 $icon-size: 40px;
 
@@ -12,6 +14,20 @@ div.map {
   width: 100%;
   > div {
     height: 100%;
+  }
+
+  > .reset-bounds {
+    background-color: color.$background;
+    border-radius: 4px; // Match the appearance of the Mapbox controls.
+    bottom: 0;
+    margin-bottom: 3rem;
+    min-width: unset;
+    position: absolute;
+    right: 0;
+
+    &:last-child {
+      margin-right: dimension.$control-padding-large;
+    }
   }
 }
 
