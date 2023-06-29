@@ -31,7 +31,7 @@ export default function Map({ routeId }: Props) {
         ref={ref}
         zoom={START_ZOOM}
       >
-        <NavigationControl showCompass showZoom />
+        <NavigationControl position="bottom-left" showCompass showZoom />
         {routeId && (
           <MapLayerCollectionItems fitBounds={fitBounds} routeId={routeId} />
         )}

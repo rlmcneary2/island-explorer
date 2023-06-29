@@ -13028,10 +13028,10 @@ relateurl@^0.2.7:
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha512-G08Dxvm4iDN3MLM0EsP62EDV9IuhXPR6blNz6Utcp7zyV3tr4HVNINt6MpaRWbxoOHT3Q7YN2P+jaHX8vUbgog==
 
-remapgl@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/remapgl/-/remapgl-2.4.1.tgz#29359230597e9dac4c84dcc0e096c879b2d66348"
-  integrity sha512-SD+/4a/8zuEdyEw6iGKLwPnyDnoicqnWqC7xI6nnL96/w4Pn6FLrliNAUvCRb3CsPSkJmvUgu8hDj34aYOkPlw==
+remapgl@^2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/remapgl/-/remapgl-2.4.2.tgz#13b4d001ce9288fa5f1583e471ef0e3ccfe3903b"
+  integrity sha512-y2YeWwj1FD4+TcfKbusuCG8V1A+AQMo8zAXJi4POl4SRpOMJQEyDh2b/jePh+uOUOhLBDB90M9F7p5YlhT11uw==
   dependencies:
     lodash "^4.17.21"
 
