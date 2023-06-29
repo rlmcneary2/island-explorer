@@ -113,7 +113,7 @@
         1, 10083, 28000, 29000, 30000, 31000, 21, 27500, 27000, 26000, 27, 21,
         45000
       ],
-      "notices": ["NTE_SCHEDULED_STOPS"],
+      "notices": ["NTE_ROUTE_10_2023", "NTE_SCHEDULED_STOPS"],
       "tips": ["RTE_BLACKWOODS_TIP"],
       "trace": "blackwoods.kml"
     },
