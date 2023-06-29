@@ -1247,6 +1247,28 @@
         "latitude": 44.32588169359566,
         "longitude": -68.29122890429686
       }
+    },
+    {
+      "description": "POI_FRENCHMAN_BAY_OVERLOOK_DESC",
+      "features": ["wonder"],
+      "id": 47000,
+      "landmarkType": "point-of-interest",
+      "displayName": "Frenchman Bay Overlook",
+      "location": {
+        "latitude": 44.39870002277952,
+        "longitude": -68.2307930987259
+      }
+    },
+    {
+      "description": "POI_BAR_HARBOR_OVERLOOK_DESC",
+      "features": ["wonder"],
+      "id": 48000,
+      "landmarkType": "point-of-interest",
+      "displayName": "Bar Harbor Overlook",
+      "location": {
+        "latitude": 44.38434429106881,
+        "longitude": -68.22981326905816
+      }
     }
   ]
 }
