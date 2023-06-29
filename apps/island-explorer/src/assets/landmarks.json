@@ -1269,6 +1269,17 @@
         "latitude": 44.38434429106881,
         "longitude": -68.22981326905816
       }
+    },
+    {
+      "description": "POI_SOMESVILLE_BRIDGE_DESC",
+      "features": ["wonder"],
+      "id": 49000,
+      "landmarkType": "point-of-interest",
+      "displayName": "Somesville Bridge",
+      "location": {
+        "latitude": 44.361806963932594,
+        "longitude": -68.3349187719791
+      }
     }
   ]
 }
