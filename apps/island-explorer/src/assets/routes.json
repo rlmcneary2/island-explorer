@@ -29,7 +29,7 @@
         1, 20, 28000, 29000, 30000, 31000, 32000, 20000, 21000, 22000, 23000,
         22, 23, 24000, 10024, 10092, 11064, 25000, 26000, 27000, 27500, 45000
       ],
-      "notices": ["NTE_ROUTE_3_2023", "NTE_SCHEDULED_STOPS"],
+      "notices": ["NTE_SCHEDULED_STOPS"],
       "tips": ["RTE_SAND_BEACH_TIP", "RTE_SAND_BEACH_TIP2"],
       "trace": "SandyBeach.kml"
     },
@@ -43,7 +43,7 @@
         21000, 22000, 23000, 22, 30023, 24000, 10024, 10092, 11064, 20065,
         30066, 34000, 34300, 34600, 30, 29, 35000, 36000, 11051, 30028, 83
       ],
-      "notices": ["NTE_ROUTE_4_2023", "NTE_SCHEDULED_STOPS"],
+      "notices": ["NTE_SCHEDULED_STOPS"],
       "tips": ["RTE_LOOP_ROAD_TIP", "RTE_LOOP_ROAD_TIP2"],
       "trace": "LoopRoad.kml"
     },
@@ -116,7 +116,7 @@
         1, 10083, 28000, 29000, 30000, 31000, 21, 27500, 27000, 26000, 27, 21,
         45000
       ],
-      "notices": ["NTE_ROUTE_10_2023", "NTE_SCHEDULED_STOPS"],
+      "notices": ["NTE_SCHEDULED_STOPS"],
       "tips": ["RTE_BLACKWOODS_TIP"],
       "trace": "blackwoods.kml"
     },
