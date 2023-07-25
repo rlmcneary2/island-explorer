@@ -33,25 +33,24 @@ export function Directions() {
     }
   };
 
-  const bases = {};
-  findMatches(
-    fromRoutes,
-    toRoutes,
-    {
-      landmarks: landmarks?.data || [],
-      routes: routes?.data || []
-    },
-    bases
-  );
+  console.log("Directions");
 
-  // const courses = m?.map(m => courseToString(m));
-  // const display = courses?.join(" | ");
+  const bases = {};
+  // findMatches(fromRoutes, toRoutes, {
+  //   landmarks: landmarks?.data || [],
+  //   routes: routes?.data || []
+  // });
+  findCourses(fromRoutes, toRoutes, {
+    landmarks: landmarks?.data || [],
+    routes: routes?.data || []
+  });
 
   return (
     <>
       <form>
         <datalist id="locations">
           <option>Bar Harbor Village Green</option>
+          <option>Bernard</option>
           <option>Cadillac North Ridge</option>
           <option>Wildwood Stables</option>
         </datalist>
@@ -79,82 +78,256 @@ export function Directions() {
 }
 
 function findMatches(
-  a: number | string,
-  b: number | string,
+  aLandmark: number | string,
+  bLandmark: number | string,
   options: {
     landmarks: Landmark[];
     routes: Route[];
-  },
-  bases: Record<string, Course> = {},
-  baseKey?: string
-): undefined {
-  const aData = findLandmarkAndRoutes(a, options);
-  const bData = findLandmarkAndRoutes(b, options);
+  }
+): Course[] | undefined {
+  const aData = findLandmarkAndRoutes(aLandmark, options);
+  const bData = findLandmarkAndRoutes(bLandmark, options);
 
   if (!aData || !bData) {
+    return;
+  }
+
+  if (
+    aData?.routes.every(r => r.id === 8) ||
+    bData?.routes.every(r => r.id === 8)
+  ) {
+    // One of these stops is only in schoodic and can't be connected.
     return;
   }
 
   const matches = _intersectionBy(aData.routes, bData.routes, "id");
 
   if (!matches.length) {
-    // const root: Partial<Course> = base ? {...base, next: }{ landmark: aData.landmark };
+    const courses: Course[] = [];
 
-    // Iterate over each route
-    // let nextResult: Course[] | undefined;
-    aData.routes.forEach(route => {
-      // Iterate over each stop in the route and find the stop's routes.
-      route.landmarks
-        .filter(l => l < 10000)
-        .forEach(landmarkId => {
-          // const nextLandMark = findLandmarkAndRoutes(landmarkId, options);
-          const landmark = getLandmark(landmarkId, options.landmarks);
-          if (!landmark) {
-            return;
-          }
+    const stops = _uniqBy(
+      options.landmarks.filter(l => l.id < 10000),
+      "id"
+    );
+    stops.forEach(stop => {
+      const stopData = findLandmarkAndRoutes(stop.id, options);
+      if (!stopData) {
+        return;
+      }
 
-          const nextBaseKey = `${baseKey ? " -> " : ""}LMK=${
-            landmark.displayName
-          }`;
-          if (Object.keys(bases).includes(nextBaseKey)) {
-            return;
-          }
+      const aIntersect = _intersectionBy(stopData?.routes, aData.routes, "id");
+      if (!aIntersect.length) {
+        return;
+      }
 
-          const nextBases = { ...bases };
-
-          findMatches(landmarkId, b, options, nextBases, nextBaseKey);
-
-          // if (nextCourses) {
-          //   nextCourses.forEach(nextCourse => {
-          //     nextResult = nextResult || [];
-
-          //     if (base) {
-          //       const baseCopy: Course = { ...base, next: nextCourse };
-          //       nextResult.push(baseCopy);
-          //     } else {
-          //       nextResult.push(nextCourse);
-          //     }
-          //   });
-          // }
+      const bIntersect = _intersectionBy(stopData?.routes, bData.routes, "id");
+      if (bIntersect.length) {
+        courses.push({
+          landmark: aData.landmark,
+          next: {
+            landmark: stopData?.landmark,
+            next: { landmark: bData.landmark },
+            route: bIntersect[0]
+          },
+          route: aIntersect[0]
         });
+      }
     });
+
+    courses
+      .sort((a, b) => a.route.displayName.localeCompare(b.route.displayName))
+      .forEach(p => console.log(courseToString(p)));
   }
 
   matches.forEach(match => {
-    const key = `LMK=${aData.landmark.displayName} -> RTE=${match.displayName} -> LMK=${bData.landmark.displayName}`;
-    bases[key] = {
-      landmark: aData.landmark,
-      route: match,
-      next: { landmark: bData.landmark }
-    };
+    console.log(
+      `LMK=${aData.landmark.displayName} -> RTE=${match.displayName} -> LMK=${bData.landmark.displayName}`
+    );
   });
 }
 
+// function findCourse(
+//   source: Course | CourseStop,
+//   destinationId: number,
+//   options: {
+//     landmarks: Landmark[];
+//     routes: Route[];
+//   }
+// ): boolean {
+//   let start: CourseStop = source;
+//   while ("next" in start) {
+//     start = (source as Course).next;
+//   }
+
+//   const startData = findLandmarkAndRoutes(start.landmark.id, options);
+//   let found = false;
+//   if (startData) {
+//     for (const route of startData.routes) {
+//       for (const stopId of route.landmarks.filter(l => l < 10000)) {
+//         if (stopId === startData.landmark.id) {
+//           continue;
+//         }
+
+//         if (stopId === destinationId) {
+//           const next = findLandmarkAndRoutes(stopId, options);
+//           if (next) {
+//             found = true;
+//             (start as Course).route = route;
+//             (start as Course).next = next;
+//           }
+//         }
+//       }
+//     }
+//   }
+
+//   return found;
+// }
+
+function routeIncludesLandmark(
+  landmark: number | string | Landmark,
+  route: Route,
+  keypath: string,
+  options: { landmarks: Landmark[] },
+  filterLandmarks: (landmarkIds: number[]) => number[] = ids =>
+    ids.filter(id => id < 10000)
+): { processed: string[]; route?: Route; stop?: Landmark } | undefined {
+  const safeLandmark =
+    typeof landmark === "object"
+      ? landmark
+      : getLandmark(landmark, options.landmarks);
+
+  if (!safeLandmark || safeLandmark.id === -1) {
+    return;
+  }
+
+  const processed: string[] = [];
+  for (const routeStop of filterLandmarks(route.landmarks)) {
+    const key = `${keypath ? `${keypath}:` : ""}${routeStop}`;
+    if (processed.includes(key)) {
+      continue;
+    }
+
+    processed.push(key);
+
+    if (routeStop === safeLandmark.id) {
+      return { processed, route, stop: safeLandmark };
+    }
+  }
+
+  return { processed };
+}
+
+function routesWithLandmark(
+  landmark: number | string | Landmark,
+  routes: Route[],
+  keypath: string,
+  options: { landmarks: Landmark[] }
+): { processed: string[]; routes?: Route[] } | undefined {
+  let filtered: Route[] | undefined;
+  const processed: string[] = [];
+  for (const route of routes) {
+    const include = routeIncludesLandmark(
+      landmark,
+      route,
+      `${keypath ? `${keypath}.` : ""}${route.displayName}`,
+      options
+    );
+    if (include && include.route) {
+      filtered = filtered || [];
+      filtered.push(route);
+      processed.push(...include.processed);
+    }
+  }
+
+  if (!filtered) {
+    return;
+  }
+
+  return { processed, routes: _uniqBy(filtered, "id") };
+}
+
+function landmarksConnections(
+  start: number | string | Landmark,
+  end: number | string | Landmark,
+  keypath: string,
+  options: {
+    landmarks: Landmark[];
+    routes: Route[];
+  }
+): { processed: string[]; routes?: Route[] } | undefined {
+  const startData = findLandmarkAndRoutes(start, options);
+  if (!startData) {
+    return;
+  }
+
+  return routesWithLandmark(
+    end,
+    startData.routes,
+    `${keypath ? `${keypath}:` : ""}${startData.landmark.displayName}`,
+    options
+  );
+}
+
+function findCourses(
+  start: number | string | Landmark,
+  end: string,
+  options: {
+    landmarks: Landmark[];
+    routes: Route[];
+  }
+) {
+  if (!start || !end) {
+    return;
+  }
+
+  const startData = findLandmarkAndRoutes(start, options);
+  if (!startData) {
+    return;
+  }
+
+  let result: Route[] | undefined;
+  const connections = landmarksConnections(
+    startData.landmark,
+    end,
+    "",
+    options
+  );
+
+  if (connections?.routes) {
+    result = result || [];
+    result.push(...connections.routes);
+  } else {
+    for (const route of startData.routes) {
+      for (const stopId of route.landmarks) {
+        if (stopId === startData.landmark.id) {
+          continue;
+        }
+
+        const connections2 = landmarksConnections(
+          stopId,
+          end,
+          `${startData.landmark.displayName}.${route.displayName}`,
+          options
+        );
+        if (connections2?.routes) {
+          result = result || [];
+          result.push(...connections2.routes);
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
 function findLandmarkAndRoutes(
-  identifier: number | string,
+  identifier: number | string | Landmark,
   { landmarks, routes }: { landmarks: Landmark[]; routes: Route[] }
 ) {
-  const landmark = getLandmark(identifier, landmarks);
+  const landmark =
+    typeof identifier === "object"
+      ? identifier
+      : getLandmark(identifier, landmarks);
   if (!landmark || landmark.id === -1) {
     return;
   }
@@ -167,7 +340,7 @@ function findLandmarkAndRoutes(
 }
 
 function courseToString(
-  course: Course | CourseTerminus | undefined,
+  course: Course | CourseStop | undefined,
   base = ""
 ): string {
   if (!course) {
@@ -184,11 +357,11 @@ function courseToString(
   return result;
 }
 
-interface CourseTerminus {
+interface CourseStop {
   landmark: Landmark;
 }
 
-interface Course extends CourseTerminus {
-  next: Course | CourseTerminus;
+interface Course extends CourseStop {
+  next: Course | CourseStop;
   route: Route;
 }
