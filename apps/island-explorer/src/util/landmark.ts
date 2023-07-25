@@ -2,13 +2,19 @@ import { Landmark, RoutesAssetItem } from "../types/types";
 
 export const LANDMARK_PATH_TEMPLATE = "/landmark/:landmarkId";
 
-export function getLandmark(id: number, landmarks?: Landmark[]): Landmark {
-  const landmark = landmarks?.find(lmk => lmk.id === id);
+export function getLandmark(
+  identifier: number | string,
+  landmarks?: Landmark[]
+): Landmark {
+  const landmark =
+    typeof identifier === "number"
+      ? landmarks?.find(lmk => lmk.id === identifier)
+      : landmarks?.find(lmk => lmk.displayName === identifier);
   if (!landmark) {
     return {
       description: "",
       displayName: "",
-      id,
+      id: -1,
       landmarkType: "point-of-interest",
       location: { latitude: 0, longitude: 0 }
     };
