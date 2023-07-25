@@ -4,6 +4,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import { ModalContainer } from "modal";
 import Header from "./header";
 import { MAP } from "../constants/routes";
+import { Directions } from "./directions/directions";
 import { getRoutePath, ROUTE_TEMPLATE } from "../util/route";
 import { UpdateAvailable } from "./toast/update-available/update-available";
 import version from "../assets/version.json";
@@ -26,6 +27,9 @@ export default function Main() {
             <Suspense fallback={<p>Loading map...</p>}>
               <BusRoute />
             </Suspense>
+          </Route>
+          <Route path="/directions">
+            <Directions />
           </Route>
           <Redirect to={getRoutePath(3, MAP)} />
         </Switch>
