@@ -8,7 +8,9 @@ import { UpdateAvailable } from "./toast/update-available/update-available";
 import version from "../assets/version.json";
 
 const BusRoute = lazy(() =>
-  import("./bus-route/bus-route").then(mod => ({ default: mod.BusRoute }))
+  import(/* webpackExports: "BusRoute" */ "./bus-route/bus-route").then(
+    mod => ({ default: mod.BusRoute })
+  )
 );
 
 export default function Main() {
