@@ -1,9 +1,10 @@
-import { intersectionBy as _intersectionBy, uniqBy as _uniqBy } from "lodash";
+import { uniqBy as _uniqBy } from "lodash";
 import { useState } from "react";
 import type { Landmark, RoutesAssetItem as Route } from "../../types/types";
 import useContextState from "../../context/use-context-state";
 import { getLandmark } from "../../util/landmark";
-import { Routes } from "react-router";
+
+const MAX_ROUTES = 3;
 
 export function Directions() {
   const [fromRoutes, setFromRoutes] = useState("");
@@ -36,31 +37,19 @@ export function Directions() {
 
   console.log("Directions");
 
-  const bases = {};
-  // findMatches(fromRoutes, toRoutes, {
-  //   landmarks: landmarks?.data || [],
-  //   routes: routes?.data || []
-  // });
-  // findCourses(fromRoutes, toRoutes, {
-  //   landmarks: landmarks?.data || [],
-  //   routes: routes?.data || []
-  // });
-
-  // findSharedRoutes(fromRoutes, toRoutes, {
-  //   landmarks: landmarks?.data || [],
-  //   routes: routes?.data || []
-  // });
-
-  const landmarkData = findLandmarkAndRoutes(fromRoutes, {
+  const results = findRoutes(fromRoutes, toRoutes, {
     landmarks: landmarks?.data || [],
     routes: routes?.data || []
   });
 
-  landmarkData &&
-    landmarkGraph(landmarkData.landmark.id, [], {
-      landmarks: landmarks?.data || [],
-      routes: routes?.data || []
+  if (Array.isArray(results)) {
+    results.sort((a, b) => {
+      const matchA = a.match(/\./g);
+      const matchB = b.match(/\./g);
+      return (matchA?.length || 0) - (matchB?.length || 0);
     });
+    console.log(results);
+  }
 
   return (
     <>
@@ -89,312 +78,189 @@ export function Directions() {
 
       <p>From: {fromRoutes}</p>
       <p>To: {toRoutes}</p>
-      <p>Matches: {Object.keys(bases).join(" | ")}</p>
+      <p>Matches: {results && (results as string[]).slice(0, 3).join(" | ")}</p>
     </>
   );
 }
 
-// function findMatches(
-//   aLandmark: number | string,
-//   bLandmark: number | string,
-//   options: {
-//     landmarks: Landmark[];
-//     routes: Route[];
-//   }
-// ): Course[] | undefined {
-//   const aData = findLandmarkAndRoutes(aLandmark, options);
-//   const bData = findLandmarkAndRoutes(bLandmark, options);
-
-//   if (!aData || !bData) {
-//     return;
-//   }
-
-//   if (
-//     aData?.routes.every(r => r.id === 8) ||
-//     bData?.routes.every(r => r.id === 8)
-//   ) {
-//     // One of these stops is only in schoodic and can't be connected.
-//     return;
-//   }
-
-//   const matches = _intersectionBy(aData.routes, bData.routes, "id");
-
-//   if (!matches.length) {
-//     const courses: Course[] = [];
-
-//     const stops = _uniqBy(
-//       options.landmarks.filter(l => l.id < 10000),
-//       "id"
-//     );
-//     stops.forEach(stop => {
-//       const stopData = findLandmarkAndRoutes(stop.id, options);
-//       if (!stopData) {
-//         return;
-//       }
-
-//       const aIntersect = _intersectionBy(stopData?.routes, aData.routes, "id");
-//       if (!aIntersect.length) {
-//         return;
-//       }
-
-//       const bIntersect = _intersectionBy(stopData?.routes, bData.routes, "id");
-//       if (bIntersect.length) {
-//         courses.push({
-//           landmark: aData.landmark,
-//           next: {
-//             landmark: stopData?.landmark,
-//             next: { landmark: bData.landmark },
-//             route: bIntersect[0]
-//           },
-//           route: aIntersect[0]
-//         });
-//       }
-//     });
-
-//     courses
-//       .sort((a, b) => a.route.displayName.localeCompare(b.route.displayName))
-//       .forEach(p => console.log(courseToString(p)));
-//   }
-
-//   matches.forEach(match => {
-//     console.log(
-//       `LMK=${aData.landmark.displayName} -> RTE=${match.displayName} -> LMK=${bData.landmark.displayName}`
-//     );
-//   });
-// }
-
-// function routeIncludesLandmark(
-//   landmark: number | string | Landmark,
-//   route: Route,
-//   keypath: string,
-//   options: { landmarks: Landmark[] },
-//   filterLandmarks: (landmarkIds: number[]) => number[] = ids =>
-//     ids.filter(id => id < 10000)
-// ): { processed: string[]; route?: Route; stop?: Landmark } | undefined {
-//   const safeLandmark =
-//     typeof landmark === "object"
-//       ? landmark
-//       : getLandmark(landmark, options.landmarks);
-
-//   if (!safeLandmark || safeLandmark.id === -1) {
-//     return;
-//   }
-
-//   const processed: string[] = [];
-//   for (const routeStop of filterLandmarks(route.landmarks)) {
-//     const key = `${keypath ? `${keypath}:` : ""}${routeStop}`;
-//     if (processed.includes(key)) {
-//       continue;
-//     }
-
-//     processed.push(key);
-
-//     if (routeStop === safeLandmark.id) {
-//       return { processed, route, stop: safeLandmark };
-//     }
-//   }
-
-//   return { processed };
-// }
-
-// function routesWithLandmark(
-//   landmark: number | string | Landmark,
-//   routes: Route[],
-//   keypath: string,
-//   options: { landmarks: Landmark[] }
-// ): { processed: string[]; routes?: Route[] } | undefined {
-//   let filtered: Route[] | undefined;
-//   const processed: string[] = [];
-//   for (const route of routes) {
-//     const include = routeIncludesLandmark(
-//       landmark,
-//       route,
-//       `${keypath ? `${keypath}.` : ""}${route.displayName}`,
-//       options
-//     );
-//     if (include && include.route) {
-//       filtered = filtered || [];
-//       filtered.push(route);
-//       processed.push(...include.processed);
-//     }
-//   }
-
-//   if (!filtered) {
-//     return;
-//   }
-
-//   return { processed, routes: _uniqBy(filtered, "id") };
-// }
-
-// function landmarksConnections(
-//   start: number | string | Landmark,
-//   end: number | string | Landmark,
-//   keypath: string,
-//   options: {
-//     landmarks: Landmark[];
-//     routes: Route[];
-//   }
-// ): { processed: string[]; routes?: Route[] } | undefined {
-//   const startData = findLandmarkAndRoutes(start, options);
-//   if (!startData) {
-//     return;
-//   }
-
-//   return routesWithLandmark(
-//     end,
-//     startData.routes,
-//     `${keypath ? `${keypath}:` : ""}${startData.landmark.displayName}`,
-//     options
-//   );
-// }
-
-// function findCourses(
-//   start: number | string | Landmark,
-//   end: string,
-//   options: {
-//     landmarks: Landmark[];
-//     routes: Route[];
-//   }
-// ) {
-//   if (!start || !end) {
-//     return;
-//   }
-
-//   const startData = findLandmarkAndRoutes(start, options);
-//   if (!startData) {
-//     return;
-//   }
-
-//   let result: Route[] | undefined;
-//   const connections = landmarksConnections(
-//     startData.landmark,
-//     end,
-//     "",
-//     options
-//   );
-
-//   if (connections?.routes) {
-//     result = result || [];
-//     result.push(...connections.routes);
-//   } else {
-//     for (const route of startData.routes) {
-//       for (const stopId of route.landmarks) {
-//         if (stopId === startData.landmark.id) {
-//           continue;
-//         }
-
-//         const connections2 = landmarksConnections(
-//           stopId,
-//           end,
-//           `${startData.landmark.displayName}.${route.displayName}`,
-//           options
-//         );
-//         if (connections2?.routes) {
-//           result = result || [];
-//           result.push(...connections2.routes);
-//         }
-//       }
-//     }
-//   }
-
-//   return result;
-// }
-
-// function findSharedRoutes(
-//   landmarkA: string,
-//   landmarkB: string,
-//   options: {
-//     landmarks: Landmark[];
-//     routes: Route[];
-//   }
-// ) {
-//   const dataA = findLandmarkAndRoutes(landmarkA, options);
-//   const dataB = findLandmarkAndRoutes(landmarkB, options);
-
-//   if (!dataA || !dataB) {
-//     return;
-//   }
-
-//   let found = false;
-//   for (const route of dataA.routes) {
-//     if (route.landmarks.includes(dataB.landmark.id)) {
-//       found = true;
-//       console.log(
-//         `findSharedRoute: ${dataA.landmark.stopName} -> ${route.displayName} -> ${dataB.landmark.stopName}`
-//       );
-//     }
-//   }
-
-//   if (!found) {
-//     console.log("findSharedRoute: no matches.");
-//     findSharedRoutes();
-//   }
-// }
-
-// function lookForRoute(
-//   landmarkA: number | string | Landmark,
-//   landmarkB: number | string | Landmark,
-//   options: {
-//     landmarks: Landmark[];
-//     routes: Route[];
-//   }
-// ) {}
-
-function landmarkGraph(
-  landmarkId: number,
-  nodes: Node[],
+function findRoutes(
+  startLandmark: string,
+  endLandmark: string,
   options: {
     landmarks: Landmark[];
     routes: Route[];
-  },
-  filterLandmarks: (landmarkId: number[]) => number[] = ls =>
-    ls.filter(l => l < 10000)
-) {
-  if (Object.keys(nodes).includes("" + landmarkId)) {
+  }
+): string[] | string | undefined {
+  if (!startLandmark || !endLandmark) {
     return;
   }
 
-  const data = findLandmarkAndRoutes(landmarkId, options);
-  if (!data || data.landmark.id < 0) {
+  if (!options.landmarks || !options.routes) {
     return;
   }
 
-  const nodeKey = data.landmark.stopName || data.landmark.displayName;
-  const node: Node = {
-    [nodeKey]: undefined
-  };
+  const startData = findLandmarkAndRoutes(startLandmark, options);
+  if (!startData) {
+    return;
+  }
 
-  for (const route of data.routes) {
-    const filteredLandmarks = filterLandmarks(route.landmarks);
-    if (!filteredLandmarks.length) {
+  const endData = findLandmarkAndRoutes(endLandmark, options);
+  if (!endData) {
+    return;
+  }
+
+  // TODO: if both stops are connected to schoodic then it's OK to process them normally.
+  if (startData.routes.every(r => r.id === 8)) {
+    return "SCHOODIC START";
+  }
+
+  if (endData.routes.every(r => r.id === 8)) {
+    return "SCHOODIC END";
+  }
+
+  const end = getLandmark(endLandmark, options.landmarks);
+  if (!endLandmark) {
+    return;
+  }
+
+  const results: string[] = [];
+  processRoutes(
+    startData.landmark.displayName,
+    end,
+    startData.routes,
+    results,
+    options
+  );
+
+  return results;
+}
+
+function processRoutes(
+  currentPath: string,
+  endLandmark: Landmark,
+  routes: Route[],
+  paths: string[],
+  options: {
+    landmarks: Landmark[];
+    routes: Route[];
+  }
+): void {
+  const currentRoutes = currentPath
+    .split(".")
+    .reduce<string[]>((acc, val, i) => {
+      if (i % 2 !== 0) {
+        return [...acc, val];
+      }
+
+      return acc;
+    }, []);
+
+  if (currentRoutes.length > MAX_ROUTES) {
+    return;
+  }
+
+  for (const route of routes) {
+    if (currentRoutes.includes(route.displayName)) {
       continue;
     }
 
-    node[nodeKey] = node[nodeKey] || {};
+    processRoute(currentPath, endLandmark, route, paths, options);
+  }
+}
 
-    const nodeRoutes = node[nodeKey];
-    if (nodeRoutes) {
-      nodeRoutes[route.displayName] = undefined;
-    }
+function processRoute(
+  currentPath: string,
+  endLandmark: Landmark,
+  route: Route,
+  paths: string[],
+  options: {
+    landmarks: Landmark[];
+    routes: Route[];
+  }
+): void {
+  const landmarks = route.landmarks.filter(l => l < 10000);
 
-    const nextNodes: Node[] = [];
+  processLandmarks(
+    `${currentPath}.${route.displayName}`,
+    endLandmark,
+    landmarks,
+    paths,
+    options
+  );
+}
 
-    for (const landmark of filteredLandmarks) {
-      const nextNode = landmarkGraph(landmark, nextNodes, options);
-      if (!nextNode) {
-        continue;
-      }
+function processLandmarks(
+  currentPath: string,
+  endLandmark: Landmark,
+  landmarkIds: number[],
+  paths: string[],
+  options: {
+    landmarks: Landmark[];
+    routes: Route[];
+  }
+): void {
+  // Translate ref landmarks to the actual landmark to eliminate dupes when
+  // `uniqBy` is used.
+  const landmarks = landmarkIds.map(id => getLandmark(id, options.landmarks));
 
-      nextNodes.push(nextNode);
+  for (const landmark of _uniqBy(landmarks, "id")) {
+    const result = processLandmark(
+      currentPath,
+      endLandmark,
+      landmark,
+      paths,
+      options
+    );
 
-      const c = node[nodeKey];
-      if (c && c[route.displayName]) {
-        c[route.displayName] = { ...c[route.displayName], nextNode };
-      }
+    if (result) {
+      paths.push(result);
     }
   }
+}
 
-  return node;
+function processLandmark(
+  currentPath: string,
+  endLandmark: Landmark,
+  landmark: Landmark,
+  paths: string[],
+  options: {
+    landmarks: Landmark[];
+    routes: Route[];
+  }
+): string | undefined {
+  const landmarkData = findLandmarkAndRoutes(landmark, options);
+  if (!landmarkData) {
+    return;
+  }
+
+  const currentLandmarks = currentPath.split(".").reduce((acc, val, i) => {
+    if (i % 2 === 0) {
+      return `${acc ? `${acc}.` : ""}${val}`;
+    }
+
+    return acc;
+  }, "");
+
+  if (currentLandmarks.includes(landmarkData.landmark.displayName)) {
+    return;
+  }
+
+  const endData = findLandmarkAndRoutes(endLandmark, options);
+  if (!endData) {
+    return;
+  }
+
+  if (landmarkData.landmark.id === endData.landmark.id) {
+    return `${currentPath}.${endData.landmark.displayName}`;
+  }
+
+  processRoutes(
+    `${currentPath}.${landmarkData.landmark.displayName}`,
+    endLandmark,
+    landmarkData.routes,
+    paths,
+    options
+  );
 }
 
 function findLandmarkAndRoutes(
@@ -414,33 +280,6 @@ function findLandmarkAndRoutes(
   );
 
   return { landmark, routes: landmarkRoutes };
-}
-
-function courseToString(
-  course: Course | CourseStop | undefined,
-  base = ""
-): string {
-  if (!course) {
-    return base + "!NO COURSE!";
-  }
-
-  let result = `${base}LMK=${course.landmark.displayName}`;
-
-  if ("route" in course) {
-    result += ` -> RTE=${course.route.displayName}`;
-    result = courseToString(course.next, result + " -> ");
-  }
-
-  return result;
-}
-
-interface CourseStop {
-  landmark: Landmark;
-}
-
-interface Course extends CourseStop {
-  next: Course | CourseStop;
-  route: Route;
 }
 
 interface Connection {
