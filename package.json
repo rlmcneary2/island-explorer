@@ -7,6 +7,7 @@
     "prebuild": "node build-utils/app-version.js",
     "prestart": "node build-utils/app-version.js",
     "start": "nx serve",
+    "start:prod": "yarn build:sw && yarn build && yarn ws --port 4200 --hostname localhost --directory dist/apps/island-explorer --spa index.html -z",
     "build": "nx build",
     "build:sw": "yarn build:sw:pre && nx run service-worker:build --buildable --deleteOutputPath --skipNxCache && yarn build:sw:post",
     "build:sw:pre": "shx cp libs/service-worker/src/version.json libs/service-worker/src/version.json.orig && yarn prebuild",
