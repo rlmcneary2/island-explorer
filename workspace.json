@@ -16,7 +16,7 @@
             "outputPath": "dist/apps/island-explorer",
             "index": "apps/island-explorer/src/index.html",
             "main": "apps/island-explorer/src/app.tsx",
-            "polyfills": "apps/island-explorer/src/polyfills.ts",
+            "optimization": true,
             "tsConfig": "apps/island-explorer/tsconfig.app.json",
             "assets": [
               "apps/island-explorer/src/app.webmanifest",
