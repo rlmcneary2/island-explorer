@@ -31,7 +31,10 @@ module.exports = (config, context) => {
     console.log("--- Added BundleAnalyzerPlugin.");
   }
 
+
+  const merged = merge(config, customConfig);
+
   console.log(`---`);
 
-  return merge(config, customConfig);
+  return merged;
 };
