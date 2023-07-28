@@ -1,3 +1,4 @@
+import "../styles/styles.scss";
 import { lazy, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ModalContainer } from "modal";
