@@ -217,12 +217,14 @@ export function create(): ActionHandler<ContextData>[] {
       // response in such a way that the app is broken. Because of that this
       // special header was created to return error information in a 200
       // response (gross).
+      let bodyRead = false;
       if (
         !error &&
         response &&
         (!response.ok || response.headers.has("X-SW-Error"))
       ) {
         try {
+          bodyRead = true;
           error = await response.text();
         } catch {
           // Nothing to do here.
@@ -234,7 +236,9 @@ export function create(): ActionHandler<ContextData>[] {
             : error;
       }
 
-      const body = response && ((await response.json()) as Vehicle[]);
+      const body = bodyRead
+        ? undefined
+        : response && ((await response.json()) as Vehicle[]);
 
       const options = error ? { error } : { body };
 
