@@ -20,7 +20,15 @@ export function create(): ActionHandler<ContextData>[] {
     _,
     dispatch
   ) => {
-    if (state?.landmarks) {
+    if (state.landmarks?.status === "active") {
+      return [state];
+    }
+
+    if (state.landmarks?.data) {
+      return [state];
+    }
+
+    if (state.landmarks?.error) {
       return [state];
     }
 
