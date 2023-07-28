@@ -29,7 +29,6 @@
                 "output": "./service-worker.js"
               }
             ],
-            "styles": ["apps/island-explorer/src/styles/styles.scss"],
             "scripts": [],
             "webpackConfig": "apps/island-explorer/webpack.config.js"
           },
@@ -43,7 +42,6 @@
               ],
               "optimization": true,
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
