@@ -10,11 +10,8 @@
     "index.html",
     "main.es5.js",
     "main.esm.js",
-    "polyfills.es5.js",
-    "polyfills.esm.js",
     "runtime.es5.js",
     "runtime.esm.js",
-    "styles.css",
     "assets/controls.svg",
     "assets/icon-bus.svg",
     "assets/icon-direction.svg",
@@ -28,5 +25,17 @@
     "assets/symbols.svg",
     "assets/trailhead.png"
   ],
-  "routeIds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+  "routeIds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ]
 }
