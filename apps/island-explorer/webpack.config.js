@@ -1,6 +1,7 @@
 const path = require("path");
 const { merge } = require("webpack-merge");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = (config, context) => {
   console.log(`---\n--- apps/island-explorer/webpack.config.js`);
@@ -18,6 +19,17 @@ module.exports = (config, context) => {
         }
       ]
     },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          vendorMap: {
+            chunks: "all",
+            name: "vendor-map",
+            test: /[\\/]node_modules[\\/](@turf|mapbox-gl|remapgl)[\\/]/
+          }
+        }
+      }
+    },
     resolve: {
       alias: {
         react: path.resolve("node_modules/react"),
@@ -26,11 +38,17 @@ module.exports = (config, context) => {
     }
   };
 
-  if (context.configuration === "production" && config.output.filename.endsWith(".esm.js")) {
-    customConfig.plugins = [new BundleAnalyzerPlugin()];
+  if (
+    context.configuration === "production" &&
+    config.output.filename.endsWith(".esm.js")
+  ) {
+    customConfig.plugins = [
+      new BundleAnalyzerPlugin({
+        analyzerMode: "static"
+      })
+    ];
     console.log("--- Added BundleAnalyzerPlugin.");
   }
-
 
   const merged = merge(config, customConfig);
 
