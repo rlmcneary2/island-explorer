@@ -94,7 +94,8 @@ wgs.addEventListener("fetch", async event => {
   event.respondWith(
     (async () => {
       let response = await caches.match(event.request, {
-        cacheName: CACHE_VERSION
+        cacheName: CACHE_VERSION,
+        ignoreVary: true
       });
 
       if (!response) {
@@ -152,7 +153,7 @@ wgs.addEventListener("fetch", async event => {
 
         return response;
       } else {
-        console.log(`service-worker: CACHED '${event.request.url}'`);
+        console.log(`service-worker: FROM CACHE '${event.request.url}'`);
         return response;
       }
     })()
