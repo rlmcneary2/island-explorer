@@ -1,85 +1,159 @@
 import { uniqBy as _uniqBy } from "lodash";
-import { useState } from "react";
+import React, { useMemo, useState } from "react";
 import type { Landmark, RoutesAssetItem as Route } from "../../types/types";
 import useContextState from "../../context/use-context-state";
 import { getLandmark } from "../../util/landmark";
+import { SelectLandmarkModal } from "../select-landmark-modal/select-landmark-modal";
 
 const MAX_ROUTES = 3;
 
 export function Directions() {
-  const [fromRoutes, setFromRoutes] = useState("");
-  const [toRoutes, setToRoutes] = useState("");
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
+  const [show, setShow] = useState<"end" | "start" | undefined>();
   const { landmarks, routes } = useContextState(({ landmarks, routes }) => ({
     landmarks,
     routes
   }));
 
+  const landmarkData = landmarks?.data;
+  const routeData = routes?.data;
+
+  const stops = useMemo(
+    () =>
+      filterToUniqueStops(landmarkData, {
+        landmarks: landmarkData,
+        routes: routeData
+      }) || [],
+    [landmarkData, routeData]
+  );
+
+  const directions = useMemo(() => {
+    const results = findRoutes(start, end, {
+      landmarks: landmarkData || [],
+      routes: routeData || []
+    });
+
+    if (Array.isArray(results)) {
+      results.sort((a, b) => {
+        const matchA = a.match(/\./g);
+        const matchB = b.match(/\./g);
+        return (matchA?.length || 0) - (matchB?.length || 0);
+      });
+      console.log(results);
+    }
+
+    return results;
+  }, [end, landmarkData, routeData, start]);
+
   if (!routes || !landmarks) {
     return null;
   }
 
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = evt => {
-    // const lmk = getLandmark(evt.target.value, landmarks?.data);
-    // if (!lmk || lmk.id === -1) {
-    //   return;
-    // }
-
-    // const stopsRoutes = routes.data?.filter(route =>
-    //   route.landmarks.includes(lmk.id)
-    // );
-
-    if (evt.target.name === "from") {
-      setFromRoutes(evt.target.value);
-    } else if (evt.target.name === "to") {
-      setToRoutes(evt.target.value);
+  const handleLandmarkSelect = (
+    context: "end" | "start",
+    landmark: Landmark
+  ) => {
+    setShow(undefined);
+    if (context === "start") {
+      setStart(landmark.displayName);
+    } else if (context === "end") {
+      setEnd(landmark.displayName);
     }
   };
 
-  console.log("Directions");
+  const handleClearClick: React.MouseEventHandler = () => {
+    setEnd("");
+    setStart("");
+  };
 
-  const results = findRoutes(fromRoutes, toRoutes, {
-    landmarks: landmarks?.data || [],
-    routes: routes?.data || []
-  });
+  const handleEndClick: React.MouseEventHandler = () => {
+    setShow("end");
+  };
 
-  if (Array.isArray(results)) {
-    results.sort((a, b) => {
-      const matchA = a.match(/\./g);
-      const matchB = b.match(/\./g);
-      return (matchA?.length || 0) - (matchB?.length || 0);
-    });
-    console.log(results);
-  }
+  const handleStartClick: React.MouseEventHandler = () => {
+    setShow("start");
+  };
 
   return (
     <>
-      <form>
-        <datalist id="locations">
-          <option>Bar Harbor Village Green</option>
-          <option>Bernard</option>
-          <option>Cadillac North Ridge</option>
-          <option>Wildwood Stables</option>
-        </datalist>
+      <div>
+        <button className="button" onClick={handleStartClick}>
+          Start
+        </button>
+        <span>{start}</span>
+        <button className="button" onClick={handleEndClick}>
+          End
+        </button>
+        <span>{end}</span>
+        <button className="button" onClick={handleClearClick}>
+          Clear
+        </button>
+      </div>
 
-        <fieldset>
-          <label>
-            From
-            <input name="from" list="locations" onChange={handleChange} />
-          </label>
-        </fieldset>
+      <p>
+        {`Matches: ${
+          directions &&
+          (directions as string[]).slice(0, MAX_ROUTES).join(" | ")
+        }`}
+      </p>
 
-        <fieldset>
-          <label>
-            To
-            <input name="to" list="locations" onChange={handleChange} />
-          </label>
-        </fieldset>
-      </form>
-
-      <p>From: {fromRoutes}</p>
-      <p>To: {toRoutes}</p>
-      <p>Matches: {results && (results as string[]).slice(0, 3).join(" | ")}</p>
+      {show !== undefined ? (
+        <SelectLandmarkModal
+          landmarks={stops.filter(
+            show === "start"
+              ? item => item.displayName !== end
+              : item => item.displayName !== start
+          )}
+          message={
+            show === "start" ? "Select the start." : "Select the destination."
+          }
+          onClose={() => setShow(undefined)}
+          onExternalTap={() => setShow(undefined)}
+          onLandmarkSelect={l => handleLandmarkSelect(show, l)}
+        />
+      ) : null}
     </>
+  );
+}
+
+function filterToUniqueStops(
+  landmarks: Landmark[] | undefined,
+  options: {
+    landmarks?: Landmark[];
+    routes?: Route[];
+  }
+): Landmark[] | undefined {
+  if (!landmarks) {
+    return;
+  }
+
+  const { landmarks: landmarksOpts, routes } = options;
+
+  if (!landmarksOpts || !routes) {
+    return;
+  }
+
+  return _uniqBy(
+    landmarks
+      .map(
+        landmark =>
+          findLandmarkAndRoutes(landmark.id, {
+            landmarks: landmarksOpts,
+            routes
+          }) as {
+            landmark: Landmark;
+            routes: Route[];
+          }
+      )
+      .filter(
+        item =>
+          item.landmark.id < 10000 &&
+          item.routes.length &&
+          !("refId" in item.landmark)
+      )
+      .map(item => item.landmark),
+    "id"
   );
 }
 
@@ -100,12 +174,12 @@ function findRoutes(
   }
 
   const startData = findLandmarkAndRoutes(startLandmark, options);
-  if (!startData) {
+  if (!startData || !startData.routes.length) {
     return;
   }
 
   const endData = findLandmarkAndRoutes(endLandmark, options);
-  if (!endData) {
+  if (!endData || !endData.routes.length) {
     return;
   }
 
@@ -201,9 +275,16 @@ function processLandmarks(
 ): void {
   // Translate ref landmarks to the actual landmark to eliminate dupes when
   // `uniqBy` is used.
-  const landmarks = landmarkIds.map(id => getLandmark(id, options.landmarks));
+  const landmarks = filterToUniqueStops(
+    landmarkIds.map(id => getLandmark(id, options.landmarks)),
+    options
+  );
 
-  for (const landmark of _uniqBy(landmarks, "id")) {
+  if (!landmarks) {
+    return;
+  }
+
+  for (const landmark of landmarks) {
     const result = processLandmark(
       currentPath,
       endLandmark,
@@ -282,9 +363,9 @@ function findLandmarkAndRoutes(
   return { landmark, routes: landmarkRoutes };
 }
 
-interface Connection {
-  [routeName: string]: Node | undefined;
-}
-interface Node {
-  [stopName: string]: Connection | undefined;
-}
+// interface Connection {
+//   [routeName: string]: Node | undefined;
+// }
+// interface Node {
+//   [stopName: string]: Connection | undefined;
+// }
