@@ -1,7 +1,7 @@
 @use "../font";
 
 .modal {
-  > .content {
+  > .content.routes {
     .list {
       align-items: center;
       display: flex;
@@ -20,11 +20,6 @@
       a {
         text-decoration: none;
       }
-    }
-
-    &.routes {
-      @extend %text;
-      max-width: 35rem;
     }
   }
 }

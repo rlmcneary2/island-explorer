@@ -53,7 +53,7 @@ export function RoutesModal({ onClose, onExternalTap, routes }: Props) {
       onExternalTap={handleExternalTap}
       onHidden={handleHidden}
     >
-      <nav className="content routes">
+      <nav className="content dialog routes">
         <ul className="list">{items}</ul>
       </nav>
     </AnimatedModalDialog>
