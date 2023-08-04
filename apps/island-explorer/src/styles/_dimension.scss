@@ -36,6 +36,9 @@ $modal-width: 75%;
 $popup-padding: $control-padding * 2;
 $popup-description-max-height: 200px;
 
+$space-normal: 1rem;
+$space-medium: $space-normal * 1.75;
+
 $symbol-border: 0;
 $symbol-margin-h: 3px;
 $symbol-native: 80px;
@@ -50,3 +53,11 @@ $text-heading-margin: $text-para-margin + 8;
 $text-tip-padding: $control-padding * 2;
 
 $toast-width: 100%;
+
+%list-item {
+  margin-bottom: $text-para-margin * 1.5;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

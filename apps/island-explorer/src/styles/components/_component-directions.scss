@@ -1,0 +1,26 @@
+@use "../dimension";
+@use "../app";
+
+.directions {
+  @extend %para;
+  padding: dimension.$control-padding-large;
+
+  .reset,
+  .select-landmark {
+    align-items: center;
+    display: flex;
+    margin-top: dimension.$text-para-margin;
+
+    > .button {
+      flex: 0 0 5rem;
+      margin-right: dimension.$space-normal;
+      text-transform: capitalize;
+    }
+  }
+
+  .reset {
+    > .button {
+      flex: initial;
+    }
+  }
+}

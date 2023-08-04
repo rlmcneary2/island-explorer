@@ -1,13 +1,16 @@
 import { uniqBy as _uniqBy } from "lodash";
 import React, { useMemo, useState } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 import type { Landmark, RoutesAssetItem as Route } from "../../types/types";
 import useContextState from "../../context/use-context-state";
 import { getLandmark } from "../../util/landmark";
 import { SelectLandmarkModal } from "../select-landmark-modal/select-landmark-modal";
 
 const MAX_ROUTES = 3;
+const SCHOODIC_ROUTE_ID = 8;
 
 export function Directions() {
+  const { formatMessage } = useIntl();
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
   const [show, setShow] = useState<"end" | "start" | undefined>();
@@ -76,18 +79,25 @@ export function Directions() {
   };
 
   return (
-    <>
-      <div>
-        <button className="button" onClick={handleStartClick}>
-          Start
+    <div className="directions">
+      <p>
+        <FormattedMessage id="DIRECTIONS_INSTRUCTIONS" />
+      </p>
+      <div className="select-landmark">
+        <button className="button small fit" onClick={handleStartClick}>
+          <FormattedMessage id="DIRECTIONS_START" />
         </button>
         <span>{start}</span>
-        <button className="button" onClick={handleEndClick}>
-          End
+      </div>
+      <div className="select-landmark">
+        <button className="button small fit" onClick={handleEndClick}>
+          <FormattedMessage id="DIRECTIONS_END" />
         </button>
         <span>{end}</span>
-        <button className="button" onClick={handleClearClick}>
-          Clear
+      </div>
+      <div className="reset">
+        <button className="button small fit" onClick={handleClearClick}>
+          <FormattedMessage id="DIRECTIONS_CLEAR" />
         </button>
       </div>
 
@@ -100,21 +110,77 @@ export function Directions() {
 
       {show !== undefined ? (
         <SelectLandmarkModal
-          landmarks={stops.filter(
-            show === "start"
-              ? item => item.displayName !== end
-              : item => item.displayName !== start
-          )}
-          message={
-            show === "start" ? "Select the start." : "Select the destination."
+          landmarks={
+            filterWithSelection(stops, show === "start" ? end : start, {
+              landmarks: landmarkData,
+              routes: routeData
+            }) || []
           }
+          message={formatMessage(
+            { id: "DIRECTIONS_SELECT_LANDMARK" },
+            {
+              terminus: formatMessage({
+                id: show === "start" ? "DIRECTIONS_START" : "DIRECTIONS_END"
+              })
+            }
+          )}
           onClose={() => setShow(undefined)}
           onExternalTap={() => setShow(undefined)}
           onLandmarkSelect={l => handleLandmarkSelect(show, l)}
         />
       ) : null}
-    </>
+    </div>
   );
+}
+
+function filterWithSelection(
+  landmarks: Landmark[],
+  selectedName: Landmark["displayName"],
+  options: {
+    landmarks?: Landmark[];
+    routes?: Route[];
+  }
+) {
+  if (!selectedName) {
+    return landmarks;
+  }
+
+  const { landmarks: allLandmarks, routes } = options;
+  if (!allLandmarks || !routes) {
+    return;
+  }
+
+  const selectedData = findLandmarkAndRoutes(selectedName, {
+    landmarks: allLandmarks,
+    routes
+  });
+
+  if (selectedData?.routes.every(r => r.id === SCHOODIC_ROUTE_ID)) {
+    // Only allow Schoodic stops.
+    return landmarks.filter(l => {
+      const found = findLandmarkAndRoutes(l.id, {
+        landmarks: allLandmarks,
+        routes
+      });
+
+      return (
+        selectedData.landmark.id !== found?.landmark.id &&
+        found?.routes.every(item => item.id === SCHOODIC_ROUTE_ID)
+      );
+    });
+  }
+
+  return landmarks.filter(l => {
+    const found = findLandmarkAndRoutes(l.id, {
+      landmarks: allLandmarks,
+      routes
+    });
+
+    return (
+      l.id !== selectedData?.landmark.id &&
+      found?.routes.every(r => r.id !== SCHOODIC_ROUTE_ID)
+    );
+  });
 }
 
 function filterToUniqueStops(
@@ -181,15 +247,6 @@ function findRoutes(
   const endData = findLandmarkAndRoutes(endLandmark, options);
   if (!endData || !endData.routes.length) {
     return;
-  }
-
-  // TODO: if both stops are connected to schoodic then it's OK to process them normally.
-  if (startData.routes.every(r => r.id === 8)) {
-    return "SCHOODIC START";
-  }
-
-  if (endData.routes.every(r => r.id === 8)) {
-    return "SCHOODIC END";
   }
 
   const end = getLandmark(endLandmark, options.landmarks);

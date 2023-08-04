@@ -1,5 +1,6 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
 import { distance } from "fastest-levenshtein";
+import React, { useCallback, useMemo, useRef, useState } from "react";
+import { FormattedMessage } from "react-intl";
 import type { Landmark } from "../../types/types";
 import { AnimatedModalDialog } from "modal";
 import type { ModalDialogProps } from "modal";
@@ -72,10 +73,22 @@ export function SelectLandmarkModal({
       <div className="content dialog">
         <div className="container">
           <p>{message}</p>
-          <label>
-            Filter:{" "}
-            <input autoFocus onChange={handleFilterChange} value={filter} />
-          </label>
+          <div className="filter">
+            <label className="filter-label" htmlFor="filter">
+              <span>
+                <FormattedMessage id="DIRECTIONS_FILTER_STOPS" />
+              </span>
+            </label>
+            <div className="filter-input">
+              <input
+                autoFocus
+                id="filter"
+                onChange={handleFilterChange}
+                placeholder="Bubble Pond"
+                value={filter}
+              />
+            </div>
+          </div>
           <ul className="list">
             {filteredLandmarks.map(l => (
               <li
@@ -88,7 +101,7 @@ export function SelectLandmarkModal({
             ))}
           </ul>
           <button className="button" onClick={handleDismissClick}>
-            Close
+            <FormattedMessage id="CLOSE" />
           </button>
         </div>
       </div>
