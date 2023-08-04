@@ -7,7 +7,7 @@
   flex: 0 0 4rem;
   > input[type="checkbox"] {
     height: 2rem;
-    margin-right: 1rem;
+    margin-right: dimension.$space-normal;
     width: 2rem;
   }
 }

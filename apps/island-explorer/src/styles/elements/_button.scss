@@ -35,6 +35,10 @@
   &.narrow {
     max-width: dimension.$button-narrow-width;
   }
+  &.fit {
+    max-width: initial;
+    min-width: initial;
+  }
   &:active {
     filter: brightness(105%);
   }
