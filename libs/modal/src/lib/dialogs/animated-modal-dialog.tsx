@@ -41,7 +41,7 @@ export default function AnimatedModalDialog({
     // If we don't wait then the className gets changed before the component has
     // finished completely rendering and the animation may not work correctly.
     setTimeout(() => {
-      console.log(`AnimatedModalDialog: ${startAnimateInClassName}`);
+      logMessage(`AnimatedModalDialog: ${startAnimateInClassName}`);
       setAnimating(startAnimateInClassName);
     }, 0);
 
@@ -51,7 +51,7 @@ export default function AnimatedModalDialog({
         getAnimation.current &&
         getAnimation.current() !== endAnimateOutClassName
       ) {
-        console.log(
+        logMessage(
           "AnimatedModalDialog: dialog being removed during animation."
         );
       }
@@ -72,8 +72,8 @@ export default function AnimatedModalDialog({
       return;
     }
 
-    console.log("AnimatedModalDialog: hide=true");
-    console.log(`AnimatedModalDialog: ${startAnimateOutClassName}`);
+    logMessage("AnimatedModalDialog: hide=true");
+    logMessage(`AnimatedModalDialog: ${startAnimateOutClassName}`);
     setAnimating(beforeAnimateOutClassName);
   }, [
     animating,
@@ -87,7 +87,7 @@ export default function AnimatedModalDialog({
   useEffect(() => {
     if (animating === endAnimateInClassName) {
       if (timeoutHandle.current) {
-        console.log(
+        logMessage(
           `AnimatedModalDialog: clearing timeout for ${endAnimateInClassName}`
         );
         clearTimeout(timeoutHandle.current);
@@ -99,7 +99,7 @@ export default function AnimatedModalDialog({
   // beforeAnimateOutClassName
   useEffect(() => {
     if (animating === beforeAnimateOutClassName) {
-      console.log(`AnimatedModalDialog: ${startAnimateOutClassName}`);
+      logMessage(`AnimatedModalDialog: ${startAnimateOutClassName}`);
       setAnimating(startAnimateOutClassName);
     }
   }, [animating, beforeAnimateOutClassName, startAnimateOutClassName]);
@@ -108,7 +108,7 @@ export default function AnimatedModalDialog({
   useEffect(() => {
     if (animating === endAnimateOutClassName) {
       if (timeoutHandle.current) {
-        console.log(
+        logMessage(
           `AnimatedModalDialog: clearing timeout for ${endAnimateOutClassName}`
         );
 
@@ -116,7 +116,7 @@ export default function AnimatedModalDialog({
         timeoutHandle.current = 0;
       }
 
-      console.log(
+      logMessage(
         "AnimatedModalDialog: out animation complete, invoking callback."
       );
 
@@ -158,19 +158,19 @@ export default function AnimatedModalDialog({
       return;
     }
 
-    console.log("AnimatedModalDialog: starting timeout.");
+    logMessage("AnimatedModalDialog: starting timeout.");
     timeoutHandle.current = setTimeout(
       () => {
-        console.log("AnimatedModalDialog: timeout.");
+        logMessage("AnimatedModalDialog: timeout.");
         if (disposed.current) {
           return;
         }
 
         if (animating === startAnimateInClassName) {
-          console.log(`AnimatedModalDialog: ${endAnimateInClassName}.`);
+          logMessage(`AnimatedModalDialog: ${endAnimateInClassName}.`);
           setAnimating(endAnimateInClassName);
         } else {
-          console.log(`AnimatedModalDialog: ${endAnimateOutClassName}.`);
+          logMessage(`AnimatedModalDialog: ${endAnimateOutClassName}.`);
           setAnimating(endAnimateOutClassName);
         }
       },
@@ -194,13 +194,13 @@ export default function AnimatedModalDialog({
     ) => void
   >(
     () => () => {
-      console.log(`AnimatedModalDialog: animationTransitionEnd`);
+      logMessage(`AnimatedModalDialog: animationTransitionEnd`);
 
       if (animating === startAnimateInClassName) {
-        console.log(`AnimatedModalDialog: ${endAnimateInClassName}`);
+        logMessage(`AnimatedModalDialog: ${endAnimateInClassName}`);
         setAnimating(endAnimateInClassName);
       } else if (animating === startAnimateOutClassName) {
-        console.log(`AnimatedModalDialog: ${endAnimateOutClassName}`);
+        logMessage(`AnimatedModalDialog: ${endAnimateOutClassName}`);
         setAnimating(endAnimateOutClassName);
       }
     },
@@ -217,7 +217,7 @@ export default function AnimatedModalDialog({
     React.AnimationEventHandler<HTMLDivElement>
   >(
     evt => {
-      console.log(`AnimatedModalDialog: handleAnimationEnd`);
+      logMessage(`AnimatedModalDialog: handleAnimationEnd`);
       animationTransitionEnd(evt);
     },
     [animationTransitionEnd]
@@ -227,7 +227,7 @@ export default function AnimatedModalDialog({
     React.TransitionEventHandler<HTMLDivElement>
   >(
     evt => {
-      console.log(`AnimatedModalDialog: handleTransitionEnd`);
+      logMessage(`AnimatedModalDialog: handleTransitionEnd`);
       animationTransitionEnd(evt);
     },
     [animationTransitionEnd]
@@ -236,7 +236,7 @@ export default function AnimatedModalDialog({
   const handleOnModalClose = useCallback<Required<ModalDialogProps>["onClose"]>(
     data => {
       callbackFunc.current = () => onClose && onClose(data);
-      console.log(`AnimatedModalDialog[close]: ${beforeAnimateOutClassName}`);
+      logMessage(`AnimatedModalDialog[close]: ${beforeAnimateOutClassName}`);
       setAnimating(beforeAnimateOutClassName);
     },
     [beforeAnimateOutClassName, onClose]
@@ -244,7 +244,7 @@ export default function AnimatedModalDialog({
 
   const handleOnModalExternalTap = useCallback(() => {
     callbackFunc.current = () => onExternalTap && onExternalTap();
-    console.log(
+    logMessage(
       `AnimatedModalDialog[externalTap]: ${beforeAnimateOutClassName}`
     );
     setAnimating(beforeAnimateOutClassName);
@@ -257,7 +257,7 @@ export default function AnimatedModalDialog({
     }`;
   }
 
-  console.log(`AnimatedModalDialog: dialogClassName='${dialogClassName}'.`);
+  logMessage(`AnimatedModalDialog: dialogClassName='${dialogClassName}'.`);
 
   return (
     <ModalDialog
@@ -292,4 +292,9 @@ interface Props extends ModalDialogProps {
   startAnimateInClassName?: string;
   /** Class to set that animates the 'out' phase of the dialog's removal. */
   startAnimateOutClassName?: string;
+}
+
+function logMessage(...args: Parameters<typeof console.log>) {
+  /* Uncomment if logging is needed. */
+  // console.log(...args);
 }
