@@ -12,25 +12,32 @@ div.header {
   }
 }
 
-.header > .options {
-  background-color: color.$primary;
-  display: flex;
-  flex: 1;
-  mask: {
-    image: url("/assets/controls.svg");
-    position: center;
-    repeat: no-repeat;
-    size: dimension.$header-height * 0.75;
+.header {
+  & > .button {
+    flex: 1;
+    max-width: dimension.$button-max-width;
   }
-  max-width: dimension.$header-height * 0.9;
-  min-width: 4.5rem;
-  > span:not(:focus):not(:active) {
-    clip: rect(0 0 0 0);
-    clip-path: inset(100%);
-    height: 1px;
-    overflow: hidden;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
+
+  & > .options {
+    background-color: color.$primary;
+    display: flex;
+    flex: 1;
+    mask: {
+      image: url("/assets/controls.svg");
+      position: center;
+      repeat: no-repeat;
+      size: dimension.$header-height * 0.75;
+    }
+    max-width: dimension.$header-height * 0.9;
+    min-width: 4.5rem;
+    > span:not(:focus):not(:active) {
+      clip: rect(0 0 0 0);
+      clip-path: inset(100%);
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+    }
   }
 }

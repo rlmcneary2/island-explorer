@@ -1,5 +1,5 @@
-import { useCallback, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useCallback, useState } from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import { ContextState } from "../context/types";
 import { INFORMATION, MAP } from "../constants/routes";
@@ -11,10 +11,17 @@ import { Menu } from "./menu/menu";
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
   const [showRoutesModal, setShowRoutesModal] = useState(false);
+  const history = useHistory();
   const { pathname } = useLocation();
 
   const routes =
     useContextState(state => state.routes) ?? ({} as ContextState["routes"]);
+
+  const handleDirectionsClick: React.MouseEventHandler<
+    HTMLButtonElement
+  > = () => {
+    history.push("/directions");
+  };
 
   const handleMenuButtonClick = useCallback(() => {
     setShowMenu(true);
@@ -32,13 +39,14 @@ export default function Header() {
       <button className="button options" onClick={handleMenuButtonClick}>
         <span>Menu</span>
       </button>
-      <button className="button" onClick={handleRouteClick}>
+
+      <button className="button fit" onClick={handleRouteClick}>
         <FormattedMessage id="SELECT_ROUTE" />
       </button>
 
       {routeId ? (
         <Link
-          className="button"
+          className="button fit"
           to={getRoutePath(routeId, page === MAP ? INFORMATION : MAP)}
         >
           <FormattedMessage
@@ -46,6 +54,10 @@ export default function Header() {
           />
         </Link>
       ) : null}
+
+      <button className="button fit" onClick={handleDirectionsClick}>
+        <FormattedMessage id="DIRECTIONS" />
+      </button>
 
       {showRoutesModal ? (
         <RoutesModal

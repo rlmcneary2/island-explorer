@@ -84,7 +84,6 @@ export function SelectLandmarkModal({
                 autoFocus
                 id="filter"
                 onChange={handleFilterChange}
-                placeholder="Bubble Pond"
                 value={filter}
               />
             </div>
