@@ -12,7 +12,7 @@
   display: flex;
   flex: 1;
   justify-content: center;
-  max-width: 25rem;
+  max-width: dimension.$button-max-width;
   margin: 0 0.2rem;
   min-width: 10.5rem;
   padding: dimension.$button-padding;
@@ -36,6 +36,7 @@
     max-width: dimension.$button-narrow-width;
   }
   &.fit {
+    flex: initial;
     max-width: initial;
     min-width: initial;
   }

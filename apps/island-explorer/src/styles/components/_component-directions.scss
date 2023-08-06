@@ -23,4 +23,31 @@
       flex: initial;
     }
   }
+
+  .route {
+    margin-top: dimension.$space-medium;
+
+    .route-item {
+      align-items: center;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+      text-align: center;
+
+      &.stop {
+        > .route-circle::before {
+          font-size: 2.2rem;
+        }
+      }
+
+      & > svg {
+        fill: var(--route-color);
+      }
+
+      > :first-child {
+        flex: 0 0 3.5rem;
+        margin-left: -0.7rem;
+      }
+    }
+  }
 }

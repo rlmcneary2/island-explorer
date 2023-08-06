@@ -43,19 +43,23 @@
             box-sizing: border-box;
             height: dimension.$control-height;
             width: 100%;
+
+            &:focus-visible {
+              outline-color: color.$primary;
+            }
           }
         }
       }
 
       .list {
         display: flex;
-        flex: auto;
         flex-direction: column;
         height: 100%;
         list-style-type: none;
         margin-block-start: 0;
         overflow: auto;
         padding: 0;
+        width: 100%;
       }
 
       .list-item {

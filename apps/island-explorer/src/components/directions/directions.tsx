@@ -1,6 +1,7 @@
 import { uniqBy as _uniqBy } from "lodash";
 import React, { useMemo, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import Icon from "../../assets/icon-bus.svg";
 import type { Landmark, RoutesAssetItem as Route } from "../../types/types";
 import useContextState from "../../context/use-context-state";
 import { getLandmark } from "../../util/landmark";
@@ -43,13 +44,14 @@ export function Directions() {
         const matchB = b.match(/\./g);
         return (matchA?.length || 0) - (matchB?.length || 0);
       });
-      console.log(results);
-    }
 
-    return results;
+      console.log(results);
+
+      return results ? results.slice(0, 3) : results;
+    }
   }, [end, landmarkData, routeData, start]);
 
-  if (!routes || !landmarks) {
+  if (!routeData || !landmarkData) {
     return null;
   }
 
@@ -101,12 +103,14 @@ export function Directions() {
         </button>
       </div>
 
-      <p>
-        {`Matches: ${
-          directions &&
-          (directions as string[]).slice(0, MAX_ROUTES).join(" | ")
-        }`}
-      </p>
+      {directions
+        ? directions.map((d, i) =>
+            pathToComponents(d, i, directions.length, {
+              landmarks: landmarkData,
+              routes: routeData
+            })
+          )
+        : null}
 
       {show !== undefined ? (
         <SelectLandmarkModal
@@ -223,6 +227,25 @@ function filterToUniqueStops(
   );
 }
 
+function findLandmarkAndRoutes(
+  identifier: number | string | Landmark,
+  { landmarks, routes }: { landmarks: Landmark[]; routes: Route[] }
+) {
+  const landmark =
+    typeof identifier === "object"
+      ? identifier
+      : getLandmark(identifier, landmarks);
+  if (!landmark || landmark.id === -1) {
+    return;
+  }
+
+  const landmarkRoutes = routes.filter(route =>
+    route.landmarks.includes(landmark.id)
+  );
+
+  return { landmark, routes: landmarkRoutes };
+}
+
 function findRoutes(
   startLandmark: string,
   endLandmark: string,
@@ -264,6 +287,102 @@ function findRoutes(
   );
 
   return results;
+}
+
+function pathToComponents(
+  path: string,
+  pathIndex: number,
+  pathCount: number,
+  options: {
+    landmarks: Landmark[];
+    routes: Route[];
+  }
+): JSX.Element | null {
+  if (!path?.length) {
+    return null;
+  }
+
+  const parts = path.split(".");
+  if (parts.length < 3) {
+    return null;
+  }
+
+  const components: JSX.Element[] = [];
+
+  let index = 0;
+  let lastConnection: string | undefined;
+  while (index < parts.length) {
+    const stop = parts[index];
+    const connection = index + 1 < parts.length ? parts[index + 1] : undefined;
+    lastConnection = connection || lastConnection;
+
+    const stopMessage =
+      index === 0
+        ? "DIRECTIONS_ROUTE_START"
+        : index + 1 === parts.length
+        ? "DIRECTIONS_ROUTE_END"
+        : "DIRECTIONS_ROUTE_CHANGE_AT";
+
+    const circleColor = `#${
+      // eslint-disable-next-line no-loop-func
+      options.routes.find(r => r.displayName === lastConnection)?.color
+    }`;
+
+    const stopComponent = (
+      <div
+        className="route-item stop"
+        key={`stop=${stop}`}
+        style={
+          {
+            "--route-color": circleColor
+          } as React.CSSProperties
+        }
+      >
+        <div className="route-circle"></div>
+        <span>
+          <FormattedMessage id={stopMessage} values={{ stop }} />
+        </span>
+      </div>
+    );
+    components.push(stopComponent);
+
+    if (connection) {
+      const connectionComponent = (
+        <div
+          className="route-item connection"
+          key={`connection-${connection}`}
+          style={
+            {
+              "--route-color": circleColor
+            } as React.CSSProperties
+          }
+        >
+          <Icon />
+          <span>
+            <FormattedMessage
+              id="DIRECTIONS_ROUTE_TAKE"
+              values={{
+                connection,
+                id:
+                  options.routes.find(r => r.displayName === connection)?.id ||
+                  "?"
+              }}
+            />
+          </span>
+        </div>
+      );
+      components.push(connectionComponent);
+    }
+
+    index += 2;
+  }
+
+  return (
+    <div className="route" key={path}>
+      {1 < pathCount ? <span>Option {pathIndex + 1}</span> : null}
+      {components}
+    </div>
+  );
 }
 
 function processRoutes(
@@ -399,25 +518,6 @@ function processLandmark(
     paths,
     options
   );
-}
-
-function findLandmarkAndRoutes(
-  identifier: number | string | Landmark,
-  { landmarks, routes }: { landmarks: Landmark[]; routes: Route[] }
-) {
-  const landmark =
-    typeof identifier === "object"
-      ? identifier
-      : getLandmark(identifier, landmarks);
-  if (!landmark || landmark.id === -1) {
-    return;
-  }
-
-  const landmarkRoutes = routes.filter(route =>
-    route.landmarks.includes(landmark.id)
-  );
-
-  return { landmark, routes: landmarkRoutes };
 }
 
 // interface Connection {
