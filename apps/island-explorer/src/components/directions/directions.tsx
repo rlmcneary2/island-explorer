@@ -1,5 +1,7 @@
 import { uniqBy as _uniqBy } from "lodash";
 import React, { useMemo, useState } from "react";
+import type { Location } from "react-router";
+import { useHistory, useLocation } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
 import Icon from "../../assets/icon-bus.svg";
 import type { Landmark, RoutesAssetItem as Route } from "../../types/types";
@@ -12,8 +14,8 @@ const SCHOODIC_ROUTE_ID = 8;
 
 export function Directions() {
   const { formatMessage } = useIntl();
-  const [start, setStart] = useState("");
-  const [end, setEnd] = useState("");
+  const location = useLocation();
+  const history = useHistory();
   const [show, setShow] = useState<"end" | "start" | undefined>();
   const { landmarks, routes } = useContextState(({ landmarks, routes }) => ({
     landmarks,
@@ -31,6 +33,10 @@ export function Directions() {
       }) || [],
     [landmarkData, routeData]
   );
+
+  const params = new URLSearchParams(location.search);
+  const start = params.get("from") || "";
+  const end = params.get("to") || "";
 
   const directions = useMemo(() => {
     const results = findRoutes(start, end, {
@@ -61,15 +67,23 @@ export function Directions() {
   ) => {
     setShow(undefined);
     if (context === "start") {
-      setStart(landmark.displayName);
+      const params = new URLSearchParams();
+      params.set("from", landmark.displayName);
+      history.replace(cloneLocation(location, params));
     } else if (context === "end") {
-      setEnd(landmark.displayName);
+      const params = new URLSearchParams();
+      params.set("to", landmark.displayName);
+      history.replace(cloneLocation(location, params));
     }
   };
 
   const handleClearClick: React.MouseEventHandler = () => {
-    setEnd("");
-    setStart("");
+    const loc = cloneLocation(location);
+    const params = new URLSearchParams(loc.search);
+    params.delete("from");
+    params.delete("to");
+    loc.search = params.toString();
+    history.replace(loc);
   };
 
   const handleEndClick: React.MouseEventHandler = () => {
@@ -135,6 +149,17 @@ export function Directions() {
       ) : null}
     </div>
   );
+}
+
+function cloneLocation(location: Location, search?: URLSearchParams): Location {
+  const nextSearch = new URLSearchParams(location.search);
+
+  search?.forEach((val, key) => nextSearch.set(key, val));
+
+  return {
+    ...location,
+    search: nextSearch.toString()
+  };
 }
 
 function filterWithSelection(
