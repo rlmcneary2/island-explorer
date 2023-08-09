@@ -21,7 +21,7 @@ div.header {
   & > .options {
     background-color: color.$primary;
     display: flex;
-    flex: 1;
+    flex: 0 0 3.5rem;
     mask: {
       image: url("/assets/controls.svg");
       position: center;
@@ -29,7 +29,7 @@ div.header {
       size: dimension.$header-height * 0.75;
     }
     max-width: dimension.$header-height * 0.9;
-    min-width: 4.5rem;
+    min-width: unset;
     > span:not(:focus):not(:active) {
       clip: rect(0 0 0 0);
       clip-path: inset(100%);

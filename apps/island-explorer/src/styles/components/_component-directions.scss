@@ -1,6 +1,9 @@
 @use "../dimension";
 @use "../app";
 
+$busIconMarginOffset: -0.7rem;
+$busIconWidth: 3.5rem;
+
 .directions {
   @extend %para;
   padding: dimension.$control-padding-large;
@@ -25,7 +28,7 @@
   }
 
   .route {
-    margin-top: dimension.$space-medium;
+    margin-top: dimension.$space-large;
 
     .route-item {
       align-items: center;
@@ -35,18 +38,18 @@
       text-align: center;
 
       &.stop {
-        > .route-circle::before {
-          font-size: 2.2rem;
+        margin-left: $busIconWidth + $busIconMarginOffset;
+      }
+
+      &.connection {
+        > :first-child {
+          flex: 0 0 $busIconWidth;
+          margin-left: $busIconMarginOffset;
         }
       }
 
       & > svg {
         fill: var(--route-color);
-      }
-
-      > :first-child {
-        flex: 0 0 3.5rem;
-        margin-left: -0.7rem;
       }
     }
   }
