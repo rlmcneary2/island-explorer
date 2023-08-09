@@ -1,7 +1,8 @@
 import { uniqBy as _uniqBy } from "lodash";
 import React, { useMemo, useState } from "react";
 import type { Location } from "react-router";
-import { useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import type { IntlFormatters } from "react-intl";
 import { FormattedMessage, useIntl } from "react-intl";
 import Icon from "../../assets/icon-bus.svg";
 import type { Landmark, RoutesAssetItem as Route } from "../../types/types";
@@ -50,8 +51,6 @@ export function Directions() {
         const matchB = b.match(/\./g);
         return (matchA?.length || 0) - (matchB?.length || 0);
       });
-
-      console.log(results);
 
       return results ? results.slice(0, 3) : results;
     }
@@ -120,6 +119,7 @@ export function Directions() {
       {directions
         ? directions.map((d, i) =>
             pathToComponents(d, i, directions.length, {
+              formatMessage,
               landmarks: landmarkData,
               routes: routeData
             })
@@ -319,6 +319,7 @@ function pathToComponents(
   pathIndex: number,
   pathCount: number,
   options: {
+    formatMessage: IntlFormatters["formatMessage"];
     landmarks: Landmark[];
     routes: Route[];
   }
@@ -348,7 +349,7 @@ function pathToComponents(
         ? "DIRECTIONS_ROUTE_END"
         : "DIRECTIONS_ROUTE_CHANGE_AT";
 
-    const circleColor = `#${
+    const routeColor = `#${
       // eslint-disable-next-line no-loop-func
       options.routes.find(r => r.displayName === lastConnection)?.color
     }`;
@@ -359,40 +360,55 @@ function pathToComponents(
         key={`stop=${stop}`}
         style={
           {
-            "--route-color": circleColor
+            "--route-color": routeColor
           } as React.CSSProperties
         }
       >
-        <div className="route-circle"></div>
         <span>
-          <FormattedMessage id={stopMessage} values={{ stop }} />
+          <FormattedMessage
+            id={stopMessage}
+            values={{
+              b: ((chunk: string) => (
+                <b>{chunk}</b>
+              )) as unknown as React.ReactNode,
+              stop
+            }}
+          />
         </span>
       </div>
     );
     components.push(stopComponent);
 
     if (connection) {
+      const routeId = options.routes.find(
+        r => r.displayName === connection
+      )?.id;
+
+      const message = options.formatMessage(
+        { id: "DIRECTIONS_ROUTE_TAKE" },
+        {
+          connection,
+          id: routeId || "?"
+        }
+      );
+
+      const messageParts = message.split(connection);
+
       const connectionComponent = (
         <div
           className="route-item connection"
           key={`connection-${connection}`}
           style={
             {
-              "--route-color": circleColor
+              "--route-color": routeColor
             } as React.CSSProperties
           }
         >
           <Icon />
           <span>
-            <FormattedMessage
-              id="DIRECTIONS_ROUTE_TAKE"
-              values={{
-                connection,
-                id:
-                  options.routes.find(r => r.displayName === connection)?.id ||
-                  "?"
-              }}
-            />
+            {messageParts[0]}
+            <Link to={`/route/${routeId}/map`}>{`${connection}`}</Link>
+            {messageParts[1]}
           </span>
         </div>
       );
@@ -404,7 +420,16 @@ function pathToComponents(
 
   return (
     <div className="route" key={path}>
-      {1 < pathCount ? <span>Option {pathIndex + 1}</span> : null}
+      {1 < pathCount ? (
+        <span>
+          <b>
+            <FormattedMessage
+              id="DIRECTIONS_OPTION"
+              values={{ number: pathIndex + 1 }}
+            />
+          </b>
+        </span>
+      ) : null}
       {components}
     </div>
   );
