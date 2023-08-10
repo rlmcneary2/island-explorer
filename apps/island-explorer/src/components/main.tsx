@@ -3,7 +3,7 @@ import { lazy, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ModalContainer } from "modal";
 import Header from "./header";
-import Icon from "../assets/icon-bus.svg";
+import { Spinner } from "./spinner/spinner";
 import { MAP } from "../constants/routes";
 import { Directions } from "./directions/directions";
 import { getRoutePath, ROUTE_TEMPLATE } from "../util/route";
@@ -25,13 +25,7 @@ export default function Main() {
       <div className="content">
         <Switch>
           <Route path={ROUTE_TEMPLATE}>
-            <Suspense
-              fallback={
-                <div className="loading">
-                  <Icon />
-                </div>
-              }
-            >
+            <Suspense fallback={<Spinner />}>
               <BusRoute />
             </Suspense>
           </Route>

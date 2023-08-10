@@ -1,8 +1,3 @@
-@use "../color";
-
-$loadingDelay: 1.5s;
-$loadingDuration: 1s;
-
 .main {
   bottom: 0;
   display: flex;
@@ -17,45 +12,5 @@ $loadingDuration: 1s;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     position: relative;
-
-    > .loading {
-      animation-name: spin;
-      animation-delay: $loadingDelay;
-      animation-duration: $loadingDuration;
-      animation-timing-function: ease-in-out;
-      animation-iteration-count: infinite;
-      display: flex;
-      transform: scale(1);
-
-      @keyframes spin {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      > svg {
-        animation-name: throb;
-        animation-delay: $loadingDelay;
-        animation-duration: $loadingDuration;
-        animation-timing-function: ease-in-out;
-        animation-iteration-count: infinite;
-        fill: color.$primary;
-
-        @keyframes throb {
-          0% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(0.9);
-          }
-          100% {
-            transform: scale(1);
-          }
-        }
-      }
-    }
   }
 }
