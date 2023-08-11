@@ -6,7 +6,6 @@
     "app.webmanifest",
     "favicon.ico",
     "https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css",
-    "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300&family=Oswald:wght@400;600&display=swap",
     "index.html",
     "main.js",
     "runtime.js",
