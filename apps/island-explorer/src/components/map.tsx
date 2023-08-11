@@ -51,7 +51,7 @@ export default function Map({ routeId }: Props) {
         <MapVehicles />
       </RemapGL>
       <button className="button reset-bounds" onClick={handleResetBoundsClick}>
-        <span className="material-symbols-outlined">fit_screen</span>
+        <i className="sym-fit-screen"></i>
       </button>
     </div>
   );

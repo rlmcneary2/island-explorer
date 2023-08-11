@@ -25,6 +25,17 @@ div.map {
     position: absolute;
     right: 0;
 
+    > .sym-fit-screen {
+      background: {
+        image: url("/assets/symbols.svg");
+        position: 24px * -25;
+        size: cover;
+      }
+
+      height: 24px;
+      width: 24px;
+    }
+
     &:last-child {
       margin-right: dimension.$control-padding-large;
     }
