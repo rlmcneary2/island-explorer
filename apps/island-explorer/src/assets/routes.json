@@ -26,8 +26,9 @@
       "displayName": "Sand Beach",
       "id": 3,
       "landmarks": [
-        1, 20, 48000, 28000, 29000, 30000, 31000, 32000, 20000, 21000, 22000, 23000,
-        22, 23, 24000, 10024, 10092, 11064, 25000, 26000, 27000, 27500, 45000
+        1, 20, 48000, 28000, 29000, 30000, 31000, 32000, 20000, 21000, 22000,
+        23000, 22, 23, 24000, 24, 10092, 11064, 87, 25000, 26000, 27000, 27500,
+        45000
       ],
       "notices": ["NTE_SCHEDULED_STOPS"],
       "tips": ["RTE_SAND_BEACH_TIP", "RTE_SAND_BEACH_TIP2"],
@@ -52,9 +53,7 @@
       "description": "RTE_JORDAN_POND_DESC",
       "displayName": "Jordan Pond",
       "id": 5,
-      "landmarks": [
-        3, 47000, 20, 28, 11051, 36000, 35000, 29, 28, 20, 47000
-      ],
+      "landmarks": [3, 47000, 20, 28, 11051, 36000, 35000, 29, 28, 20, 47000],
       "notices": ["NTE_ROUTE_5_2023", "NTE_SCHEDULED_STOPS"],
       "tips": ["RTE_JORDAN_POND_TIP", "RTE_JORDAN_POND_TIP2"],
       "trace": "JordanPond.kml"

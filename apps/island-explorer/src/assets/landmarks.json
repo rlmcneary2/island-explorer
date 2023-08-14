@@ -760,8 +760,8 @@
       "landmarkType": "point-of-interest",
       "displayName": "Fabbri",
       "location": {
-        "latitude": 44.314157664169166,
-        "longitude": -68.19603738042137
+        "latitude": 44.31440877420992,
+        "longitude": -68.19509798015814
       },
       "stopName": "Fabbri Picnic Area"
     },
@@ -876,11 +876,11 @@
       "stopName": "Bubble Rock"
     },
     {
-      "description": "LMK_FABBRI_DESC",
+      "description": "LMK_FABBRI_MONUMENT_DESC",
       "features": ["restroom", "water", "picnic", "walk", "hike"],
       "id": 11064,
       "landmarkType": "point-of-interest",
-      "displayName": "Fabbri",
+      "displayName": "Fabbri Monument",
       "location": {
         "latitude": 44.314157664169166,
         "longitude": -68.19603738042137
