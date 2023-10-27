@@ -1,7 +1,7 @@
 import { uniqBy as _uniqBy } from "lodash";
 import React, { useMemo, useState } from "react";
 import type { Location } from "react-router";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import type { IntlFormatters } from "react-intl";
 import { FormattedMessage, useIntl } from "react-intl";
 import Icon from "../../assets/icon-bus.svg";
@@ -16,7 +16,7 @@ const SCHOODIC_ROUTE_ID = 8;
 export function Directions() {
   const { formatMessage } = useIntl();
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [show, setShow] = useState<"end" | "start" | undefined>();
   const { landmarks, routes } = useContextState(({ landmarks, routes }) => ({
     landmarks,
@@ -68,11 +68,11 @@ export function Directions() {
     if (context === "start") {
       const params = new URLSearchParams();
       params.set("from", landmark.displayName);
-      history.replace(cloneLocation(location, params));
+      navigate(cloneLocation(location, params));
     } else if (context === "end") {
       const params = new URLSearchParams();
       params.set("to", landmark.displayName);
-      history.replace(cloneLocation(location, params));
+      navigate(cloneLocation(location, params));
     }
   };
 
@@ -82,7 +82,7 @@ export function Directions() {
     params.delete("from");
     params.delete("to");
     loc.search = params.toString();
-    history.replace(loc);
+    navigate(loc);
   };
 
   const handleEndClick: React.MouseEventHandler = () => {

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import { ContextState } from "../context/types";
 import { INFORMATION, MAP } from "../constants/routes";
@@ -11,7 +11,7 @@ import { Menu } from "./menu/menu";
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
   const [showRoutesModal, setShowRoutesModal] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
 
   const routes =
@@ -20,7 +20,7 @@ export default function Header() {
   const handleDirectionsClick: React.MouseEventHandler<
     HTMLButtonElement
   > = () => {
-    history.push("/directions");
+    navigate("/directions");
   };
 
   const handleMenuButtonClick = useCallback(() => {

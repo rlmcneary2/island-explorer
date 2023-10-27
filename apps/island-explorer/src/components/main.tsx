@@ -1,12 +1,11 @@
 import "../styles/styles.scss";
 import { lazy, Suspense } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { ModalContainer } from "modal";
 import Header from "./header";
 import { Spinner } from "./spinner/spinner";
-import { MAP } from "../constants/routes";
 import { Directions } from "./directions/directions";
-import { getRoutePath, ROUTE_TEMPLATE } from "../util/route";
+import { ROUTE_TEMPLATE } from "../util/route";
 import { UpdateAvailable } from "./toast/update-available/update-available";
 import version from "../assets/version.json";
 
@@ -23,7 +22,7 @@ export default function Main() {
     <main className="main">
       <Header />
       <div className="content">
-        <Switch>
+        <Routes>
           <Route path={ROUTE_TEMPLATE}>
             <Suspense fallback={<Spinner />}>
               <BusRoute />
@@ -32,8 +31,8 @@ export default function Main() {
           <Route path="/directions">
             <Directions />
           </Route>
-          <Redirect to={getRoutePath(3, MAP)} />
-        </Switch>
+          {/* <Redirect to={getRoutePath(3, MAP)} /> */}
+        </Routes>
       </div>
       <UpdateAvailable />
       <ModalContainer className="toast-container" containerId="toast" />
