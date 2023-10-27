@@ -8,7 +8,7 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@nrwl/web:webpack",
+          "builder": "@nrwl/webpack:webpack",
           "outputs": ["{options.outputPath}"],
           "defaultConfiguration": "production",
           "options": {
@@ -52,11 +52,17 @@
                   "maximumError": "5mb"
                 }
               ]
+            },
+            "development": {
+              "extractLicenses": false,
+              "optimization": false,
+              "sourceMap": true,
+              "vendorChunk": true
             }
           }
         },
         "serve": {
-          "builder": "@nrwl/web:dev-server",
+          "builder": "@nrwl/webpack:dev-server",
           "options": {
             "buildTarget": "island-explorer:build",
             "hmr": true,
@@ -68,8 +74,12 @@
             "production": {
               "buildTarget": "island-explorer:build:production",
               "hmr": false
+            },
+            "development": {
+              "buildTarget": "island-explorer:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
@@ -90,7 +100,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/island-explorer/jest.config.js",
+            "jestConfig": "apps/island-explorer/jest.config.ts",
             "passWithNoTests": true
           },
           "outputs": ["coverage/apps/island-explorer"]
@@ -131,7 +141,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/modal"],
           "options": {
-            "jestConfig": "libs/modal/jest.config.js",
+            "jestConfig": "libs/modal/jest.config.ts",
             "passWithNoTests": true
           }
         }
@@ -152,7 +162,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/service-worker"],
           "options": {
-            "jestConfig": "libs/service-worker/jest.config.js",
+            "jestConfig": "libs/service-worker/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -160,6 +170,8 @@
           "builder": "@nrwl/web:rollup",
           "outputs": ["{options.outputPath}"],
           "options": {
+            "format": ["esm"],
+            "outputFileName": "service-worker.esm.js",
             "outputPath": "dist/libs/service-worker",
             "tsConfig": "libs/service-worker/tsconfig.lib.json",
             "project": "libs/service-worker/package.json",
@@ -170,5 +182,6 @@
         }
       }
     }
-  }
+  },
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }
