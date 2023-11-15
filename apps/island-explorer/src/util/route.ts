@@ -1,7 +1,5 @@
-import { MAP } from "../constants/routes";
+import { MAP, ROUTE, ROUTE_TEMPLATE } from "../constants/routes";
 import { RoutePage } from "../types/types";
-
-export const ROUTE_TEMPLATE = "/route/:routeId/:routePage";
 
 export function getRouteParameters(pathname?: Location["pathname"]): {
   page: RoutePage;
@@ -12,7 +10,7 @@ export function getRouteParameters(pathname?: Location["pathname"]): {
     return null;
   }
 
-  if (!path.startsWith("route")) {
+  if (!path.startsWith(ROUTE)) {
     return { page: MAP, routeId: "3" };
   }
 

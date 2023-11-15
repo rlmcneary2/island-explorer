@@ -1,12 +1,13 @@
 import "../styles/styles.scss";
 import { lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { ModalContainer } from "modal";
 import Header from "./header";
 import { Spinner } from "./spinner/spinner";
 import { Directions } from "./directions/directions";
-import { ROUTE_TEMPLATE } from "../util/route";
+import { getRoutePath } from "../util/route";
 import { UpdateAvailable } from "./toast/update-available/update-available";
+import { DIRECTIONS, MAP, ROUTE_TEMPLATE } from "../constants/routes";
 import version from "../assets/version.json";
 
 const BusRoute = lazy(() =>
@@ -23,15 +24,19 @@ export default function Main() {
       <Header />
       <div className="content">
         <Routes>
-          <Route path={ROUTE_TEMPLATE}>
-            <Suspense fallback={<Spinner />}>
-              <BusRoute />
-            </Suspense>
-          </Route>
-          <Route path="/directions">
-            <Directions />
-          </Route>
-          {/* <Redirect to={getRoutePath(3, MAP)} /> */}
+          <Route
+            element={
+              <Suspense fallback={<Spinner />}>
+                <BusRoute />
+              </Suspense>
+            }
+            path={ROUTE_TEMPLATE}
+          />
+          <Route element={<Directions />} path={`/${DIRECTIONS}`} />
+          <Route
+            element={<Navigate replace to={getRoutePath(3, MAP)} />}
+            path="*"
+          />
         </Routes>
       </div>
       <UpdateAvailable />

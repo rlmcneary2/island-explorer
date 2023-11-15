@@ -1,4 +1,4 @@
-import { Route } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { FormattedRelativeTime } from "react-intl";
 import { INFORMATION } from "../../constants/routes";
 import Map from "../map";
@@ -9,6 +9,7 @@ import { ContextData } from "../../context/types";
 
 export function BusRouteView() {
   const { routeId, routeVehicles } = useContextState(selector);
+  const { pathname } = useLocation();
 
   const timeValue = routeVehicles?.nextUpdate
     ? Math.round((routeVehicles.nextUpdate - Date.now()) / 1000)
@@ -21,9 +22,7 @@ export function BusRouteView() {
   return (
     <>
       <Map routeId={routeId} />
-      <Route path={`*/${INFORMATION}`}>
-        <Information routeId={routeId} />
-      </Route>
+      {pathname.endsWith(INFORMATION) && <Information routeId={routeId} />}
       <div
         style={{
           background: "white",
