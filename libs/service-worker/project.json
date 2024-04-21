@@ -1,0 +1,40 @@
+{
+  "name": "service-worker",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/service-worker/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/service-worker/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/service-worker"
+      ],
+      "options": {
+        "jestConfig": "libs/service-worker/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/rollup:rollup",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/libs/service-worker",
+        "tsConfig": "libs/service-worker/tsconfig.lib.json",
+        "project": "libs/service-worker/package.json",
+        "entryFile": "libs/service-worker/src/service-worker.ts",
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "assets": []
+      }
+    }
+  }
+}
