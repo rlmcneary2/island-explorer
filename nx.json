@@ -20,11 +20,6 @@
   },
   "defaultProject": "island-explorer",
   "generators": {
-    "@nrwl/workspace": {
-      "library": {
-        "linter": "eslint"
-      }
-    },
     "@nrwl/cypress": {
       "cypress-project": {
         "linter": "eslint"
@@ -45,11 +40,6 @@
       }
     },
     "@nrwl/next": {
-      "application": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/web": {
       "application": {
         "linter": "eslint"
       }
@@ -80,16 +70,26 @@
         "linter": "eslint"
       }
     },
-    "@nrwl/web:application": {
+    "@nx/web:application": {
       "style": "css",
       "linter": "eslint",
       "unitTestRunner": "jest",
       "e2eTestRunner": "none"
     },
-    "@nrwl/web:library": {
+    "@nx/web:library": {
       "style": "css",
       "linter": "eslint",
       "unitTestRunner": "jest"
+    },
+    "@nx/workspace": {
+      "library": {
+        "linter": "eslint"
+      }
+    },
+    "@nx/web": {
+      "application": {
+        "linter": "eslint"
+      }
     }
   },
   "$schema": "./node_modules/nx/schemas/nx-schema.json",

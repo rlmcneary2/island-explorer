@@ -6,18 +6,13 @@
   "targets": {
     "build": {
       "executor": "@nrwl/rollup:rollup",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/modal",
         "tsConfig": "libs/modal/tsconfig.lib.json",
         "project": "libs/modal/package.json",
         "entryFile": "libs/modal/src/index.ts",
-        "external": [
-          "react",
-          "react-dom"
-        ],
+        "external": ["react", "react-dom"],
         "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
         "assets": [
           {
@@ -29,18 +24,14 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "libs/modal/**/*.{ts,tsx,js,jsx}"
-        ]
+        "lintFilePatterns": ["libs/modal/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/libs/modal"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/libs/modal"],
       "options": {
         "jestConfig": "libs/modal/jest.config.ts",
         "passWithNoTests": true
