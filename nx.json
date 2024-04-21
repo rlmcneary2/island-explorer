@@ -1,7 +1,4 @@
 {
-  "affected": {
-    "defaultBase": "master"
-  },
   "defaultProject": "island-explorer",
   "generators": {
     "@nrwl/cypress": {
@@ -113,5 +110,7 @@
     ],
     "projectSpecificFiles": []
   },
-  "parallel": 1
+  "parallel": 1,
+  "useInferencePlugins": false,
+  "defaultBase": "master"
 }
