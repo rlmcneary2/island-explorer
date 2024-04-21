@@ -9,9 +9,7 @@
     "nx.json": "*",
     "tsconfig.base.json": "*",
     ".eslintrc.json": "*",
-    "dist/libs/service-worker/src/service-worker.js": [
-      "island-explorer"
-    ]
+    "dist/libs/service-worker/src/service-worker.js": ["island-explorer"]
   },
   "affected": {
     "defaultBase": "master"
@@ -31,17 +29,6 @@
         "parallel": 1
       }
     }
-  },
-  "targetDependencies": {
-    "build": [
-      {
-        "target": "build",
-        "projects": "dependencies"
-      }
-    ]
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/react"
   },
   "defaultProject": "island-explorer",
   "generators": {
@@ -115,6 +102,12 @@
       "style": "css",
       "linter": "eslint",
       "unitTestRunner": "jest"
+    }
+  },
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"]
     }
   }
 }

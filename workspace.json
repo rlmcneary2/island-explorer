@@ -8,8 +8,10 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@nrwl/web:webpack",
-          "outputs": ["{options.outputPath}"],
+          "builder": "@nrwl/webpack:webpack",
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "defaultConfiguration": "production",
           "options": {
             "compiler": "babel",
@@ -56,7 +58,7 @@
           }
         },
         "serve": {
-          "builder": "@nrwl/web:dev-server",
+          "builder": "@nrwl/webpack:dev-server",
           "options": {
             "buildTarget": "island-explorer:build",
             "hmr": true,
@@ -90,10 +92,12 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/island-explorer/jest.config.js",
+            "jestConfig": "apps/island-explorer/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/apps/island-explorer"]
+          "outputs": [
+            "coverage/apps/island-explorer"
+          ]
         }
       }
     },
@@ -104,13 +108,18 @@
       "architect": {
         "build": {
           "builder": "@nrwl/web:rollup",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/libs/modal",
             "tsConfig": "libs/modal/tsconfig.lib.json",
             "project": "libs/modal/package.json",
             "entryFile": "libs/modal/src/index.ts",
-            "external": ["react", "react-dom"],
+            "external": [
+              "react",
+              "react-dom"
+            ],
             "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
             "assets": [
               {
@@ -124,14 +133,18 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/modal/**/*.{ts,tsx,js,jsx}"]
+            "lintFilePatterns": [
+              "libs/modal/**/*.{ts,tsx,js,jsx}"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/modal"],
+          "outputs": [
+            "coverage/libs/modal"
+          ],
           "options": {
-            "jestConfig": "libs/modal/jest.config.js",
+            "jestConfig": "libs/modal/jest.config.ts",
             "passWithNoTests": true
           }
         }
@@ -145,20 +158,26 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/service-worker/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/service-worker/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/service-worker"],
+          "outputs": [
+            "coverage/libs/service-worker"
+          ],
           "options": {
-            "jestConfig": "libs/service-worker/jest.config.js",
+            "jestConfig": "libs/service-worker/jest.config.ts",
             "passWithNoTests": true
           }
         },
         "build": {
           "builder": "@nrwl/web:rollup",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/libs/service-worker",
             "tsConfig": "libs/service-worker/tsconfig.lib.json",
@@ -170,5 +189,6 @@
         }
       }
     }
-  }
+  },
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }
