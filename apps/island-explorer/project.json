@@ -70,20 +70,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "apps/island-explorer/**/*.js",
-          "apps/island-explorer/**/*.jsx",
-          "apps/island-explorer/**/*.ts",
-          "apps/island-explorer/**/*.tsx",
-          "apps/island-explorer/**/*.spec.ts",
-          "apps/island-explorer/**/*.spec.tsx",
-          "apps/island-explorer/**/*.spec.js",
-          "apps/island-explorer/**/*.spec.jsx",
-          "apps/island-explorer/**/*.d.ts"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nrwl/jest:jest",
