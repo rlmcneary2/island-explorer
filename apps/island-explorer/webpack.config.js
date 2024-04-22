@@ -1,16 +1,20 @@
 const path = require("path");
+const { composePlugins, withNx } = require("@nx/webpack");
 const { merge } = require("webpack-merge");
 const BundleAnalyzerPlugin =
   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
-module.exports = (config, context) => {
-  console.log(`---\n--- apps/island-explorer/webpack.config.js`);
+module.exports = composePlugins(withNx(), (config, context) => {
+  console.log(
+    `---\n--- apps/island-explorer/webpack.config.js mode='${context.configuration}'`
+  );
 
   const customConfig = {
     devServer: {
       historyApiFallback: true,
       host: "0.0.0.0"
     },
+    // mode: context.configuration,
     module: {
       rules: [
         {
@@ -40,7 +44,7 @@ module.exports = (config, context) => {
 
   if (
     context.configuration === "production" &&
-    config.output.filename.endsWith(".esm.js")
+    config.output?.filename?.endsWith(".esm.js")
   ) {
     customConfig.plugins = [
       new BundleAnalyzerPlugin({
@@ -55,4 +59,4 @@ module.exports = (config, context) => {
   console.log(`---`);
 
   return merged;
-};
+});
