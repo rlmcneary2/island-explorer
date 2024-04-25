@@ -1,0 +1,9 @@
+{
+  "name": "island-explorer",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/island-explorer/src",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project island-explorer --web",
+  "targets": {}
+}
