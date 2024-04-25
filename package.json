@@ -13,6 +13,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-intl": "^6.6.5",
+    "react-router-dom": "^6.23.0",
     "remapgl": "^2.4.4",
     "reshape-state": "^1.4.1",
     "service-worker-provider": "^0.1.1"
