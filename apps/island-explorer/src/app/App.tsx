@@ -10,6 +10,9 @@ export function App() {
     <ServiceWorkerProvider url="service-worker.js" reloadOnSkipWaiting={true}>
       <IntlProvider locale="en-US" messages={messages}>
         <ModalProvider>
+          {/* <ContextProvider>
+            <Layout />
+          </ContextProvider> */}
           <Layout />
         </ModalProvider>
       </IntlProvider>

@@ -1,11 +1,17 @@
 import { Outlet } from "react-router-dom";
+import { Header } from "../Header/Header";
 
 export function Layout() {
-  // Application headers, footers, etc. go here.
   return (
-    <div>
-      <h1>Layout</h1>
-      <Outlet />
-    </div>
+    <main className="main">
+      <Header />
+      <div className="content">
+        <Outlet />
+      </div>
+      <UpdateAvailable />
+      <ModalContainer className="toast-container" containerId="toast" />
+      <ModalContainer className="menu-container" containerId="menu" />
+      <ModalContainer className="modal-container" />
+    </main>
   );
 }
