@@ -1,0 +1,40 @@
+@use "reset";
+@use "dimension";
+@use "font";
+@use "tags";
+@use "symbol";
+@use "icon";
+@use "elements/button";
+@use "elements/checkbox";
+@use "components/component-main";
+@use "components/component-header";
+@use "components/component-directions";
+@use "components/component-information";
+@use "components/component-map";
+@use "components/component-menu";
+@use "components/component-modal";
+@use "components/component-modal-routes";
+@use "components/component-modal-select-landmark";
+@use "components/component-message";
+@use "components/component-popup";
+@use "components/component-spinner";
+@use "components/component-toast-connection-error";
+@use "components/component-toast-update-available";
+
+/*
+ * Mapbox GL overrides.
+ */
+[class*="mapboxgl-ctrl-"] {
+  z-index: initial !important;
+}
+
+.mapboxgl-popup-content {
+  padding: 0 !important;
+}
+
+.mapboxgl-popup-close-button {
+  font-family: sans-serif;
+  font-size: font.$text-control;
+  height: dimension.$control-height;
+  width: dimension.$control-height;
+}

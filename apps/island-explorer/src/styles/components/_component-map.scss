@@ -1,0 +1,83 @@
+@use "../color";
+@use "../dimension";
+@use "../elements//button";
+
+$icon-size: 40px;
+
+div.map {
+  grid-column-start: 1;
+  grid-row-start: 1;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  > div {
+    height: 100%;
+  }
+
+  > .reset-bounds {
+    background-color: color.$background;
+    border-radius: 4px; // Match the appearance of the Mapbox controls.
+    bottom: 0;
+    margin-bottom: 3rem;
+    min-width: unset;
+    position: absolute;
+    right: 0;
+
+    > .sym-fit-screen {
+      background: {
+        image: url("/assets/symbols.svg");
+        position: 24px * -25;
+        size: cover;
+      }
+
+      height: 24px;
+      width: 24px;
+    }
+
+    &:last-child {
+      margin-right: dimension.$control-padding-large;
+    }
+  }
+}
+
+.map-vehicle {
+  height: $icon-size;
+  width: $icon-size;
+
+  &::before {
+    content: url("/assets/icon-direction.svg");
+    display: block;
+    height: $icon-size;
+    position: relative;
+    transform: var(--vehicle-rotation);
+    width: $icon-size;
+  }
+
+  &.no-direction {
+    &::before {
+      display: none;
+    }
+  }
+
+  & > .map-vehicle-image {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    & > svg #bus-2:hover {
+      cursor: default;
+    }
+
+    &.late > svg #icon-fill {
+      fill: color.$vehicle-late;
+    }
+  }
+}
+
+.mapboxgl-canvas-container.mapboxgl-interactive.hover {
+  cursor: pointer;
+}

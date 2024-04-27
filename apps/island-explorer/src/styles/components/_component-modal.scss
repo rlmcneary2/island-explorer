@@ -1,0 +1,13 @@
+@use "../color";
+@use "../app";
+
+.modal {
+  @include app.modal-base;
+
+  > .content {
+    &.dialog {
+      @extend %text;
+      max-width: 35rem;
+    }
+  }
+}

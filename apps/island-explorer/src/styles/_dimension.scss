@@ -1,0 +1,65 @@
+@use "sass:math";
+
+$control-height: 37px;
+$control-height-2: $control-height * 1.2;
+$control-height-half: math.div($control-height, 2);
+$control-border-radius-h: math.div($control-height, 2);
+$control-border-radius-v: math.div($control-height, 2);
+$control-margin-h: math.div($control-height, 10);
+$control-margin-v: 3px;
+$control-margin-v-large: 8px;
+$control-padding: 3px;
+$control-padding-large: $control-padding * 4;
+$control-rounded-border-radius-h: 5px;
+$control-rounded-border-radius-v: 5px;
+
+$button-border-width: 1.5px;
+$button-max-width: 25rem;
+$button-narrow-width: 5rem;
+$button-padding: 0.5rem;
+$button-width: $control-height * 3.5;
+
+$header-height: 5rem;
+$header-padding: 0.3rem;
+
+$icon-button-padding: 1rem;
+$icon-button-size: 3rem;
+
+$icon-size: 35px;
+
+$modal-height: 70%;
+$modal-margin-bottom: 10%;
+$modal-max-height: 400px;
+$modal-max-width: 240px;
+$modal-min-width: 170px;
+$modal-width: 75%;
+
+$popup-padding: $control-padding * 2;
+$popup-description-max-height: 200px;
+
+$space-normal: 1rem;
+$space-medium: $space-normal * 1.75;
+$space-large: $space-medium * 1.75;
+
+$symbol-border: 0;
+$symbol-margin-h: 3px;
+$symbol-native: 80px;
+$symbol-rounded-border-radius-h: 3px;
+$symbol-rounded-border-radius-v: 3px;
+$symbol-small: 20px - ($symbol-border * 2);
+
+$text-custom-bullet-spacing: 8px;
+$text-body-line-height: 1.35em;
+$text-para-margin: 8px;
+$text-heading-margin: $text-para-margin + 8;
+$text-tip-padding: $control-padding * 2;
+
+$toast-width: 100%;
+
+%list-item {
+  margin-bottom: $text-para-margin * 1.5;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

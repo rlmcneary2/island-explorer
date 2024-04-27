@@ -1,0 +1,72 @@
+@use "../color";
+@use "../font";
+@use "../dimension";
+
+.modal {
+  > .content {
+    > .container {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
+      > :nth-child(n + 2) {
+        margin-bottom: dimension.$text-para-margin;
+      }
+
+      > :last-child {
+        margin-bottom: initial;
+      }
+
+      .filter {
+        align-items: center;
+        display: flex;
+        margin: dimension.$space-medium 0 dimension.$space-medium 0;
+        width: 100%;
+
+        .filter-label {
+          span {
+            margin-right: dimension.$space-normal;
+          }
+        }
+
+        .filter-input {
+          flex: 1;
+          position: relative;
+
+          > input {
+            @extend %text;
+
+            border-color: color.$control-background;
+            border-radius: #{dimension.$control-rounded-border-radius-h}/#{dimension.$control-rounded-border-radius-v};
+            border-style: solid;
+            box-sizing: border-box;
+            height: dimension.$control-height;
+            width: 100%;
+
+            &:focus-visible {
+              outline-color: color.$primary;
+            }
+          }
+        }
+      }
+
+      .list {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        list-style-type: none;
+        margin-block-start: 0;
+        overflow: auto;
+        padding: 0;
+        width: 100%;
+      }
+
+      .list-item {
+        @extend %list-item;
+        align-items: center;
+        display: flex;
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@use "../dimension";
+@use "../font";
+
+.checkbox {
+  align-items: center;
+  display: flex;
+  flex: 0 0 4rem;
+  > input[type="checkbox"] {
+    height: 2rem;
+    margin-right: dimension.$space-normal;
+    width: 2rem;
+  }
+}

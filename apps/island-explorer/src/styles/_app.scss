@@ -1,0 +1,192 @@
+@use "sass:math";
+@use "./color";
+@use "./dimension";
+@use "./font";
+
+#root {
+  overflow: hidden;
+}
+
+%headline-1 {
+  @extend %title-1;
+  margin: dimension.$text-heading-margin 0 0 0;
+}
+
+%headline-2 {
+  @extend %headline-1;
+  font-size: font.$text-headline-2;
+}
+
+%list-item {
+  font-size: font.$text-body;
+}
+
+// You should use the modal-base mixin (see below).
+%modal {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0);
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: background-color 100ms;
+  > .content {
+    background: color.$background;
+    box-sizing: border-box;
+    height: 60vh;
+    opacity: 0;
+    padding: dimension.$control-padding-large;
+    transform: scale(0.8);
+    transition: all 100ms;
+    width: 75vw;
+  }
+
+  &.animate-start-in {
+    background-color: rgba(0, 0, 0, 0.3);
+    & > .content {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  &.animate-end-in {
+    background-color: rgba(0, 0, 0, 0.3);
+    & > .content {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+@mixin modal-base() {
+  @extend %modal;
+  @media (prefers-reduced-motion) {
+    .modal {
+      > .content {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+}
+
+%para {
+  @extend %para-margin;
+  %para {
+    font-size: 1em; /* Prevents recursive paras from increasing the font size. */
+  }
+  font-size: font.$text-body;
+  line-height: dimension.$text-body-line-height;
+}
+
+%para-margin {
+  margin: dimension.$text-para-margin 0 0 0;
+}
+
+.para-margin {
+  @extend %para-margin;
+}
+
+%raised-element {
+  border: {
+    radius: #{dimension.$control-rounded-border-radius-h}/#{dimension.$control-rounded-border-radius-v};
+  }
+  box-shadow: 0 4px 10px 2px rgba(0, 0, 0, 0.5);
+}
+
+.route-circle {
+  &::before {
+    color: var(--route-color, black);
+    content: "⬤";
+  }
+}
+
+.route-circle-container {
+  display: flex;
+  font-size: font.$route-circle;
+  margin: math.div(dimension.$text-para-margin, 2) 0 0 0;
+
+  & > :nth-of-type(n) {
+    flex: 0 0 font.$route-circle;
+    text-align: center;
+    text-decoration-line: none;
+
+    &::before {
+      content: "⬤";
+    }
+  }
+
+  & > :nth-of-type(1) {
+    text-align: left;
+  }
+
+  & > :last-of-type {
+    text-align: right;
+  }
+}
+
+.symbol-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  > :first-of-type {
+    margin-left: 0;
+  }
+}
+
+%tip {
+  @extend %text-italic;
+  line-height: dimension.$text-body-line-height;
+  margin: dimension.$text-para-margin 0 0 0;
+}
+
+%toast {
+  @extend %text;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  margin: 1rem 0.5rem 0 0.5rem;
+  position: absolute;
+  right: 0;
+  top: dimension.$header-height + (dimension.$header-padding * 2);
+
+  > .content {
+    background: color.$primary;
+    border: solid black 0;
+    border-radius: dimension.$control-rounded-border-radius-h unquote(" / ")
+      dimension.$control-rounded-border-radius-v;
+    box-sizing: border-box;
+    color: color.$text-inverse;
+    opacity: 0;
+    padding: dimension.$text-tip-padding;
+    transform: scale(0.8);
+    transition: all 100ms;
+    width: dimension.$toast-width;
+  }
+
+  &.animate-start-in {
+    & > .content {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  &.animate-end-in {
+    & > .content {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+%ulist {
+  list-style-type: disc; // Custom bullet?.
+  margin-top: dimension.$text-para-margin;
+  padding-inline-start: dimension.$text-custom-bullet-spacing * 2; // Position the left side of the bullet (the indent).
+}

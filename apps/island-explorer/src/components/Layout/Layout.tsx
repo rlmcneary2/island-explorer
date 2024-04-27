@@ -1,5 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "../Header/Header";
+import { UpdateAvailable } from "../Toast/update-available/update-available";
+import { ModalContainer } from "modal";
 
 export function Layout() {
   return (

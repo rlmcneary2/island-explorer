@@ -1,0 +1,29 @@
+@use "../dimension";
+@use "../font";
+@use "../app";
+
+.popup {
+  font-family: "Lato", sans-serif;
+  padding: dimension.$popup-padding;
+
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: dimension.$control-margin-v-large 0 0 0;
+  }
+
+  .description {
+    @extend %para;
+    max-height: dimension.$popup-description-max-height;
+    overflow-y: auto;
+  }
+
+  .header {
+    @extend %headline-2;
+    margin-right: dimension.$control-height - dimension.$popup-padding;
+  }
+}
+
+.mapboxgl-popup-content {
+  max-width: 25rem;
+}

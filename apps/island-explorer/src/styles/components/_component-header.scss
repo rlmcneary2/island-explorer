@@ -1,0 +1,43 @@
+@use "../color";
+@use "../dimension";
+
+div.header {
+  display: flex;
+  flex: 0 0 dimension.$header-height;
+  justify-content: space-between;
+  padding: 0.3rem;
+
+  @media screen and (min-width: 420px) {
+    justify-content: flex-start;
+  }
+}
+
+.header {
+  & > .button {
+    flex: 1;
+    max-width: dimension.$button-max-width;
+  }
+
+  & > .options {
+    background-color: color.$primary;
+    display: flex;
+    flex: 0 0 3.5rem;
+    mask: {
+      image: url("/assets/controls.svg");
+      position: center;
+      repeat: no-repeat;
+      size: dimension.$header-height * 0.75;
+    }
+    max-width: dimension.$header-height * 0.9;
+    min-width: unset;
+    > span:not(:focus):not(:active) {
+      clip: rect(0 0 0 0);
+      clip-path: inset(100%);
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+    }
+  }
+}

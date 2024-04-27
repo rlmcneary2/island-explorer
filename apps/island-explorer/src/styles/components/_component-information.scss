@@ -1,0 +1,76 @@
+@use "sass:math";
+@use "../color";
+@use "../dimension";
+@use "../symbol";
+@use "../app";
+
+$bus-stop-bullet-height: 20px;
+
+.content {
+  .information {
+    background-color: color.$color-app-background;
+    box-sizing: border-box;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    height: 100%;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: dimension.$control-padding-large;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    h1 {
+      @extend %headline-1;
+    }
+
+    h2 {
+      @extend %headline-2;
+      margin: 0;
+    }
+
+    .description {
+      @extend %para;
+    }
+
+    .landmarks {
+      @extend %ulist;
+      list-style-type: none;
+
+      .landmark {
+        @extend %list-item;
+        margin: dimension.$text-para-margin 0 0 0;
+      }
+
+      .stop {
+        &::before {
+          background: {
+            image: url("/assets/symbols.svg");
+            position: $bus-stop-bullet-height * -21;
+            size: cover;
+          }
+          content: "";
+          height: $bus-stop-bullet-height;
+          margin: 0 0 0 $bus-stop-bullet-height * -1;
+          margin-top: math.div(
+            (dimension.$control-height - $bus-stop-bullet-height),
+            2
+          );
+          width: $bus-stop-bullet-height;
+          position: absolute;
+        }
+      }
+    }
+
+    .tip {
+      @extend %tip;
+      background: color.$secondary-lightest;
+    }
+
+    .warning {
+      @extend %tip;
+      background: color.$warning;
+    }
+  }
+}
