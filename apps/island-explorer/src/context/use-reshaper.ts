@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { create, Reshaper } from "reshape-state";
+import { Action, create, LoopAction, Reshaper } from "reshape-state";
 import { ContextData } from "./types";
 import { create as createHandlers } from "./context-handlers";
 
@@ -16,15 +16,22 @@ export function useReshaper() {
       .addHandlers(createHandlers())
       // .addOnChange(nextData => console.log("useReshaper: nextData=", nextData))
       .addOnChange(nextData => setData({ ...nextData }));
-    setReshaper(nextReshaper);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setTimeout(() => nextReshaper.dispatch({ id: null } as any), 25);
+    setReshaper(nextReshaper);
   }, [reshaper]);
 
   useEffect(() => {
     reshaper?.setGetState(() => data);
   }, [data, reshaper]);
+
+  useEffect(() => {
+    if (reshaper) {
+      setTimeout(() => {
+        const action: LoopAction = { id: null };
+        reshaper.dispatch(action as unknown as Action);
+      }, 25);
+    }
+  }, [reshaper]);
 
   return { data, reshaper };
 }
