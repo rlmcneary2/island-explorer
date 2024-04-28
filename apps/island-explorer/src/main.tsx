@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import { App } from "./App";
 import { BusRoute } from "./components/BusRoute/bus-route";
+import { Directions } from "./components/Directions/directions";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,7 +23,7 @@ const router = createBrowserRouter(
         element={<BusRoute routeView="map" />}
         path="/route/:routeId/map"
       />
-      <Route element={<div>Directions</div>} path="/directions" />
+      <Route element={<Directions />} path="/directions" />
       <Route path="*" element={<Navigate to="/route/3/map" replace />} />
     </Route>
   )
