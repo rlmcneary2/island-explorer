@@ -1,0 +1,22 @@
+{
+  "name": "service-worker",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/service-worker/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/service-worker",
+        "main": "libs/service-worker/src/index.ts",
+        "tsConfig": "libs/service-worker/tsconfig.lib.json",
+        "assets": [],
+        "project": "libs/service-worker/package.json",
+        "compiler": "swc",
+        "format": ["cjs", "esm"]
+      }
+    }
+  }
+}
