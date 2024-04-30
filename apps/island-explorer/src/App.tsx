@@ -8,7 +8,10 @@ import { ContextProvider } from "./context/context-provider";
 export function App() {
   // Providers go here
   return (
-    <ServiceWorkerProvider url="service-worker.js" reloadOnSkipWaiting={true}>
+    <ServiceWorkerProvider
+      url="/service-worker.esm.js"
+      reloadOnSkipWaiting={true}
+    >
       <IntlProvider locale="en-US" messages={messages}>
         <ModalProvider>
           <ContextProvider>

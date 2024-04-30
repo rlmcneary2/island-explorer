@@ -9,13 +9,13 @@
       "executor": "@nx/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/service-worker",
-        "main": "libs/service-worker/src/index.ts",
-        "tsConfig": "libs/service-worker/tsconfig.lib.json",
         "assets": [],
-        "project": "libs/service-worker/package.json",
         "compiler": "swc",
-        "format": ["cjs", "esm"]
+        "format": ["esm"],
+        "main": "libs/service-worker/src/service-worker.ts",
+        "outputPath": "dist/libs/service-worker",
+        "project": "libs/service-worker/package.json",
+        "tsConfig": "libs/service-worker/tsconfig.lib.json"
       }
     }
   }
