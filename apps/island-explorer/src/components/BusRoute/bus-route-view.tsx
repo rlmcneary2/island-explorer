@@ -1,8 +1,8 @@
-import { Outlet, Route } from "react-router-dom";
+import { Suspense } from "react";
 import { FormattedRelativeTime } from "react-intl";
-import { INFORMATION } from "../../constants/routes";
 import Map from "../Map/map";
 import Information from "../Information/information";
+import { Spinner } from "../Spinner/spinner";
 import useContextState from "../../context/use-context-state";
 import { ConnectionStatus } from "../Toast/connection-status/connection-status";
 import { ContextData } from "../../context/types";
@@ -20,7 +20,9 @@ export function BusRouteView({ routeView }: BusRouteViewProps) {
 
   return (
     <>
-      <Map routeId={routeId} />
+      <Suspense fallback={<Spinner />}>
+        <Map routeId={routeId} />
+      </Suspense>
       {routeView === "information" ? <Information routeId={routeId} /> : null}
       <div
         style={{
