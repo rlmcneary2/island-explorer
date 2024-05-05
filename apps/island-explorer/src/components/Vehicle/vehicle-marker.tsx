@@ -4,7 +4,7 @@ import { Marker } from "remapgl";
 import { Landmark } from "../../types/types";
 import { Vehicle } from "../../context/types";
 import { VehiclePopup } from "./vehicle-popup";
-import Icon from "../../../assets/icon-bus.svg?react";
+import Icon from "../../images/icon-bus.svg?react";
 
 export function VehicleMarker({
   headingAngle,

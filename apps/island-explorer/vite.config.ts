@@ -1,7 +1,12 @@
 /// <reference types='vitest' />
 import fs from "fs";
 import path from "path";
-import { defineConfig } from "vite";
+import {
+  type UserConfig,
+  defineConfig,
+  splitVendorChunkPlugin,
+  type PluginOption
+} from "vite";
 import react from "@vitejs/plugin-react";
 import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import {
@@ -10,6 +15,7 @@ import {
 } from "@nx/vite/plugins/rollup-replace-files.plugin";
 import svgr from "vite-plugin-svgr";
 import { viteStaticCopy } from "vite-plugin-static-copy";
+import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig(({ mode }) => {
   console.log(`---MODE--- '${mode}'`);
@@ -24,14 +30,14 @@ export default defineConfig(({ mode }) => {
         ]
       : [];
 
-  return {
-    assetsInclude: [],
+  const config: UserConfig = {
     cacheDir: "../../node_modules/.vite/apps/island-explorer",
     plugins: [
       viteStaticCopy({
         targets: [
           {
             dest: "./",
+            rename: "service-worker.js",
             src: "../../dist/libs/service-worker/service-worker.esm.js"
           }
         ]
@@ -39,6 +45,7 @@ export default defineConfig(({ mode }) => {
       replaceFiles(fileReplacements),
       svgr(),
       react(),
+      splitVendorChunkPlugin(),
       nxViteTsPaths()
     ],
     root: __dirname,
@@ -48,7 +55,21 @@ export default defineConfig(({ mode }) => {
         transformMixedEsModules: true
       },
       outDir: "../../dist/apps/island-explorer",
-      reportCompressedSize: true
+      reportCompressedSize: true,
+      rollupOptions: {
+        output: {
+          assetFileNames: "assets/[name][extname]",
+          chunkFileNames: "[name].js",
+          entryFileNames: "index.js",
+          manualChunks(id) {
+            if (id.includes("mapbox-gl")) {
+              return "mapbox-gl";
+            } else if (id.includes("core-js") || id.includes("lodash")) {
+              return "vendor";
+            }
+          }
+        }
+      }
     },
 
     test: {
@@ -84,4 +105,15 @@ export default defineConfig(({ mode }) => {
       host: "localhost"
     }
   };
+
+  if (mode === "production") {
+    config.plugins?.push(
+      visualizer({
+        filename: "../../stats/stats.html"
+        // template: "network"
+      }) as PluginOption
+    );
+  }
+
+  return config;
 });

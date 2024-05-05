@@ -1,10 +1,10 @@
-import { uniqBy as _uniqBy } from "lodash";
+import _uniqBy from "lodash/uniqBy";
 import React, { useMemo, useState } from "react";
 import type { Location } from "react-router";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import type { IntlFormatters } from "react-intl";
 import { FormattedMessage, useIntl } from "react-intl";
-import Icon from "../../../assets/icon-bus.svg?react";
+import Icon from "../../images/icon-bus.svg?react";
 import type { Landmark, RoutesAssetItem as Route } from "../../types/types";
 import useContextState from "../../context/use-context-state";
 import { getLandmark } from "../../util/landmark";

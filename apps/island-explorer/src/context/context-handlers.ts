@@ -1,4 +1,4 @@
-import { isEqual as _isEqual } from "lodash";
+import _isEqual from "lodash/isEqual";
 import { ActionHandler } from "reshape-state";
 import { environment as env } from "../environments/environment";
 import { Landmark, RoutesAssetItem } from "../types/types";

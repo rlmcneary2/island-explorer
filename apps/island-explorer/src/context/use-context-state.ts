@@ -1,4 +1,4 @@
-import { isEqual as _isEqual } from "lodash";
+import _isEqual from "lodash/isEqual";
 import { useContext, useEffect, useState } from "react";
 import { ContextData } from "./types";
 import { Context } from "./context";

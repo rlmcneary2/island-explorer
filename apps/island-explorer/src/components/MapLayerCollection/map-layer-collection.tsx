@@ -1,4 +1,4 @@
-import { unionWith as _unionWith } from "lodash";
+import _unionWith from "lodash/unionWith";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
 import type { AnyLayout, CircleLayer, CirclePaint, LineLayer } from "mapbox-gl";
