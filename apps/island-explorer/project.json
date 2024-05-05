@@ -16,6 +16,9 @@
       "command": "npm run version:post",
       "dependsOn": ["build"]
     },
+    "preview": {
+      "dependsOn": ["^build"]
+    },
     "serve": { "dependsOn": ["^build"] }
   }
 }

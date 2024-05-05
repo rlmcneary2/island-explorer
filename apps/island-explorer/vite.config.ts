@@ -17,8 +17,11 @@ import svgr from "vite-plugin-svgr";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { visualizer } from "rollup-plugin-visualizer";
 
-export default defineConfig(({ mode }) => {
-  console.log(`---MODE--- '${mode}'`);
+export default defineConfig(cfg => {
+  // console.log(`---CONFIG--- `, cfg);
+  // console.log(`---ENV--- `, process.env);
+  const { mode } = cfg;
+  console.log(`--- VITE CONFIG MODE --- '${mode}'`);
 
   const fileReplacements: FileReplacement[] =
     mode === "production"
@@ -88,7 +91,6 @@ export default defineConfig(({ mode }) => {
     },
 
     server: {
-      port: 4200,
       host: "localhost",
       https: {
         cert: fs.readFileSync(
@@ -97,12 +99,28 @@ export default defineConfig(({ mode }) => {
         key: fs.readFileSync(
           path.resolve(path.join(__dirname, "../../cert/localhost.key"))
         )
-      }
+      },
+      port: 4200
     },
 
     preview: {
+      host: "localhost",
+      https: {
+        cert: fs.readFileSync(
+          path.resolve(path.join(__dirname, "../../cert/localhost.crt"))
+        ),
+        key: fs.readFileSync(
+          path.resolve(path.join(__dirname, "../../cert/localhost.key"))
+        )
+      },
       port: 4300,
-      host: "localhost"
+      proxy: {
+        "/api": {
+          changeOrigin: true,
+          secure: false,
+          target: "https://island-explorer-bus-server.netlify.app"
+        }
+      }
     }
   };
 
