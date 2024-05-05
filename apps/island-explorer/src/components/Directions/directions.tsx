@@ -1,4 +1,4 @@
-import _uniqBy from "lodash/uniqBy";
+import _uniqBy from "lodash-es/uniqBy";
 import React, { useMemo, useState } from "react";
 import type { Location } from "react-router";
 import { Link, useLocation, useNavigate } from "react-router-dom";

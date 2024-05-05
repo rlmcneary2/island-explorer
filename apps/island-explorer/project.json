@@ -17,8 +17,16 @@
       "dependsOn": ["build"]
     },
     "preview": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["build"]
     },
-    "serve": { "dependsOn": ["^build"] }
+    "serve": { "dependsOn": ["^build"] },
+    "serve-static": {
+      "dependsOn": ["^build"],
+      "options": {
+        "ssl": true,
+        "sslCert": "cert/localhost.crt",
+        "sslKey": "cert/localhost.key"
+      }
+    }
   }
 }

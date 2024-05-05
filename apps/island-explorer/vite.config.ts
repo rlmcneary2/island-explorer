@@ -9,29 +9,13 @@ import {
 } from "vite";
 import react from "@vitejs/plugin-react";
 import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
-import {
-  type FileReplacement,
-  replaceFiles
-} from "@nx/vite/plugins/rollup-replace-files.plugin";
 import svgr from "vite-plugin-svgr";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig(cfg => {
-  // console.log(`---CONFIG--- `, cfg);
-  // console.log(`---ENV--- `, process.env);
-  const { mode } = cfg;
-  console.log(`--- VITE CONFIG MODE --- '${mode}'`);
-
-  const fileReplacements: FileReplacement[] =
-    mode === "production"
-      ? [
-          {
-            replace: "src/environments/environment.ts",
-            with: "src/environments/environment.prod.ts"
-          }
-        ]
-      : [];
+  const { command, mode } = cfg;
+  console.log(`--- VITE CONFIG --- command='${command}', mode='${mode}'`);
 
   const config: UserConfig = {
     cacheDir: "../../node_modules/.vite/apps/island-explorer",
@@ -48,12 +32,16 @@ export default defineConfig(cfg => {
           }
         ]
       }),
-      replaceFiles(fileReplacements),
       svgr(),
       react(),
       splitVendorChunkPlugin(),
       nxViteTsPaths()
     ],
+    resolve: {
+      alias: {
+        lodash: "lodash-es"
+      }
+    },
     root: __dirname,
 
     build: {
@@ -78,18 +66,23 @@ export default defineConfig(cfg => {
       }
     },
 
-    test: {
-      globals: true,
-      cache: {
-        dir: "../../node_modules/.vitest"
+    preview: {
+      host: "localhost",
+      https: {
+        cert: fs.readFileSync(
+          path.resolve(path.join(__dirname, "../../cert/localhost.crt"))
+        ),
+        key: fs.readFileSync(
+          path.resolve(path.join(__dirname, "../../cert/localhost.key"))
+        )
       },
-      environment: "jsdom",
-      include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
-
-      reporters: ["default"],
-      coverage: {
-        reportsDirectory: "../../coverage/apps/island-explorer",
-        provider: "v8"
+      port: 4200,
+      proxy: {
+        "/api": {
+          changeOrigin: true,
+          secure: false,
+          target: "https://island-explorer-bus-server.netlify.app"
+        }
       }
     },
 
@@ -106,23 +99,18 @@ export default defineConfig(cfg => {
       port: 4200
     },
 
-    preview: {
-      host: "localhost",
-      https: {
-        cert: fs.readFileSync(
-          path.resolve(path.join(__dirname, "../../cert/localhost.crt"))
-        ),
-        key: fs.readFileSync(
-          path.resolve(path.join(__dirname, "../../cert/localhost.key"))
-        )
+    test: {
+      globals: true,
+      cache: {
+        dir: "../../node_modules/.vitest"
       },
-      port: 4300,
-      proxy: {
-        "/api": {
-          changeOrigin: true,
-          secure: false,
-          target: "https://island-explorer-bus-server.netlify.app"
-        }
+      environment: "jsdom",
+      include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
+
+      reporters: ["default"],
+      coverage: {
+        reportsDirectory: "../../coverage/apps/island-explorer",
+        provider: "v8"
       }
     }
   };
