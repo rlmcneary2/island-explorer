@@ -2,6 +2,6 @@
   "name": "service-worker",
   "version": "0.1.0",
   "dependencies": {},
-  "module": "./service-worker.js",
+  "module": "./service-worker.esm.js",
   "private": true
 }
