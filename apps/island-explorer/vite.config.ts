@@ -40,8 +40,11 @@ export default defineConfig(cfg => {
         targets: [
           {
             dest: "./",
-            rename: "service-worker.js",
-            src: "../../dist/libs/service-worker/service-worker.esm.js"
+            src: "../../dist/libs/service-worker/service-worker.js"
+          },
+          {
+            dest: "./",
+            src: "../../dist/libs/service-worker/service-worker.js.map"
           }
         ]
       }),

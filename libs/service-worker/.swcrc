@@ -1,6 +1,6 @@
 {
   "jsc": {
-    "target": "es2017",
+    "target": "esnext",
     "parser": {
       "syntax": "typescript",
       "decorators": true,
@@ -14,6 +14,7 @@
     "externalHelpers": true,
     "loose": true
   },
+  "minify": true,
   "module": {
     "type": "es6"
   },
