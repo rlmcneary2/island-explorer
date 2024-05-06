@@ -1,7 +1,7 @@
 import _isEqual from "lodash-es/isEqual";
 import { ActionHandler } from "reshape-state";
 import { environment as env } from "../environments/environment";
-import { Landmark, RoutesAssetItem } from "../types/types";
+import { Landmark } from "../types/types";
 import type {
   ContextData,
   RouteVehicleHeading,
@@ -10,7 +10,6 @@ import type {
 } from "./types";
 import { Periodic } from "./periodic/periodic";
 
-const ACTION_FETCH_ROUTES_FINISHED = "fetch-routes-finished";
 const INTERVAL_SECONDS = 15;
 const periodic = new Periodic(INTERVAL_SECONDS * 1000);
 
@@ -54,76 +53,6 @@ export function create(): ActionHandler<ContextData>[] {
 
     const result: ContextData = { ...state, landmarks: { status: "active" } };
     return [result, true];
-  };
-
-  const fetchRoutes: ActionHandler<ContextData> = (state, action, dispatch) => {
-    if (action.id !== null) {
-      return [state];
-    }
-
-    if (state && state.routes) {
-      const { data, error, status } = state.routes;
-      if (status === "active") {
-        return [state];
-      }
-
-      if (data) {
-        return [state];
-      }
-
-      if (error) {
-        return [state];
-      }
-    }
-
-    // Fetch the routes.
-
-    // OLD - now use a JSON data file.
-    // fetch(`${env.apiLeft}/InfoPoint/rest/Routes/GetVisibleRoutes`)
-
-    fetch("../assets/routes.json")
-      .then(async response => {
-        if (response.ok) {
-          return response.json();
-        }
-
-        let body: string | undefined;
-        try {
-          body = await response.text();
-        } catch (err) {
-          // Nothing to do here.
-        }
-
-        throw Error(`${response.status}${body ? `\nbody='${body}'` : ""}`);
-      })
-      .then((body: { routes: RoutesAssetItem[] }) => {
-        dispatch({ id: ACTION_FETCH_ROUTES_FINISHED, payload: body.routes });
-      })
-      .catch(err => {
-        console.error(err);
-        dispatch(s => {
-          s.routes = { error: err, status: "idle" };
-          return [s, true];
-        });
-      });
-
-    const nextState: ContextData = state ?? {};
-    nextState.routes = { status: "active" };
-    return [nextState, true];
-  };
-
-  const fetchRoutesFinished: ActionHandler<
-    ContextData /* RoutesAssetItem[] */
-  > = (state, action, dispatch) => {
-    if (action.id !== ACTION_FETCH_ROUTES_FINISHED) {
-      return [state];
-    }
-
-    state.routes = {
-      data: action.payload as RoutesAssetItem[],
-      status: "idle"
-    };
-    return [state, true];
   };
 
   const fetchRouteTrace: ActionHandler<ContextData> = (state, _, dispatch) => {
@@ -373,8 +302,6 @@ export function create(): ActionHandler<ContextData>[] {
   return [
     deselectLandmark,
     fetchLandmarks,
-    fetchRoutes,
-    fetchRoutesFinished,
     fetchRouteTrace,
     getOptions,
     handleRouteChanged,

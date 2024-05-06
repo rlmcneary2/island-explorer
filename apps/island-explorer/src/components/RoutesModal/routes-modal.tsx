@@ -1,8 +1,8 @@
 import { useCallback, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { RoutesAssetItem } from "../../types/types";
 import { AnimatedModalDialog } from "modal";
 import type { ModalDialogProps } from "modal";
-import { ContextData } from "../../context/types";
 import { getRouteParameters, getRoutePath } from "../../util/route";
 
 export function RoutesModal({ onClose, onExternalTap, routes }: Props) {
@@ -26,25 +26,19 @@ export function RoutesModal({ onClose, onExternalTap, routes }: Props) {
     []
   );
 
-  if (routes?.status !== "idle") {
-    return <p>loading...</p>;
-  }
-
-  const items = routes?.data
-    ? routes.data.map(route => {
-        return (
-          <li className="list-item" key={route.id}>
-            <Link
-              onClick={handleLinkClick}
-              style={{ color: `#${route.color}` }}
-              to={getRoutePath(route.id, routeParameters?.page ?? "map")}
-            >
-              {route.displayName}
-            </Link>
-          </li>
-        );
-      })
-    : [];
+  const items = routes.map(route => {
+    return (
+      <li className="list-item" key={route.id}>
+        <Link
+          onClick={handleLinkClick}
+          style={{ color: `#${route.color}` }}
+          to={getRoutePath(route.id, routeParameters?.page ?? "map")}
+        >
+          {route.displayName}
+        </Link>
+      </li>
+    );
+  });
 
   return (
     <AnimatedModalDialog
@@ -61,5 +55,5 @@ export function RoutesModal({ onClose, onExternalTap, routes }: Props) {
 }
 
 interface Props extends Pick<ModalDialogProps, "onClose" | "onExternalTap"> {
-  routes: ContextData["routes"];
+  routes: RoutesAssetItem[];
 }

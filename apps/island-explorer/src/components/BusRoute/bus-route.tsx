@@ -35,8 +35,8 @@ function getHeadTag<T extends HTMLElement>(selector: string): T {
   return document.head.querySelector(selector) as T;
 }
 
-function selector({ routeId, routes }: ContextData) {
-  return { routeId, routes };
+function selector({ routeId }: ContextData) {
+  return { routeId };
 }
 
 /**

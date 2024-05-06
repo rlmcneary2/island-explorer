@@ -6,6 +6,7 @@ import { ContextData, MapLayerCollectionItem } from "../../context/types";
 import useContextState from "../../context/use-context-state";
 import MapLayerCollection from "../MapLayerCollection/map-layer-collection";
 import { getRouteOrderLandmarks } from "../../util/landmark";
+import routes from "../../data/routes";
 
 export default function MapLayerCollectionItems({
   fitBounds,
@@ -17,16 +18,15 @@ export default function MapLayerCollectionItems({
   const { ready } = useMapGL();
   const selector = useMemo(
     () => (state: ContextData) => ({
-      color: state?.routes?.data?.find(x => x.id === routeId)?.color ?? "000",
       landmarks: state?.landmarks,
-      routes: state?.routes,
       routeTrace: state?.routeTrace ?? null
     }),
-    [routeId]
+    []
   );
 
-  const { color, landmarks, routes, routeTrace } =
-    useContextState(selector) ?? {};
+  const { landmarks, routeTrace } = useContextState(selector) ?? {};
+
+  const color = routes.find(x => x.id === routeId)?.color ?? "000";
 
   const landmarksReady =
     landmarks?.status === "idle" && !landmarks.error && landmarks.data;
@@ -35,31 +35,30 @@ export default function MapLayerCollectionItems({
     routeTrace?.status === "idle" && !routeTrace.error && routeTrace.data;
 
   const landmarksData = landmarks?.data;
-  const routesData = routes?.data;
 
   const stops = useMemo(
     () =>
-      getRouteOrderLandmarks(routeId, routesData, landmarksData).filter(
+      getRouteOrderLandmarks(routeId, routes, landmarksData).filter(
         l => l.id < 10000
       ),
-    [landmarksData, routeId, routesData]
+    [landmarksData, routeId]
   );
 
   const pointsOfInterest = useMemo(() => {
-    return getRouteOrderLandmarks(routeId, routesData, landmarksData)
+    return getRouteOrderLandmarks(routeId, routes, landmarksData)
       .filter(l => l.landmarkType === "point-of-interest")
       .filter(l => stops.every(r => l.id !== r.id));
-  }, [landmarksData, routeId, stops, routesData]);
+  }, [landmarksData, routeId, stops]);
 
   const trailheads = useMemo(
     () =>
-      getRouteOrderLandmarks(routeId, routesData, landmarksData).filter(
+      getRouteOrderLandmarks(routeId, routes, landmarksData).filter(
         l =>
           10000 <= l.id &&
           (l.landmarkType === "trail-head" ||
             l.landmarkType === "trail-crossing")
       ),
-    [landmarksData, routeId, routesData]
+    [landmarksData, routeId]
   );
 
   const { data: trace } = routeTrace ?? {};

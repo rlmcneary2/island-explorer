@@ -3,27 +3,25 @@ import { ContextData } from "../../context/types";
 import useContextState from "../../context/use-context-state";
 import { VehicleMarker } from "../Vehicle/vehicle-marker";
 import { getRouteOrderLandmarks } from "../../util/landmark";
+import routes from "../../data/routes";
 
 export default function MapVehicles() {
-  const { landmarks, routeId, routes, vehicleHeadings, vehicles } =
+  const { landmarks, routeId, vehicleHeadings, vehicles } =
     useContextState(selector);
 
   const landmarksData = landmarks?.data;
-  const routesData = routes?.data;
 
   const routeLandmarks = useMemo(
     () =>
       routeId || routeId === 0
-        ? getRouteOrderLandmarks(routeId, routesData ?? [], landmarksData ?? [])
+        ? getRouteOrderLandmarks(routeId, routes ?? [], landmarksData ?? [])
         : [],
-    [landmarksData, routeId, routesData]
+    [landmarksData, routeId]
   );
 
   if (
     landmarks?.status !== "idle" ||
     landmarks?.error ||
-    routes?.status !== "idle" ||
-    routes?.error ||
     !vehicles ||
     !vehicles.length
   ) {
@@ -64,7 +62,6 @@ function selector(state: ContextData) {
   return {
     landmarks: state?.landmarks,
     routeId: state?.routeId,
-    routes: state?.routes,
     vehicleHeadings: state?.routeVehicleHeadings,
     vehicles: state?.routeVehicles?.data
   };

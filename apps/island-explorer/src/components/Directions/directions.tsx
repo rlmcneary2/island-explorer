@@ -9,6 +9,7 @@ import type { Landmark, RoutesAssetItem as Route } from "../../types/types";
 import useContextState from "../../context/use-context-state";
 import { getLandmark } from "../../util/landmark";
 import { SelectLandmarkModal } from "../SelectLandmarkModal/select-landmark-modal";
+import routes from "../../data/routes";
 
 const MAX_ROUTES = 3;
 const SCHOODIC_ROUTE_ID = 8;
@@ -18,21 +19,19 @@ export function Directions() {
   const location = useLocation();
   const navigate = useNavigate();
   const [show, setShow] = useState<"end" | "start" | undefined>();
-  const { landmarks, routes } = useContextState(({ landmarks, routes }) => ({
-    landmarks,
-    routes
+  const { landmarks } = useContextState(({ landmarks }) => ({
+    landmarks
   }));
 
   const landmarkData = landmarks?.data;
-  const routeData = routes?.data;
 
   const stops = useMemo(
     () =>
       filterToUniqueStops(landmarkData, {
         landmarks: landmarkData,
-        routes: routeData
+        routes
       }) || [],
-    [landmarkData, routeData]
+    [landmarkData]
   );
 
   const params = new URLSearchParams(location.search);
@@ -42,7 +41,7 @@ export function Directions() {
   const directions = useMemo(() => {
     const results = findRoutes(start, end, {
       landmarks: landmarkData || [],
-      routes: routeData || []
+      routes
     });
 
     if (Array.isArray(results)) {
@@ -54,9 +53,9 @@ export function Directions() {
 
       return results ? results.slice(0, 3) : results;
     }
-  }, [end, landmarkData, routeData, start]);
+  }, [end, landmarkData, start]);
 
-  if (!routeData || !landmarkData) {
+  if (!landmarkData) {
     return null;
   }
 
@@ -121,7 +120,7 @@ export function Directions() {
             pathToComponents(d, i, directions.length, {
               formatMessage,
               landmarks: landmarkData,
-              routes: routeData
+              routes
             })
           )
         : null}
@@ -131,7 +130,7 @@ export function Directions() {
           landmarks={
             filterWithSelection(stops, show === "start" ? end : start, {
               landmarks: landmarkData,
-              routes: routeData
+              routes
             }) || []
           }
           message={formatMessage(

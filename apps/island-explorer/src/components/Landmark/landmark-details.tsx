@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import { Landmark } from "../../types/types";
-import useContextState from "../../context/use-context-state";
 import { getRouteParameters, getRoutePath } from "../../util/route";
+import routes from "../../data/routes";
 
 export function LandmarkDetails({
   description,
@@ -10,15 +10,7 @@ export function LandmarkDetails({
   features,
   id
 }: Landmark) {
-  const routes = useContextState(state => state.routes);
-
-  if (routes?.status !== "idle" || routes?.error) {
-    return null;
-  }
-
-  const stopsRoutes = routes.data?.filter(route =>
-    route.landmarks.includes(id)
-  );
+  const stopsRoutes = routes.filter(route => route.landmarks.includes(id));
 
   const { page } = getRouteParameters() ?? {};
 

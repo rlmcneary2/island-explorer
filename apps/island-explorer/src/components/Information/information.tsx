@@ -7,21 +7,17 @@ import { Message } from "../controls/message/message";
 import { MessageDismissible } from "../controls/message/message-dismissible";
 import { InformationLandmark } from "../InformationLandmark/information-landmark";
 import { getLandmark } from "../../util/landmark";
+import routes from "../../data/routes";
 
 export default function Information({ routeId }: Props) {
   const { selectLandmark } = useContextActions();
-  const { landmarks, routes } = useContextState(selector);
+  const { landmarks } = useContextState(selector);
 
-  if (
-    routes?.status !== "idle" ||
-    routes?.error ||
-    landmarks?.status !== "idle" ||
-    landmarks?.error
-  ) {
+  if (landmarks?.status !== "idle" || landmarks?.error) {
     return null;
   }
 
-  const route = routes.data?.find(r => r.id === routeId);
+  const route = routes.find(r => r.id === routeId);
   if (!route) {
     return null;
   }

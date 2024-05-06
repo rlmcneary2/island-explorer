@@ -1,21 +1,17 @@
 import React, { useCallback, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
-import { ContextState } from "../../context/types";
 import { INFORMATION, MAP } from "../../constants/routes";
-import useContextState from "../../context/use-context-state";
 import { RoutesModal } from "../RoutesModal/routes-modal";
 import { getRouteParameters, getRoutePath } from "../../util/route";
 import { Menu } from "../Menu/menu";
+import routes from "../../data/routes";
 
 export function Header() {
   const [showMenu, setShowMenu] = useState(false);
   const [showRoutesModal, setShowRoutesModal] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
-  const routes =
-    useContextState(state => state.routes) ?? ({} as ContextState["routes"]);
 
   const handleDirectionsClick: React.MouseEventHandler<
     HTMLButtonElement
