@@ -1121,8 +1121,8 @@ const landmarks: Landmark[] = [
     landmarkType: "trail-head",
     displayName: "Giant Slide Trail",
     location: {
-      latitude: 44.35022,
-      longitude: -68.3023532
+      latitude: 44.35021597609928,
+      longitude: -68.30184365726595
     }
   },
   {
