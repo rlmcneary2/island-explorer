@@ -1,30 +1,23 @@
 import { FormattedMessage } from "react-intl";
-import { Landmark } from "../../types/types";
-import type { ContextData } from "../../context/types";
+import type { Landmark } from "../../types/types";
 import useContextActions from "../../context/use-context-actions";
-import useContextState from "../../context/use-context-state";
 import { Message } from "../controls/message/message";
 import { MessageDismissible } from "../controls/message/message-dismissible";
 import { InformationLandmark } from "../InformationLandmark/information-landmark";
 import { getLandmark } from "../../util/landmark";
 import routes from "../../data/routes";
+import landmarks from "../../data/landmarks";
 
 export default function Information({ routeId }: Props) {
   const { selectLandmark } = useContextActions();
-  const { landmarks } = useContextState(selector);
-
-  if (landmarks?.status !== "idle" || landmarks?.error) {
-    return null;
-  }
 
   const route = routes.find(r => r.id === routeId);
   if (!route) {
     return null;
   }
 
-  const landmarksData = landmarks.data;
   const routeLandmarks = route.landmarks
-    .map(id => getLandmark(id, landmarksData))
+    .map(id => getLandmark(id, landmarks))
     .reduce<Landmark[]>(
       (output, lmk) =>
         output.some(x => x.id === lmk.refId || x.id === lmk.id)
@@ -76,7 +69,3 @@ export default function Information({ routeId }: Props) {
 type Props = {
   routeId: number;
 };
-
-function selector(state: ContextData) {
-  return { landmarks: state?.landmarks, routes: state?.routes };
-}

@@ -1,7 +1,6 @@
 import _isEqual from "lodash-es/isEqual";
 import { ActionHandler } from "reshape-state";
 import { environment as env } from "../environments/environment";
-import { Landmark } from "../types/types";
 import type {
   ContextData,
   RouteVehicleHeading,
@@ -14,47 +13,6 @@ const INTERVAL_SECONDS = 15;
 const periodic = new Periodic(INTERVAL_SECONDS * 1000);
 
 export function create(): ActionHandler<ContextData>[] {
-  const fetchLandmarks: ActionHandler<ContextData> = (state, _, dispatch) => {
-    if (state.landmarks?.status === "active") {
-      return [state];
-    }
-
-    if (state.landmarks?.data) {
-      return [state];
-    }
-
-    if (state.landmarks?.error) {
-      return [state];
-    }
-
-    fetch("../assets/landmarks.json")
-      .catch(error => ({ error }))
-      .then(async response => {
-        if ("error" in response) {
-          dispatch(inlineState => [
-            {
-              ...inlineState,
-              landmarks: { error: response.error, status: "idle" }
-            },
-            true
-          ]);
-          return;
-        }
-
-        const data = (await response.json()) as { landmarks: Landmark[] };
-        dispatch(inlineState => [
-          {
-            ...inlineState,
-            landmarks: { data: data.landmarks, status: "idle" }
-          },
-          true
-        ]);
-      });
-
-    const result: ContextData = { ...state, landmarks: { status: "active" } };
-    return [result, true];
-  };
-
   const fetchRouteTrace: ActionHandler<ContextData> = (state, _, dispatch) => {
     if (state?.routeTrace || !state?.routeId) {
       return [state];
@@ -301,7 +259,6 @@ export function create(): ActionHandler<ContextData>[] {
 
   return [
     deselectLandmark,
-    fetchLandmarks,
     fetchRouteTrace,
     getOptions,
     handleRouteChanged,

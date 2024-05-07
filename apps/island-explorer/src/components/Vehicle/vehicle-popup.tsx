@@ -1,25 +1,17 @@
 import type { DetailedHTMLProps, HTMLAttributes } from "react";
 import { FormattedMessage } from "react-intl";
-import type { ContextData, Vehicle } from "../../context/types";
-import useContextState from "../../context/use-context-state";
+import type { Vehicle } from "../../context/types";
 import { getLandmark } from "../../util/landmark";
 import { Landmark } from "../../types/types";
 import routes from "../../data/routes";
+import landmarks from "../../data/landmarks";
 
 export function VehiclePopup({ routeStops, vehicle, ...props }: Props) {
-  const { landmarks } = useContextState(selector);
-
-  if (landmarks?.status !== "idle" || landmarks?.error) {
-    return null;
-  }
-
   const route = routes.find(route => route.id === vehicle.RouteId);
 
-  const landmarksData = landmarks.data;
-  const routeLandmarksStops =
-    route && landmarksData
-      ? route.landmarks.map(x => getLandmark(x, landmarksData))
-      : [];
+  const routeLandmarksStops = route
+    ? route.landmarks.map(x => getLandmark(x, landmarks))
+    : [];
 
   const lastStopId = mapLastStopToRouteId(vehicle.LastStop, routeStops);
   let lastStop: Landmark | undefined;
@@ -57,8 +49,4 @@ interface Props
   > {
   routeStops: Landmark[];
   vehicle: Vehicle;
-}
-
-function selector(state: ContextData) {
-  return { landmarks: state?.landmarks, routes: state?.routes };
 }

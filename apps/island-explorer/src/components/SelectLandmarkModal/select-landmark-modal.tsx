@@ -30,13 +30,13 @@ export function SelectLandmarkModal({
   const filteredLandmarks = useMemo<Landmark[]>(() => {
     if (!filterLower) {
       return landmarks.sort((a, b) =>
-        a.displayName.localeCompare(b.displayName)
+        (a.displayName ?? "").localeCompare(b.displayName ?? "")
       );
     }
 
     return landmarks
       .map(l => {
-        const displayNameLower = l.displayName.toLowerCase();
+        const displayNameLower = (l.displayName ?? "").toLowerCase();
         const dn = displayNameLower.includes(filterLower)
           ? -1
           : distance(filterLower, displayNameLower);

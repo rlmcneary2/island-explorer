@@ -6,10 +6,10 @@ import type { IntlFormatters } from "react-intl";
 import { FormattedMessage, useIntl } from "react-intl";
 import Icon from "../../images/icon-bus.svg?react";
 import type { Landmark, RoutesAssetItem as Route } from "../../types/types";
-import useContextState from "../../context/use-context-state";
 import { getLandmark } from "../../util/landmark";
 import { SelectLandmarkModal } from "../SelectLandmarkModal/select-landmark-modal";
 import routes from "../../data/routes";
+import landmarks from "../../data/landmarks";
 
 const MAX_ROUTES = 3;
 const SCHOODIC_ROUTE_ID = 8;
@@ -19,19 +19,14 @@ export function Directions() {
   const location = useLocation();
   const navigate = useNavigate();
   const [show, setShow] = useState<"end" | "start" | undefined>();
-  const { landmarks } = useContextState(({ landmarks }) => ({
-    landmarks
-  }));
-
-  const landmarkData = landmarks?.data;
 
   const stops = useMemo(
     () =>
-      filterToUniqueStops(landmarkData, {
-        landmarks: landmarkData,
+      filterToUniqueStops(landmarks, {
+        landmarks,
         routes
       }) || [],
-    [landmarkData]
+    []
   );
 
   const params = new URLSearchParams(location.search);
@@ -40,7 +35,7 @@ export function Directions() {
 
   const directions = useMemo(() => {
     const results = findRoutes(start, end, {
-      landmarks: landmarkData || [],
+      landmarks,
       routes
     });
 
@@ -53,17 +48,17 @@ export function Directions() {
 
       return results ? results.slice(0, 3) : results;
     }
-  }, [end, landmarkData, start]);
-
-  if (!landmarkData) {
-    return null;
-  }
+  }, [end, start]);
 
   const handleLandmarkSelect = (
     context: "end" | "start",
     landmark: Landmark
   ) => {
     setShow(undefined);
+    if (!landmark.displayName) {
+      return;
+    }
+
     if (context === "start") {
       const params = new URLSearchParams();
       params.set("from", landmark.displayName);
@@ -119,7 +114,7 @@ export function Directions() {
         ? directions.map((d, i) =>
             pathToComponents(d, i, directions.length, {
               formatMessage,
-              landmarks: landmarkData,
+              landmarks,
               routes
             })
           )
@@ -129,7 +124,7 @@ export function Directions() {
         <SelectLandmarkModal
           landmarks={
             filterWithSelection(stops, show === "start" ? end : start, {
-              landmarks: landmarkData,
+              landmarks,
               routes
             }) || []
           }
@@ -287,7 +282,11 @@ function findRoutes(
   }
 
   const startData = findLandmarkAndRoutes(startLandmark, options);
-  if (!startData || !startData.routes.length) {
+  if (
+    !startData ||
+    !startData.routes.length ||
+    !startData.landmark.displayName
+  ) {
     return;
   }
 
@@ -535,7 +534,7 @@ function processLandmark(
   }
 ): string | undefined {
   const landmarkData = findLandmarkAndRoutes(landmark, options);
-  if (!landmarkData) {
+  if (!landmarkData || !landmarkData.landmark.displayName) {
     return;
   }
 
@@ -568,10 +567,3 @@ function processLandmark(
     options
   );
 }
-
-// interface Connection {
-//   [routeName: string]: Node | undefined;
-// }
-// interface Node {
-//   [stopName: string]: Connection | undefined;
-// }

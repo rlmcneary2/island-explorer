@@ -198,18 +198,18 @@ function createCircleLayer(
     ]
   };
 
-  const data = landmarks.map(
-    ({
-      displayName: name,
-      id,
-      location: { latitude: lat, longitude: lng }
-    }) => ({
-      id,
-      lat,
-      lng,
-      name
+  const data = landmarks
+    .map(landmark => {
+      const { displayName: name, id } = landmark;
+
+      return {
+        id,
+        lat: landmark.location?.latitude ?? -1,
+        lng: landmark.location?.longitude ?? -1,
+        name
+      };
     })
-  );
+    .filter(landmark => landmark.lat !== -1);
 
   const sourceData: FeatureCollection<Geometry, GeoJsonProperties> = {
     features: data.map(d => ({
@@ -312,18 +312,18 @@ function createSymbolLayer(
     return null;
   }
 
-  const data = landmarks.map(
-    ({
-      displayName: name,
-      id,
-      location: { latitude: lat, longitude: lng }
-    }) => ({
-      id,
-      lat,
-      lng,
-      name
+  const data = landmarks
+    .map(landmark => {
+      const { displayName: name, id } = landmark;
+
+      return {
+        id,
+        lat: landmark.location?.latitude ?? -1,
+        lng: landmark.location?.longitude ?? -1,
+        name
+      };
     })
-  );
+    .filter(landmark => landmark.lat !== -1);
 
   const sourceData: FeatureCollection<Geometry, GeoJsonProperties> = {
     features: data.map(d => ({

@@ -13,7 +13,6 @@
     "assets/controls.svg",
     "assets/icon-direction.svg",
     "assets/index.css",
-    "assets/landmarks.json",
     "assets/lato-bold.woff2",
     "assets/lato-regular-italic.woff2",
     "assets/lato-regular.woff2",
@@ -23,7 +22,6 @@
     "assets/manifest-icon-maskable_1024.png",
     "assets/oswald-regular.woff2",
     "assets/poi.png",
-    "assets/routes.json",
     "assets/symbols.svg",
     "assets/trailhead.png"
   ],

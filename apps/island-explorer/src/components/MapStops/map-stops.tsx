@@ -1,30 +1,22 @@
 import { useMemo } from "react";
 import { Anchor, LngLatLike, Point } from "mapbox-gl";
 import { MapPopup, useMapGL } from "remapgl";
-import { ContextData } from "../../context/types";
+import type { ContextData } from "../../context/types";
 import useContextActions from "../../context/use-context-actions";
 import useContextState from "../../context/use-context-state";
 import { getLandmark } from "../../util/landmark";
 import { LandmarkDetails } from "../Landmark/landmark-details";
+import landmarks from "../../data/landmarks";
 
 const FIRST_POI_LANDMARK_ID = 11000;
 
 export function MapStops() {
   const { deselectLandmark } = useContextActions();
-  const { landmarks, selectedLandmarks } = useContextState(selector);
+  const { selectedLandmarks } = useContextState(selector);
   const { mapGL } = useMapGL();
 
-  const landmarksData = landmarks?.data;
-  const landmarksStatus = landmarks?.status;
-  const landmarksError = !!landmarks?.error;
-
   const popups = useMemo(() => {
-    if (
-      !selectedLandmarks ||
-      !selectedLandmarks.length ||
-      landmarksStatus !== "idle" ||
-      landmarksError
-    ) {
+    if (!selectedLandmarks || !selectedLandmarks.length) {
       return null;
     }
 
@@ -36,11 +28,17 @@ export function MapStops() {
     return (
       <>
         {selectedLandmarks.map(({ landmarkId }) => {
-          const landmark = getLandmark(landmarkId, landmarksData ?? []);
+          const landmark = getLandmark(landmarkId, landmarks);
+
+          if (!landmark.location) {
+            return null;
+          }
+
           const lngLat: LngLatLike = [
             landmark.location.longitude,
             landmark.location.latitude
           ];
+
           const landmarkPoint = mapGL.project(lngLat);
 
           return (
@@ -62,14 +60,7 @@ export function MapStops() {
         })}
       </>
     );
-  }, [
-    deselectLandmark,
-    landmarksData,
-    landmarksError,
-    landmarksStatus,
-    mapGL,
-    selectedLandmarks
-  ]);
+  }, [deselectLandmark, mapGL, selectedLandmarks]);
 
   return popups;
 }

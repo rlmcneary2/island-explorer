@@ -1,16 +1,23 @@
 import { INFORMATION, MAP } from "../constants/routes";
 
 export interface Landmark {
-  description: string;
-  displayName: string;
+  description?: string;
+  displayName?: string;
   features?: string[];
   id: number;
-  landmarkType:
+  landmarkType?:
+    | "airport"
+    | "attraction"
+    | "campground"
+    | "ferry-transport"
+    | "ground-transport"
+    | "lodging"
     | "point-of-interest"
     | "trail-crossing"
     | "trail-head"
+    | "village"
     | "visitor-center";
-  location: { latitude: number; longitude: number };
+  location?: { latitude: number; longitude: number };
   refId?: number;
   /** This is the availtec Stop `Name` property; any are misspelled. `stopName`
    * won't exist in landmarks that are not bus stops. Used when determining a

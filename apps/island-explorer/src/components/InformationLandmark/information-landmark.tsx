@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
+import type { Landmark } from "../../types/types";
+import type { ContextActions } from "../../context/types";
 import { MAP } from "../../constants/routes";
 import { getRoutePath } from "../../util/route";
-import { ContextActions } from "../../context/types";
 
 export function InformationLandmark({ landmark, onClick, routeId }: Props) {
   const featureOrder = [
@@ -67,12 +68,7 @@ export function InformationLandmark({ landmark, onClick, routeId }: Props) {
 }
 
 interface Props {
-  landmark: {
-    description?: string;
-    displayName: string;
-    features?: string[];
-    id: number;
-  };
+  landmark: Landmark;
   onClick: ContextActions["selectLandmark"];
   routeId: number;
 }

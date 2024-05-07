@@ -4,27 +4,20 @@ import useContextState from "../../context/use-context-state";
 import { VehicleMarker } from "../Vehicle/vehicle-marker";
 import { getRouteOrderLandmarks } from "../../util/landmark";
 import routes from "../../data/routes";
+import landmarks from "../../data/landmarks";
 
 export default function MapVehicles() {
-  const { landmarks, routeId, vehicleHeadings, vehicles } =
-    useContextState(selector);
-
-  const landmarksData = landmarks?.data;
+  const { routeId, vehicleHeadings, vehicles } = useContextState(selector);
 
   const routeLandmarks = useMemo(
     () =>
       routeId || routeId === 0
-        ? getRouteOrderLandmarks(routeId, routes ?? [], landmarksData ?? [])
+        ? getRouteOrderLandmarks(routeId, routes, landmarks)
         : [],
-    [landmarksData, routeId]
+    [routeId]
   );
 
-  if (
-    landmarks?.status !== "idle" ||
-    landmarks?.error ||
-    !vehicles ||
-    !vehicles.length
-  ) {
+  if (!vehicles || !vehicles.length) {
     return null;
   }
 
@@ -60,7 +53,6 @@ function headingToRotateAngle(heading = 0): number {
 
 function selector(state: ContextData) {
   return {
-    landmarks: state?.landmarks,
     routeId: state?.routeId,
     vehicleHeadings: state?.routeVehicleHeadings,
     vehicles: state?.routeVehicles?.data

@@ -7,6 +7,7 @@ import useContextState from "../../context/use-context-state";
 import MapLayerCollection from "../MapLayerCollection/map-layer-collection";
 import { getRouteOrderLandmarks } from "../../util/landmark";
 import routes from "../../data/routes";
+import landmarks from "../../data/landmarks";
 
 export default function MapLayerCollectionItems({
   fitBounds,
@@ -18,47 +19,41 @@ export default function MapLayerCollectionItems({
   const { ready } = useMapGL();
   const selector = useMemo(
     () => (state: ContextData) => ({
-      landmarks: state?.landmarks,
       routeTrace: state?.routeTrace ?? null
     }),
     []
   );
 
-  const { landmarks, routeTrace } = useContextState(selector) ?? {};
+  const { routeTrace } = useContextState(selector) ?? {};
 
   const color = routes.find(x => x.id === routeId)?.color ?? "000";
-
-  const landmarksReady =
-    landmarks?.status === "idle" && !landmarks.error && landmarks.data;
 
   const traceReady =
     routeTrace?.status === "idle" && !routeTrace.error && routeTrace.data;
 
-  const landmarksData = landmarks?.data;
-
   const stops = useMemo(
     () =>
-      getRouteOrderLandmarks(routeId, routes, landmarksData).filter(
+      getRouteOrderLandmarks(routeId, routes, landmarks).filter(
         l => l.id < 10000
       ),
-    [landmarksData, routeId]
+    [routeId]
   );
 
   const pointsOfInterest = useMemo(() => {
-    return getRouteOrderLandmarks(routeId, routes, landmarksData)
+    return getRouteOrderLandmarks(routeId, routes, landmarks)
       .filter(l => l.landmarkType === "point-of-interest")
       .filter(l => stops.every(r => l.id !== r.id));
-  }, [landmarksData, routeId, stops]);
+  }, [routeId, stops]);
 
   const trailheads = useMemo(
     () =>
-      getRouteOrderLandmarks(routeId, routes, landmarksData).filter(
+      getRouteOrderLandmarks(routeId, routes, landmarks).filter(
         l =>
           10000 <= l.id &&
           (l.landmarkType === "trail-head" ||
             l.landmarkType === "trail-crossing")
       ),
-    [landmarksData, routeId]
+    [routeId]
   );
 
   const { data: trace } = routeTrace ?? {};
@@ -87,7 +82,7 @@ export default function MapLayerCollectionItems({
     [color, pointsOfInterest, routeId, stops, trace, trailheads]
   );
 
-  if (!landmarksReady || !traceReady) {
+  if (!traceReady) {
     return null;
   }
 
