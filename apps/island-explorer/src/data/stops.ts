@@ -67,6 +67,7 @@ export default {
   LMK_OTTER_POINT: 92,
   LMK_ACADIA_MOUNTAIN: 93,
   LMK_WINTER_HARBOR_2: 94,
+  LMK_BASS_HARBOR_POST_OFFICE: -1,
 
   // These are "stops" along a route where they are not stops. The last two digits are the same as
   // their availtec stop ID.
@@ -125,5 +126,7 @@ export default {
   TRH_HADLOCK_BROOK_TRAIL: 46000,
   POI_FRENCHMAN_BAY_OVERLOOK: 47000,
   POI_BAR_HARBOR_OVERLOOK: 48000,
-  POI_SOMESVILLE_BRIDGE: 49000
+  POI_SOMESVILLE_BRIDGE: 49000,
+  TRH_SHIP_HARBOR_TRAIL: 50000,
+  TRH_WONDERLAND_TRAIL: 51000
 };

@@ -557,7 +557,7 @@ const landmarks: Landmark[] = [
     id: stops.LMK_BASS_HARBOR_FERRY,
     location: {
       latitude: 44.23500061,
-      longitude: 34738159
+      longitude: -68.34738159
     },
     stopName: "Bass Harbor"
   },
@@ -838,6 +838,16 @@ const landmarks: Landmark[] = [
     description: "LMK_OTTER_POINT_DESC",
     id: stops.LMK_OTTER_POINT_2ND,
     refId: 92
+  },
+  {
+    landmarkType: "village",
+    displayName: "Bass Harbor Post Office",
+    id: stops.LMK_BASS_HARBOR_POST_OFFICE,
+    location: {
+      latitude: 44.237679,
+      longitude: -68.344313
+    },
+    stopName: "Bass Harbor"
   },
   {
     id: stops.LMK_TERAMOR_RESORT,
@@ -1265,6 +1275,28 @@ const landmarks: Landmark[] = [
     location: {
       latitude: 44.361806963932594,
       longitude: -68.3349187719791
+    }
+  },
+  {
+    description: "TRH_SHIP_HARBOR_TRAIL_DESC",
+    features: ["walk"],
+    id: stops.TRH_SHIP_HARBOR_TRAIL,
+    landmarkType: "trail-head",
+    displayName: "Ship Harbor Trail",
+    location: {
+      latitude: 44.231722,
+      longitude: -68.325561
+    }
+  },
+  {
+    description: "TRH_WONDERLAND_TRAIL_DESC",
+    features: ["walk", "wonder"],
+    id: stops.TRH_WONDERLAND_TRAIL,
+    landmarkType: "trail-head",
+    displayName: "Wonderland Trail",
+    location: {
+      latitude: 44.233637,
+      longitude: -68.320201
     }
   }
 ];
