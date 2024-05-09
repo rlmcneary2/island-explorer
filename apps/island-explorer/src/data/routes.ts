@@ -20,7 +20,11 @@ const routes: RoutesAssetItem[] = [
       stops.LMK_MOUNT_DESERT_NARROWS_CAMPGROUND,
       stops.LMK_OCEANARIUM
     ],
-    notices: ["NTE_ROUTE_1_OCEANARIUM", "NTE_SCHEDULED_STOPS"],
+    notices: [
+      "NTE_ROUTE_1_HADLEY",
+      "NTE_ROUTE_1_OCEANARIUM",
+      "NTE_SCHEDULED_STOPS"
+    ],
     tips: [],
     trace: "Oceanarium.kml"
   },
