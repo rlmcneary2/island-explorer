@@ -67,7 +67,8 @@ export default {
   LMK_OTTER_POINT: 92,
   LMK_ACADIA_MOUNTAIN: 93,
   LMK_WINTER_HARBOR_2: 94,
-  LMK_BASS_HARBOR_POST_OFFICE: -1,
+  LMK_BASS_HARBOR_POST_OFFICE: 999, // TODO: new stop, get the availtec ID
+  LMK_TERAMOR_RESORT: 998, // TODO: new stop, get the availtec ID
 
   // These are "stops" along a route where they are not stops. The last two digits are the same as
   // their availtec stop ID.
@@ -80,7 +81,6 @@ export default {
 
   // These are landmarks, POIs, trailheads, etc. that may, or may not, exist in availtec (the
   // numbering got confused here...).
-  LMK_TERAMOR_RESORT: 11000,
   TRH_BUBBLE_ROCK: 11051,
   LMK_FABBRI_MONUMENT: 11064,
   TRH_CHAMPLAIN_NORTH_RIDGE: 20000,

@@ -20,7 +20,7 @@ const routes: RoutesAssetItem[] = [
       stops.LMK_MOUNT_DESERT_NARROWS_CAMPGROUND,
       stops.LMK_OCEANARIUM
     ],
-    notices: ["NTE_SCHEDULED_STOPS"],
+    notices: ["NTE_ROUTE_1_OCEANARIUM", "NTE_SCHEDULED_STOPS"],
     tips: [],
     trace: "Oceanarium.kml"
   },
@@ -40,7 +40,7 @@ const routes: RoutesAssetItem[] = [
       stops.LMK_EYRIE_HAMPTON,
       stops.LMK_WONDER_VIEW_INN
     ],
-    notices: ["NTE_ROUTE_2_2023", "NTE_SCHEDULED_STOPS"],
+    notices: ["NTE_SCHEDULED_STOPS"],
     tips: [],
     trace: "EdenStreet.kml"
   },
@@ -193,6 +193,7 @@ const routes: RoutesAssetItem[] = [
       stops.TRH_SHIP_HARBOR_TRAIL,
       stops.TRH_WONDERLAND_TRAIL,
       stops.LMK_SEAWALL_CAMPGROUND,
+      stops.LMK_SEAWALL,
       stops.LMK_BASS_HARBOR_CAMPGROUND,
       stops.LMK_BASS_HARBOR_POST_OFFICE,
       stops.LMK_SOUTHWEST_HARBOR,
@@ -202,7 +203,7 @@ const routes: RoutesAssetItem[] = [
       stops.LMK_MOUNT_DESERT_CAMPGROUND,
       stops.LMK_MDI_HIGH_SCHOOL
     ],
-    notices: ["NTE_SCHEDULED_STOPS"],
+    notices: ["NTE_SCHEDULED_STOPS", "NTE_ROUTE_7_STORM_DAMAGE"],
     tips: [],
     trace: "SWH.kml"
   },
@@ -221,9 +222,9 @@ const routes: RoutesAssetItem[] = [
       stops.TRH_SCHOODIC_HEAD_EAST_TRAIL,
       stops.LMK_BIRCH_HARBOR,
       stops.LMK_PROSPECT_HARBOR,
-      stops.LMK_WINTER_HARBOR_2,
-      stops.LMK_SCHOODIC_WOODS_2,
-      stops.LMK_WINTER_HARBOR
+      stops.LMK_SCHOODIC_WOODS_CAMPGROUND,
+      stops.LMK_WINTER_HARBOR,
+      stops.LMK_WH_FERRY_TERMINAL
     ],
     notices: ["NTE_SCHEDULED_STOPS", "NTE_SCHOODIC"],
     tips: [],
@@ -284,18 +285,17 @@ const routes: RoutesAssetItem[] = [
     color: "0487D9",
     description: "RTE_TREMONT_DESC",
     id: 11,
-    displayName: "Tremont",
+    displayName: "Manset / Bernard",
     landmarks: [
       stops.LMK_SOUTHWEST_HARBOR,
       stops.LMK_MANSET_DOCK,
-      stops.LMK_SEAWALL,
-      stops.LMK_SEAWALL_CAMPGROUND,
-      stops.LMK_BASS_HARBOR_CAMPGROUND,
-      stops.LMK_BASS_HARBOR_FERRY,
+      stops.LMK_SOUTHWEST_HARBOR,
+      stops.LMK_CLARK_POINT,
+      stops.LMK_SOUTHWEST_HARBOR,
       stops.LMK_TREMONT_SCHOOL,
       stops.LMK_BERNARD,
       stops.LMK_TREMONT_SCHOOL,
-      stops.LMK_CLARK_POINT
+      stops.LMK_SOUTHWEST_HARBOR
     ],
     notices: ["NTE_SCHEDULED_STOPS"],
     tips: [],
