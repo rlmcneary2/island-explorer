@@ -1,11 +1,11 @@
 [Settings]
 
 [build]
-  command = "yarn build:sw:prod && yarn build"
+  command = "npm run build:app"
   publish = "dist/apps/island-explorer"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "20"
 
 [[edge_functions]]
   function = "add-og-tags"
