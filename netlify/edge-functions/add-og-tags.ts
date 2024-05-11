@@ -1,12 +1,8 @@
 export default async (req: Request, ctx: any) => {
-  const url = new URL(req.url);
-  const parts = url.pathname.split("/");
+  const url = new URL(req.url); // https://www.islandexplorer.app/route/3/map
+  const parts = url.pathname.split("/"); // ["https://www.islandexplorer.app", "route", "3", "map"]
 
-  if (parts.length < 3) {
-    return ctx.next();
-  }
-
-  const routeId = +parts[2];
+  const routeId = parts.length < 3 ? 3 : +parts[2];
 
   const route = routes.find(
     route => route.id === routeId
@@ -142,8 +138,8 @@ const routes = [
   },
   {
     description:
-      "This loop around the south of Mount Desert Island's 'quiet side' visits Southwest Harbor, Seawall, and Bass Harbor.",
+      "This route traverses the south of Mount Desert Island's 'quiet side' visiting Southwest Harbor and Bernard.",
     id: 11,
-    displayName: "Tremont"
+    displayName: "Manset / Bernard"
   }
 ];
