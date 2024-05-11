@@ -17,11 +17,11 @@
       "dependsOn": ["build"]
     },
     "preview": {
-      "dependsOn": ["build"]
+      "dependsOn": ["prebuild"]
     },
-    "serve": { "dependsOn": ["^build"] },
+    "serve": { "dependsOn": ["prebuild"] },
     "serve-static": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["prebuild"],
       "options": {
         "ssl": true,
         "sslCert": "cert/localhost.crt",

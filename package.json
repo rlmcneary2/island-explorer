@@ -3,9 +3,7 @@
   "version": "2.0.0",
   "license": "MIT",
   "scripts": {
-    "prebuild:app": "npm run version",
-    "build:app": "nx run island-explorer:build",
-    "postbuild:app": "npm run version:post",
+    "build:app": "nx run island-explorer:prebuild",
     "preview": "nx run island-explorer:preview",
     "serve": "nx run island-explorer:serve",
     "serve:static": "nx run island-explorer:serve-static",
