@@ -10,6 +10,7 @@
 [[edge_functions]]
   function = "add-og-tags"
   path = "/*"
+  excludedPath = "/api/*"
 
 [[redirects]]
   from = "/api/*"

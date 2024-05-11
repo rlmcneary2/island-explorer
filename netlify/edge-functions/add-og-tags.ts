@@ -12,10 +12,8 @@ export default async (req: Request, ctx: any) => {
     route => route.id === routeId
   ) as (typeof routes)[0] & { url: string };
 
-  parts.length < 3 && console.log(`add-og-tags: route=`, route);
-
   if (!route) {
-    return ctx.next();
+    return;
   }
 
   route.url = req.url;
