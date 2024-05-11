@@ -4,13 +4,15 @@ export default async (req: Request, ctx: any) => {
 
   const routeId = parts.length < 3 ? 3 : +parts[2];
 
-  console.log(`add-og-tags: routeId='${routeId}'`);
+  console.log(
+    `add-og-tags: parts.length='${parts.length}' routeId='${routeId}'`
+  );
 
   const route = routes.find(
     route => route.id === routeId
   ) as (typeof routes)[0] & { url: string };
 
-  console.log(`add-og-tags: route=`, route);
+  parts.length < 3 && console.log(`add-og-tags: route=`, route);
 
   if (!route) {
     return ctx.next();
