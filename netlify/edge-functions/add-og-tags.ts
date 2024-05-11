@@ -5,7 +5,7 @@ export default async (req: Request, ctx: any) => {
   const routeId = parts.length < 3 ? 3 : +parts[2];
 
   console.log(
-    `add-og-tags: parts.length='${parts.length}' routeId='${routeId}'`
+    `add-og-tags:\n - url='${req.url}'\n - parts.length='${parts.length}'\n - routeId='${routeId}'`
   );
 
   const route = routes.find(
