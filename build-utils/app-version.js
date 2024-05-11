@@ -23,7 +23,7 @@ const content = JSON.stringify(
 
 const fqAppFilename = path.join(
   process.cwd(),
-  "apps/island-explorer/src/assets/version.json"
+  "apps/island-explorer/src/data/version.json"
 );
 
 fs.writeFileSync(fqAppFilename, content);

@@ -19,16 +19,26 @@ npm i
 
 ### Dev server
 
-Start the development environment.
+The development server is the Vite server with fast reloading of changes to code. The files served
+are **not** the same as the production build files.
 
 ```sh
-npm run build:sw && npm run start
+npm run serve
 ```
 
-This application uses a service worker. Recent changes to browsers have made secure connections more
-strict. To test with Chromium (or Chrome) start the browser with the command line switch which will
-treat `http` connections from a specific domain as secure:
+### Preview server
+
+Serves a production build using the Vite server. Proxies calls to the `/api` path to the location
+specified in the "preview" section of `apps/island-explorer/vite.config.ts`
 
 ```sh
-chromium --unsafely-treat-insecure-origin-as-secure=http://< address >:< port >
+npm run preview
+```
+
+### Static server
+
+Builds production and serves the files using http-server; no proxy.
+
+```sh
+npm run serve:static
 ```

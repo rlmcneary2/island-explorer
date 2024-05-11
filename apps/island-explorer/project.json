@@ -3,87 +3,30 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/island-explorer/src",
   "projectType": "application",
-  "generators": {},
+  "implicitDependencies": ["service-worker"],
+  "tags": [],
+  "// targets": "to see all targets run: nx show project island-explorer --web",
   "targets": {
-    "build": {
-      "executor": "@nx/webpack:webpack",
-      "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
-      "options": {
-        "compiler": "babel",
-        "outputPath": "dist/apps/island-explorer",
-        "index": "apps/island-explorer/src/index.html",
-        "main": "apps/island-explorer/src/app.tsx",
-        "tsConfig": "apps/island-explorer/tsconfig.app.json",
-        "assets": [
-          "apps/island-explorer/src/app.webmanifest",
-          "apps/island-explorer/src/favicon.ico",
-          "apps/island-explorer/src/robots.txt",
-          "apps/island-explorer/src/sitemap.txt",
-          "apps/island-explorer/src/assets",
-          {
-            "glob": "service-worker.esm.js",
-            "input": "dist/libs/service-worker",
-            "output": "./service-worker.js"
-          }
-        ],
-        "scripts": [],
-        "webpackConfig": "apps/island-explorer/webpack.config.js"
-      },
-      "configurations": {
-        "production": {
-          "fileReplacements": [
-            {
-              "replace": "apps/island-explorer/src/environments/environment.ts",
-              "with": "apps/island-explorer/src/environments/environment.prod.ts"
-            }
-          ],
-          "optimization": true,
-          "sourceMap": false,
-          "namedChunks": false,
-          "extractLicenses": true,
-          "vendorChunk": false,
-          "budgets": [
-            {
-              "type": "initial",
-              "maximumWarning": "2mb",
-              "maximumError": "5mb"
-            }
-          ]
-        }
-      }
+    "version": {
+      "command": "npm run version",
+      "dependsOn": ["^build"]
     },
-    "serve": {
-      "executor": "@nx/webpack:dev-server",
+    "build": { "dependsOn": ["version"] },
+    "prebuild": {
+      "command": "npm run version:post",
+      "dependsOn": ["build"]
+    },
+    "preview": {
+      "dependsOn": ["prebuild"]
+    },
+    "serve": { "dependsOn": ["prebuild"] },
+    "serve-static": {
+      "dependsOn": ["prebuild"],
       "options": {
-        "buildTarget": "island-explorer:build",
-        "hmr": true,
         "ssl": true,
-        "sslKey": "cert/localhost.key",
-        "sslCert": "cert/localhost.crt"
-      },
-      "configurations": {
-        "production": {
-          "buildTarget": "island-explorer:build:production",
-          "hmr": false
-        }
+        "sslCert": "cert/localhost.crt",
+        "sslKey": "cert/localhost.key"
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "options": {
-        "jestConfig": "apps/island-explorer/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "outputs": ["{workspaceRoot}/coverage/apps/island-explorer"]
     }
-  },
-  "namedInputs": {
-    "projectSpecificFiles": [
-      "{workspaceRoot}/dist/libs/service-worker/src/service-worker.js"
-    ]
   }
 }

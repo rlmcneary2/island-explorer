@@ -1,7 +1,7 @@
 import * as version from "./version.json";
 import * as pathData from "./paths.json";
 
-const CACHE_VERSION = "Island-Explorer-2023s";
+const CACHE_VERSION = "Island-Explorer-2024a";
 
 const wgs = self as unknown as ServiceWorkerGlobalScope;
 
@@ -80,8 +80,11 @@ wgs.addEventListener("activate", event => {
             console.log(
               `service-worker[${CACHE_VERSION}]: deleting cache '${key}'.`
             );
+
             return caches.delete(key);
           }
+
+          return Promise.resolve();
         })
       ]);
 

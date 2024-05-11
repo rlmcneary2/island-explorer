@@ -1,7 +1,6 @@
-import { isEqual as _isEqual } from "lodash";
+import _isEqual from "lodash-es/isEqual";
 import { ActionHandler } from "reshape-state";
 import { environment as env } from "../environments/environment";
-import { Landmark, RoutesAssetItem } from "../types/types";
 import type {
   ContextData,
   RouteVehicleHeading,
@@ -10,134 +9,11 @@ import type {
 } from "./types";
 import { Periodic } from "./periodic/periodic";
 
-const ACTION_FETCH_ROUTES_FINISHED = "fetch-routes-finished";
 const INTERVAL_SECONDS = 15;
 const periodic = new Periodic(INTERVAL_SECONDS * 1000);
 
 export function create(): ActionHandler<ContextData>[] {
-  const fetchLandmarks: ActionHandler<ContextData, null> = (
-    state,
-    _,
-    dispatch
-  ) => {
-    if (state.landmarks?.status === "active") {
-      return [state];
-    }
-
-    if (state.landmarks?.data) {
-      return [state];
-    }
-
-    if (state.landmarks?.error) {
-      return [state];
-    }
-
-    fetch("../assets/landmarks.json")
-      .catch(error => ({ error }))
-      .then(async response => {
-        if ("error" in response) {
-          dispatch(inlineState => [
-            {
-              ...inlineState,
-              landmarks: { error: response.error, status: "idle" }
-            },
-            true
-          ]);
-          return;
-        }
-
-        const data = (await response.json()) as { landmarks: Landmark[] };
-        dispatch(inlineState => [
-          {
-            ...inlineState,
-            landmarks: { data: data.landmarks, status: "idle" }
-          },
-          true
-        ]);
-      });
-
-    const result: ContextData = { ...state, landmarks: { status: "active" } };
-    return [result, true];
-  };
-
-  const fetchRoutes: ActionHandler<ContextData, null> = (
-    state,
-    action,
-    dispatch
-  ) => {
-    if (action.id !== null) {
-      return [state];
-    }
-
-    if (state && state.routes) {
-      const { data, error, status } = state.routes;
-      if (status === "active") {
-        return [state];
-      }
-
-      if (data) {
-        return [state];
-      }
-
-      if (error) {
-        return [state];
-      }
-    }
-
-    // Fetch the routes.
-
-    // OLD - now use a JSON data file.
-    // fetch(`${env.apiLeft}/InfoPoint/rest/Routes/GetVisibleRoutes`)
-
-    fetch("../assets/routes.json")
-      .then(async response => {
-        if (response.ok) {
-          return response.json();
-        }
-
-        let body: string | undefined;
-        try {
-          body = await response.text();
-        } catch (err) {
-          // Nothing to do here.
-        }
-
-        throw Error(`${response.status}${body ? `\nbody='${body}'` : ""}`);
-      })
-      .then((body: { routes: RoutesAssetItem[] }) => {
-        dispatch({ id: ACTION_FETCH_ROUTES_FINISHED, payload: body.routes });
-      })
-      .catch(err => {
-        console.error(err);
-        dispatch(s => {
-          s.routes = { error: err, status: "idle" };
-          return [s, true];
-        });
-      });
-
-    const nextState: ContextData = state ?? {};
-    nextState.routes = { status: "active" };
-    return [nextState, true];
-  };
-
-  const fetchRoutesFinished: ActionHandler<ContextData, RoutesAssetItem[]> = (
-    state,
-    action,
-    dispatch
-  ) => {
-    if (action.id !== ACTION_FETCH_ROUTES_FINISHED) {
-      return [state];
-    }
-
-    state.routes = { data: action.payload, status: "idle" };
-    return [state, true];
-  };
-
-  const fetchRouteTrace: ActionHandler<ContextData, null> = (
-    state,
-    _,
-    dispatch
-  ) => {
+  const fetchRouteTrace: ActionHandler<ContextData> = (state, _, dispatch) => {
     if (state?.routeTrace || !state?.routeId) {
       return [state];
     }
@@ -183,16 +59,24 @@ export function create(): ActionHandler<ContextData>[] {
     ];
   };
 
+  interface RouteVehicleOptions {
+    dispatchTime?: number;
+    routeId?: number;
+  }
+
   const fetchRouteVehicles: ActionHandler<
-    ContextData,
-    { dispatchTime?: number; routeId?: number }
+    ContextData
+    /* RouteVehicleOptions */
   > = (state, action, dispatch) => {
     if (!state.routeId) {
       return [state];
     }
 
-    if (action.payload?.routeId && action.payload?.routeId !== state.routeId) {
-      return [state];
+    if ("payload" in action) {
+      const payload = action.payload as RouteVehicleOptions;
+      if (payload?.routeId && payload?.routeId !== state.routeId) {
+        return [state];
+      }
     }
 
     const periodicRouteId = periodic.getContextValue("routeId");
@@ -288,7 +172,7 @@ export function create(): ActionHandler<ContextData>[] {
     return [result, true];
   };
 
-  const handleRouteChanged: ActionHandler<ContextData, number> = (
+  const handleRouteChanged: ActionHandler<ContextData /* number */> = (
     state,
     action,
     dispatch
@@ -301,7 +185,7 @@ export function create(): ActionHandler<ContextData>[] {
 
     // If the routeId has changed reset state to the point where it has no
     // routeTrace, route vehicle information, routeStops, or selected landmarks.
-    if (state?.routeId !== action.payload) {
+    if ("payload" in action && state?.routeId !== action.payload) {
       const {
         routeTrace,
         routeVehicleHeadings,
@@ -310,7 +194,7 @@ export function create(): ActionHandler<ContextData>[] {
         ...remainingState
       } = state ?? {};
       nextState = remainingState;
-      nextState.routeId = action.payload;
+      nextState.routeId = action.payload as number;
     }
 
     // Always dispatch the request to get vehicles, the handler function will
@@ -322,7 +206,7 @@ export function create(): ActionHandler<ContextData>[] {
     return [nextState ?? state, !!nextState];
   };
 
-  const selectLandmark: ActionHandler<ContextData, SelectedLandmark> = (
+  const selectLandmark: ActionHandler<ContextData /* SelectedLandmark */> = (
     state,
     action
   ) => {
@@ -330,32 +214,34 @@ export function create(): ActionHandler<ContextData>[] {
       return [state];
     }
 
-    const { payload } = action;
     const { selectedLandmarks, ...nextState } = state;
-    if (payload) {
-      (nextState as ContextData).selectedLandmarks = [payload];
+    if ("payload" in action) {
+      (nextState as ContextData).selectedLandmarks = [
+        action.payload as SelectedLandmark
+      ];
     }
 
     return [nextState, true];
   };
 
   const setOption: ActionHandler<
-    ContextData,
-    { name: string; value: string }
-  > = (state, { id, payload }) => {
+    ContextData
+    /* { name: string; value: string } */
+  > = (state, { id, ...action }) => {
     if (id !== actionIds.ACTION_SET_OPTION) {
       return [state];
     }
 
-    if (payload) {
-      localStorage.setItem(`OPTION_${payload.name}`, `${payload.value}`);
+    if ("payload" in action) {
+      const payload = action.payload as { name: string; value: string };
+      localStorage.setItem(`OPTION_${payload?.name}`, `${payload?.value}`);
     }
 
     const { options, ...nextState } = state;
     return [nextState, true];
   };
 
-  const deselectLandmark: ActionHandler<ContextData, number> = (
+  const deselectLandmark: ActionHandler<ContextData /* number */> = (
     state,
     action
   ) => {
@@ -373,9 +259,6 @@ export function create(): ActionHandler<ContextData>[] {
 
   return [
     deselectLandmark,
-    fetchLandmarks,
-    fetchRoutes,
-    fetchRoutesFinished,
     fetchRouteTrace,
     getOptions,
     handleRouteChanged,

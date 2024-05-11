@@ -1,4 +1,7 @@
 {
-  "name": "@island-explorer/service-worker",
-  "version": "0.0.1"
+  "name": "service-worker",
+  "version": "0.1.0",
+  "dependencies": {},
+  "module": "./service-worker.esm.js",
+  "private": true
 }

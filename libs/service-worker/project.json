@@ -3,29 +3,29 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/service-worker/src",
   "projectType": "library",
+  "tags": [],
   "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint"
+    "version": {
+      "command": "npm run version"
     },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/service-worker"],
+    "bundle": {
+      "dependsOn": ["version"],
+      "executor": "@nx/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
       "options": {
-        "jestConfig": "libs/service-worker/jest.config.ts",
-        "passWithNoTests": true
+        "assets": [],
+        "compiler": "swc",
+        "format": ["esm"],
+        "main": "libs/service-worker/src/service-worker.ts",
+        "outputPath": "dist/libs/service-worker",
+        "project": "libs/service-worker/package.json",
+        "rollupConfig": "libs/service-worker/rollup.config.cjs",
+        "tsConfig": "libs/service-worker/tsconfig.lib.json"
       }
     },
     "build": {
-      "executor": "@nrwl/rollup:rollup",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/service-worker",
-        "tsConfig": "libs/service-worker/tsconfig.lib.json",
-        "project": "libs/service-worker/package.json",
-        "entryFile": "libs/service-worker/src/service-worker.ts",
-        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
-        "assets": []
-      }
+      "command": "npm run version:post",
+      "dependsOn": ["bundle"]
     }
   }
 }

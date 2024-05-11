@@ -1,13 +1,14 @@
 {
-  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "allowJs": true,
-    "esModuleInterop": true,
+    "allowJs": false,
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": false,
+    "jsx": "react-jsx",
     "resolveJsonModule": true,
-    "strict": true
+    "strict": true,
+    "types": ["vite/client", "vitest"]
   },
+  "extends": "../../tsconfig.base.json",
   "files": [],
   "include": [],
   "references": [
@@ -18,7 +19,7 @@
       "path": "./tsconfig.spec.json"
     },
     {
-      "path": "./.storybook/tsconfig.json"
+      "path": "./tsconfig.storybook.json"
     }
   ]
 }

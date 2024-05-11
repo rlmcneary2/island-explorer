@@ -159,7 +159,7 @@ export default function AnimatedModalDialog({
     }
 
     logMessage("AnimatedModalDialog: starting timeout.");
-    timeoutHandle.current = setTimeout(
+    timeoutHandle.current = window.setTimeout(
       () => {
         logMessage("AnimatedModalDialog: timeout.");
         if (disposed.current) {

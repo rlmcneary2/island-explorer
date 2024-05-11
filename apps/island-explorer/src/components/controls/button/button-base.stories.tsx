@@ -1,14 +1,13 @@
-import { Story, Meta } from "@storybook/react";
-import { ButtonBase, Props } from "./button-base";
+import type { StoryObj, Meta } from "@storybook/react";
+import { ButtonBase } from "./button-base";
 
-export default {
+const meta: Meta<typeof ButtonBase> = {
   component: ButtonBase,
   title: "ButtonBase"
-} as Meta;
+};
 
-const Template: Story<Props> = args => <ButtonBase {...args} />;
+export default meta;
 
-export const Primary = Template.bind({});
-Primary.args = {
-  children: "I'm a button"
+export const Primary: StoryObj<typeof ButtonBase> = {
+  args: { children: "I'm a button" }
 };

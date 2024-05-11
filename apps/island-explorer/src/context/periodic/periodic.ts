@@ -112,7 +112,8 @@ export class Periodic {
 
     if (immediate) {
       setTimeout(() => {
-        this._callback && this._callback.call(this, ...this._callbackArgs);
+        this._callback &&
+          this._callback.call(this, ...(this._callbackArgs ?? []));
       }, 0);
     }
 
@@ -124,7 +125,8 @@ export class Periodic {
 
     return window.setInterval(() => {
       this._nextUpdate = Date.now() + (this._intervalMS as number);
-      this._callback && this._callback.call(this, ...this._callbackArgs);
+      this._callback &&
+        this._callback.call(this, ...(this._callbackArgs ?? []));
     }, this._intervalMS);
   }
 }
