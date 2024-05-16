@@ -48,5 +48,9 @@
     "ulist"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "prettier.prettierPath": "./node_modules/prettier"
+  "prettier.prettierPath": "./node_modules/prettier",
+  "deno.enable": true,
+  "deno.enablePaths": ["./netlify/edge-functions"],
+  "deno.unstable": true,
+  "deno.importMap": ".netlify/edge-functions-import-map.json"
 }

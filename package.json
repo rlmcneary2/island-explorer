@@ -29,6 +29,8 @@
   "devDependencies": {
     "@babel/core": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
+    "@netlify/edge-functions": "^2.7.0",
+    "@netlify/functions": "^2.6.3",
     "@nx/eslint": "18.3.3",
     "@nx/eslint-plugin": "18.3.3",
     "@nx/jest": "18.3.3",

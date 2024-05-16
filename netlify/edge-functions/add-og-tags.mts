@@ -1,11 +1,23 @@
-export default async (req: Request, ctx: any) => {
+import type { Context } from "@netlify/edge-functions";
+
+const replacementTag = "<!--{{OG_BLOCK}}-->";
+
+export default async (req: Request, ctx: Context) => {
   const url = new URL(req.url); // https://www.islandexplorer.app/route/3/map
   const parts = url.pathname.split("/"); // ["https://www.islandexplorer.app", "route", "3", "map"]
 
-  const routeId = parts.length < 3 ? 3 : +parts[2];
+  let routeId: number | undefined;
+  let routeUrl: string | undefined;
+  if (parts.length < 3) {
+    routeId = 3;
+    routeUrl = `${url.protocol}//${url.host}/route/${routeId}/map`;
+  } else {
+    routeId = +parts[2];
+    routeUrl = req.url;
+  }
 
   console.log(
-    `add-og-tags:\n - url='${req.url}'\n - parts.length='${parts.length}'\n - routeId='${routeId}'`
+    `---\n - url='${req.url}'\n - parts.length='${parts.length}'\n - routeId='${routeId}'`
   );
 
   const route = routes.find(
@@ -16,18 +28,22 @@ export default async (req: Request, ctx: any) => {
     return;
   }
 
-  route.url = req.url;
+  route.url = routeUrl;
 
   const res = (await ctx.next()) as Response;
   const html = await res.text();
+
+  if (!html.includes(replacementTag)) {
+    return new Response(html, res);
+  }
+
+  console.log(`--- route url='${route.url}'`);
 
   // Deno (and Node) have terrible support for parsing, manipulating, and
   // serializing HTML documents. So we're just going to insert strings for the
   // meta tags.
 
   // Add OG tags.
-  setOpenGraph(html, route);
-
   return new Response(setOpenGraph(html, route), res);
 };
 
@@ -35,49 +51,25 @@ export default async (req: Request, ctx: any) => {
 // link to an Island Explorer route.
 function setOpenGraph(
   html: string,
-  route: { description: string; displayName: string; url: string }
+  route: {
+    description: string;
+    displayName: string;
+    url: string;
+  }
 ): string {
-  let nextHtml = updateOpenGraphTag(html, "description", route.description);
-  nextHtml = updateOpenGraphTag(
-    nextHtml,
-    "image",
-    "https://www.islandexplorer.app/assets/opengraph-image.png"
+  return html.replace(
+    replacementTag,
+    createMetaTag("description", route.description) +
+      createMetaTag("title", `Island Explorer - ${route.displayName}`) +
+      createMetaTag("url", route.url)
   );
-  nextHtml = updateOpenGraphTag(
-    nextHtml,
-    "image:alt",
-    "A map of Island Explorer routes displayed in the Acadia's Island Explorer app."
-  );
-  nextHtml = updateOpenGraphTag(nextHtml, "image:height", "1080");
-  nextHtml = updateOpenGraphTag(nextHtml, "image:width", "1080");
-  nextHtml = updateOpenGraphTag(
-    nextHtml,
-    "site_name",
-    "Acadia's Island Explorer"
-  );
-  nextHtml = updateOpenGraphTag(
-    nextHtml,
-    "title",
-    `Island Explorer - ${route.displayName}`
-  );
-  nextHtml = updateOpenGraphTag(nextHtml, "type", "website");
-  nextHtml = updateOpenGraphTag(nextHtml, "url", route.url);
-  return nextHtml;
 }
 
-function updateOpenGraphTag(
-  doc: string,
-  property: string,
-  content: string
-): string {
-  const index = doc.indexOf("</head>");
-  return `${doc.substring(
-    0,
-    index
-  )}<meta content="${content}" id="og-${property.replace(
+function createMetaTag(property: string, content: string): string {
+  return `<meta content="${content}" id="og-${property.replace(
     ":",
     "-"
-  )}" property="og:${property}" />${doc.substring(index)}`;
+  )}" property="og:${property}" />`;
 }
 
 const routes = [

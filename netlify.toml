@@ -2,6 +2,7 @@
 
 [build]
   command = "npm run build:app"
+  edge_functions = "netlify/edge-functions"
   publish = "dist/apps/island-explorer"
 
 [build.environment]
@@ -9,7 +10,7 @@
 
 [[edge_functions]]
   function = "add-og-tags"
-  path = "/route/*"
+  path = "/*"
   excludedPath = "/api/*"
 
 [[redirects]]

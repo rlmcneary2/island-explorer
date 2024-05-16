@@ -1,5 +1,5 @@
 {
-  "TARGET": "NOT_PRODUCTION",
+  "TARGET": "BUILD",
   "apiLeft": "/api",
   "paths": [
     "/",
