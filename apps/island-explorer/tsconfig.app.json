@@ -24,13 +24,20 @@
     "**/*.stories.ts",
     "**/*.stories.js",
     "**/*.stories.jsx",
-    "**/*.stories.tsx"
+    "**/*.stories.tsx",
+    "../../**/vite.config.ts",
+    "../../libs/service-worker"
   ],
   "include": [
     "src/**/*.js",
     "src/**/*.jsx",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.json"
+    "src/**/*.json",
+    "../../libs/**/*.js",
+    "../../libs/**/*.jsx",
+    "../../libs/**/*.ts",
+    "../../libs/**/*.tsx",
+    "../../libs/**/*.json"
   ]
 }
