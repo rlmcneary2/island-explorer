@@ -122,7 +122,7 @@ const routes: RoutesAssetItem[] = [
       stops.LMK_BUBBLE_POND_2ND,
       stops.TRH_CADILLAC_NORTH_RIDGE_2ND
     ],
-    notices: ["NTE_SCHEDULED_STOPS"],
+    notices: ["NTE_SCHEDULED_STOPS", "NTE_ROUTE_4_LITTLE_HUNTERS_STORM_DAMAGE"],
     tips: ["RTE_LOOP_ROAD_TIP", "RTE_LOOP_ROAD_TIP2"],
     trace: "LoopRoad.kml"
   },
