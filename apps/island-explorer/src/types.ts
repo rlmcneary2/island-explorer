@@ -1,5 +1,5 @@
-import type { Landmark, RoutesAssetItem } from "../types/types";
-import { options } from "../constants/options";
+import type { Landmark, RoutesAssetItem } from "./types/types";
+import { options } from "./constants/options";
 export type ContextState = ContextData & ContextActions;
 
 export interface ContextData {

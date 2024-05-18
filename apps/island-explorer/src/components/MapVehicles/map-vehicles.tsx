@@ -1,13 +1,15 @@
 import { useMemo } from "react";
 import { ContextData } from "../../context/types";
 import useContextState from "../../context/use-context-state";
+import { useRouteId } from "../../context/use-route-id";
 import { VehicleMarker } from "../Vehicle/vehicle-marker";
 import { getRouteOrderLandmarks } from "../../util/landmark";
 import routes from "../../data/routes";
 import landmarks from "../../data/landmarks";
 
 export default function MapVehicles() {
-  const { routeId, vehicleHeadings, vehicles } = useContextState(selector);
+  const routeId = useRouteId();
+  const { vehicleHeadings, vehicles } = useContextState(selector);
 
   const routeLandmarks = useMemo(
     () =>
@@ -53,7 +55,6 @@ function headingToRotateAngle(heading = 0): number {
 
 function selector(state: ContextData) {
   return {
-    routeId: state?.routeId,
     vehicleHeadings: state?.routeVehicleHeadings,
     vehicles: state?.routeVehicles?.data
   };

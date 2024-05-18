@@ -1,6 +1,6 @@
 {
   "name": "island-explorer",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "scripts": {
     "build:app": "nx run island-explorer:prebuild",
@@ -10,6 +10,7 @@
     "storybook": "nx run island-explorer:storybook",
     "targets:app": "nx show project island-explorer --web",
     "targets:sw": "nx show project service-worker --web",
+    "type-check": "tsc --project apps/island-explorer/tsconfig.app.json --noEmit",
     "preversion": "cp libs/service-worker/src/version.json libs/service-worker/src/version.json.orig && cp apps/island-explorer/src/data/version.json apps/island-explorer/src/data/version.json.orig",
     "version": "node ./build-utils/app-version.js",
     "version:post": "cp libs/service-worker/src/version.json.orig libs/service-worker/src/version.json && rm libs/service-worker/src/version.json.orig && cp apps/island-explorer/src/data/version.json.orig apps/island-explorer/src/data/version.json && rm apps/island-explorer/src/data/version.json.orig"
