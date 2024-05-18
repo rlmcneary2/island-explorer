@@ -6,9 +6,6 @@ export interface ContextData {
   /** Asset landmarks.json data. Includes the data that will be used for stops. */
   landmarks?: AsyncActionData<Landmark[]>;
   options?: Record<OptionKeys, string>;
-  /** The route ID that state data currently represents. This can be different
-   * from the routeId URL parameter. */
-  routeId?: number;
   routes?: AsyncActionData<RoutesAssetItem[]>;
   routeTrace?: AsyncActionData<Trace>;
   routeVehicles?: RouteVehiclesAsyncActionData<Vehicle[]> & {
@@ -23,7 +20,6 @@ export interface ContextActions {
   deselectLandmark: (id: number) => void;
   selectLandmark: (landmark: SelectedLandmark) => void;
   setOption: (name: string, value: string) => void;
-  setRoute: (routeId: number) => void;
 }
 
 interface AsyncActionData<T> {

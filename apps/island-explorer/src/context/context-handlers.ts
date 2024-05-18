@@ -12,13 +12,24 @@ import { Periodic } from "./periodic/periodic";
 const INTERVAL_SECONDS = 15;
 const periodic = new Periodic(INTERVAL_SECONDS * 1000);
 
+/**
+ * Used internally to keep track of the current route. It is set by `ACTION_ROUTE_CHANGED` and read
+ * by other handlers. If a handler needs to refer to this value inside its function it should make a
+ * local copy. Of course if an InlineHandler is being used and you need to see if the current route
+ * matches the route that was active when the containing handler function was called, then compare
+ * the function's copy to this variable.
+ */
+let currentRouteId = 0;
+
 export function create(): ActionHandler<ContextData>[] {
   const fetchRouteTrace: ActionHandler<ContextData> = (state, _, dispatch) => {
-    if (state?.routeTrace || !state?.routeId) {
+    if (state?.routeTrace || !currentRouteId) {
       return [state];
     }
 
-    fetch(`../assets/trace-${state.routeId}.json`)
+    const funcRouteId = currentRouteId;
+
+    fetch(`../assets/trace-${funcRouteId}.json`)
       .then(async response => {
         if (response.ok) {
           return response.json();
@@ -68,20 +79,22 @@ export function create(): ActionHandler<ContextData>[] {
     ContextData
     /* RouteVehicleOptions */
   > = (state, action, dispatch) => {
-    if (!state.routeId) {
+    if (!currentRouteId) {
       return [state];
     }
 
+    const funcRouteId = currentRouteId;
+
     if ("payload" in action) {
       const payload = action.payload as RouteVehicleOptions;
-      if (payload?.routeId && payload?.routeId !== state.routeId) {
+      if (payload?.routeId && payload?.routeId !== funcRouteId) {
         return [state];
       }
     }
 
     const periodicRouteId = periodic.getContextValue("routeId");
     if (periodic.active) {
-      if (state.routeId === periodicRouteId) {
+      if (funcRouteId === periodicRouteId) {
         return [state];
       }
     }
@@ -136,8 +149,8 @@ export function create(): ActionHandler<ContextData>[] {
     }
 
     periodic
-      .start(periodicCallback, [state.routeId], true)
-      .setContextValue("routeId", state.routeId);
+      .start(periodicCallback, [funcRouteId], true)
+      .setContextValue("routeId", funcRouteId);
 
     const result: ContextData = {
       ...state,
@@ -181,11 +194,13 @@ export function create(): ActionHandler<ContextData>[] {
       return [state];
     }
 
+    const funcRouteId = currentRouteId;
+
     let nextState: ContextData | undefined;
 
     // If the routeId has changed reset state to the point where it has no
     // routeTrace, route vehicle information, routeStops, or selected landmarks.
-    if ("payload" in action && state?.routeId !== action.payload) {
+    if ("payload" in action && funcRouteId !== action.payload) {
       const {
         routeTrace,
         routeVehicleHeadings,
@@ -194,7 +209,8 @@ export function create(): ActionHandler<ContextData>[] {
         ...remainingState
       } = state ?? {};
       nextState = remainingState;
-      nextState.routeId = action.payload as number;
+
+      currentRouteId = action.payload as number;
     }
 
     // Always dispatch the request to get vehicles, the handler function will

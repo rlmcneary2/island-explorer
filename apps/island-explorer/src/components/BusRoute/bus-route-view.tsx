@@ -4,11 +4,13 @@ import Map from "../Map/map";
 import Information from "../Information/information";
 import { Spinner } from "../Spinner/spinner";
 import useContextState from "../../context/use-context-state";
+import { useRouteId } from "../../context/use-route-id";
 import { ConnectionStatus } from "../Toast/connection-status/connection-status";
 import { ContextData } from "../../context/types";
 
 export function BusRouteView({ routeView }: BusRouteViewProps) {
-  const { routeId, routeVehicles } = useContextState(selector);
+  const routeId = useRouteId();
+  const { routeVehicles } = useContextState(selector);
 
   const timeValue = routeVehicles?.nextUpdate
     ? Math.round((routeVehicles.nextUpdate - Date.now()) / 1000)
@@ -56,9 +58,8 @@ export interface BusRouteViewProps {
   routeView: "information" | "map";
 }
 
-function selector({ routeId, routeVehicles }: ContextData) {
+function selector({ routeVehicles }: ContextData) {
   return {
-    routeId,
     routeVehicles
   };
 }

@@ -1,13 +1,24 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { ContextActions, ContextState } from "./types";
 import { useReshaper } from "./use-reshaper";
+import { useRouteId } from "./use-route-id";
 import { Context } from "./context";
 import { actionIds } from "./context-handlers";
 
 export function ContextProvider({
   children
 }: React.PropsWithChildren<unknown>) {
+  const routeId = useRouteId();
   const { data, reshaper } = useReshaper();
+
+  useEffect(() => {
+    routeId &&
+      reshaper &&
+      reshaper.dispatch({
+        id: actionIds.ACTION_ROUTE_CHANGED,
+        payload: routeId
+      });
+  }, [reshaper, routeId]);
 
   const actions = useMemo<ContextActions>(() => {
     return {
@@ -28,12 +39,6 @@ export function ContextProvider({
         reshaper.dispatch({
           id: actionIds.ACTION_SET_OPTION,
           payload: { name, value }
-        }),
-      setRoute: routeId =>
-        reshaper &&
-        reshaper.dispatch({
-          id: actionIds.ACTION_ROUTE_CHANGED,
-          payload: routeId
         })
     };
   }, [reshaper]);

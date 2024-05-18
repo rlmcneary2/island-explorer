@@ -10,9 +10,6 @@ const Context = React.createContext<ContextState>({
   },
   setOption: () => {
     /* noop */
-  },
-  setRoute: () => {
-    /* noop */
   }
 });
 
