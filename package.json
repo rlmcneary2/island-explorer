@@ -1,6 +1,6 @@
 {
   "name": "island-explorer",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "license": "MIT",
   "scripts": {
     "build:app": "nx run island-explorer:prebuild",
