@@ -28,12 +28,7 @@
         "serveStaticTargetName": "serve-static"
       }
     },
-    {
-      "plugin": "@nx/eslint/plugin",
-      "options": {
-        "targetName": "lint"
-      }
-    },
+    { "plugin": "@nx/eslint/plugin", "options": { "targetName": "lint" } },
     {
       "plugin": "@nx/storybook/plugin",
       "options": {
@@ -43,12 +38,7 @@
         "staticStorybookTargetName": "static-storybook"
       }
     },
-    {
-      "plugin": "@nx/jest/plugin",
-      "options": {
-        "targetName": "test"
-      }
-    }
+    { "plugin": "@nx/jest/plugin", "options": { "targetName": "test" } }
   ],
   "generators": {
     "@nx/react": {
@@ -58,9 +48,7 @@
         "linter": "eslint",
         "bundler": "vite"
       },
-      "component": {
-        "style": "scss"
-      },
+      "component": { "style": "scss" },
       "library": {
         "style": "scss",
         "linter": "eslint",
@@ -74,5 +62,6 @@
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
     }
-  }
+  },
+  "nxCloudAccessToken": "NjVhZjEyN2QtNGE3ZC00N2IxLTlhZDMtOWM0MDkzZWE2OTUxfHJlYWQtd3JpdGU="
 }
