@@ -289,7 +289,7 @@ const routes: RoutesAssetItem[] = [
     color: "0487D9",
     description: "RTE_TREMONT_DESC",
     id: 11,
-    displayName: "Manset / Bernard",
+    displayName: "Tremont",
     landmarks: [
       stops.LMK_SOUTHWEST_HARBOR,
       stops.LMK_MANSET_DOCK,
