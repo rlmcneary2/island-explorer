@@ -81,7 +81,8 @@ export default defineConfig(cfg => {
         "/api": {
           changeOrigin: true,
           secure: false,
-          target: "https://island-explorer-bus-server.netlify.app"
+          // target: "https://island-explorer-bus-server.netlify.app"
+          target: "https://www.islandexplorer.app"
         }
       }
     },

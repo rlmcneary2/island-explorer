@@ -100,11 +100,26 @@ export function create(): ActionHandler<ContextData>[] {
     }
 
     async function periodicCallback(routeId: number) {
+      // Map from the "real" route ID to the "availtec" route ID.
+      const newRouteId = {
+        1: "10001",
+        2: "10002",
+        3: "10003",
+        4: "10004",
+        5: "10005",
+        6: "10006",
+        7: "10007",
+        8: "10008",
+        9: "10009",
+        10: "10010",
+        11: "10011"
+      }[routeId];
+
       let response: Response | undefined;
       let error: Error | string | undefined;
       try {
         response = await fetch(
-          `${env.apiLeft}/InfoPoint/rest/Vehicles/GetAllVehiclesForRoutes?routeIDs=${routeId}`
+          `${env.apiLeft}/InfoPoint/rest/Vehicles/GetAllVehiclesForRoutes?routeIDs=${newRouteId}`
         );
       } catch (err) {
         error = err as Error;
@@ -136,6 +151,9 @@ export function create(): ActionHandler<ContextData>[] {
       const body = bodyRead
         ? undefined
         : response && ((await response.json()) as Vehicle[]);
+
+      // Replace the availtec route ID with the "real" route ID.
+      body?.forEach(v => (v.RouteId = routeId));
 
       const options = error ? { error } : { body };
 
