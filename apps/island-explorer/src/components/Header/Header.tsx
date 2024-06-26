@@ -1,6 +1,7 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
+import { useServiceWorker } from "service-worker-provider";
 import { INFORMATION, MAP } from "../../constants/routes";
 import { RoutesModal } from "../RoutesModal/routes-modal";
 import { getRouteParameters, getRoutePath } from "../../util/route";
@@ -12,6 +13,15 @@ export function Header() {
   const [showRoutesModal, setShowRoutesModal] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const swUpdate = useServiceWorker(ctx => ctx.update);
+
+  useEffect(() => {
+    if (!pathname.includes("route")) {
+      return;
+    }
+
+    swUpdate && swUpdate();
+  }, [pathname, swUpdate]);
 
   const handleDirectionsClick: React.MouseEventHandler<
     HTMLButtonElement

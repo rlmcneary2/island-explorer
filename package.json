@@ -1,6 +1,6 @@
 {
   "name": "island-explorer",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "license": "MIT",
   "scripts": {
     "build:app": "nx run island-explorer:prebuild",
@@ -24,7 +24,7 @@
     "react-router-dom": "^6.23.0",
     "remapgl": "^2.4.5",
     "reshape-state": "^1.4.1",
-    "service-worker-provider": "^0.1.2",
+    "service-worker-provider": "^0.2.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
