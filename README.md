@@ -6,6 +6,7 @@
 > Changes to the master branch are automatically deployed by Netlify.
 
 1. Bump the version in `package.json`. _Causes the service-worker.js file to be updated._
+1. Bump the `CACHE_VERSION` in `service-worker.ts` if the cached files have changed.
 1. Commit the change.
 1. Update the master branch.
 
