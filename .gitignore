@@ -42,6 +42,7 @@ yalc.lock
 Thumbs.db
 
 .nx/cache
+.nx/workspace-data
 
 storybook-static
 # Local Netlify folder
