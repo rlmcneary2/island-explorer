@@ -1,6 +1,6 @@
 {
   "name": "island-explorer",
-  "version": "2.0.7",
+  "version": "2.2025.0",
   "license": "MIT",
   "scripts": {
     "build:app": "nx run island-explorer:prebuild",
@@ -24,7 +24,7 @@
     "react-router-dom": "^6.23.0",
     "remapgl": "^2.4.5",
     "reshape-state": "^1.4.1",
-    "service-worker-provider": "^0.2.0",
+    "service-worker-provider": "^0.2.1",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
@@ -59,7 +59,7 @@
     "@types/jest": "29.5.14",
     "@types/lodash-es": "^4.17.12",
     "@types/mapbox-gl": "^3.1.0",
-    "@types/node": "18.16.9",
+    "@types/node": "^22.15.3",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.0",
     "@typescript-eslint/eslint-plugin": "7.18.0",

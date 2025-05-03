@@ -8,9 +8,10 @@ const routes: RoutesAssetItem[] = [
     displayName: "Gateway Center",
     id: 1,
     landmarks: [
-      stops.LMK_HADLEYS_POINT_CAMPGROUND,
-      stops.LMK_MOUNT_DESERT_NARROWS_CAMPGROUND,
+      stops.LMK_ACADIA_GATEWAY_CENTER,
       stops.LMK_OCEANARIUM,
+      stops.LMK_MOUNT_DESERT_NARROWS_CAMPGROUND,
+      stops.LMK_HADLEYS_POINT_CAMPGROUND,
       stops.LMK_BAR_HARBOR_CAMPGROUND,
       stops.LMK_HULLS_COVE_VISITOR_CENTER,
       stops.LMK_VILLAGE_GREEN,
@@ -20,11 +21,7 @@ const routes: RoutesAssetItem[] = [
       stops.LMK_MOUNT_DESERT_NARROWS_CAMPGROUND,
       stops.LMK_OCEANARIUM
     ],
-    notices: [
-      "NTE_ROUTE_1_HADLEY",
-      "NTE_ROUTE_1_OCEANARIUM",
-      "NTE_SCHEDULED_STOPS"
-    ],
+    notices: ["NTE_ROUTE_1_GATEWAY_CENTER_2025", "NTE_SCHEDULED_STOPS"],
     tips: [],
     trace: "Oceanarium.kml"
   },
@@ -122,7 +119,7 @@ const routes: RoutesAssetItem[] = [
       stops.LMK_BUBBLE_POND_2ND,
       stops.TRH_CADILLAC_NORTH_RIDGE_2ND
     ],
-    notices: ["NTE_SCHEDULED_STOPS", "NTE_ROUTE_4_LITTLE_HUNTERS_STORM_DAMAGE"],
+    notices: ["NTE_SCHEDULED_STOPS"],
     tips: ["RTE_LOOP_ROAD_TIP", "RTE_LOOP_ROAD_TIP2"],
     trace: "LoopRoad.kml"
   },
@@ -207,7 +204,7 @@ const routes: RoutesAssetItem[] = [
       stops.LMK_MOUNT_DESERT_CAMPGROUND,
       stops.LMK_MDI_HIGH_SCHOOL
     ],
-    notices: ["NTE_SCHEDULED_STOPS", "NTE_ROUTE_7_STORM_DAMAGE"],
+    notices: ["NTE_SCHEDULED_STOPS"],
     tips: [],
     trace: "SWH.kml"
   },
@@ -227,10 +224,9 @@ const routes: RoutesAssetItem[] = [
       stops.LMK_BIRCH_HARBOR,
       stops.LMK_PROSPECT_HARBOR,
       stops.LMK_SCHOODIC_WOODS_CAMPGROUND,
-      stops.LMK_WINTER_HARBOR,
-      stops.LMK_WH_FERRY_TERMINAL
+      stops.LMK_WINTER_HARBOR
     ],
-    notices: ["NTE_SCHEDULED_STOPS", "NTE_SCHOODIC"],
+    notices: ["NTE_SCHOODIC", "NTE_SCHEDULED_STOPS"],
     tips: [],
     trace: "Schoodic.kml"
   },
@@ -240,24 +236,24 @@ const routes: RoutesAssetItem[] = [
     id: 9,
     displayName: "Trenton",
     landmarks: [
-      stops.LMK_ACADIA_GATEWAY_CENTER,
       stops.LMK_BAR_HARBOR_AIRPORT,
       stops.LMK_NARROWS_TOO_CAMPGROUND,
       stops.LMK_BAR_HARBOR_KOA_CAMPGROUND,
       stops.LMK_TERAMOR_RESORT,
       stops.LMK_TOWN_HILL,
-      stops.LMK_MDI_HIGH_SCHOOL,
-      stops.LMK_EAGLE_LAKE_2ND,
+      stops.LMK_HULLS_COVE_VISITOR_CENTER,
       stops.LMK_VILLAGE_GREEN,
-      stops.LMK_EAGLE_LAKE_2ND,
-      stops.LMK_MDI_HIGH_SCHOOL,
+      stops.LMK_HULLS_COVE_VISITOR_CENTER,
       stops.LMK_TOWN_HILL,
       stops.LMK_TERAMOR_RESORT,
       stops.LMK_BAR_HARBOR_KOA_CAMPGROUND,
-      stops.LMK_NARROWS_TOO_CAMPGROUND,
-      stops.LMK_BAR_HARBOR_AIRPORT
+      stops.LMK_NARROWS_TOO_CAMPGROUND
     ],
-    notices: ["NTE_SCHEDULED_STOPS"],
+    notices: [
+      "NTE_ROUTE_9_MAJOR_CHANGE_2025",
+      "NTE_ROUTE_9_GATEWAY_CENTER_2025",
+      "NTE_SCHEDULED_STOPS"
+    ],
     tips: [],
     trace: "Trenton.kml"
   },
@@ -282,7 +278,7 @@ const routes: RoutesAssetItem[] = [
       stops.TRH_SCHOONER_HEAD_PATH
     ],
     notices: ["NTE_SCHEDULED_STOPS"],
-    tips: ["RTE_BLACKWOODS_TIP"],
+    tips: [],
     trace: "blackwoods.kml"
   },
   {
@@ -293,15 +289,24 @@ const routes: RoutesAssetItem[] = [
     landmarks: [
       stops.LMK_SOUTHWEST_HARBOR,
       stops.LMK_MANSET_DOCK,
-      stops.LMK_SOUTHWEST_HARBOR,
-      stops.LMK_CLARK_POINT,
-      stops.LMK_SOUTHWEST_HARBOR,
+      stops.LMK_SEAWALL,
+      stops.LMK_SEAWALL_CAMPGROUND,
+      stops.TRH_WONDERLAND_TRAIL,
+      stops.TRH_SHIP_HARBOR_TRAIL,
+      stops.LMK_BASS_HARBOR_CAMPGROUND,
+      stops.LMK_BASS_HARBOR_POST_OFFICE,
       stops.LMK_TREMONT_SCHOOL,
       stops.LMK_BERNARD,
       stops.LMK_TREMONT_SCHOOL,
+      stops.LMK_BASS_HARBOR_POST_OFFICE,
+      stops.LMK_BASS_HARBOR_CAMPGROUND,
+      stops.LMK_SEAWALL_CAMPGROUND,
+      stops.LMK_MANSET_DOCK,
+      stops.LMK_SOUTHWEST_HARBOR,
+      stops.LMK_CLARK_POINT,
       stops.LMK_SOUTHWEST_HARBOR
     ],
-    notices: ["NTE_SCHEDULED_STOPS"],
+    notices: ["NTE_ROUTE_11_MAJOR_CHANGE_2025", "NTE_SCHEDULED_STOPS"],
     tips: [],
     trace: "trace-11.json"
   }
