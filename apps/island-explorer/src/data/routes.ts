@@ -5,7 +5,7 @@ const routes: RoutesAssetItem[] = [
   {
     color: "E03A22",
     description: "RTE_OCEANARIUM_DESC",
-    displayName: "Bar Harbor Road",
+    displayName: "Gateway Center",
     id: 1,
     landmarks: [
       stops.LMK_HADLEYS_POINT_CAMPGROUND,
