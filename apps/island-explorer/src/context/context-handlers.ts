@@ -102,17 +102,17 @@ export function create(): ActionHandler<ContextData>[] {
     async function periodicCallback(routeId: number) {
       // Map from the "real" route ID to the "availtec" route ID.
       const newRouteId = {
-        1: "10001",
-        2: "10002",
-        3: "10003",
-        4: "10004",
-        5: "10005",
-        6: "10006",
-        7: "10007",
-        8: "10008",
-        9: "10009",
-        10: "10010",
-        11: "10011"
+        1: "1",
+        2: "2",
+        3: "3",
+        4: "4",
+        5: "5",
+        6: "6",
+        7: "7",
+        8: "8",
+        9: "9",
+        10: "10",
+        11: "11"
       }[routeId];
 
       let response: Response | undefined;
