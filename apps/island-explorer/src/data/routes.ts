@@ -76,7 +76,7 @@ const routes: RoutesAssetItem[] = [
       stops.TRL_BEACHCROFT_PATH,
       stops.TRH_SCHOONER_HEAD_PATH
     ],
-    notices: ["NTE_SCHEDULED_STOPS"],
+    notices: ["NTE_LOOP_ROAD_DETOUR_2026", "NTE_SCHEDULED_STOPS"],
     tips: ["RTE_SAND_BEACH_TIP", "RTE_SAND_BEACH_TIP2"],
     trace: "SandyBeach.kml"
   },
@@ -119,7 +119,7 @@ const routes: RoutesAssetItem[] = [
       stops.LMK_BUBBLE_POND_2ND,
       stops.TRH_CADILLAC_NORTH_RIDGE_2ND
     ],
-    notices: ["NTE_SCHEDULED_STOPS"],
+    notices: ["NTE_LOOP_ROAD_DETOUR_2026", "NTE_SCHEDULED_STOPS"],
     tips: ["RTE_LOOP_ROAD_TIP", "RTE_LOOP_ROAD_TIP2"],
     trace: "LoopRoad.kml"
   },
@@ -288,7 +288,7 @@ const routes: RoutesAssetItem[] = [
       stops.LMK_SIEUR_DE_MONTS,
       stops.TRH_SCHOONER_HEAD_PATH
     ],
-    notices: ["NTE_SCHEDULED_STOPS"],
+    notices: ["NTE_LOOP_ROAD_DETOUR_2026", "NTE_SCHEDULED_STOPS"],
     tips: [],
     trace: "blackwoods.kml"
   },
