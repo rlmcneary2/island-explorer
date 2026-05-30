@@ -312,8 +312,8 @@ const landmarks: Landmark[] = [
     displayName: "Bubble Pond",
     id: stops.LMK_BUBBLE_POND,
     location: {
-      latitude: 44.35030746,
-      longitude: -68.24166107
+      latitude: 44.34997383013477,
+      longitude: -68.24140526678303
     },
     stopName: "Bubble Pond"
   },
@@ -397,6 +397,18 @@ const landmarks: Landmark[] = [
       longitude: -68.30102539
     },
     stopName: "MDI High School"
+  },
+  {
+    description: "LMK_NORTH_EAST_HARBOR_SEA_STREET_DESC",
+    displayName: "Northeast Harbor",
+    features: ["dine", "snack", "gift", "inn", "attraction", "park", "walk"],
+    id: stops.LMK_NORTHEAST_HARBOR,
+    landmarkType: "village",
+    location: {
+      latitude: 44.293556,
+      longitude: -68.289006
+    },
+    stopName: "NE Harbor Main St"
   },
   {
     description: "LMK_NORTHEAST_HARBOR_PIER_DESC",
@@ -706,8 +718,8 @@ const landmarks: Landmark[] = [
     displayName: "Parkman Mountain",
     id: stops.LMK_PARKMAN_MOUNTAIN,
     location: {
-      latitude: 44.329011,
-      longitude: -68.293192
+      latitude: 44.32945096969473,
+      longitude: -68.29300390964644
     },
     stopName: "Parkman  Mountain"
   },

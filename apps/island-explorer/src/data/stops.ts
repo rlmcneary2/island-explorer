@@ -69,6 +69,7 @@ export default {
   LMK_WINTER_HARBOR_2: 94,
   LMK_BASS_HARBOR_POST_OFFICE: 999, // TODO: new stop, get the availtec ID
   LMK_TERAMOR_RESORT: 998, // TODO: new stop, get the availtec ID
+  LMK_NORTHEAST_HARBOR: 997, // TODO: new stop, get the availtec ID
 
   // These are "stops" along a route where they are not stops. The last two digits are the same as
   // their availtec stop ID.
