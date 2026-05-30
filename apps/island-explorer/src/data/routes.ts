@@ -21,7 +21,7 @@ const routes: RoutesAssetItem[] = [
       stops.LMK_MOUNT_DESERT_NARROWS_CAMPGROUND,
       stops.LMK_OCEANARIUM
     ],
-    notices: ["NTE_ROUTE_1_GATEWAY_CENTER_2025", "NTE_SCHEDULED_STOPS"],
+    notices: ["NTE_SCHEDULED_STOPS"],
     tips: [],
     trace: "Oceanarium.kml"
   },
@@ -103,7 +103,7 @@ const routes: RoutesAssetItem[] = [
       stops.LMK_SAND_BEACH,
       stops.LMK_THUNDER_HOLE,
       stops.TRH_GORHAM,
-      stops.LMK_OTTER_CLIFFS_2ND,
+      stops.LMK_OTTER_CLIFFS,
       stops.LMK_OTTER_POINT_2ND,
       stops.LMK_FABBRI_MONUMENT,
       stops.TRH_BLACK_WOODS_2ND,
@@ -141,7 +141,7 @@ const routes: RoutesAssetItem[] = [
       stops.TRH_CADILLAC_NORTH_RIDGE,
       stops.POI_FRENCHMAN_BAY_OVERLOOK
     ],
-    notices: ["NTE_ROUTE_5_2023", "NTE_SCHEDULED_STOPS"],
+    notices: ["NTE_SCHEDULED_STOPS"],
     tips: ["RTE_JORDAN_POND_TIP", "RTE_JORDAN_POND_TIP2"],
     trace: "JordanPond.kml"
   },
@@ -152,24 +152,39 @@ const routes: RoutesAssetItem[] = [
     id: 6,
     landmarks: [
       stops.LMK_VILLAGE_GREEN,
-      stops.LMK_EAGLE_LAKE,
-      stops.LMK_MDI_HIGH_SCHOOL,
-      stops.TRH_GIANT_SLIDE,
-      stops.LMK_PARKMAN_MOUNTAIN_2ND,
-      stops.LMK_BROWN_MOUNTAIN_GATEHOUSE,
-      stops.TRH_HADLOCK_BROOK_TRAIL,
-      stops.LMK_ASTICOU_AZALEA_GARDEN,
-      stops.TRH_ASTICOU_TERRACES_PATH,
-      stops.TRL_HADLOCK_PONDS,
-      stops.LMK_NORTHEAST_HARBOR_PIER,
-      stops.LMK_SEAL_HARBOR,
+      stops.TRH_CADILLAC_NORTH_RIDGE_3RD,
+      stops.LMK_BUBBLE_POND,
+      stops.TRH_BUBBLE_ROCK,
+      stops.TRH_JORDAN_POND_CARRY_ACCESS_TRAIL,
+      stops.TRL_JORDAN_BUBBLE_PONDS_TRAIL,
       stops.LMK_JORDAN_POND,
       stops.LMK_JORDAN_POND_GATEHOUSE,
+      stops.LMK_SEAL_HARBOR,
+      stops.TRH_ASTICOU_TERRACES_PATH,
+      stops.LMK_NORTHEAST_HARBOR,
       stops.LMK_NORTHEAST_HARBOR_PIER,
+      stops.LMK_ASTICOU_AZALEA_GARDEN,
+      stops.TRL_HADLOCK_PONDS,
+      stops.TRH_HADLOCK_BROOK_TRAIL,
       stops.LMK_BROWN_MOUNTAIN_GATEHOUSE,
-      stops.LMK_MDI_HIGH_SCHOOL
+      stops.LMK_PARKMAN_MOUNTAIN,
+      stops.LMK_BROWN_MOUNTAIN_GATEHOUSE,
+      stops.TRH_HADLOCK_BROOK_TRAIL,
+      stops.TRL_HADLOCK_PONDS,
+      stops.LMK_ASTICOU_AZALEA_GARDEN,
+      stops.LMK_NORTHEAST_HARBOR,
+      stops.LMK_NORTHEAST_HARBOR_PIER,
+      stops.TRH_ASTICOU_TERRACES_PATH,
+      stops.LMK_SEAL_HARBOR,
+      stops.LMK_JORDAN_POND_GATEHOUSE,
+      stops.LMK_JORDAN_POND,
+      stops.TRL_JORDAN_BUBBLE_PONDS_TRAIL,
+      stops.TRH_JORDAN_POND_CARRY_ACCESS_TRAIL,
+      stops.TRH_BUBBLE_ROCK,
+      stops.LMK_BUBBLE_POND,
+      stops.TRH_CADILLAC_NORTH_RIDGE_3RD
     ],
-    notices: ["NTE_SCHEDULED_STOPS"],
+    notices: ["NTE_ROUTE_6_MAJOR_CHANGE_2026", "NTE_SCHEDULED_STOPS"],
     tips: ["RTE_NORTHEAST_HARBOR_TIP"],
     trace: "BrownMountain.kml"
   },
@@ -249,12 +264,8 @@ const routes: RoutesAssetItem[] = [
       stops.LMK_BAR_HARBOR_KOA_CAMPGROUND,
       stops.LMK_NARROWS_TOO_CAMPGROUND
     ],
-    notices: [
-      "NTE_ROUTE_9_MAJOR_CHANGE_2025",
-      "NTE_ROUTE_9_GATEWAY_CENTER_2025",
-      "NTE_SCHEDULED_STOPS"
-    ],
-    tips: [],
+    notices: ["NTE_ROUTE_9_MORNING_EVENING_2026", "NTE_SCHEDULED_STOPS"],
+    tips: ["RTE_TRENTON_TIP", "RTE_TRENTON_TIP"],
     trace: "Trenton.kml"
   },
   {
@@ -306,7 +317,7 @@ const routes: RoutesAssetItem[] = [
       stops.LMK_CLARK_POINT,
       stops.LMK_SOUTHWEST_HARBOR
     ],
-    notices: ["NTE_ROUTE_11_MAJOR_CHANGE_2025", "NTE_SCHEDULED_STOPS"],
+    notices: ["NTE_SCHEDULED_STOPS"],
     tips: [],
     trace: "trace-11.json"
   }
